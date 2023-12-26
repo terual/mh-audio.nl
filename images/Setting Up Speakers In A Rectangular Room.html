@@ -1,0 +1,418 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<!--
+Design by TEMPLATED
+http://templated.co
+Released for free under the Creative Commons Attribution License
+
+Name       : TailPiece 
+Description: A two-column, fixed-width design with dark color scheme.
+Version    : 1.0
+Released   : 20130902
+-->
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <!-- Google Analytics -->
+    <script>
+        window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+        ga('create', 'UA-77078028-1', 'auto');
+        ga('send', 'pageview');
+    </script>
+    <script async src='https://www.google-analytics.com/analytics.js'></script>
+    <!-- End Google Analytics -->
+
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>Setting Up Speakers In A Rectangular Room</title>
+    <meta name="keywords" content=""/>
+    <meta name="description" content=""/>
+    <link href="http://fonts.googleapis.com/css?family=Source+Sans+Pro:200,300,400,600,700,900" rel="stylesheet"/>
+    <link rel="shortcut icon" href="../favicon.ico" type="image/x-icon">
+    <link href="../default.css" rel="stylesheet" type="text/css" media="all"/>
+    <link href="../fonts.css" rel="stylesheet" type="text/css" media="all"/>
+    <!--[if IE 6]>
+    <link href="default_ie6.css" rel="stylesheet" type="text/css"/><![endif]-->
+    <script src="../js/fab.js"></script>
+
+    <script language="javascript">
+function round(number,X) {
+// rounds number to X decimal places, defaults to 3
+    X = (!X ? 3 : X);
+    return Math.round(number*Math.pow(10,X))/Math.pow(10,X);
+}
+
+function Calc()
+	{
+	roomwidth = eval(document.frm.roomwidth.value);
+	ceiling   = eval(document.frm.ceiling.value);
+
+
+	// validation Roomwidth
+  // If x is Not a Number or less than 10 or greater than 100
+  if (isNaN(roomwidth) || roomwidth < 1 || roomwidth > 50)
+  {
+    textRW = " 1 - 50 meter";
+  }
+  else
+  {
+    textRW = "";
+  }
+  document.getElementById("errRW").innerHTML = textRW;
+
+
+	// validation  Ceiling
+  // If x is Not a Number or less than 10 or greater than 100
+  if (isNaN(ceiling) || ceiling < 1.5 || ceiling > 10)
+  {
+    textC = " 1.5 - 10 meter";
+  }
+  else
+  {
+    textC = "";
+  }
+  document.getElementById("errC").innerHTML = textC;
+
+//stoln by Cardas
+	// == Berechnungen frm Box ==
+	sidewall = roomwidth * 0.276;
+	rearwall = roomwidth * 0.447;
+	
+	oppwall = ceiling * 0.563;  // dipole sidewall
+	dipole   = ceiling	 * 0.618 // dipole rear wall
+	//spktospk = roomwidth * 0.447
+	//spktospk = roomwidth - (2 * sidewall)
+	
+	// voor Tabelle
+	//document.frm.roomwidthtable.value	= round(roomwidth,2)
+	//document.frm.rearwalltable.value	= round(rearwall,2)
+	//document.frm.sidewalltable.value	= round(sidewall,2)
+	
+	// voor Formulier
+	document.frm.sidewall.value		= round(sidewall,2)
+	document.frm.rearwall.value		= round(rearwall,2)
+	document.frm.oppwall.value		= round(oppwall,2)
+	//document.frm.spktospk.value	 	= round(spktospk,2)
+	document.frm.dipole.value		= round(dipole,2)
+}
+
+
+    </script>
+</head>
+<body>
+<div id="header" class="container">
+    <div id="logo">
+        <h2>HiFi&nbsp;&nbsp;Audio&nbsp;&nbsp;Design</h2>
+    </div>
+    <br>
+    <div id="menu">
+        <ul>
+            <li><a href="../index.html" accesskey="1" title="">Home</a></li>
+            <li><a href="../Loudspeaker.html" accesskey="2" title="">Loudspeaker</a></li>
+            <li><a href="../Acoustic.html" accesskey="3" title="">Acoustic</a></li>
+            <li class="active"><a href="../Calculator.html" accesskey="4" title="">Calculators</a></li>
+            <li><a href="../Software.html" accesskey="6" title="">Soft & Hardware</a></li>
+            <li><a href="../Elektronic.html" accesskey="5" title="">Electronic</a></li>
+            <li><a href="../Measurement.html" accesskey="5" title="">Measurement</a></li>
+            <li><a href="../Links.html" accesskey="5" title="">Links/Downloads</a></li>
+            <li><a href="../Library.html" accesskey="7" title="">Library</a></li>
+            <li><a href="../EmailFormNew.asp" accesskey="5" title="">Contact</a></li>
+        </ul>
+    </div>
+</div>
+<button onclick="topFunction()" id="myBtn" title="Go To Top">⬆</button>
+<button id="myBtnDown" onclick="scrollWin()" title="Scroll Down">⬇</button>
+<div id="page">
+    <div class="container">
+    <!-- PayPal Donate Button -->
+    <div class="copyright">
+		<center> 
+			<i>Please donate to keep this site alive...</i><br>       
+			<form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_blank">
+				<input type="hidden" name="cmd" value="_donations" />
+				<input type="hidden" name="business" value="VSAAYZF3DEGLC" />
+				<input type="hidden" name="currency_code" value="EUR" />
+				<input type="image" src="https://www.paypalobjects.com/en_US/NL/i/btn/btn_donateCC_LG.gif" border="0" name="submit" title="Please donate to keep this site alive!" alt="Donate with PayPal button" />
+				<img alt="" border="0" src="https://www.paypal.com/en_NL/i/scr/pixel.gif" width="1" height="1" />
+			</form>
+		</center>     
+    </div>
+    <!-- END PayPal Donate Button -->      
+        <div class="title">
+            <br><h1><i>Setting Up Speakers In A Rectangular Room</i></h1>
+        </div>
+        <div class="box0">
+            <div class="box margin-btm">
+                <br>
+                <center><img src="../images/Calculators/LivingRoom.png" width="600"></center>
+                <br>
+                <div class="details">
+                    <p> <!-- Start Content -->
+                        <form name="frm">
+                            <table BORDER="0" CELLPADDING="2" cellspacing="0" align=center width="75%">
+                                <tr>
+                                    <td colspan="3">
+                                        Very precise speaker placement can open up a whole new dimension in listening,
+                                        so I will outline the system that is becoming the standard of the industry.
+                                        <br>
+                                        This standardized listening room is a Golden Cuboid and is the model for the
+                                        math used in this system. This method will work with any box speaker, in any
+                                        reasonably sized rectangular room. You may find that you have already positioned
+                                        your speakers this way by ear.
+                                        <br><br>
+                                        Active nodes are the main concern when placing speakers in a rectangular room.
+                                        <br>
+                                        A node, or the frequency where speakers and parallel walls interact, is
+                                        proportional to the speaker to the wall distance.
+                                        <br><br>
+                                    </td>
+                                </tr>
+                                <td colspan="3">
+                                    The three most importance nodes, in order of importance, are proportional to the
+                                    distance between the speaker and:
+                                    <blockquote>
+                                        1. The side wall nearest the speaker<br>
+                                        2. The rear wall<br>
+                                        3. The side wall across from the speaker
+                                    </blockquote>
+                    <p>
+                        A secondary factor is the speaker-to-speaker time constant.
+                    <p>
+                        When you use this Golden Ratio method to set your room up, the speakers are placed so the three
+                        nodes progress or differ from one another in Golden Ratio.
+                        This eliminates any unison or near unison resonance in the nodes.
+                    <p>
+                        Panel or dipole speakers such as Apogees and Magnepans cancel their side waves, so a formula of
+                        0.618 x the ceiling height can be used for determining placement from the rear wall.
+                        Most box speakers radiate low frequencies in all directions thus a formula that places the
+                        speaker to rear wall distance at 1.618 the side wall distance should be used.
+                    <p>
+                        </td>
+                        </tr>
+                        <tr>
+                            <td colspan="2">
+                                Speaker placement, simply stated:
+                    <p>
+                        The distance from the center of the woofer face to the side walls is:
+                    <blockquote>
+                        <STRONG>Room Width * .276 (RW x .276)</STRONG>
+                    </blockquote>
+                    <p>
+                        The distance from the center of the woofer face to the wall behind the speaker is:
+                    <blockquote>
+                        <STRONG>Room Width * .447 (RW x .447)</STRONG>
+                    </blockquote>
+                    <p>
+                        This is all you need to know to place speakers in a symmetrical, rectangular room!
+
+                        <!--
+                            <table border="0" cellpadding="3" cellspacing="0" align=center>
+                                <tr>
+                                <td align="center" class="text"><font COLOR="#0000FF"><strong><em>Distance</em></strong></font></td>
+                                <td align="center" class="text"><font COLOR="#0000FF"><strong><em>Percentage</em></strong></font></td>
+                                </tr>
+                                <tr>
+                                <td align="left" class="text"><font COLOR="#0000FF">Speaker to side wall: RW x</font></td>
+                                <td align="center" class="text"><font COLOR="#0000FF">.276</font></td>
+                                </tr>
+                                <tr>
+                                <td align="left" class="text"><font COLOR="#0000FF">Speaker to rear wall: RW x</font></td>
+                                <td align="center" class="text"><font COLOR="#0000FF">.447</font></td>
+                                </tr>
+                                <tr>
+                                <td align="left" class="text"><font COLOR="#0000FF">Speaker to opposite side wall: RW x</font></td>
+                                <td align="center" class="text"><font COLOR="#0000FF">.724</font></td>
+                                </tr>
+                                <tr>
+                                <td align="left" class="text"><font COLOR="#0000FF">Speaker to speaker: RW x</font></td>
+                                <td align="center" class="text"><font COLOR="#0000FF">.447</font></td>
+                                </tr>
+                            </table>
+                        -->
+
+                        <!-- <center><img src="gif/diagrama.jpg" border="0" align="center" WIDTH="334" HEIGHT="480"> -->
+
+                        </td>
+                    <td align=left><img src="../images/Calculators/diagrama.jpg" border="0" align="center" WIDTH="333">
+                    </td>
+                    </tr>
+                    <tr>
+
+                        <td align=center colspan="3">
+                            <!--
+                            <table align=center  border=0 width="400">
+                            <tr>
+                                <td width="15"><IMG SRC="gif/pijl_links.gif"></td>
+                                <td width="100" colspan=2>&nbsp;</td>
+                                <td width="70" align=center><input type="text" name="roomwidthtable" size="3"> mtr.</td>
+                                <td width="100" colspan=2>&nbsp;</td>
+                                <td width="15"><IMG SRC="gif/pijl_rechts.gif"></td>
+                            </tr>
+                            </table>
+                            <table align=center  border bgcolor=#eeeeee bordercolor=#000000 width="400">
+                            <tr>
+                                <td colspan=7 align=center>
+                                <table border=1>
+                                <tr>
+                                    <td width="100" height="50" colspan=3>&nbsp</td>
+                                    <td width="100" height="50" align=center><IMG SRC="gif/pijl_up.gif"></td>
+                                    <td width="100" height="50" colspan=3>&nbsp;</td>
+                                </tr>
+                                <tr>
+                                    <td width="100" height="50" colspan=3>&nbsp;</td>
+                                    <td width="100" height="50" align=center><input type="text" name="rearwalltable" size="3"> mtr.</td>
+                                    <td width="100" height="50" colspan=3>&nbsp;</td>
+                                </tr>
+                                <tr>
+                                    <td width="100" height="50" align=right colspan=3><IMG SRC="gif/Loudspeakerdown.gif"></td>
+                                    <td width="100" height="50" align=center><IMG SRC="gif/pijl_down.gif"></td>
+                                    <td width="100" height="50" align=left colspan=3><IMG SRC="gif/Loudspeakerdown.gif"></td>
+                                </tr>
+                                <tr>
+                                    <td width="15"><IMG SRC="gif/pijl_links.gif"></td>
+                                    <td width="70"><input type="text" name="sidewalltable" size="3"> mtr.</td>
+                                    <td width="15"><IMG SRC="gif/pijl_rechts.gif"></td>
+                                    <td width="100">&nbsp;</td>
+                                    <td width="15"><IMG SRC="gif/pijl_links.gif"></td>
+                                    <td width="70"><input type="text" name="sidewalltable" size="3"> mtr.</td>
+                                    <td width="15"><IMG SRC="gif/pijl_rechts.gif"></td>
+                                </tr>
+                                <tr>
+                                    <td colspan=7 height=200>&nbsp;</td>
+                                </tr>
+                                </table>
+                                </td>
+                            </tr>
+                            </table>
+                            -->
+                            <center>
+                                <br><br>
+                                Strongly recommended to read:&nbsp;<a href="http://www.cardas.com/room_setup_main.php"
+                                                                      target="_blank" class="calcButton">Room Setup
+                                Guide PDF (196Kb File)</a>
+                                <br><br>
+                            </center>
+                            <br><br>
+                            <table align="center" border="0" cellspacing="0" cellpadding="2" width="100%">
+                                <tr>
+                                    <td>
+                                        <table align="center" cellspacing="0" cellpadding="2" width="84%" border="0">
+                                            <tr>
+                                                <td colspan=3 align=center><h2>Calculate Speaker Placement</h2></td>
+                                            </tr>
+                                            <tr>
+                                                <td colspan="3">
+                                                    >>> Use these speaker placement calculator as a guide for setting up
+                                                    your room.<<<
+                                                    <br><br>
+                                                    You may use any unit of measure (feet, inches, meters, centimeters)
+                                                    but all measurements must be numbers only and use the same unit of
+                                                    measure.
+
+                                                </td>
+                                            </tr>
+                                        </table>
+                                        <br>
+                                        <table align="center" cellspacing="0" cellpadding="2" width="75%" border="0" class="Calctable">
+                                            <tr>
+                                                <td align="right">Room width :</td>
+                                                <td><input type="number" step="0.01" class="frmInput" name="roomwidth"
+                                                           size="4" value="">
+                                                    <font color="red">&nbsp;<span id="errRW"></span></font>
+                                                </td>
+                                                <td align="left">meter</td>
+                                            </tr>
+                                            <tr>
+                                                <td align="right">Ceiling height : (<i>only necessary for dipole speakers</i>)</td>
+                                                <td><input type="number" step="0.01" class="frmInput" name="ceiling"
+                                                           id="ceiling"
+                                                           size="4"
+                                                           value="">
+                                                    <font color="red">&nbsp;<span id="errC"></span></font>
+                                                </td>
+                                                <td> meter</td>
+                                            </tr>
+                                            <tr>
+                                                <td colspan="3">&nbsp;</td>
+                                            </tr>
+                                            <tr>
+                                                <td colspan="3" align="center"><h3>Monopole (conventional) Speaker Placement</h3></td>
+                                            </tr>
+                                            <tr>
+                                                <td align="right">Distance from the center of the woofer face to the side
+                                                    walls :
+                                                </td>
+                                                <td class="text"><input type="number" class="frmOutput" name="sidewall"
+                                                                        size="4" value="" readonly></td>
+                                                <td> meter</td>
+                                            </tr>
+                                            <tr>
+                                                <td align="right">Distance from the center of the woofer face to the rear
+                                                    wall :
+                                                </td>
+                                                <td class="text"><input type="number" class="frmOutput" name="rearwall"
+                                                                        size="4" value="" readonly></td>
+                                                <td align="left">meter</td>
+                                            </tr>
+                                            <tr>
+                                                <td colspan="3">&nbsp;</td>
+                                            </tr>
+                                            <tr>
+                                                <td colspan="3" align="center"><h3>Dipole (planar, electrostat, etc.) Speaker
+                                                    Placement</h3></td>
+                                            </tr>
+                                            <tr>
+                                                <td align="right">Dipole Speaker to side wall :</td>
+                                                <td class="text"><input type="number" class="frmOutput" name="oppwall"
+                                                                        size="4" readonly></td>
+                                                <td> meter</td>
+                                            </tr>
+                                            <tr>
+                                                <td align="right">Dipole Speaker to the rear wall :</td>
+                                                <td class="text"><input type="number" class="frmOutput" name="dipole"
+                                                                        size="4" readonly></td>
+                                                <td> meter</td>
+                                            </tr>
+                                            <!--tr>
+                                                <td class="text">Distance between both Speakers :</td>
+                                                <td class="text"><input type="text" class="frmOutput" name="spktospk" size="4"readonly></td>
+                                                <td class="text">meter</td>
+                                            </tr-->
+                                            <tr>
+                                                <td class="text" colspan=3 align=center>
+                                                    <br>
+                                                    <input name="CalcPos" class="calcButton" type="button"
+                                                           value=" Calculate Speaker Placement "
+                                                           onClick="Calc(frm.form);"><br><br>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                        <br>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                        </table>
+                        </form>
+                        <br><br>
+                        <hr size="1" width="75%">
+                        <br><br>
+                        <center>
+            				<br>                      
+                            <a href="javascript:history.back()" class="calcButton"><<< Back</a>
+                        </center>
+                        <br><br>
+                        </p> <!-- End Content -->
+                </div>
+            </div>
+        </div>
+        <div class="copyright">
+            &copy;
+            <span id="copyright">
+        <script>document.getElementById('copyright').appendChild(document.createTextNode(new Date().getFullYear()))</script>
+        &nbsp;mh-Audio.nl&nbsp;&nbsp;-&nbsp;&nbsp;<a href="../disclaimer.html"><font
+                    color="#000000">Disclaimer</font></a>
+    </span>
+        </div>
+        <script type="text/javascript" src="//fc.webmasterpro.de/counter.php?name=mh-audio"></script>
+<noscript><div><img src="//fc.webmasterpro.de/as_noscript.php?name=mh-audio" style="width:1px;height:1px;" alt="" /></div></noscript>
+<!-- https://fc.webmasterpro.de -->
+</BODY>
+</HTML>
