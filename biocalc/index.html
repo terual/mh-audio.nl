@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="shortcut icon" href="../favicon.ico" type="image/x-icon">
+    <title>Check Your Biorhythms</title>
+    <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.0.js"></script>
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+    <!-- Date Picker -->
+    <script src="js/jquery-birthday-picker.js"></script>
+
+    <!-- Chart -->
+    <script type="text/javascript" src="js/jquery.jqplot.min.js"></script>
+    <script type="text/javascript" src="js/jqplot.dateAxisRenderer.js"></script>
+    <script type="text/javascript" src="js/jqplot.barRenderer.js"></script>
+    <link rel="stylesheet" type="text/css" href="css/jquery.jqplot.css">
+
+    <link rel="stylesheet" type="text/css" href="css/style.css"> 
+
+  </head>
+  <body>
+
+  <div id="header" class="container">
+      <div id="logo">
+        <h2><i>HiFi&nbsp;&nbsp;Audio&nbsp;&nbsp;Design</i></h2>
+    </div>
+    <br>
+  <!--
+    <div id="menu">
+        <ul>
+            <li class="active"><a href="../index.html" title="">Home</a></li>
+            <li><a href="../Loudspeaker.html" title="">Loudspeaker</a></li>
+            <li><a href="../Acoustic.html" title="">Acoustic</a></li>
+            <li><a href="../Calculator.html" title="">Calculators</a></li>
+            <li><a href="../Software.html" title="">Soft & Hardware</a></li>
+            <li><a href="../Elektronic.html" title="">Electronic</a></li>
+            <li><a href="../Measurement.html" title="">Measurement</a></li>
+            <li><a href="../Links.html" title="">Links/Downloads</a></li>
+            <li><a href="../EmailFormNew.asp" title="">Contact</a></li>
+        </ul>
+   </div> 
+   -->
+
+    <div class="title">
+       <h2><i>Check Your Biorhythms</i></h2>
+    </div>
+    
+      <table align="center" cellspacing="0" cellpadding="2" bprder="0">
+      <tr>
+      <td><br><br>
+      <ul>
+      <li>Human biorhythms start from the moment a person is born.</li>
+      <li>Most biorhythms are circadian.</li>
+      <li>Certain biorhythms are the natural monthly fluctuations that govern physical,<br>
+      emotional and intellect aspects of human beings.</li>
+      <li>Human beings have three biorhythms:</li></ul>
+      <br>
+      	<ol>
+      		<li><font color="red">Physical</font> biorhythm - 23 day's</li>
+      		<li><font color="green">Emotional</font> biorhythm - 28 day's</li>
+      		<li><font color="blue">Intellectual</font> biorhythm - 33 day's</li>
+      	</ol>
+      	</ul>
+      </td>
+      </tr>
+      </table>    
+    
+      <div class="container date_picker">	
+      <div id="birthdayPicker"></div>
+      <button type="button" class="Button" id="checkDate" onclick="locate()">Calculate Biorhythms</button><br><br>
+      
+      <div id="error"></div>
+    </div>
+    <div class="container graph">
+      <div id="chart" class="jqplot-target"></div>
+      <div class="col-md-2 col-sm-0 col-xs-0"></div>
+      <div class="col-md-4 legend col-sm-2 col-xs-2">
+        <p><span class="glyphicon glyphicon-stop legend-red" aria-hidden="true"> <strong>Physical condition </strong></span></p>
+        <p><span class="glyphicon glyphicon-stop legend-green" aria-hidden="true"> <strong>Emotional condition</strong></span></p>
+        <p><span class="glyphicon glyphicon-stop legend-blue" aria-hidden="true"> <strong>Intelligence condition </strong></span></p>
+      </div>        
+      <div class="col-md-4 legend-percentage">
+        <div id="chartPercentage"></div>
+      </div>
+      <div class="col-md-2 col-sm-6 col-xs-6"></div>
+    </div>	   
+    <script type="text/javascript" src="js/script.js"></script>
+    <!--center><a href="../index.html" class="Button">Back to HiFi Audio Design</a></center-->
+   </div> <!-- Container --> 
+   <br><br><br> 
+  </body>
+</html>

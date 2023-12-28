@@ -1,0 +1,310 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<!--
+Design by TEMPLATED
+http://templated.co
+Released for free under the Creative Commons Attribution License
+
+Name       : TailPiece 
+Description: A two-column, fixed-width design with dark color scheme.
+Version    : 1.0
+Released   : 20130902
+-->
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>Body Mass Index</title>
+    <meta name="keywords" content=""/>
+    <meta name="description" content=""/>
+    <link href="http://fonts.googleapis.com/css?family=Source+Sans+Pro:200,300,400,600,700,900" rel="stylesheet"/>
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+    <link href="css/default.css" rel="stylesheet" type="text/css" media="all"/>
+    <link href="fonts.css" rel="stylesheet" type="text/css" media="all"/>
+
+    <script src="js/fab.js"></script>
+
+    <!--[if IE 6]>
+    <link href="default_ie6.css" rel="stylesheet" type="text/css"/><![endif]-->
+
+<script type="text/javascript">
+
+/*
+ * This function rounds the given number to the specified number of decimal points
+ */
+function roundNumber(num, dec) {
+	var result = Math.round(num * Math.pow(10, dec)) / Math.pow(10, dec);
+	return result;
+}
+
+// Slider weight
+var m, pounds
+var output = document.getElementById("demo");
+
+     window.addEventListener("load", function()
+     {
+     var slider = document.getElementById("m");
+     slider.addEventListener("change", function(){
+        m = this.value;
+        pounds = m * 2.20462262;
+		pounds = roundNumber(pounds, 2);
+		//alert(pounds + " pounds");
+
+        document.getElementById("demo").innerHTML = slider.value + " kg or " + pounds + " pounds";
+        //document.getElementById("output").innerHTML = "Temperature: " + this.value + " &ordm;C  equal to  " + F + " &ordm;F";
+
+        slider.oninput = function()
+        {
+            document.getElementById("demo").innerHTML = this.value + " kg or " + pounds + " pounds";
+        }
+
+    });
+});
+
+// Slider length
+var h, ft
+var output = document.getElementById("h");
+
+     window.addEventListener("load", function()
+     {
+     var slider = document.getElementById("h");
+     slider.addEventListener("change", function(){
+        h = this.value;
+		ft = h * 3.2808399;
+		ft = roundNumber(ft, 2);
+        document.getElementById("demoh").innerHTML = slider.value + " meter or " + ft + " feet";
+        //document.getElementById("output").innerHTML = "Temperature: " + this.value + " &ordm;C  equal to  " + F + " &ordm;F";
+
+        slider.oninput = function()
+        {
+            document.getElementById("demoh").innerHTML = this.value + " meter or " + ft + " feet";
+        }
+
+    });
+});
+
+function calcBMI() {
+var m, h, x;
+var w = "";
+var ft, pounds;
+m = document.frm.m.value;
+h = document.frm.h.value; 
+
+x = m / (h*h);
+x = roundNumber(x,2);
+
+if (x <= 18.5)
+{
+	w = "<font color=red>Underweight</font> "; /* red */
+}
+else if (x > 18.5 && x <= 24.9)
+{
+	w = "<font color=00bb00>Normal weight</font>";	/* green */
+}
+else if (x > 24.9 && x <= 29.9)
+{
+	w = "<font color=red>Overweight</font>";	/* red */
+}
+else
+{
+	w = "<font color=red>Obesity</font> ";	/* red */
+}
+
+document.getElementById("data").innerHTML = "Your Body Mass Index = " + x + ", " + w;
+
+
+
+
+// The browser will limit the number of concurrent audio contexts
+// So be sure to re-use them whenever you can
+const myAudioContext = new AudioContext();
+
+/**
+ * Helper function to emit a beep sound in the browser using the Web Audio API.
+ * 
+ * @param {number} duration - The duration of the beep sound in milliseconds.
+ * @param {number} frequency - The frequency of the beep sound.
+ * @param {number} volume - The volume of the beep sound.
+ * 
+ * @returns {Promise} - A promise that resolves when the beep sound is finished.
+ */
+function beep(duration, frequency, volume){
+    return new Promise((resolve, reject) => {
+        // Set default duration if not provided
+        duration = duration || 440;
+        frequency = frequency || 440;
+        volume = volume || 100;
+
+        try{
+            let oscillatorNode = myAudioContext.createOscillator();
+            let gainNode = myAudioContext.createGain();
+            oscillatorNode.connect(gainNode);
+
+            // Set the oscillator frequency in hertz
+            oscillatorNode.frequency.value = frequency;
+
+            // Set the type of oscillator
+            oscillatorNode.type= "square";
+            gainNode.connect(myAudioContext.destination);
+
+            // Set the gain to the volume
+            gainNode.gain.value = volume * 0.01;
+
+            // Start audio with the desired duration
+            oscillatorNode.start(myAudioContext.currentTime);
+            oscillatorNode.stop(myAudioContext.currentTime + duration * 0.001);
+
+            // Resolve the promise when the sound is finished
+            oscillatorNode.onended = () => {
+                resolve();
+            };
+        }catch(error){
+            reject(error);
+        }
+    });
+}
+
+}
+
+</script>
+</head>
+<body>
+<div id="header" class="container">
+    <div id="logo">
+        <h2>HiFi Audio Design</h2>
+    </div>
+    <br>
+    <div id="menu">
+    <br><center>
+        <ul>
+            <li><a href="javascript:history.back()" access˚key="1" title=""><-- Back</a></li>
+            <!--
+            <li><a href="Loudspeaker.html" accesskey="2" title="">Loudspeaker</a></li>
+            <li><a href="Acoustic.html" accesskey="3" title="">Acoustic</a></li> -->
+            <li><a href="../Calculator.html" accesskey="4" title="">Calculators</a></li>
+             <li><a href="../Library.html" accesskey="4" title="">Library</a></li>
+            <!--
+            <li><a href="Software.html" accesskey="6" title="">Software</a></li>
+            <li><a href="Elektronic.html" accesskey="5" title="">Electronic</a></li>
+            <li><a href="Measurement.html" accesskey="5" title="">Measurement</a></li>
+            <li class="active"><a href="Links.html" accesskey="5" title="">Links/Downloads</a></li>
+            <li><a href="EmailFormNew.asp" accesskey="5" title="">Contact</a></li> -->
+        </ul>
+        </center>
+    </div> 
+</div>
+<button onclick="topFunction()" id="myBtn" title="Go To Top">⬆</button>
+<button id="myBtnDown" onclick="scrollWin()" title="Scroll Down">⬇</button>
+<div id="page">
+    <div class="container">     
+        <div class="title">
+            <h2><i>Body Mass Index</i></h2>
+        </div>
+        <div class="box0">
+            <div class="box margin-btm">
+            <br>
+            <center>
+                <img src="images/BMI2.png" width="400" alt=""/>
+                <div class="details">
+                </center>
+                    <p>
+                        <!-- Start Content -->
+                        <form name="frm">
+                        <center>
+                        <a href="WHR.html" class="calcButton">Waist-to-Hip Ratio Calculator</a> or <a href="Biocalc/index.html" class="calcButton">Check You Biorhythms</a><br><br>
+                                <div class="title">
+            <h2><i>Body-Mass-Index Calculator</i></h2>
+        </div>
+                        </center>
+<table class="BMItable" align="center" cellspacing="0" cellpadding="2" width="75%">
+<tr>
+<td>
+The measure most commonly used to assess weight-related risk is BMI, a ratio calculated from your weight and height. 
+Specifically, your BMI equals your body (in kilograms) divided by your height squared (in meters).<br><br>
+A “<strong>normal</strong>” BMI is <strong>18.5 - 24.9</strong><br> 
+A BMI of <strong>25 - 29.9</strong> is <strong>considered overweight</strong>, <br>
+from <strong>30 - 34.9</strong> is <strong>obese</strong>,<br> 
+and <strong>35</strong> or <strong>higher</strong> is <strong>very obese</strong>.
+</td>
+</tr>
+</table>
+<br>  
+<!--                     
+<table class="BMItable" width="27%" border="0" align="center" cellspacing="4ß" cellpadding="4">
+                    <tbody><tr>
+                      <th valign="top">&nbsp;</th>
+                            <th scope="col" valign="top"><strong>BMI</strong></th>
+                    </tr>
+                          <tr>
+                            <td valign="top"><strong>Underweight</strong></td>
+                            <td valign="top"><div align="center">Below 18.5</div></td>
+                          </tr>
+                          <tr>
+                            <td valign="top"><strong>Normal</strong></td>
+                            <td valign="top"><div align="center">18.5–24.9 </div></td>
+                          </tr>
+                          <tr>
+                            <td valign="top"><strong>Overweight</strong></td>
+                            <td valign="top"><div align="center">25.0–29.9</div></td>
+                      </tr>
+                          <tr>
+                            <td valign="top"><strong>Obesity</strong></td>
+                            <td valign="top"><div align="center">30.0 and Above</div></td>
+                      </tr>
+                      </tbody></table>
+                      <br>
+                      -->
+                <table align="center" cellspacng="0" cellpadding="2" border="0" width="54%">
+                                           <tr>
+                            <td colspan="2"><br>
+                                <div class="slidecontainer">
+                                    <p>Weight: <span id="demo">0 kilogram</span></p>
+                                    10 kg<img src="images/1pxtrans.gif" width="445" height="1">150 kg
+                                    <input type="range" id="m" min="10" max="150" step="0.01" value="0" class="slider" onchange="calcBMI()">
+                                </div>
+                                <br>
+                            </td>
+                        </tr>
+                   
+                                                              <tr>
+                            <td colspan="2"><br>
+                                <div class="slidecontainer">
+                                    <p>Height: <span id="demoh">1 meter</span></p>
+                                    1 m<img src="images/1pxtrans.gif" width="455" height="1">2,20 m
+                                    <input type="range" id="h" min="1.0" max="2.20" step="0.01" value="0" class="slider" onchange="calcBMI()">
+                                </div>
+                                <br>
+                            </td>
+                        </tr>
+                <tr>
+                <td colspan="2" align="center"><h3><i><span id="data"></span></i></h3></td>
+                </tr>
+                <!-- tr>
+                   <td colspan="2" align="center">
+                   <br><input class="calcButton" type="button" value="Calculate BMI" onclick="calcBMI()"></td>
+                   </tr -->
+                   </table>
+                   </form>
+ 
+                    <br><br>
+                    <hr size="1" width="75%">
+                    <br><br>
+                    <center>
+                        <a href="javascript:history.back();" class="calcButton"><<< Back</a>
+                    </center>
+                    <br><br>
+                    </p> <!-- End Content -->
+                </div>
+            </div>
+        </div>
+        <div class="copyright">
+            &copy;
+            <span id="copyright">
+        <script>document.getElementById('copyright').appendChild(document.createTextNode(new Date().getFullYear()))</script>
+    </span>
+            mh-Audio.nl
+        </div>
+        <script type="text/javascript" src="//fc.webmasterpro.de/counter.php?name=mh-audio"></script>
+<noscript><div><img src="//fc.webmasterpro.de/as_noscript.php?name=mh-audio" style="width:1px;height:1px;" alt="" /></div></noscript>
+<!-- https://fc.webmasterpro.de -->
+</body>
+</html>

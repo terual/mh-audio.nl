@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="shortcut icon" href="../favicon.ico" type="image/x-icon">
+    <title>Check Your Biorhythms</title>
+    <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.0.js"></script>
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+    <!-- Date Picker -->
+    <script src="js/jquery-birthday-picker.js"></script>
+
+    <!-- Chart -->
+    <script type="text/javascript" src="js/jquery.jqplot.min.js"></script>
+    <script type="text/javascript" src="js/jqplot.dateAxisRenderer.js"></script>
+    <script type="text/javascript" src="js/jqplot.barRenderer.js"></script>
+    <link rel="stylesheet" type="text/css" href="css/jquery.jqplot.css">
+
+    <link rel="stylesheet" type="text/css" href="css/style.css"> 
+
+  </head>
+  <body>
+    <br>
+     <!-- PayPal Donate Button >
+    <div class="copyright">
+		<center> 
+			<i>Please donate to keep this site alive...</i><br>       
+			<form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_blank">
+				<input type="hidden" name="cmd" value="_donations" />
+				<input type="hidden" name="business" value="VSAAYZF3DEGLC" />
+				<input type="hidden" name="currency_code" value="EUR" />
+				<input type="image" src="https://www.paypalobjects.com/en_US/NL/i/btn/btn_donateCC_LG.gif" border="0" name="submit" title="Please donate to keep this site alive!" alt="Donate with PayPal button" />
+				<img alt="" border="0" src="https://www.paypal.com/en_NL/i/scr/pixel.gif" width="1" height="1" />
+			</form>
+		</center>     
+    </div>
+    END PayPal Donate Button -->  
+    <br>   
+    <div class="title">
+       <h2><i>Check Your Biorhythms</i></h2>
+    </div>
+      <div class="container date_picker">	
+      <div id="birthdayPicker"></div>
+      <button type="button" class="Button" id="checkDate" onclick="locate()">Check</button><br><br>
+      <button type="button" class="Button" id="myWindow" onclick="window.close();">Close Window</button>
+      <div id="error"></div>
+    </div>
+    <div class="container graph">
+      <div id="chart" class="jqplot-target"></div>
+      <div class="col-md-2 col-sm-0 col-xs-0"></div>
+      <div class="col-md-4 legend col-sm-6 col-xs-6">
+        <p><span class="glyphicon glyphicon-stop legend-red" aria-hidden="true"> Physical condition</span></p>
+        <p><span class="glyphicon glyphicon-stop legend-green" aria-hidden="true"> Emotional condition</span></p>
+        <p><span class="glyphicon glyphicon-stop legend-blue" aria-hidden="true"> Intelligence condition</span></p>
+      </div>        
+      <div class="col-md-4 legend-percentage">
+        <div id="chartPercentage"></div>
+      </div>
+      <div class="col-md-2 col-sm-6 col-xs-6"></div>
+    </div>
+      <table align="center" cellspacing="0" cellpadding="2" bprder="0">
+      <tr>
+      <td>
+      <ul>
+      <li>Human biorhythms start from the moment a person is born.</li>
+      <li>Most biorhythms are circadian.</li>
+      <li>Certain biorhythms are the natural monthly fluctuations that govern physical,<br>
+      emotional and intellect aspects of human beings.</li>
+      <li>Human beings have three biorhythms:</li></ul>
+      <br>
+      	<ol>
+      		<li><font color="red">Physical</font> biorhythm - 23 day's</li>
+      		<li><font color="green">Emotional</font> biorhythm - 28 day's</li>
+      		<li><font color="blue">Intellectual</font> biorhythm - 33 day's</li>
+      	</ol>
+      	</ul>
+      </td>
+      </tr>
+      </table>	    
+    
+    <script type="text/javascript" src="js/script.js"></script>
+    <br><br>
+    <!--center><a href="../index.html" class="Button">Back to HiFi Audio Design</a></center-->
+  </body>
+</html>
