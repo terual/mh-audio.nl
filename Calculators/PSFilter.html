@@ -1,0 +1,527 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<!--
+Design by TEMPLATED
+http://templated.co
+Released for free under the Creative Commons Attribution License
+
+Name       : TailPiece 
+Description: A two-column, fixed-width design with dark color scheme.
+Version    : 1.0
+Released   : 20130902
+
+-->
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <!-- Google Analytics -->
+    <script>
+        window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+        ga('create', 'UA-77078028-1', 'auto');
+        ga('send', 'pageview');
+    </script>
+    <script async src='https://www.google-analytics.com/analytics.js'></script>
+    <!-- End Google Analytics -->
+
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>Tube Amplifier Power Supply Smoothing Factors Calculations</title>
+    <meta name="keywords" content=""/>
+    <meta name="description" content=""/>
+    <link href="http://fonts.googleapis.com/css?family=Source+Sans+Pro:200,300,400,600,700,900" rel="stylesheet"/>
+    <link rel="shortcut icon" href="../favicon.ico" type="image/x-icon">
+    <link href="../css/default.css" rel="stylesheet" type="text/css" media="all"/>
+    <link href="../css/fonts.css" rel="stylesheet" type="text/css" media="all"/>
+
+    <!--[if IE 6]>
+    <link href="default_ie6.css" rel="stylesheet" type="text/css"/><![endif]-->
+    <script src="../js/fab.js"></script>
+
+    <script type="text/javascript">
+
+function round(number,X) {
+	// rounds number to X decimal places, defaults to 3
+	X = (!X ? 3 : X);
+	return Math.round(number*Math.pow(10,X))/Math.pow(10,X);
+}
+
+// Ripple Reduction Factor RC Filter
+function calc_RCRRF()
+{
+var RCFr, RCRRk,  RCRr,RCCr, RCripplereduction, LCripplereduction
+var cbRC = document.getElementById("2StagesRC"); // get checkbox
+var RCFW = document.getElementById("RCFullWave"); // get checkbox Full Wave
+var e = document.getElementById("Rectifier");
+var strRectifier = e.options[e.selectedIndex].text;
+var rectifier = e.options[e.selectedIndex].value;
+
+
+RCFr = document.frmRipple.RCFr.value;
+
+RCRr = document.frmRipple.RCRr.value;
+RCRRk = document.frmRipple.RCRRk.value;
+RCRr = RCRr * RCRRk; 
+RCCr = document.frmRipple.RCCr.value;
+
+RCripplereduction = 0;
+LCripplereduction = 0;
+// validate  RCFr
+  if (isNaN(RCFr) || RCFr < 50 || RCFr > 60)
+  {
+    textRCFR = " 50 Hz or 60 Hz";
+  }
+  else
+  {
+    textRCFR = "";
+  }
+  document.getElementById("errRCFR").innerHTML = textRCFR;
+
+
+// validate  RCRr
+  if (isNaN(RCRr) || RCRr < 0.22 || RCRr > 220000)
+  {
+    textRCRR = " between 0,22 ohm and 220 kOhm";
+  }
+  else
+  {
+    textRCRR = "";
+  }
+  document.getElementById("errRCRR").innerHTML = textRCRR;
+
+
+// validate  RCCr
+  if (isNaN(RCCr) || RCCr < 1 || RCCr > 680)
+  {
+    textRCCR = " between 1uF and 680uF";
+  }
+  else
+  {
+    textRCCR = "";
+  }
+  document.getElementById("errRCCR").innerHTML = textRCCR;
+
+
+if (rectifier == 1)
+{
+	RCripplereduction = (( 6.283 * (2 * RCFr) * RCRr * RCCr) / 1000000) + 1; // FullWave
+}
+else
+{
+	RCripplereduction = (( 6.283 * RCFr * RCRr * RCCr) / 1000000) + 1;  // HalfWave
+}
+
+/*	if (RCFW.checked == true)
+	{
+		RCripplereduction = (( 6.283 * (2 * RCFr) * RCRr * RCCr) / 1000000) + 1; // FullWave
+	}
+	else
+	{
+		RCripplereduction = (( 6.283 * RCFr * RCRr * RCCr) / 1000000) + 1;  // HalfWave
+	}	
+*/
+
+
+
+	if (cbRC.checked == true)
+	{  
+		// Ripple reduction Factor 2 Filter stages
+		//RCripplereduction = RCripplereduction * RCripplereduction;
+		RCripplereduction = RCripplereduction * RCripplereduction;
+		document.frmRipple.RCripplereduction.value = round((RCripplereduction-1),2);
+		
+		// Ripple reduction in dB
+		RCripplereductiondB = 20 * (Math.log(RCripplereduction) / Math.log(10));
+		document.frmRipple.RCripplereductiondB.value = "-" + round((RCripplereductiondB),2);
+    }
+	else
+	{  
+		// Ripple reduction Factor 1 Stage
+		document.frmRipple.RCripplereduction.value = round((RCripplereduction),2);
+
+		// Ripple reduction in dNB
+		RCripplereductiondB = 20 * (Math.log(RCripplereduction) / Math.log(10));
+		document.frmRipple.RCripplereductiondB.value = "-" + round((RCripplereductiondB),2);
+	}
+
+    var RC = RCripplereduction;
+	return RC;
+}
+
+// Ripple Reduction Factor LC Filter
+function calc_LCRRF()
+{
+
+var LCFr, LCLr,LCCr, LCripplereduction, LCripplereductiondB;
+var cb = document.getElementById("2Stages"); // get checkbox 2 Stages
+//var FW = document.getElementById("FullWave"); // get checkbox Full Wave
+var e = document.getElementById("LCRectifier");
+var LCrectifier = e.options[e.selectedIndex].value;
+
+LCFr = document.frmRipple.LCFr.value; // Frequency
+LCLr = document.frmRipple.LCLr.value; // Inductor
+LCCr = document.frmRipple.LCCr.value; // Capacitor
+
+
+// validate  LCFr
+  if (isNaN(LCFr) || LCFr < 50 || LCFr > 60)
+  {
+    textLCFR = " 50 Hz or 60 Hz";
+  }
+  else
+  {
+    textLCFR = "";
+  }
+  document.getElementById("errLCFR").innerHTML = textLCFR;
+
+
+// validate  LCLr
+  if (isNaN(LCLr) || LCLr < 0.3 || LCLr > 50)
+  {
+    textLCLR = " between 0,3mH and 50mH";
+  }
+  else
+  {
+    textLCLR = "";
+  }
+  document.getElementById("errLCLR").innerHTML = textLCLR;
+
+
+// validate  LCCr
+  if (isNaN(LCCr) || LCCr < 1 || LCCr > 680)
+  {
+    textLCCR = " between 1uF and 680uF";
+  }
+  else
+  {
+    textLCCR = "";
+  }
+  document.getElementById("errLCCR").innerHTML = textLCCR;
+
+
+if (LCrectifier == 1)
+{
+	LCripplereduction = ((( 6.283 * (2 * LCFr)) * ( 6.283 * (2 * LCFr))) * LCLr * LCCr) / 1000000; // FullWave
+}
+else
+{
+	LCripplereduction = ((( 6.283 * LCFr)) * ( 6.283 * (LCFr)) * LCLr * LCCr) / 1000000;  // HalfWave
+}
+
+	
+	
+	if (cb.checked == true)
+	{  
+	 	LCripplereduction = LCripplereduction * LCripplereduction;
+	
+	 	// Ripple reduction Factor
+     	document.frmRipple.LCripplereduction.value = round((LCripplereduction-1),2);
+
+     	// Ripple reduction in dNB
+     	LCripplereductiondB = 20 * (Math.log(LCripplereduction) / Math.log(10));
+     	document.frmRipple.LCripplereductiondB.value = "-" + round((LCripplereductiondB),2);
+    }
+else
+	{  
+ 		// Ripple reduction factor for 2 filter stages
+   	 	document.frmRipple.LCripplereduction.value = round((LCripplereduction-1), 2);
+    
+    	// Ripple reduction in dNB
+    	LCripplereductiondB = 20 * (Math.log(LCripplereduction) / Math.log(10));
+    	document.frmRipple.LCripplereductiondB.value = "-" + round((LCripplereductiondB), 2);
+	}
+    var LC = LCripplereduction;
+	return LC;
+}
+
+    </script>
+</head>
+<body>
+<div id="header" class="container">
+    <div id="logo">
+        <h2>HiFi&nbsp;&nbsp;Audio&nbsp;&nbsp;Prive</h2>
+    </div>
+    <br>
+    <div id="menu"><br><center>
+        <ul>
+            <li><a href="javascript:history.back()" access˚key="1" title=""><-- Back</a></li>
+            <li class="active"><a href="../Calculator.html" accesskey="4" title="">Calculators</a></li>
+            <li><a href="../Library.html" accesskey="7" title="">Library</a></li>
+        </ul>
+        </center>
+    </div>
+</div>
+<div id="page">
+    <div class="container">
+  
+        <div class="title">
+            <br><h1><i>Tube Amplifier Power Supply Smoothing Factors Calculations</i></h1>
+        </div>
+        <br>
+        <div class="box0">
+            <div class="box margin-btm">
+                <div class="details">
+                    <br>
+                    <center><img src="../images/TubePowerSupply.gif" width="600"></center>
+                    <br>
+                    <p> <!-- Start Content -->
+                    <form name="frmRipple">
+                        <center>
+                            <h1 class="menu"><i>&nbsp;RC Filter Stage</I></h1><br>
+                        </center>
+                        <table align="center" border="0" width="75%" align="center">
+                            <tr>
+                                <td colspan="2">
+                                    The RC filter stage is the simplest in operation of all the filter stages. <br>
+                                    This stage simply acts as a frequency selective voltage divider where the shunt
+                                    impedance is frequency dependent. <br>
+                                    Consider the following simple diagram.<br>
+                                    <center><img src="../images/RC.png" width="250"></center>
+                                    At DC the capacitor is going to act as an open circuit and the DC output voltage
+                                    will be the equal to the input voltage minus the voltage drop in R1. <br>
+                                    But what about the AC voltage (ripple)? At AC the capacitor has a finite reactance
+                                    given by the following relation. <br>
+                                    <center><!--img src="images/PowerSupply/Xc1.png"-->
+                                        <br>
+                                        <h2>X<sub>c</sub> = 1 / (2 * Π * f * C) </h2>
+                                    </center>
+                                    <br>
+                                    Because we are using a full wave rectifier, the ripple frequency <strong>fr is equal
+                                    to two times the mains frequency</strong>. <br>
+                                    Using this information and the normal voltage divider relation, we can derive an
+                                    equation for the smoothing factor <br>
+                                    for this filter section. It is given in the following relation. <br><br>
+                                    <center><!--img src="images/PowerSupply/FsRC.png"-->
+                                        <br>
+                                        <h2>F<sub>s</sub> = (2 * Π * f * R * C) + 1 </h2></center>
+                                    <br>
+                                </td>
+                            </tr>
+                        </table>
+
+                       
+                                    <table align="center" cellspacing="0" cellpadding="0" width="45%" border="0" class="Calctable">
+                                    <tr>
+                                    <td colspan="2" align="center"><br><h1><i>Calculate RC Filter</i></h1><br></td>
+                                    </tr>
+                                        <!--tr>
+                                            <td align="right">Fr ( use here the standard Power Line
+                                                Frequency ) =
+                                            </td>
+                                            <td><input type="number" class="frmInput" name="RCFr" id="RCFR" size="6">&nbsp;Hz
+                                                <font color="red">&nbsp;<span id="errRCFR"></span></font>
+                                            </td>
+                                        </tr-->
+                               			<tr>
+            								<td align="right" valign="top">AC Power Line Frequency = </td>
+            								<td>
+              								<input type="radio" name="RCFr" value="50" checked /> 50 Hertz&nbsp;&nbsp;&nbsp;
+              								<input type="radio" name="RCFr" value="60"/> 60 Hertz
+               								<font color="red">&nbsp;<span id="errRCFR"></span></font>
+            								<br><br>
+            								</td>
+          								</tr>                   
+                                        <tr>
+                                            <td align="right">Rectifier Type =</td>
+                                            <!--td><input type="checkbox" name="FullWave" id="RCFullWave" value="1"></td-->
+
+                                            <td>
+                                                <select id="Rectifier" class="frmInput">
+                                                    <option value="1" selected>Fullwave Rectifier</option>
+                                                    <option value="2">Halfwave Rectifier</option>
+                                                </select>
+                                            </td>
+
+                                        </tr>
+                                        <tr>
+                                            <td align="right">Resistor =</td>
+                                            <td><input type="number" class="frmInput" name="RCRr" id="RCRR" size="6">
+                                            <input type="radio" name="RCRRk" value="1" checked /> Ohms
+                                            <input type="radio" name="RCRRk" value="1000"  /> kOhms
+                                            
+                                                <font color="red">&nbsp;<span id="errRCRR"></span></font>
+                                            </td>
+                                        <tr>
+                                            <td align="right">Capacitor =</td>
+                                            <td><input type="number" class="frmInput" name="RCCr" size="6">&nbsp;uF
+                                                <font color="red">&nbsp;<span id="errRCCR"></span></font>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="2"><br><br></td>
+                                        </tr>
+                                        <tr>
+                                            <td align="right">Ripple reduction factor =</td>
+                                            <td><input type="number" name="RCripplereduction" size="10"
+                                                       class="frmOutput"></td>
+                                        </tr>
+                                        <tr>
+                                            <td align="right">Ripple reduction factor in dB =</td>
+                                            <td><input type="number" name="RCripplereductiondB" size="10"
+                                                       class="frmOutput">&nbsp;dBv
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="2" align="right">
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td align="right">Two identical RC Filter Stages :</td>
+                                            <td><input type="checkbox" class="frmInput" name="2StagesRC"
+                                                       id="2StagesRC" onchange="calc_RCRRF()"></td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="2" align="center">
+                                                <br><input class="calcButton"
+                                                           value="Calculate Ripple Reduction Factor "
+                                                           type="button" name="calcRRF"
+                                                           onclick="calc_RCRRF()"><br><br>
+                                            </td>
+                                        </tr>
+                                    </table>
+                        </td>
+                        </tr>
+                        </table>
+                    <br><br>
+                    <center>
+                        Read more about&nbsp;<a href="http://diyaudioprojects.com/Technical/Tube-Power-Supplies/"
+                                                target="_blank" class="calcButton">Power Supply Design</a>&nbsp;for
+                        Vacuum Tube Amplifiers
+                    </center>
+					<br><br>
+                    <center>
+                        <h1 class="menu"><i>LC Filter Stage</I></h1><br>
+                        </center>
+                        <table align="center" border="0" width="75%" cellspacing="0" cellpadding="2">
+                            <tr>
+                                <td colspan="2">
+                                    Fundamentally, this stage is very similar to the RC stage with the exception that
+                                    the resistor has been replaced by an inductor. <br>
+                                    However, the differences that this one change makes, are monumental.
+                                    <center><img src="../images/LC.png" width="250"></center>
+                                    The RC stage is called a "single pole" design. What this means is that its
+                                    selectivity varies linearly with frequency. <br>
+                                    The LC stage is a "two pole" design. This means that the selectivity of this stage
+                                    varies with the square of frequency. <br>
+                                    For this filter stage, the smoothing factor is as follows. <br>
+                                    <center><!--img src="images/PowerSupply/Xl1.png"-->
+                                        <br><br>
+                                        <h2>F<Sub>s</sub> = (2 * Π * f)^2 * L * C - 1</h2></center>
+                                    <br>
+                                </td>
+                            </tr>
+                        </table>
+
+
+                        <table align="center" cellspacing="0" cellpadding="2" width="75%" border="0" class="Calctable">
+                            <tr>
+                                <td>
+                                    <table align="center" cellspacing="0" cellpadding="4" width="55%" border="0">
+                                    <tr>
+                                    	<td colspan="2" align="center"><br><h1><i>Calculate LC Filter</i></h1><br></td>
+                                    </tr>
+                                        <!--tr>
+                                            <td align="right">Fr ( use here the standard Power Line
+                                                Frequency ) =
+                                            </td>
+                                            <td><input type="number" class="frmInput" name="LCFr" id="LCFR" size="6">&nbsp;Hz
+                                                <font color="red">&nbsp;<span id="errLCFR"></span></font>
+                                            </td>
+                                        </tr-->
+                                        
+          								<tr>
+            								<td align="right" valign="top">AC Power Line Frequency = </td>
+            								<td>
+              									<input type="radio" name="LCFr" value="50" checked /> 50 Hertz&nbsp;&nbsp;&nbsp;&nbsp;
+              									<input type="radio" name="LCFr" value="60"/> 60 Hertz
+               									<font color="red">&nbsp;<span id="errLCFR"></span></font>
+               									<br><br>
+            								</td>
+          								</tr>                                        
+                                        
+                                        <tr>
+                                            <td align="right">Rectifier Type = </td>
+                                            <!--td><input type="checkbox" name="FullWave" id="FullWave" value="1"></td-->
+                                            <td>
+                                                <select id="LCRectifier" class="frmInput">
+                                                    <option value="1" selected>Fullwave Rectifier</option>
+                                                    <option value="2">Halfwave Rectifier</option>
+                                                </select>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td align="right">Inductor = </td>
+                                            <td><input type="number" step="0.01" class="frmInput" name="LCLr" id="LCLR"
+                                                       size="6">&nbsp;H
+                                                <font color="red">&nbsp;<span id="errLCLR"></span></font>
+                                            </td>
+                                        <tr>
+                                            <td align="right">Capacitor = </td>
+                                            <td><input type="number" step="0.01" class="frmInput" name="LCCr" id=LCCR size="6">&nbsp;uF
+                                                <font color="red">&nbsp;<span id="errLCCR"></span></font>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="2"><br><br></td>
+                                        </tr>
+                                        <tr>
+                                            <td align="right">Ripple reduction factor =</td>
+                                            <td><input type="number" name="LCripplereduction" size="8"
+                                                       class="frmOutput"></td>
+                                        </tr>
+                                        <tr>
+                                            <td align="right">Ripple reduction factor in dB =</td>
+                                            <td><input type="number" name="LCripplereductiondB" size="8"
+                                                       class="frmOutput">&nbsp;dBV <font color=red>*</font>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td align="right">Two identical LC Filter Stages :</td>
+                                            <td><input type="checkbox" name="2Stages" id="2Stages" onchange="calc_LCRRF()"></td>
+                                        </tr>
+                                        <tr>
+                                        	<td colspan="2" align="center"><br><font color=red>*</font>  dBV is dB relative to 1.0 volt; such that 0dBV = 1.0 volt.</td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="2" align="center">
+                                                <br><input class="calcButton"
+                                                           value="Calculate Ripple Reduction Factor "
+                                                           type="button" name="calcRRF"
+                                                           onclick="calc_LCRRF()"><br><br></td>
+                                        </tr>
+                                    </table>
+                                </td>
+                            </tr>
+                        </table>
+                        </td>
+                        </tr>
+                        </table>
+                    </form>
+                    <br><br>
+                    <center>
+                        Read more about&nbsp;<a href="http://diyaudioprojects.com/Technical/Tube-Power-Supplies/"
+                                                target="_blank" class="calcButton">Power Supply Design</a>&nbsp;for
+                        Vacuum Tube Amplifiers
+                    </center>
+                    <br><br>
+                    <hr size="1" width="75%">
+                    <br>
+                    <center>
+         				<br>                     
+                        <a href="javascript:history.back()" class="calcButton"><<< Back</a>
+                    </center>
+                    <br><br>
+                    </p> <!-- End Content -->
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="copyright">
+        &copy;
+        <span id="copyright">
+        <script>document.getElementById('copyright').appendChild(document.createTextNode(new Date().getFullYear()))</script>
+        &nbsp;mh-Audio.nl&nbsp;&nbsp;-&nbsp;&nbsp;<a href="../disclaimer.html"><font
+                color="#000000">Disclaimer</font></a>
+    </span>
+    </div>
+    <script type="text/javascript" src="//fc.webmasterpro.de/counter.php?name=mh-audio"></script>
+<noscript><div><img src="//fc.webmasterpro.de/as_noscript.php?name=mh-audio" style="width:1px;height:1px;" alt="" /></div></noscript>
+<!-- https://fc.webmasterpro.de -->
+</BODY>
+</HTML>

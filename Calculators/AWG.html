@@ -1,0 +1,583 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<!--
+Design by TEMPLATED
+http://templated.co
+Released for free under the Creative Commons Attribution License
+
+Name       : TailPiece 
+Description: A two-column, fixed-width design with dark color scheme.
+Version    : 1.0
+Released   : 20130902
+
+-->
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+
+
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>Calculate Wire Resistance</title>
+ <meta name="Keywords" content="HiFi, Audio, Loudspeakers, Database, Acoustic treatment, 
+		OnlineCalculator, LoudspeakerBasics, Links, Tubes, Buizen, Music, Muziek, Musik, 
+		Lautsprechergrundlagen, Lautsprecherberechnungen, Lautsprecher-Database, 
+		Analog to digital, Vinyl, Tapes, old records vinyl on cd, Acoustic, Bass Absorber,
+		acoustic electric,acoustic foam panel,acoustic measurements,acoustic panel,boston acoustic
+		acoustic neuromas,room acoustics,acoustics,acoustic foam,speaker cable,acoustic phonetics,
+		acoustic panels,acoustic ceiling,acoustic materials,acoustic neuroma,audio acoustic,acoustic,
+		acoustic insulation,acoustic wall panels,acoustic treatment,acoustic solution,acoustic wall panel,
+		acoustic bass,acoustic baffles,diy speaker cable, Room modes,
+		acoustic software,
+		room acoustics,
+		audio acoustic,
+		acoustic foam,
+		musical acoustics">
+<meta name="Description" content="Resource for building, calculate and measuring Hi Fi Loudspeakers,DIY LoudspeakerSite, Acoustic treatment, loudspeaker calculations, hifi links, high end">
+    <link href="http://fonts.googleapis.com/css?family=Source+Sans+Pro:200,300,400,600,700,900" rel="stylesheet"/>
+    <link rel="shortcut icon" href="../favicon.ico" type="image/x-icon">
+    <link href="../css/default.css" rel="stylesheet" type="text/css" media="all"/>
+    <link href="../fonts.css" rel="stylesheet" type="text/css" media="all"/>
+
+    <!--[if IE 6]>
+    <link href="default_ie6.css" rel="stylesheet" type="text/css"/><![endif]-->
+    <script src="../js/fab.js"></script>
+    <script>
+/**
+ * This function rounds the given number to the specified number of decimal points
+ */
+function roundNumber(num, dec) {
+	var result = Math.round(num * Math.pow(10, dec)) / Math.pow(10, dec);
+	return result;
+}
+
+ /**
+ * This function calculates the circular mil of a given gauge size
+ */
+function calcCircMil(sqMil) {
+	return (sqMil / Math.PI) * 4;
+	/* var innerExp = (36 - gauge) / 39;
+	var outerExp = Math.pow(92, innerExp);
+	var equation = 5 * outerExp;
+	var answer = Math.pow(equation, 2);
+	return Math.pow(equation, 2); */
+}
+ 
+ /**
+ * This function calculates the square-mm of a given gauge size
+ */
+function calcSqMil(gauge) {
+	var innerExp = (36 - gauge) / 39;
+	var outerExp = 5 * Math.pow(92, innerExp);
+	return (Math.PI * Math.pow(outerExp, 2)) / 4;
+}
+
+function calcSqMM(diamMM) {
+	return Math.PI * Math.pow(diamMM / 2, 2);
+}
+
+function calcDiamFromSqMM(sqMM) {
+	return Math.sqrt(sqMM / Math.PI) * 2;
+}
+ 
+ /**
+ * This function checks the selected value of a given list
+ */
+function getSelectedValue(list) {
+	return list.options[list.selectedIndex].value;
+}
+
+/**
+ * This function converts the inputted number to a useable gauge number
+ */
+function gaugeToNumber(gauge) {
+	var size = 0;
+	//var pattern = /([1-9]+)|([1-9]+.[1-9]+)(\/|-)0/;
+	var pattern = /[1-9]+(.[1-9]+)?(\/|-)0/;
+	if (gauge == 0) {
+		if (gauge.length > 1)
+			size = (gauge.length - 1) * -1;
+	} else if (pattern.test(gauge)) {
+		size = (gauge.substr(0, gauge.length - 2) - 1) * -1;
+	} else if (gauge > 0)
+		return gauge;
+	return size;
+}
+
+function numberToGauge(number) {
+	number = roundNumber(number, 3);
+	if (number < 0)
+		return ((number * -1) + 1) + "/0";
+	else
+		return number;
+}
+
+/**
+ * This function calculates the diameter of a given guage size, given the unit of measurement
+ */
+function calcDiameter(gauge, multiplier) {
+	var exponent = (36 - gauge) / 39;
+	return multiplier * Math.pow(92, exponent);
+}
+
+function calcDCResist(diameter, length, temp) {
+    var material = document.getElementById("ddlMetal").value;
+    //alert(material);
+	var r = material * Math.pow(10, -7); // 6.787 copper
+	var dr = .0039;
+	var rrPart1 = 4 * r * length;
+	var rrPart2 = Math.PI * Math.pow(diameter, 2);
+	var rrPart3 = 1 + (temp - 20) * dr;
+	var resistRoundWire = rrPart1 / rrPart2 * rrPart3;
+	return resistRoundWire;
+}
+
+function circToGauge(circMil) {
+	var topLog = Math.log(Math.sqrt(circMil) / 5)
+	var bottomLog = Math.log(92);
+	return -(39 * (topLog / bottomLog) - 36);
+}
+ 
+ function changeLabel() {
+	var unitLabel = document.getElementById('unitLabel');
+	var selectedUnit = getSelectedValue(document.forms["gaugeCalc"].unitType);
+	switch (selectedUnit) {
+		case '1':
+			unitLabel.innerHTML = 'Gauge';
+			break;
+		case '2':
+			unitLabel.innerHTML = 'Thickness (Inches)';
+			break;
+		case '3':
+			unitLabel.innerHTML = 'Thickness (Millimeters)';
+			break;
+		case '4':
+			unitLabel.innerHTML = 'Thickness (Mil)';
+			break;
+		case '5':
+			unitLabel.innerHTML = 'Surface Area (Square Mil)';
+			break;
+		case '6':
+			unitLabel.innerHTML = 'Thickness (Circular Mil)';
+			break;
+		case '7':
+			unitLabel.innerHTML = 'Surface Area (Square Millimeters)';
+			break;
+	}
+}
+
+// Slider Temperature
+var temp, F;
+var output = document.getElementById("demo");
+
+     window.addEventListener("load", function()
+     {
+     var slider = document.getElementById("slider");
+     slider.addEventListener("change", function(){
+        temp = this.value;
+        F = temp*9/5+32 // Celsius to Fahrenheit
+        F = roundNumber(F, 1);
+        document.getElementById("demo").innerHTML = slider.value + " &ordm;C  =  " + F + " &ordm;F";
+        //document.getElementById("output").innerHTML = "Temperature: " + this.value + " &ordm;C  equal to  " + F + " &ordm;F";
+
+        slider.oninput = function()
+        {
+            document.getElementById("demo").innerHTML = this.value + " &ordm;C  =  " + roundNumber((this.value*9/5+32),1) + " &ordm;F";
+        }
+
+    });
+
+});
+
+/**
+ * This function computes a gauge size from a given diameter
+ */
+function calcGauge(wireSize, unitSize) {
+	var gaugeSize = 0;
+	var calculatedGauge = 0;
+
+	var logValue = wireSize / unitSize;
+	var gaugeSize = -39 * (Math.log(logValue) / Math.log(92)) + 36;
+	return numberToGauge(gaugeSize);
+}
+
+
+ function calcWireSize() {
+	var answer = document.getElementById("answer_box");
+
+	var selectedUnit = getSelectedValue(document.forms["gaugeCalc"].unitType);
+
+	var wireSize = document.forms["gaugeCalc"].wireSize;
+	//var wireSize_err = document.getElementById('wireSize_err');
+	var conductors = document.forms["gaugeCalc"].conductors;
+	//var conductors_err = document.getElementById('conductors_err');
+	//var errors = checkErrorAWG(wireSize, wireSize_err);
+	//errors += checkError(conductors, conductors_err);
+	//if (errors > 0) {
+	//	answer.innerHTML = "";
+	//	return -1;
+	//}
+	wireSize = wireSize.value;
+
+	// Prepare final result variables
+	var gaugeSize = 0; // #/0 or # form
+	var conductorSize = 0; // -# or # form
+	var areaSqMil = 0;
+	var areaCircMil = 0;
+	var areaSqMM = 0;
+	var diamInch = 0;
+	var diamMil = 0;
+	var diamMM = 0;
+	var dcResist = 0;
+	var tensileStrength = 0;
+	var weightCu = 0;
+	var weightAl = 0;
+
+
+
+
+// Valdation
+// Material
+
+
+if (isNaN(temp))
+{
+    temp = 20;          // Celsius
+    F = temp*9/5+32;     // Celsius to Fahrenheit
+}
+
+
+	// unit values
+	var inchValue= 0.005;
+	var milValue = 5;
+	var mmValue = .127;
+	//var length = 39.3755582428427; // inch
+	var length = document.forms["gaugeCalc"].length.value;
+	length = (length / 2.54) * 100;
+
+	switch (selectedUnit) {
+		case '1': // AWG
+			gaugeSize = wireSize;
+			conductorSize = gaugeToNumber(gaugeSize);
+			diamInch = calcDiameter(conductorSize, inchValue);
+			diamMil = calcDiameter(conductorSize, milValue);
+			diamMM = calcDiameter(conductorSize, mmValue);
+			areaSqMil = calcSqMil(conductorSize);
+			areaCircMil = calcCircMil(areaSqMil);
+			areaSqMM = calcSqMM(diamMM);
+			dcResist = calcDCResist(diamInch, length, temp);
+			break;
+		case '2': // Inches
+			diamInch = wireSize;
+			gaugeSize = calcGauge(wireSize, inchValue);
+			conductorSize = gaugeToNumber(gaugeSize);
+			diamMil = calcDiameter(conductorSize, milValue);
+			diamMM = calcDiameter(conductorSize, mmValue);
+			areaSqMil = calcSqMil(conductorSize);
+			areaCircMil = calcCircMil(areaSqMil);
+			areaSqMM = calcSqMM(diamMM);
+			dcResist = calcDCResist(diamInch, length, temp);
+			break;
+		case '3': // Millimeters
+			diamMM = wireSize;
+			gaugeSize = calcGauge(wireSize, mmValue);
+			conductorSize = gaugeToNumber(gaugeSize);
+			diamInch = calcDiameter(conductorSize, inchValue);
+			diamMil = calcDiameter(conductorSize, milValue);
+			areaSqMil = calcSqMil(conductorSize);
+			areaCircMil = calcCircMil(areaSqMil);
+			areaSqMM = calcSqMM(diamMM);
+			dcResist = calcDCResist(diamInch, length, temp);
+			break;
+		case '4': // Mil
+			diamMil = wireSize;
+			diamInch = diamMil / 1000;
+			gaugeSize = calcGauge(wireSize, milValue);
+			conductorSize = gaugeToNumber(gaugeSize);
+			diamMM = calcDiameter(conductorSize, mmValue);
+			areaSqMil = calcSqMil(conductorSize);
+			areaCircMil = calcCircMil(areaSqMil);
+			areaSqMM = calcSqMM(diamMM);
+			dcResist = calcDCResist(diamInch, length, temp);
+			break;
+		case '5': // Square Mil
+			areaSqMil = wireSize;
+			areaCircMil = calcCircMil(areaSqMil);
+			conductorSize = circToGauge(areaCircMil);
+			diamInch = calcDiameter(conductorSize, inchValue);
+			diamMil = calcDiameter(conductorSize, milValue);
+			diamMM = calcDiameter(conductorSize, mmValue);
+			areaSqMM = calcSqMM(diamMM);
+			gaugeSize = calcGauge(diamMil, milValue);
+			dcResist = calcDCResist(diamInch, length, temp);
+			break;
+		case '6': // Circular Mil
+			areaCircMil = wireSize;
+			conductorSize = circToGauge(wireSize);
+			areaSqMil = calcSqMil(conductorSize);
+			diamInch = calcDiameter(conductorSize, inchValue);
+			diamMil = calcDiameter(conductorSize, milValue);
+			diamMM = calcDiameter(conductorSize, mmValue);
+			areaSqMM = calcSqMM(diamMM);
+			gaugeSize = calcGauge(diamMil, milValue);
+			dcResist = calcDCResist(diamInch, length, temp);
+			break;
+		case '7': // Square Millimeters
+			areaSqMM = wireSize;
+			diamMM = calcDiamFromSqMM(areaSqMM);
+			gaugeSize = calcGauge(diamMM, mmValue);
+			conductorSize = gaugeToNumber(gaugeSize);
+			areaSqMil = calcSqMil(conductorSize);
+			areaCircMil = calcCircMil(areaSqMil);
+			diamInch = calcDiameter(conductorSize, inchValue);
+			diamMil = calcDiameter(conductorSize, milValue);
+			dcResist = calcDCResist(diamInch, length, temp);
+			break;
+		default:
+			alert("Sorry, but your selection is invalid.");
+			return;
+	}
+	
+	
+	var AWGaggregate = 0;
+	var aggregateConductorSize = 0;
+	if (conductors.value > 1) {
+		AWGaggregate = numberToGauge(circToGauge(areaCircMil * conductors.value));
+		conductorSize = gaugeToNumber(AWGaggregate);
+		diamInch = calcDiameter(conductorSize, inchValue);
+		diamMil = calcDiameter(conductorSize, milValue);
+		diamMM = calcDiameter(conductorSize, mmValue);
+		areaSqMil = calcSqMil(conductorSize);
+		areaCircMil = calcCircMil(areaSqMil);
+		areaSqMM = calcSqMM(diamMM);
+		dcResist = calcDCResist(diamInch, length, temp);
+	} else
+		AWGaggregate = gaugeSize;
+
+// ====== Output ======
+if ( isNaN(dcResist) ) {
+    // ERROR, no temperature selected with slider
+	document.getElementById('answer_box').innerHTML =
+	    '<table align=center border=0>' +
+	    '  <tr>' +
+        '    <td align=center><font color=red><i><strong>No temperatue is selected!</strong></i></font></td>' +
+        '  </tr>' +
+		'</table>';
+		}
+		else
+		{
+		// No Errors
+	var decimalPlaces = 3;
+	document.getElementById('answer_box').innerHTML =
+	    '<table border=0 align=center cellspacing=0 cellpadding=2>' +
+	    '  <tr>' +
+        '    <td colspan=3 align=center><i>Resistance calculation for a temperature of</i></td>' +
+        '  </tr>' +
+	    '  <tr>' +
+        '    <td colspan=3 align=center><i><strong>' + temp + ' &ordm;C</strong> equal to <strong>' + F + ' &ordm;F</strong></i><br><br></td>' +
+        '  </tr>' +
+        '  <tr>' +
+        '    <td>AWG aggregate</td>' +
+        '    <td id="awgSize" class="awg_answer"> = ' + AWGaggregate + '</td>' +
+        '    <td>&nbsp;AWG</td>' +
+        '  </tr>' +
+        '  <tr>' +
+        '    <td>Area</td>' +
+        '    <td id="areaSqMM" class="awg_answer"> = ' + roundNumber(areaSqMM, decimalPlaces) + '</td>' +
+        '    <td>&nbsp;mm<sup>2</sup> (square millimeters)</td>' +
+        '  </tr>' +
+		'  <tr>' +
+        '    <td>Area</td>' +
+        '    <td id="areaSqMil" class="awg_answer"> = ' + roundNumber(areaSqMil, decimalPlaces) + '</td>' +
+        '    <td>&nbsp;SM (square mil)</td>' +
+        '  </tr>' +
+        '  <tr>' +
+        '    <td>Area</td>' +
+        '    <td id="areaCircMil" class="awg_answer"> = ' + roundNumber(areaCircMil, decimalPlaces) + '</td>' +
+        '    <td>&nbsp;CM (circular mil)</td>' +
+        '  </tr>' +
+        '  <tr>' +
+        '    <td>Diameter</td>' +
+        '    <td id="diamInch" class="awg_answer"> = ' + roundNumber(diamInch, decimalPlaces) + '</td>' +
+        '    <td>&nbsp;inches</td>' +
+        '  </tr>' +
+        '  <tr>' +
+        '    <td>Diameter</td>' +
+        '    <td id="diamMil" class="awg_answer"> = ' + roundNumber(diamMil, decimalPlaces) + '</td>' +
+        '    <td>&nbsp;mil</td>' +
+        '  </tr>' +
+        '  <tr>' +
+        '    <td>Diameter</td>' +
+        '    <td id="diamMM" class="awg_answer"> = ' + roundNumber(diamMM, decimalPlaces) + '</td>' +
+        '    <td>&nbsp;mm</td>' +
+        '  </tr>' +
+        '  <tr>' +
+        '    <td>DC-resistance</td>' +
+        '    <td id="dcResist" class="awg_answer"> = <strong>' + roundNumber(dcResist, 5) + '</strong>&nbsp;</td>' +
+        '    <td>&nbsp;Ohm </td>' +
+        '  </tr>' +
+		'</table>';
+    }
+}
+    </script>
+
+</head>
+<body>
+<div id="header" class="container">
+    <div id="logo">
+        <h2>HiFi&nbsp;&nbsp;Audio&nbsp;&nbsp;Prive</h2>
+    </div>
+    <br>
+    <div id="menu">
+    <br><center>
+        <ul>
+            <li><a href="javascript:history.back()" access˚key="1" title=""><-- Back</a></li>
+            <!--
+            <li><a href="Loudspeaker.html" accesskey="2" title="">Loudspeaker</a></li>
+            <li><a href="Acoustic.html" accesskey="3" title="">Acoustic</a></li> -->
+            <li><a href="../Calculator.html" accesskey="4" title="">Calculators</a></li>
+             <li><a href="../Library.html" accesskey="4" title="">Library</a></li>
+            <!--
+            <li><a href="Software.html" accesskey="6" title="">Software</a></li>
+            <li><a href="Elektronic.html" accesskey="5" title="">Electronic</a></li>
+            <li><a href="Measurement.html" accesskey="5" title="">Measurement</a></li>
+            <li class="active"><a href="Links.html" accesskey="5" title="">Links/Downloads</a></li>
+            <li><a href="EmailFormNew.asp" accesskey="5" title="">Contact</a></li> -->
+        </ul>
+        </center>
+    </div>
+</div>
+<div id="page">
+    <div class="container">  
+        <div class="title">
+            <br><h1><i>Calculate Wire Resistance</i></h1>
+        </div>
+        <div class="box0">
+            <div class="box margin-btm">
+                <center>
+                    <br>
+                    <h2><i>Wire Resistance Calculator for<br/>
+                        Copper, Aluminium, Silver and Gold</i></h2>
+                </center>
+                <br>
+                <div class="details">
+                    <p> <!-- Start Content -->
+
+                </div> <!-- end header -->
+                <form id="gaugeCalc" name="gaugeCalc" method="get" onSubmit="return false;">               
+                    <table  align="center" border="0" cellspacing="0" cellpadding="2">
+                        <tr>
+                        <td rowspan="3">
+                                <img src="../images/AWGOehlbach.png" width="330" alt=""/></td>
+                            <td align="right" width="30%">
+                                Select Unit of Measurement:
+                            </td>
+                            <td>
+                                <select name="unitType" class="frmInput" onChange="changeLabel()">
+                                    <option id="awg" value="1" selected>AWG</option>
+                                    <option id="imperial" value="2">Inches</option>
+                                    <option id="millimeters" value="3">Millimeters</option>
+                                    <option id="mil" value="4">Mil</option>
+                                    <option id="squareMil" value="5">Square Mil</option>
+                                    <option id="circMil" value="6">Circular Mil</option>
+                                    <option id="squareMM" value="7">Square Millimeters</option>
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td align="right">Material:</td>
+                            <td>
+                                <select id="ddlMetal" name="ddlMetal" class="frmInput">
+                                    <option value="x"> - Select -</option>
+                                    <option value="10.67">Aluminium</option>
+                                    <option value="6.787">Copper</option>
+                                    <option value="8.86">Gold</option> <!-- 0.022 org value, new value = 403 * 0.022 -->
+                                    <option value="4.422">Silver</option>
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="2"><br>
+                                <div class="slidecontainer">
+                                    <p>Temperature: <span id="demo"></span></p>
+                                    10&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;15&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;20
+                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;25&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;30
+                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;35&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;40
+                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;45&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;50
+
+                                    <input type="range" id="slider" min="10" max="50" step="0.1" value="20"
+                                           class="slider">
+                                </div>
+                                <br>
+                            </td>
+                        </tr>
+
+                        <!-- tr>
+                            <td colspan="2" align="center">
+                                <span class="blinking"><strong>Please select temperature with the slider!</strong></span>
+                            </td>
+                        </tr -->
+
+                        <tr>
+                            <td align="right" colspan="2">
+                                Enter Value:
+                            </td>
+                            <td>
+                                <input type="number" step="0.01" class="frmInput" id="wireSize" style="width: 4em;"/>
+                                <span id="unitLabel">Gauge</span>
+                            </td>
+                        <tr>
+                        <tr>
+                            <td align="right" colspan="2">
+                                Amont of Conductors:
+                            </td>
+                            <td>
+                                <input type="number" step="1" min="1" value="1" class="frmInput" id="conductors"
+                                       style="width: 4em;"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td align="right" colspan="2">Length:</td>
+                            <td><input type="number" step="0.1" min="0.3" max="100" id="length" style="width: 4em;"
+                                       class="frmInput">&nbsp;meter
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="3">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td align="center" colspan="3">
+                                <br>
+                                <button value="Calculate" class="calcButton" onClick="calcWireSize()">Calculate</button>
+                            </td>
+                        </tr>
+                    </table>
+                </form>
+                <br>
+                <span id="id_err"></span>
+                <div id="answer_box"></div>
+
+
+            <br><br>
+            <hr size="1" width="75%">
+                    <br><br>
+                    <center>
+						<br>                    
+                        <a href="javascript:history.back()" class="calcButton"><<< Back</a>
+                    </center>
+                    <br><br>
+            <br><br>
+</div>
+            </p> <!-- End Content -->
+
+<div class="copyright">
+    &copy;
+    <span id="copyright">
+        <script>document.getElementById('copyright').appendChild(document.createTextNode(new Date().getFullYear()))</script>
+        &nbsp;mh-Audio.nl&nbsp;&nbsp;-&nbsp;&nbsp;<a href="../disclaimer.html"><font
+            color="#000000">Disclaimer</font></a>
+    </span>
+</div>
+<script type="text/javascript" src="//fc.webmasterpro.de/counter.php?name=mh-audio"></script>
+<noscript><div><img src="//fc.webmasterpro.de/as_noscript.php?name=mh-audio" style="width:1px;height:1px;" alt="" /></div></noscript>
+<!-- https://fc.webmasterpro.de -->
+</body>
+</html>
