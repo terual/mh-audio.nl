@@ -1,0 +1,751 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<!--
+Design by TEMPLATED
+http://templated.co
+Released for free under the Creative Commons Attribution License
+
+Name       : TailPiece 
+Description: A two-column, fixed-width design with dark color scheme.
+Version    : 1.0
+Released   : 20130902
+
+-->
+<html xmlns="http://www.w3.org/1999/xhtml"><head>
+    <!-- Google Analytics -->
+    <script>
+        window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+        ga('create', 'UA-77078028-1', 'auto');
+        ga('send', 'pageview');
+    </script>
+    <script async="" src="TBias_bestanden/analytics.js"></script>
+    <!-- End Google Analytics -->
+
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>HiFi Loudspeaker Design</title>
+    <meta name="keywords" content="">
+    <meta name="description" content="">
+    <link href="TBias_bestanden/css.css" rel="stylesheet">
+    <link rel="shortcut icon" href="../favicon.ico" type="image/x-icon">
+    <link href="../css/default.css" rel="stylesheet" type="text/css" media="all">
+    <link href="../css/fonts.css" rel="stylesheet" type="text/css" media="all">
+
+    <!--[if IE 6]>
+    <link href="default_ie6.css" rel="stylesheet" type="text/css"/><![endif]-->
+    <script src="TBias_bestanden/fab.js"></script>
+
+<script language="JavaScript">
+<!--
+//	Copyright 2014 Rob Robinette
+  
+function round(number,X) {
+// rounds number to X decimal places, defaults to 3
+    X = (!X ? 3 : X);
+    return Math.round(number*Math.pow(10,X))/Math.pow(10,X);
+
+}
+
+/*
+ * When Calculate button is clicked, scroll to the calculations
+*/
+function locate() {
+  document.body.scrollTop = 550;
+  document.documentElement.scrollTop = 550;
+}
+
+function locate2() {
+  document.body.scrollTop = 1550;
+  document.documentElement.scrollTop = 1550;
+}
+
+// All the calculations are done in this function when any "Calculate" button is clicked
+function calculate() {
+
+ // Define input variables -->
+ var md = document.input.Tube.value //tube max dissipation from tube selection index -->
+ var pv = document.input.PlateVoltage.value //plate-to-cathode voltage -->
+ 
+// Input validation
+if (md =="")
+{
+	document.getElementById("selTube").innerHTML = "Please Select a Tube!";
+}
+else
+{
+	document.getElementById("selTube").innerHTML = "";
+}
+
+if (pv =="")
+{
+	document.getElementById("PlateV").innerHTML = "Please Enter Plate-to-Cathode Voltage";
+}
+else
+{
+	document.getElementById("PlateV").innerHTML = "";
+}
+
+//	Calculate tube bias dissipation limits -->
+ document.input.MaxBias.value=(md*1)//Tube max disipation or md -->
+ 
+ // ==============================
+ //	Class A Fixed Bias
+ // ============================== 
+ document.input.CoolABias.value=Math.round((md*0.7)/pv*10000)/10 //calc 70% or cool Class A dissipation -->
+ var W70 = Math.round((md*0.7)/pv*10000)/10
+ W70 = W70 * pv;
+ document.input.W70.value= W70/1000;
+ document.input.AveABias.value=Math.round((md*0.8)/pv*10000)/10 //calc 80% or average Class A dissipation -->
+ var W80 = Math.round((md*0.8)/pv*10000)/10
+ W80 = W80 * pv;
+ document.input.W80.value= W80/1000;
+ document.input.MaxABias.value=Math.round((md*0.9)/pv*10000)/10 //calc 90% or max Class A dissipation -->
+ var W90 = Math.round((md*0.9)/pv*10000)/10
+ W90 = W90 * pv;
+ document.input.W90.value= W90/1000; 
+ 
+ // ============================== 
+ //	Class AB Fixed Bias
+ // ============================== 
+ document.input.CoolABBias.value=Math.round((md*0.5)/pv*10000)/10 //calc 50% or cool Class AB Fixed Bias dissipation -->
+ var ABW50 = Math.round((md*0.5)/pv*10000)/10
+ ABW50 = ABW50 * pv;
+ document.input.ABW50.value= ABW50/1000; 
+ 
+ document.input.AveABBias.value=Math.round((md*0.6)/pv*10000)/10
+ var ABW60 = Math.round((md*0.6)/pv*10000)/10
+ ABW60 = ABW60 * pv;
+ document.input.ABW60.value= ABW60/1000; 
+
+ document.input.MaxABBias.value=Math.round((md*0.7)/pv*10000)/10 //calc 70% or Max Class AB Fixed Bias dissipation -->
+ var ABW70 = Math.round((md*0.7)/pv*10000)/10
+ ABW70 = ABW70 * pv;
+ document.input.ABW70.value= ABW70/1000; 
+ 
+ // ============================== 
+ //	Cathode Bias
+ // ============================== 
+ document.input.CoolABCBias.value=Math.round((md*0.85)/pv*10000)/10 //calc 85% or cool Cathode Bias dissipation -->
+  var CBW85 = Math.round((md*0.85)/pv*10000)/10
+ CBW85 = CBW85 * pv;
+ document.input.CBW85.value= CBW85/1000;
+ 
+ document.input.AveABCBias.value=Math.round((md*0.95)/pv*10000)/10
+ var CBW95 = Math.round((md*0.95)/pv*10000)/10
+ CBW95 = CBW95 * pv;
+ document.input.CBW95.value= CBW95/1000; 
+ 
+ document.input.MaxABCBias.value=Math.round((md*1.0)/pv*10000)/10 //calc 100% or Max Cathode Bias dissipation -->
+ var CBW100 = Math.round((md*1)/pv*10000)/10
+ CBW100 = CBW100 * pv;
+ document.input.CBW100.value= CBW100/1000
+
+ 
+ //var pc=document.input.PlateCurrent.value //plate current measured using transformer shunt method -->
+ var md2=document.input.Tube2.value //tube max dissipation from tube selection index -->
+ var pv2=document.input.PlateVoltage2.value //plate-to-cathode voltage -->
+// Input Validation 
+ if (md2 =="")
+{
+	document.getElementById("selTube2").innerHTML = "Please Select a Tube!";
+}
+else
+{
+	document.getElementById("selTube2").innerHTML = "";
+}
+
+if (pv2 =="")
+{
+	document.getElementById("PlateV2").innerHTML = "Please Enter Plate-to-Cathode Voltage";
+}
+else
+{
+	document.getElementById("PlateV2").innerHTML = "";
+}
+ 
+ 
+ var nt=document.input.NumberOfTubes.value //number of tubes that share the cathode resistor -->
+ var cv=document.input.CathodeVoltage.value //voltage drop across cathode resistor -->
+ var cr=document.input.CathodeResistor.value //cathode resistor ohms -->
+ 
+ // ==============================
+ //	Calculate tube bias dissipation using cathode resistor voltage drop  -->
+ // ==============================
+ document.input.TotalCathodeCurrent.value = Math.round(cv*1000/cr*10)/10
+ document.input.TotalPlateCurrent.value = Math.round(document.input.TotalCathodeCurrent.value*0.945*10)/10  //Copyright 2014 Rob Robinette -->
+ document.input.PlateCurrentPerTube.value = Math.round(document.input.TotalPlateCurrent.value/nt*10)/10
+ document.input.PlateDissipationPerTube.value = round((document.input.TotalPlateCurrent.value * pv2 / 100 / nt)/10, 2);
+ 
+ var pwr = round((document.input.TotalPlateCurrent.value * pv2 / 100 / nt)/10, 2);
+ pwr = (pwr*100) / md2;
+
+ 
+ document.input.PlateDissipationPerTubePct.value = pwr; 	//round((document.input.TotalPlateCurrent.value * pv2 / 100 / nt)/10, 2) / 100 * md2;  //Math.round(document.input.PlateDissipationPerTube.value/md2*1000)/10
+
+ // ==============================
+ //	Calculate triode tube bias dissipation -->
+ // ==============================
+ document.input.PlateCurrentPerTubeTriode.value=Math.round(document.input.TotalCathodeCurrent.value/nt*10)/10
+ document.input.PlateDissipationPerTubeTriode.value=Math.round(document.input.TotalCathodeCurrent.value*pv2/100/nt)/10
+ document.input.PlateDissipationPerTubePctTriode.value=Math.round(document.input.PlateDissipationPerTubeTriode.value/md2*1000)/10
+ 
+ // ==============================
+ //	Calculate tube bias dissipation using measured plate current
+ // ==============================
+ //document.input.PlateCurrent.value=(pc*1)
+ //document.input.PlateDissipation1.value=Math.round(pv*pc/100)/10
+ //document.input.PlateDissipation1Pct.value=Math.round(pv*pc/md)/10
+ //alert(md)
+ //document.input.Watt.value = pv * pc;
+ 
+ // ============================== 
+ //	Calculate tube bias dissipation using measured plate current 
+ // ==============================
+ var pcdis = document.input.PlateCurrentdis.value //	Plate Current measured using transformer shunt method -->
+ var mddis = document.input.Tubedis.value //tube max dissipation from tube selection index -->
+ var pvdis = document.input.PlateVoltagedis.value //plate-to-cathode voltage -->
+ //document.input.PlateCurrentdis.value=(pcdis*1);
+
+ document.input.PlateDissipation1.value = Math.round(pvdis * pcdis / 100) / 10;
+ Perect = Math.round(pvdis * pcdis / mddis) / 10 > 100;
+ 
+ //if (Math.round(pvdis * pcdis / mddis) / 10 > 100)
+ //{ then
+ //document.input.PlateDissipation1Pct.value = + "font color=red" + Math.round(pvdis * pcdis / mddis) / 10;
+// else
+  document.input.PlateDissipation1Pct.value = Math.round(pvdis * pcdis / mddis) / 10;
+//}
+// -->
+}
+</script>
+</head>
+<body>
+<div id="header" class="container">
+    <div id="logo">
+        <h2>HiFi&nbsp;&nbsp;Audio&nbsp;&nbsp;Design</h2>
+    </div>
+    <br>
+    <div id="menu"><br><center>
+        <ul>
+            <li><a href="../index.html" accesskey="1" title="">Home</a></li>
+            <!--
+            <li><a href="../Loudspeaker.html" accesskey="2" title="">Loudspeaker</a></li>
+            <li><a href="../Acoustic.html" accesskey="3" title="">Acoustic</a></li>
+            -->
+            <li class="active"><a href="../Calculator.html" accesskey="4" title="">Calculators</a></li>
+            <!--
+            <li><a href="../Software.html" accesskey="6" title="">Soft & Hardware</a></li>
+            <li><a href="../Elektronic.html" accesskey="5" title="">Electronic</a></li>
+            <li><a href="../Measurement.html" accesskey="5" title="">Measurement</a></li>
+            <li><a href="../Links.html" accesskey="5" title="">Links/Downloads</a></li>
+            -->
+            <li><a href="../Library.html" accesskey="7" title="">Library</a></li>
+            <!--
+            <li><a href="../EmailFormNew.asp" accesskey="5" title="">Contact</a></li>
+            -->
+        </ul>
+        </center>
+    </div>
+</div>
+<div id="page">
+    <div class="container">
+    <!-- PayPal Donate Button -->
+    <div class="copyright"> 
+        <div class="title">
+            <h1><i>Tube Bias Calculator</i></h1>
+        </div>
+        <div class="box0">
+            
+                <div class="details">
+                    <p> <!-- Start Content -->
+                    </p>
+                    <form name="input">
+                    <table class="Calctable" width="100%" cellspacing="0" cellpadding="2" align="center">                   
+                    <tbody><tr>
+                    <td><br><br>                   
+                        <table class="Calctable" width="100%" cellspacing="0" cellpadding="2" border="1" align="center">
+                       		<tbody><tr>
+                    			<td colspan="3" align="center">
+                    			<br>
+                    			<h2><i>Calculate Tube Bias</i></h2><br>
+                    		</td></tr>                      
+                            <tr>
+                            	<td rowspan="2" width="300" align="center">
+                                    ;<select name="Tube" size="14" class="frmInput" required="" autofocus="">
+                                    	<option value="">Select tube</option>
+                                    	<option value="">----------</option>
+                                        <option value="0.75">6J7 0.75W</option>
+                                        <option value="1">6SL7GT 1W</option>
+                                        <option value="1.1">6SL7 1.1W</option>
+                                        <option value="2">12AX7 2W</option>
+                                        <option value="3">12AY7 3W</option>
+                                        <option value="5">12AT7 5W</option>
+                                        <option value="5.5">12AU7 5.5W</option>
+                                        <option value="7">12BH7 7W</option>
+                                        <option value="7">12BH7A 7W</option>
+                                        <option value="7.5">6SN7 7.5W</option>
+                                        <option value="7.5">6CL6 7.5W</option>
+                                        <option value="8.5">6K6GT 8.5W</option>
+                                        <option value="10">ECC99 10W</option>
+                                        <option value="12">SV83 12W</option>
+                                        <option value="12">EL84 12W</option>
+                                        <option value="12">5673 12W</option>
+                                        <option value="12">5AQ5 12W</option>
+                                        <option value="12">6AQ5 12W</option>
+                                        <option value="12">6BQ5 12W</option>
+                                        <option value="12">6CM6 12W</option>
+                                        <option value="12">7189 12W</option>
+                                        <option value="12">12AQ5 12W</option>
+                                        <option value="12">12AB5 12W</option>
+                                        <option value="12">6V6 12W</option>
+                                        <option value="12">6V6GT 12W</option>
+                                        <option value="12">6V6GTA 12W</option>
+                                        <option value="40">300B 40W</option>
+                                        <option value="14">JJ6V6S 14W</option>
+                                        <option value="15">2A3 15W  </option>
+                                        <option value="15" selected="selected">7591 15W</option>
+                                        <option value="20">6N3C 20W</option>
+                                        <option value="20.5">6N3C-E 20.5W</option>
+                                        <option value="20">6P3S 20W</option>
+                                        <option value="20.5">6P3S-E 20.5W</option>
+                                        <option value="23">5881 23W</option>
+                                        <option value="25">6CA7 25W</option>
+                                        <option value="25">6CA7 25W</option>
+                                        <option value="25">EL34 25W</option>
+                                        <option value="22">EL34LS 22W</option>
+                                        <option value="25">KT66 25W</option>
+                                        <option value="25">KT77 25W</option>
+                                        <option value="26">5881WXT 26W</option>
+                                        <option value="19">6L6 19W</option>
+                                        <option value="19">6L6G 19W</option>
+                                        <option value="19">6L6GB 19W</option>
+                                        <option value="26">6L6WGB 26W</option>
+                                        <option value="26">6L6WGC 26W</option>
+                                        <option value="30">6L6GC 30W</option>
+                                        <option value="30">6L6WXT 30W</option>
+                                        <option value="35">7027 35W</option>
+                                        <option value="35">7027A 35W</option>
+                                        <option value="36">300B 36W</option>
+                                        <option value="35">KT88 35W</option>
+                                        <option value="42">KT88S 42W</option>
+                                        <option value="42">6550 42W</option>
+                                        <option value="42">6550A 42W</option>
+                                        <option value="35">6550C 35W</option>
+                                        <option value="50">KT90 50W</option>
+                                        <option value="60">KT120 60W</option>
+                                        <option value="70">KT150 70W</option>		
+                                    </select>
+                                </td>
+                            </tr>
+                            <tr>
+                            	<td colspan="2">
+								Plate to Cathode Voltage&nbsp;:&nbsp;<input type="number" step="0.1" class="frmInput" name="PlateVoltage" size="5" value=""> VDC<br>
+								(plate voltage minus cathode voltage) 
+                            	</td>
+                            </tr>
+                            <tr>
+                            	<td colspan="3" align="center">
+                                    <!--font color="red"><span id="selTube"></span></font>
+                                    <br-->
+                            		<font color="red"><span id="PlateV"></span></font><br><br>
+                            		<input type="BUTTON" class="calcButton" value="Calculate" onclick="calculate()">
+                            		<br><br>
+                            	</td>
+                            </tr>                            
+                            <tr>
+                                <td align="right">
+                                    Tube Max Dissipation =
+                                </td>
+                                <td colspan="2" align="left">
+                                    <input type="number" step="0.1" class="frmOutput" name="MaxBias" size="4" readonly="readonly" value="">watts&nbsp; <i>100% Pa</i>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="3" align="center">
+                                    <h2><i>Class A Fixed Bias</i></h2>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td align="right">
+                                    70% Cool =
+                                </td>
+                                <td align="left" width="120px">
+                                    <input type="number" step="0.1" class="frmOutput" name="CoolABias" size="4" readonly="readonly" value=""> mA
+                                </td>
+                                <td align="left">    
+                                    <input type="number" step="0.1" class="frmOutput" name="W70" size="4" readonly="readonly" value=""> Watts
+                                </td>
+                            </tr>
+                            <tr>
+                                <td align="right">
+                                    80% Average =
+                                </td>
+                                <td align="left">
+                                    <input type="number" step="0.1" class="frmOutput" name="AveABias" size="4" readonly="readonly" value=""> mA
+                                </td>
+                                <td align="left">    
+                                    <input type="number" step="0.1" class="frmOutput" name="W80" size="4" readonly="readonly" value=""> Watts
+                                </td>                                
+                            </tr>
+                            <tr>
+                                <td align="right">
+                                    90% Max Safe Dissipation =
+                                </td>
+                                <td align="left">
+                                    <input type="number" step="0.1" class="frmOutput" name="MaxABias" size="4" readonly="readonly" value=""> mA
+                                </td>
+                                <td align="left">    
+                                    <input type="number" step="0.1" class="frmOutput" name="W90" size="4" readonly="readonly" value=""> Watts
+                                </td>                                
+                            </tr>
+                            <tr>
+                                <td colspan="3" align="center">
+                                    <h2><i>Class AB Fixed Bias</i></h2>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td align="right">
+                                    50% Cool =
+                                </td>
+                                <td>
+                                    <input type="number" step="0.1" class="frmOutput" name="CoolABBias" size="4" readonly="readonly" value=""> mA
+                                </td>
+								<td align="left">
+								 <input type="number" step="0.1" class="frmOutput" name="ABW50" size="4" readonly="readonly" value=""> Watts
+								</td>
+                            </tr>
+                            <tr>
+                                <td align="right">60% Average =</td>
+                                <td><input type="number" step="0.1" name="AveABBias" size="4" readonly="readonly" value=""> mA</td>
+                                <td align="left"><input type="number" step="0.1" class="frmOutput" name="ABW60" size="4" readonly="readonly" value=""> Watts</td>
+                            </tr>
+                            <tr>
+                                <td align="right">
+                                    70% Max Safe Dissipation =
+                                </td>
+                                <td><input type="number" step="0.1" class="frmOutput" name="MaxABBias" size="4" readonly="readonly" value=""> mA</td>
+                                <td align="left"><input type="number" step="0.1" class="frmOutput" name="ABW70" size="4" readonly="readonly" value=""> Watts</td>
+                            </tr>
+                             <tr>
+                                <td colspan="3" align="center">
+                                    <h2><i>Cathode Bias</i></h2>
+                                </td>
+                            </tr>                           
+                            <tr>
+                                <td align="right">85% Cool = </td>
+                                <td><input type="number" step="0.1" class="frmOutput" name="CoolABCBias" size="4" readonly="readonly" value=""> mA</td>
+                                <td align="left"><input type="number" step="0.1" class="frmOutput" name="CBW85" size="4" readonly="readonly" value=""> Watts</td>
+                            </tr>
+                            <tr>
+                                <td align="right">95% Average = </td>
+                                <td><input type="number" step="0.1" class="frmOutput" name="AveABCBias" size="4" readonly="readonly" value=""> mA</td>
+                                <td align="left"><input type="number" step="0.1" class="frmOutput" name="CBW95" size="4" readonly="readonly" value=""> Watts</td>
+                            </tr>
+                            <tr>
+                                <td align="right">100% Max Safe Dissipation = </td>
+                                <td><input type="number" step="0.1" class="frmOutput" name="MaxABCBias" size="4" readonly="readonly" value=""> mA</td>
+                                <td align="left"><input type="number" step="0.1" class="frmOutput" name="CBW100" size="4" readonly="readonly" value=""> Watts</td>
+                            </tr>
+                            <tr>
+                            	<td colspan="3" align="center">Fixed bias amps have a bias circuit that puts a negative voltage on the power tube grid.<br>The grid of cathode biased amps will be at 0 volts.</td>
+                            </tr>
+                            <tr><td colspan="3" height="20"></td></tr>
+                        </tbody></table>
+                        <br>
+                        <br>
+                        <hr width="75%" size="1">
+                        <br><br>
+                        
+                        
+                        <!-- Tube Dissipation Using Cathode Resistor Voltage Drop -->
+                    	<table class="Calctable" width="100%" border="1" align="center"> 
+                    		<tbody><tr>
+                    			<td colspan="3" align="center">
+                    			<br>
+                    				<h2><i>Tube Dissipation Using Cathode Resistor Voltage Drop</i></h2><br>
+                    				<!--<i><font color="red">Please enter <strong>Tube Type</strong> and <strong>Plate-to-Cathode Voltage</strong> above before calculating Tube Dissipation.</font></i><br><br> -->
+                    			</td>
+                    		</tr>
+                       <tr>
+                                <td rowspan="7" align="center" width="130">
+                                    <select name="Tube2" size="12" class="frmInput" required="">
+                                    	<option value="">Select tube</option>
+                                    	<option value="">----------</option>
+                                        <option value="15">2A3 15W  </option>
+                                        <option value="0.75">6J7 0.75W</option>
+                                        <option value="1">6SL7GT 1W</option>
+                                        <option value="1.1">6SL7 1.1W</option>
+                                        <option value="2">12AX7 2W</option>
+                                        <option value="3">12AY7 3W</option>
+                                        <option value="5">12AT7 5W</option>
+                                        <option value="5.5">12AU7 5.5W</option>
+                                        <option value="7">12BH7 7W</option>
+                                        <option value="7">12BH7A 7W</option>
+                                        <option value="7.5">6SN7 7.5W</option>
+                                        <option value="7.5">6CL6 7.5W</option>
+                                        <option value="8.5">6K6GT 8.5W</option>
+                                        <option value="10">ECC99 10W</option>
+                                        <option value="12">SV83 12W</option>
+                                        <option value="12">EL84 12W</option>
+                                        <option value="12">5673 12W</option>
+                                        <option value="12">5AQ5 12W</option>
+                                        <option value="12">6AQ5 12W</option>
+                                        <option value="12">6BQ5 12W</option>
+                                        <option value="12">6CM6 12W</option>
+                                        <option value="12">7189 12W</option>
+                                        <option value="12">12AQ5 12W</option>
+                                        <option value="12">12AB5 12W</option>
+                                        <option value="12">6V6 12W</option>
+                                        <option value="12">6V6GT 12W</option>
+                                        <option value="12">6V6GTA 12W</option>
+                                        <option value="40">300B 40W</option>
+                                        <option value="14">JJ6V6S 14W</option>
+                                        <option value="15" selected="selected">7591 15W</option>
+                                        <option value="20">6N3C 20W</option>
+                                        <option value="20.5">6N3C-E 20.5W</option>
+                                        <option value="20">6P3S 20W</option>
+                                        <option value="20.5">6P3S-E 20.5W</option>
+                                        <option value="23">5881 23W</option>
+                                        <option value="25">6CA7 25W</option>
+                                        <option value="25">6CA7 25W</option>
+                                        <option value="25">EL34 25W</option>
+                                        <option value="22">EL34LS 22W</option>
+                                        <option value="25">KT66 25W</option>
+                                        <option value="25">KT77 25W</option>
+                                        <option value="26">5881WXT 26W</option>
+                                        <option value="19">6L6 19W</option>
+                                        <option value="19">6L6G 19W</option>
+                                        <option value="19">6L6GB 19W</option>
+                                        <option value="26">6L6WGB 26W</option>
+                                        <option value="26">6L6WGC 26W</option>
+                                        <option value="30">6L6GC 30W</option>
+                                        <option value="30">6L6WXT 30W</option>
+                                        <option value="35">7027 35W</option>
+                                        <option value="35">7027A 35W</option>
+                                        <option value="36">300B 36W</option>
+                                        <option value="35">KT88 35W</option>
+                                        <option value="42">KT88S 42W</option>
+                                        <option value="42">6550 42W</option>
+                                        <option value="42">6550A 42W</option>
+                                        <option value="35">6550C 35W</option>
+                                        <option value="50">KT90 50W</option>
+                                        <option value="60">KT120 60W</option>
+                                        <option value="70">KT150 70W</option>
+                                    </select>
+                                    <font color="red"><div id="selTube2"></div></font>
+                                </td>
+                            </tr>
+                            
+                            <tr>                            
+                            <td width="490" align="right">Plate to Cathode Voltage : </td>
+                            <td width="90" colspan="2">
+                                <input type="number" step="0.1" class="frmInput" name="PlateVoltage2" size="3" value=""> VDC
+                            </td>
+                            </tr>
+                            <tr>
+                            	<td colspan="3" valign="top" align="center">(plate voltage minus cathode voltage)</td>
+                            </tr>                            
+                            <tr>
+                            	<td colspan="3" align="center"><font color="red"><div id="PlateV2"></div></font></td>
+                            </tr>	
+                    		<tr>
+								<td align="right">Number of Tubes that share a cathode resistor : </td>
+								<td colspan="2"><input type="number" step="0.1" class="frmInput" name="NumberOfTubes" size="4" value="">
+								</td>
+							</tr>
+							<tr>
+								<td align="right">Enter Voltage Across Cathode Resistor : </td>
+								<td colspan="2"><input type="number" step="0.1" class="frmInput" name="CathodeVoltage" size="4" value=""> VDC</td>
+							</tr>
+							<tr>
+								<td align="right">Enter Cathode Resistor : </td>
+								<td colspan="2"><input type="number" step="0.1" class="frmInput" name="CathodeResistor" size="4" value=""> Ohm</td>
+							</tr>
+							<tr>
+								<td colspan="3" align="center">
+								<br><input type="BUTTON" class="calcButton" name="calc2" value="Calculate" onclick="calculate(), locate2()">
+								<br><br>
+								</td>
+							</tr>
+						</tbody></table>
+						
+						<table class="Calctable" border="1" align="center" width="100%"> 
+							<tbody>
+							<tr>
+								<td width="260" align="right">Total Cathode Current = </td>
+								<td><input type="number" step="0.1" class="frmOutput" name="TotalCathodeCurrent" size="4" readonly="readonly" value=""> mA</td>
+								<td></td>
+							</tr>
+							<tr>
+								<td align="right">Total Plate Current = </td>
+								<td width="110">								
+								<input type="number" step="0.1" class="frmOutput" name="TotalPlateCurrent" size="4" readonly="readonly" value=""> mA
+								</td>
+								<td><i>&nbsp;= Cathode current minus approx. screen current of <b>5.5%</b></i></td>
+							</tr>
+							<tr>
+								<td align="right">Plate Current per Tube = </td>
+								<td>								
+								<input type="number" step="0.1" class="frmOutput" name="PlateCurrentPerTube" size="4" readonly="readonly" value=""> mA
+								</td>
+								<td>								
+ 								<i>&nbsp;= Total Plate Current / Number of Tubes</i>
+ 								</td>
+ 							</tr>
+ 							<tr>
+ 								<td align="right">Plate Dissipation per Tube = </td>
+								<td><input type="number" step="0.1" class="frmOutput" name="PlateDissipationPerTube" size="4" readonly="readonly" value=""> W</td>
+								<td><i>&nbsp;= Plate Current per Tube x Plate Voltage</i></td>
+ 							</tr>
+							<tr>
+								<td align="right">Plate Dissipation per Tube % = </td>
+								<td><input type="number" step="0.1" class="frmOutput" name="PlateDissipationPerTubePct" size="4" readonly="readonly" value="">&nbsp;%</td>
+								<td></td>
+							</tr>
+							<tr><td colspan="3" height="20"><!-- Spacer --></td></tr>
+							<tr>
+								<td colspan="3" align="center">
+								 If your tube is a <b>triode</b> (or <b>dual triode</b>  with both triodes used) your plate current is
+								</td>
+							</tr>
+							<tr>	
+								<td></td>
+								<td>								 
+								 <input type="number" step="0.1" class="frmOutput" name="PlateCurrentPerTubeTriode" size="4" value=""> mA
+								</td>
+								<td>Plate Dissipation is <input type="number" step="0.1" class="frmOutput" name="PlateDissipationPerTubeTriode" size="4" value="">&nbsp;Watt 
+								 &nbsp;= <input type="number" step="0.1" class="frmOutput" name="PlateDissipationPerTubePctTriode" size="4" value="">&nbsp;%
+								</td>
+							</tr>
+							<tr><td colspan="3" height="20"></td></tr>
+						</tbody></table>
+						<br><br>
+						
+						
+						<table class="Calctable" width="100%" border="1" align="center"> 
+						<tbody><tr>
+							<td colspan="3" align="center">
+								<br><h2><i>Calculate Tube Dissipation Using Plate Current</i></h2><br>
+							</td>						
+						</tr>
+						<tr>
+							<td rowspan="7" width="150" valign="top" align="left">
+                                    <select name="Tubedis" size="15" class="frmInput" required="">
+                                    	<option value="">Select the tube you want to calculate</option>
+                                    	<option value="">----------</option>
+                                        <option value="0.75">6J7 0.75W</option>
+                                        <option value="1">6SL7GT 1W</option>
+                                        <option value="1.1">6SL7 1.1W</option>
+                                        <option value="2">12AX7 2W</option>
+                                        <option value="3">12AY7 3W</option>
+                                        <option value="5">12AT7 5W</option>
+                                        <option value="5.5">12AU7 5.5W</option>
+                                        <option value="7">12BH7 7W</option>
+                                        <option value="7">12BH7A 7W</option>
+                                        <option value="7.5">6SN7 7.5W</option>
+                                        <option value="7.5">6CL6 7.5W</option>
+                                        <option value="8.5">6K6GT 8.5W</option>
+                                        <option value="10">ECC99 10W</option>
+                                        <option value="12">SV83 12W</option>
+                                        <option value="12">EL84 12W</option>
+                                        <option value="12">5673 12W</option>
+                                        <option value="12">5AQ5 12W</option>
+                                        <option value="12">6AQ5 12W</option>
+                                        <option value="12">6BQ5 12W</option>
+                                        <option value="12">6CM6 12W</option>
+                                        <option value="12">7189 12W</option>
+                                        <option value="12">12AQ5 12W</option>
+                                        <option value="12">12AB5 12W</option>
+                                        <option value="12">6V6 12W</option>
+                                        <option value="12">6V6GT 12W</option>
+                                        <option value="12">6V6GTA 12W</option>
+                                        <option value="14">JJ6V6S 14W</option>
+                                        <option value="15">2A3 15W  </option>
+                                        <option value="15">7591 15W</option>
+                                        <option value="20">6N3C 20W</option>
+                                        <option value="20.5">6N3C-E 20.5W</option>
+                                        <option value="20">6P3S 20W</option>
+                                        <option value="20.5">6P3S-E 20.5W</option>
+                                        <option value="23">5881 23W</option>
+                                        <option value="25">6CA7 25W</option>
+                                        <option value="25">6CA7 25W</option>
+                                        <option value="25">EL34 25W</option>
+                                        <option value="22">EL34LS 22W</option>
+                                        <option value="25">KT66 25W</option>
+                                        <option value="25" selected="selected">KT77 25W</option>
+                                        <option value="26">5881WXT 26W</option>
+                                        <option value="19">6L6 19W</option>
+                                        <option value="19">6L6G 19W</option>
+                                        <option value="19">6L6GB 19W</option>
+                                        <option value="26">6L6WGB 26W</option>
+                                        <option value="26">6L6WGC 26W</option>
+                                        <option value="30">6L6GC 30W</option>
+                                        <option value="30">6L6WXT 30W</option>
+                                        <option value="35">7027 35W</option>
+                                        <option value="35">7027A 35W</option>
+                                        <option value="36">300B 36W</option>
+                                        <option value="35">KT88 35W</option>
+                                        <option value="42">KT88S 42W</option>
+                                        <option value="42">6550 42W</option>
+                                        <option value="42">6550A 42W</option>
+                                        <option value="35">6550C 35W</option>
+                                        <option value="50">KT90 50W</option>
+                                        <option value="60">KT120 60W</option>
+                                        <option value="70">KT150 70W</option>
+                                    </select>
+                                    <br>
+                                    <font color="red"><span id="selTube"></span></font>
+                                    </td></tr>
+						<tr>
+							<td width="200" align="right">Plate Voltage : </td>
+							<td><input type="number" step="0.1" class="frmInput" name="PlateVoltagedis" size="4" value=""> VDC</td>
+						</tr>	
+                            <tr>
+                            	<td></td>
+                            	<td colspan="2" valign="top"> (plate voltage minus cathode voltage)</td>
+                            </tr>											
+						<tr>
+							<td width="200" align="right">Plate Current : </td>
+							<td><input type="number" step="0.1" class="frmInput" name="PlateCurrentdis" size="4" value=""> mA</td>
+						</tr>
+						<tr>
+							<td colspan="2" align="center"><br><input type="BUTTON" class="calcButton" name="calc2" value="Calculate" onclick="calculate()"><br></td>
+						</tr>	
+						<tr>
+							<td align="right">Plate Dissipation = </td>
+							<td><input type="number" step="0.1" class="frmOutput" name="PlateDissipation1" size="4" readonly="readonly" value=""> watts</td>
+						</tr>
+						<tr>
+							<td align="right">Plate Dissipation = </td>
+							<td><input type="number" step="0.1" class="frmOutput" name="PlateDissipation1Pct" size="4" readonly="readonly" value=""> %</td>
+						</tr>
+						<tr><td colspan="3" height="20"></td></tr>
+						</tbody></table>
+															
+						<center>
+						<br><br>
+                		<hr width="75%" size="1">
+                		<br>                 
+                        <a href="javascript:history.back()" class="calcButton">&lt;&lt;&lt; Back</a>
+                        <br><br>
+                    	</center>
+					</td>
+				</tr>
+			</tbody></table>
+			</form>			
+                <p></p> <!-- End Content -->
+            </div>
+        </div>
+    </div>
+
+<div class="copyright">
+    ©
+    <span id="copyright">
+        <script>document.getElementById('copyright').appendChild(document.createTextNode(new Date().getFullYear()))</script>2023
+        &nbsp;mh-Audio.nl&nbsp;&nbsp;-&nbsp;&nbsp;<a href="../disclaimer.html"><font color="#000000">Disclaimer</font></a>
+    </span>
+</div>
+</div>
+<script type="text/javascript" src="TBias_bestanden/counter.php"></script>
+<noscript><div><img src="//fc.webmasterpro.de/as_noscript.php?name=mh-audio" style="width:1px;height:1px;" alt="" /></div></noscript>
+<!-- https://fc.webmasterpro.de -->
+
+</body></html>

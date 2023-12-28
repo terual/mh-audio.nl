@@ -1,0 +1,342 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<head>
+    <!-- Global Site Tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-7919611-1"></script>
+    <script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-7919611-1');
+
+
+    </script>
+    <!-- Global Site Tag (gtag.js) - Google Analytics -->
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>Calculate Tube Amplifier Output Transformer Load Resistance</title>
+    <meta name="keywords" content=""/>
+    <meta name="description" content=""/>
+    <link href="http://fonts.googleapis.com/css?family=Source+Sans+Pro:200,300,400,600,700,900" rel="stylesheet"/>
+    <link rel="shortcut icon" href="../favicon.ico" type="image/x-icon">
+    <link href="../css/default.css" rel="stylesheet" type="text/css" media="all"/>
+    <link href="../css/fonts.css" rel="stylesheet" type="text/css" media="all"/>
+
+    <!--[if IE 6]>
+    <link href="default_ie6.css" rel="stylesheet" type="text/css"/><![endif]-->
+    <script src="../js/fab.js"></script>
+
+    <script type="text/javascript">
+
+function round(number,X) {
+	// rounds number to X decimal places, defaults to 3
+	X = (!X ? 3 : X);
+	return Math.round(number*Math.pow(10,X))/Math.pow(10,X);
+}
+
+function calc_OT()
+{
+var TV, TP, TS, SL, ratio, Tratio, TLR
+
+//TV = document.frmOT.TV.value; 	// Transformer voltage
+TP = document.frmOT.TP.value; 	// Primary voltage
+TS = document.frmOT.TS.value; 	// Secondary voltage
+SL = document.frmOT.SL.value; 	// Speaker resistance
+
+
+// validate  TPrimary
+  if (isNaN(TP) || TP < 1 || TP > 500)
+  {
+    textTP = " between 1 and 500 volts";
+    document.getElementById("errTP").innerHTML = textTP;
+  }
+  else
+  {
+    textTP = "";
+    document.getElementById("errTP").innerHTML = textTP;
+  }
+
+// validate  TSecondary
+  if (isNaN(TS) || TS < 0.01 || TS > 20)
+  {
+    textTS = " between 0.01 and 50 volts";
+    document.getElementById("errTS").innerHTML = textTS;
+  }
+  else
+  {
+    textTS = "";
+    document.getElementById("errTS").innerHTML = textTS;
+  }
+
+
+// validate  SLload
+  if (isNaN(SL) || SL < 1 || SL > 25)
+  {
+    textSL = " between 1 and 25 ohme";
+    document.getElementById("errSL").innerHTML = textSL;
+  }
+  else
+  {
+    textSL = "";
+    document.getElementById("errSL").innerHTML = textSL;
+  }
+
+
+
+if (TP <= TS)
+{
+//alert("ERROR ! \n\n Measured Voltage across the secondary taps is too low!" );
+}
+		
+ratio = TP/TS; 			// Turn ratio
+Tratio = ratio * ratio;
+TLR = Tratio * SL 		// OT Load Resistance
+
+// Output
+document.frmOT.ratio.value = round(ratio, 1) + " : 1";  // Turn ratio
+document.frmOT.TLR.value    = round(TLR, 1);     // Transformer Load Resistance
+
+
+}
+</script>
+</head>
+<body>
+<div id="header" class="container">
+    <div id="logo">
+        <h2>HiFi&nbsp;&nbsp;Audio&nbsp;&nbsp;Prive</h2>
+    </div>
+    <br>
+    <div id="menu"><br><center>
+        <ul>
+            <li><a href="javascript:history.back()" access˚key="1" title=""><-- Back</a></li>
+            <!--
+            <li><a href="../Loudspeaker.html" accesskey="2" title="">Loudspeaker</a></li>
+            <li><a href="../Acoustic.html" accesskey="3" title="">Acoustic</a></li>
+            -->
+            <li class="active"><a href="../Calculator.html" accesskey="4" title="">Calculators</a></li>
+            <!--
+            <li><a href="../Software.html" accesskey="6" title="">Soft & Hardware</a></li>
+            <li><a href="../Elektronic.html" accesskey="5" title="">Electronic</a></li>
+            <li><a href="../Measurement.html" accesskey="5" title="">Measurement</a></li>
+            <li><a href="../Links.html" accesskey="5" title="">Links/Downloads</a></li>
+            -->
+            <li><a href="../Library.html" accesskey="7" title="">Library</a></li>
+            <!--
+            <li><a href="../EmailFormNew.asp" accesskey="5" title="">Contact</a></li>
+            -->
+        </ul>
+        </center>
+    </div>
+</div>
+<button onclick="topFunction()" id="myBtn" title="Go To Top">⬆</button>
+<button id="myBtnDown" onclick="scrollWin()" title="Scroll Down">⬇</button>
+<div id="page">
+    <div class="container">
+    <!-- PayPal Donate Button -->
+    <div class="copyright">
+		<!--center> 
+			<i>Please donate to keep this site alive...</i><br>       
+			<form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_blank">
+				<input type="hidden" name="cmd" value="_donations" />
+				<input type="hidden" name="business" value="VSAAYZF3DEGLC" />
+				<input type="hidden" name="currency_code" value="EUR" />
+				<input type="image" src="https://www.paypalobjects.com/en_US/NL/i/btn/btn_donateCC_LG.gif" border="0" name="submit" title="Please donate to keep this site alive!" alt="Donate with PayPal button" />
+				<img alt="" border="0" src="https://www.paypal.com/en_NL/i/scr/pixel.gif" width="1" height="1" />
+			</form>
+		</center -->     
+    </div>
+    <!-- END PayPal Donate Button -->     
+        <div class="title">
+            <br><h1><i>Calculate Tube Amplifier Output Transformer Load Resistance</i></h1>
+        </div>
+        <br>
+        <div class="box0">
+            <div class="box margin-btm">
+                <div class="details">
+                    <br>
+                    <center><img src="../images/JamesAudio_OT.jpg" width="420"></center>
+                    <br>
+                    <p> <!-- Start Content -->
+
+                    <form name="frmOT">
+                        <table align="center" width="640" border="0" class="pageContent">
+                            <tr>
+                                <td>
+                                    <br>
+                                    To determine the turns ratio we apply an ac voltage to the primary, and measure the
+                                    voltage in the secondary. <br>
+                                    <br>
+                                    <center>
+                                        <img src="../images/OTmeasurement.jpg">
+                                    </center>
+                                    <ol>
+                                        <li>A transformer ( 10 - 15 volts ) is used to apply the ac voltage to the
+                                            primary of the Output Transformer (OT)
+                                        </li>
+
+                                        <li>An ac voltmeter is connected to the secondary of the OT to measure the
+                                            output voltage.
+                                        </li>
+
+                                        <li>Now, measure then primary voltage of the OT</li>
+                                    </ol>
+                                    <br>
+                                    For example, if the voltage on the primary measures <b>13 volts</b> and the
+                                    secondary measures <b>0.52 volts</b> the turns ratio is <b>25:1</b>
+                                    <br><br>To determine the load resistance for the desired given speaker load, square
+                                    the turns ratio you calculated and multiply that number by the desired speaker load
+                                    (i.e. 4, 8, 16 ohms).
+                                    <br><br>
+                                </td>
+                            </tr>
+                        </table>
+                        <br><br>
+                        <center><h2><i>Calculate Transformer Ratio & Load Resistance</i></h2></center>
+                        <br>
+                        <table align="center" width="95%" border="0" cellspacing="0" cellpadding="2" class="Calctable">
+                            <!--tr>
+                            <td align="right">Transformer Voltage =</td>
+                            <td><input type="number" name="TV" style="width: 6em;">&nbsp;Volts</td>
+                            </tr-->
+                            <tr>
+                                <td align="right">Measured Voltage across the <strong>secondary</strong> taps ( Vout ) =
+                                </td>
+                                <td><input type="number" step="0.01" class="frmInput" name="TS" id="TS"
+                                           style="width: 6em;">&nbsp;Volts
+                                    <font color="red">&nbsp;<span id="errTS"></span></font>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td align="right">Measured Voltage across the <strong>primary</strong> taps ( Vin ) =
+                                </td>
+                                <td><input type="number" step="0.01" class="frmInput" name="TP" id="TP"
+                                           style="width: 6em;">&nbsp;Volts
+                                    <font color="red">&nbsp;<span id="errTP"></span></font>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td align="right">Desired <strong>speaker load</strong> (i.e. 4, 8, 16 ohms) =</td>
+                                <td><input type="number" step="0.1" class="frmInput" name="SL" id="SL"
+                                           style="width: 6em;">&nbsp;Ohms
+                                    <font color="red">&nbsp;<span id="errSL"></span></font>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="2">
+                                <td><br><br></td>
+                            </tr>
+                            <tr>
+                                <td align="right">Turn Ratio =</td>
+                                <td>
+                                    <input type="text|" name="ratio" size="8" class="frmOutput" readonly></td>
+                            </tr>
+                            <tr>
+                                <td align="right">Load resistance for the desired given speaker load =
+                                </td>
+                                <td>
+                                    <input type="text|" name="TLR" size="8" class="frmOutput" readonly>&nbsp;Ohms
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="2" align="center">
+                                    <br>
+                                    <input value="Transformer Load Resistance" type="button"
+                                           class="calcButton" name="calcOT" onclick="calc_OT()">
+                                           <br><br>
+                                </td>
+                            </tr>
+                        </table>
+                    </form>
+                    <br><br><br>
+
+                    <!-- Replace shorted output Transformer -->
+
+                    <center>
+                        <h2><i>Replace Output Transformer</I></h2><br>
+                    </center>
+                    <form name="frmChangeOT">
+                        <table align="center" width="75%" border="0" cellspacing="0" cellpadding="2">
+                            <tr>
+                                <td>
+                                    Lets assume we have a set that has an output transformer with an open winding that
+                                    must be replaced, and the output tube is a single 2A3 Triode.<br>
+                                    First we look at the 2A3 Tube Datasheet and see that a 2A3 should work into a load
+                                    resistance of approximately 2500 ohms. <br><br>
+                                    With this information we can determine what the turns ratio should be. By dividing
+                                    the secondary load of the loudspeaker ( 4, 8, 16 ohms ) into the 2500 ohms required
+                                    by the 2A3,
+                                    we get an impedance ratio of 312.5 : 1<br><br>
+                                    If the impedance ratio is the square of the turns ratio, then the turns ratio is the
+                                    square root of the impedance ratio. <br>
+                                    Taking the square root of 312.5 gives us a 17.7 : 1 ratio, so an output transformer
+                                    with a turns ratio in this range should work.
+                                </td>
+                            </tr>
+                        </table>
+                    </form>
+                    <br><br<br>
+                    <!-- Tube Datasheet Links -->
+                    <center>
+                        <h2>Tube Datasheet Links</I></h2><br>
+                    </center>
+                    <table align="center" width="20%" border="0" cellspacing="0" cellpadding="2">
+                        <tr>
+                            <td valign="top">
+                                <a href="https://frank.pocnet.net/sheets/049/2/211.pdf" target="blank"
+                                   title="211Tube Datasheet" class="calcButton">211</a><br><br>
+                                <a href="http://www.tubezone.net/pdf/2a3.pdf" target="blank" title="2A3 Tube Datasheet"
+                                   class="calcButton">2A3 </a><br><br>
+                                <a href="http://www.mif.pg.gda.pl/homepages/frank/sheets/084/3/300B.pdf" target="blank"
+                                   title="Tube Datasheet" class="calcButton">300B</a><br><br>
+                                <a href="http://drtube.com/datasheets/5881-tungsol1962.pdf" target="blank"
+                                   title="300B Tube Datasheet" class="calcButton">5881 </a><br><br>
+                                <a href="http://drtube.com/datasheets/6550a-ge1972.pdf" target="blank"
+                                   title="6550 Tube Datasheet" class="calcButton">6550 </a><br><br>
+                                <a href="https://frank.pocnet.net/sheets/121/6/6A3.pdf" target="blank"
+                                   title="6A3 Tube Datasheet" class="calcButton">6A3 </a><br><br>
+                                <a href="https://frank.pocnet.net/sheets/164/6/6AS7.pdf" target="blank"
+                                   title="6AS7 Tube Datasheet" class="calcButton">6AS7</a>
+                            </td>
+
+                            <td valign="top">
+                                <a href="http://www.r-type.org/pdfs/6bq5.pdf" target="blank" title="6CA7 Tube Datasheet"
+                                   class="calcButton">6BQ5 </a><br><br>
+                                <a href="http://drtube.com/datasheets/el34-sed2002.pdf" target="blank"
+                                   title="6CA7 Tube Datasheet" class="calcButton">6CA7 </a><br><br>
+                                <a href="http://www.mif.pg.gda.pl/homepages/frank/sheets/093/6/6L6GC.pdf"
+                                   target="_blank" title="6L6 Tube Datasheet" class="calcButton">6L6</a><br><br>
+                                <a href="https://frank.pocnet.net/sheets/127/6/6V6.pdf" target="blank"
+                                   title="6V6 Tube Datasheet" class="calcButton"> 6V6 </a><br><br>
+                                <a href="http://drtube.com/datasheets/el34-philips1969.pdf" target="blank"
+                                   title="EL34Tube Datasheet" class="calcButton"> EL34 </a><br><br>
+                                <a href="http://tec-sol.com/products/tubes/svetlana/el509.pdf" target="blank"
+                                   title="EL509 Tube Datasheet" class="calcButton"> EL509 </a><br><br>
+                                <a href="https://frank.pocnet.net/sheets/084/e/EL84.pdf" target="blank"
+                                   title="Tube EL84 Datasheet" class="calcButton"> EL84 </a>
+                            </td>
+                        </tr>
+                    </table>
+                    <br><br>
+                    <hr size="1" width="75%">
+                    <br>
+                    <center>
+         				<br>                     
+                        <a href="javascript:history.back()" class="calcButton"><<< Back</a>
+                    </center>
+                    <br><br>
+                    </p> <!-- End Content -->
+                </div>
+            </div>
+        </div>
+        <div class="copyright">
+            &copy;
+            <span id="copyright">
+        <script>document.getElementById('copyright').appendChild(document.createTextNode(new Date().getFullYear()))</script>
+        &nbsp;mh-Audio.nl&nbsp;&nbsp;-&nbsp;&nbsp;<a href="../disclaimer.html"><font
+                    color="#000000">Disclaimer</font></a>
+    </span>
+        </div>
+        <script type="text/javascript" src="//fc.webmasterpro.de/counter.php?name=mh-audio"></script>
+<noscript><div><img src="//fc.webmasterpro.de/as_noscript.php?name=mh-audio" style="width:1px;height:1px;" alt="" /></div></noscript>
+<!-- https://fc.webmasterpro.de -->
+</BODY>
+</HTML>

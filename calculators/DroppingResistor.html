@@ -1,0 +1,442 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<head>
+    <!-- Google Analytics -->
+    <script>
+        window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+        ga('create', 'UA-77078028-1', 'auto');
+        ga('send', 'pageview');
+    </script>
+    <script async src='https://www.google-analytics.com/analytics.js'></script>
+    <!-- End Google Analytics -->
+
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>Calculate Dropping Resistor for Tube filament</title>
+    <meta name="keywords" content=""/>
+    <meta name="description" content=""/>
+    <link href="http://fonts.googleapis.com/css?family=Source+Sans+Pro:200,300,400,600,700,900" rel="stylesheet"/>
+    <link rel="shortcut icon" href="../favicon.ico" type="image/x-icon">
+    <link href="../css/default.css" rel="stylesheet" type="text/css" media="all"/>
+    <link href="../fonts.css" rel="stylesheet" type="text/css" media="all"/>
+    <!--[if IE 6]>
+    <link href="default_ie6.css" rel="stylesheet" type="text/css"/><![endif]-->
+    <script src="../js/fab.js"></script>
+
+    <script language="javascript">
+/*
+Original Heather voltage: 6.3V
+Original Heather current: 1.2A
+    V=IR (Ohm's Law), so 6.3 = 1.2R   =>   R = 6.3 / 1.2   =   5.25
+Heather resistance: 5.25 Ohms
+Target voltage: 5V
+    V=IR (Ohm's Law), so 5 = 5.25I   =>   I = 5 / 5.25   =  0.952
+Target current: 0.952A
+Voltage drop across resistor: 6.3V - 5V  =  1.3V
+    V=IR (Ohm's Law), so 1.3 = 0.952R    =>    R = 1.3 / 0.952    =  1.365
+Target resistance:  1.365 Ohms
+Power dissipated by resistor:  1.3V * 0.952A  =  1.238W
+*/
+
+function dropR()
+{
+var Usource, I, R
+var Utarget, voltagedrop, Rsearched, DisPower, Ix
+
+Utarget = eval(document.dr.Utarget.value); //Utarget
+I       = eval(document.dr.I.value);  //Isource
+Usource = eval(document.dr.Usource.value); //Usource
+
+
+// validate  UTargetr
+  if (isNaN(Utarget) || Utarget < 2 || Utarget > 20)
+  {
+    textUT = " 2V - 20V";
+  }
+  else
+  {
+    textUT = "";
+  }
+  document.getElementById("errUT").innerHTML = textUT;
+
+
+// validate  I
+  if (isNaN(I) || I < 0.1 || I > 5)
+  {
+    textI = " 0.1A - 5.0A";
+  }
+  else
+  {
+    textI = "";
+  }
+  document.getElementById("errI").innerHTML = textI;
+
+
+// validate  Usource
+  if (isNaN(Usource) || Usource < 3 || Usource > 30)
+  {
+    textUS = " 3V - 30V";
+  }
+  else
+  {
+    textUS = "";
+  }
+  document.getElementById("errUS").innerHTML = textUS;
+
+
+R           = Usource / I; //Heather resistance
+Ix          = Utarget/R; //Target current
+voltagedrop = Usource - Utarget;  //Voltage drop across resistor
+Rsearched   = voltagedrop / I; //Target resistance
+DisPower    = voltagedrop * I; //Power dissipated by resistor
+RRp         = DisPower * 2.5;  // to be save 2.5 time Watts
+
+//totalCurrent= Usource / I;
+//totalCurrent= Usource / (totalCurrent + Rsearched);
+
+
+document.dr.voltagedrop.value =  roundX(voltagedrop,2);
+document.dr.Rsearched.value   =  roundX(Rsearched,2);
+document.dr.DisPower.value    =  roundX(DisPower,2);
+document.dr.RRp.value         =  roundX(RRp,1);
+document.dr.totalCurrent.value         =  roundX(totalCurrent,1);
+}
+
+function roundX(number,X) {
+// rounds number to X decimal places, defaults to 3
+    X = (!X ? 3 : X);
+    return Math.round(number*Math.pow(10,X))/Math.pow(10,X);
+}
+
+
+
+    </script>
+</head>
+<body>
+<div id="header" class="container">
+    <div id="logo">
+        <h2>HiFi&nbsp;&nbsp;Audio&nbsp;&nbsp;Prive</h2>
+    </div>
+    <br>
+    <div id="menu">
+    <br><center>
+        <ul>
+            <li><a href="javascript:history.back()" access˚key="1" title=""><-- Back</a></li>
+            <!--
+            <li><a href="Loudspeaker.html" accesskey="2" title="">Loudspeaker</a></li>
+            <li><a href="Acoustic.html" accesskey="3" title="">Acoustic</a></li> -->
+            <li><a href="../Calculator.html" accesskey="4" title="">Calculators</a></li>
+             <li><a href="../Library.html" accesskey="4" title="">Library</a></li>
+            <!--
+            <li><a href="Software.html" accesskey="6" title="">Software</a></li>
+            <li><a href="Elektronic.html" accesskey="5" title="">Electronic</a></li>
+            <li><a href="Measurement.html" accesskey="5" title="">Measurement</a></li>
+            <li class="active"><a href="Links.html" accesskey="5" title="">Links/Downloads</a></li>
+            <li><a href="EmailFormNew.asp" accesskey="5" title="">Contact</a></li> -->
+        </ul>
+        </center>
+    </div> 
+</div>
+<div id="page">
+    <div class="container">
+   
+        <div class="title">
+            <br><h1><i>Calculate Dropping Resistor for Tube filament</i></h1>
+        </div>
+
+        <div class="box0">
+            <div class="box margin-btm">
+                <div class="details">
+                    <br>
+                    <center><img src="../images/DiodeTube.png" width="400"></center>
+                    <br>
+                    <p> <!-- Start Content -->
+                    <table align="center" width="75%" cellspaing="0" cellpadding="2">
+                        <tr>
+                            <td>
+                                What to do if the transformer delivers a higher heater voltage as required?<br><br>
+                                Use a resistor to reduce the voltage you need.<br>
+                                In fact you create a voltage divider... <br>
+                                The dropping resistor is the first and the Tube - Heater the second resistor of this
+                                divider.
+                                <br>
+                                <center><img src="../images/droppingresistor2.jpg" width="300"></center>
+                            </td>
+                        </tr>
+                    </table>
+
+                    <br>
+                    <form name="dr">
+                        <center><h2><i>Calculate Dropping Resistor</i></h2><br></center>
+                        <table align="center" border="1" width="85%" cellspaing="0" cellpadding="0"class=Calctable>
+                            <tr>
+                                <td>
+                                    <table align="center" width="100%" cellspaing="0" cellpadding="0" border=1>
+                                        <tr>
+                                            <td colspan="3">&nbsp;</td>
+                                        </tr>
+                                        <tr>
+                                            <td rowspan="13"><img src="../images/droppingresistor.jpg" width="360"></td>
+                                        </tr>
+                                        <tr>
+                                            <td align="right">New Tube filament voltage :</td>
+                                            <td><input type="number" step="0.1" class="frmInput" name="Utarget"
+                                                       id="Utarget"
+                                                       size="4"
+                                                       value="5">
+                                                <font color="red">&nbsp;<span id="errUT"></span></font>
+                                            </td>
+                                            <td>&nbsp;Volts <font color="#FF0000">*</font></td>
+                                        </tr>
+                                        <tr>
+                                            <td align="right">New Tube filament current:</td>
+                                            <td><input type="number" step="0.1" class="frmInput" name="I" id="I"
+                                                       size="4">
+                                                <font color="red">&nbsp;<span id="errI"></span></font>
+                                            </td>
+                                            <td>&nbsp;Ampere <font color="#FF0000">*</font></td>
+                                        </tr>
+                                        <tr>
+                                            <td align="right">Transformer voltage:</td>
+                                            <td><input type="number" step="0.1" class="frmInput" name="Usource"
+                                                       id="Usource"
+                                                       size="4"
+                                                       value="6.3">
+                                                <font color="red">&nbsp;<span id="errUS"></span></font>
+                                            </td>
+                                            <td>&nbsp;Volts <font color="#FF0000">*</font></td>
+                                        </tr>
+                                        <tr align="center">
+                                            <td>&nbsp;</td>
+                                            <td colspan="2"><font color="#FF0000">*</font> Required values</td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="3" align="right">
+                                                <br>
+                                                <input type="button" class="calcButton"
+                                                       value="Calculate Dropping Resistor" onClick="dropR()"></td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="3">&nbsp;</td>
+                                        </tr>
+                                        <!--
+                                                            <td>Filement Resistant:</td>
+                                                            <td><input type="number" name="R" size="4" readonly></td>
+                                                            <td>&nbsp;Ohms</td>
+                                                            </tr>
+                                                            <tr>
+                                                            <td>Drop. resistor</td>
+                                                            <td><input type="number" name="Dr" size="4" readonly></td>
+                                                            <td>&nbsp;Ohms</td>
+                                                            </tr>
+
+                                                            <tr>
+                                                            <td>Tube voltage:</td>
+                                                            <td><input type="number" name="U1a" size="4" readonly></td>
+                                                            <td>&nbsp;Volt</td>
+                                                            </tr>
+                                        -->
+                                        <tr>
+                                            <td colspan="3">&nbsp;</td>
+                                        </tr>
+                                        <tr>
+                                            <td align="right">Dropping Resistor:</td>
+                                            <td><input type="number" class="frmOutput" name="Rsearched" size="4"
+                                                       readonly>
+                                            </td>
+                                            <td>&nbsp;Ohms</td>
+                                        </tr>
+                                        <tr>
+                                            <td align="right">Voltage dropped by Resistor:</td>
+                                            <td><input type="number" class="frmOutput" name="voltagedrop" size="4"
+                                                       readonly></td>
+                                            <td>&nbsp;Volts</td>
+
+                                        </tr>
+                                        <tr>
+                                            <td align="right">Power dissipated by resistor:</td>
+                                            <td><input type="number" class="frmOutput" name="DisPower" size="4"
+                                                       readonly>
+                                            </td>
+                                            <td>&nbsp;Watt</td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="3">&nbsp;</td>
+                                        </tr>
+                                        <tr>
+                                            <td align="right">Recommended Resistor power rating:</td>
+                                            <td><input type="number" class="frmOutput" name="RRp" size="4" readonly>
+                                            </td>
+                                            <td>&nbsp;<b>Watt</b></td>
+                                        </tr>
+                                        <!--
+                                        <tr>
+                                        <td><b>Current drawn by new Tube incl. Dropping Resistor:</b></td>
+                                        <td><input type ="text" name="totalCurrent" size="4" readonly></td>
+                                        <td>&nbsp;<b>Watt</b></td>
+                                        <td>&nbsp;</td>
+                                        </tr>
+                                        -->
+                                        <tr>
+                                            <td colspan="3">&nbsp;</td>
+                                        </tr>
+                                    </table>
+                                </td>
+                            </tr>
+                        </table>
+                    </form>
+                    <br><br>
+                    <center>
+                        <h2><i>Heater Values of some Power Tubes</i></h2>
+                    </center>
+                    <table align="center" width="44%" cellspacing="0" cellpadding="10">
+                        <tr>
+                            <td><strong>Tube</strong></td>
+                            <td><strong>Vh (Volts)</strong></td>
+                            <td><strong>Ih (Ampere)</strong></td>
+                        </tr>
+                        <tr>
+                            <td>EL34 / 6CA7</td>
+                            <td align="center">6.3</td>
+                            <td align="center">1.5</td>
+                        </tr>
+                        <tr bgcolor="#dcdcdc">
+                            <td>EL84 / 6BQ5</td>
+                            <td align="center">6.3</td>
+                            <td align="center">0.76</td>
+                        </tr>
+                        <tr>
+                            <td>KT66</td>
+                            <td align="center">6.3</td>
+                            <td align="center">1.27</td>
+                        </tr>
+                        <tr bgcolor="#dcdcdc">
+                            <td>KT77</td>
+                            <td align="center">6.3</td>
+                            <td align="center">1.4</td>
+                        </tr>
+                        <tr>
+                            <td>KT88 / 6550</td>
+                            <td align="center">6.3</td>
+                            <td align="center">1.6</td>
+                        </tr>
+                        <tr bgcolor="#dcdcdc">
+                            <td>211</td>
+                            <td align="center">10.0</td>
+                            <td align="center">3.25</td>
+                        </tr>
+                        <tr>
+                            <td>2A3</td>
+                            <td align="center">2.5</td>
+                            <td align="center">2.5</td>
+                        </tr>
+                        <tr bgcolor="#dcdcdc">
+                            <td>300B</td>
+                            <td align="center">5.0</td>
+                            <td align="center">1.2</td>
+                        </tr>
+                        <tr>
+                            <td>5998</td>
+                            <td align="center">6.3</td>
+                            <td align="center">2.4</td>
+                        </tr>
+                        <tr bgcolor="#dcdcdc">
+                            <td>6AS7</td>
+                            <td align="center">6.3</td>
+                            <td align="center">2.5</td>
+                        </tr>
+                        <tr>
+                            <td>6HB5</td>
+                            <td align="center">6.3</td>
+                            <td align="center">1.5</td>
+                        </tr>
+                        <tr bgcolor="#dcdcdc">
+                            <td>6L6</td>
+                            <td align="center">6.3</td>
+                            <td align="center">0.9</td>
+                        </tr>
+                        <tr>
+                            <td>6V6</td>
+                            <td align="center">6.3</td>
+                            <td align="center">0.45</td>
+                        </tr>
+                        <tr bgcolor="#dcdcdc">
+                            <td>7027</td>
+                            <td align="center">6.3</td>
+                            <td align="center">0.9</td>
+                        </tr>
+                        <tr>
+                            <td>7189</td>
+                            <td align="center">6.3</td>
+                            <td align="center">0.76</td>
+                        </tr>
+                        <tr bgcolor="#dcdcdc">
+                            <td>7558</td>
+                            <td align="center">6.3</td>
+                            <td align="center">0.8</td>
+                        </tr>
+                        <tr>
+                            <td>7591</td>
+                            <td align="center">6.3</td>
+                            <td align="center">0.8</td>
+                        </tr>
+                        <tr bgcolor="#dcdcdc">
+                            <td>801</td>
+                            <td align="center">7.5</td>
+                            <td align="center">1.25</td>
+                        </tr>
+                        <tr>
+                            <td>805</td>
+                            <td align="center">10.0</td>
+                            <td align="center">3.25</td>
+                        </tr>
+                        <tr bgcolor="#dcdcdc">
+                            <td>807</td>
+                            <td align="center">6.3</td>
+                            <td align="center">0.9</td>
+                        </tr>
+                        <tr>
+                            <td>811A</td>
+                            <td align="center">6.3</td>
+                            <td align="center">4.0</td>
+                        </tr>
+                        <tr bgcolor="#dcdcdc">
+                            <td>845</td>
+                            <td align="center">10.0</td>
+                            <td align="center">3.25</td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                    </table>
+                    <br><br>
+                    <center>
+                        <a href="http://www.valvewizard.co.uk/heater.html" target="blank" class="calcButton"> Heater /
+                            Filament Supplies</a> extern Link
+                    </center>
+                    <br><br>
+                    <hr sze="1" width="75%">
+                    <br><br>
+                    <center>
+         				<br>                     
+                        <a href="javascript:history.back()" class="calcButton"><<< Back</a>
+                    </center>
+                    <br><br>
+
+                    </p> <!-- End Content -->
+                </div>
+            </div>
+        </div>
+        <div class="copyright">
+            &copy;
+            <span id="copyright">
+        <script>document.getElementById('copyright').appendChild(document.createTextNode(new Date().getFullYear()))</script>
+        &nbsp;mh-Audio.nl&nbsp;&nbsp;-&nbsp;&nbsp;<a href="../disclaimer.html"><font
+                    color="#000000">Disclaimer</font></a>
+    </span>
+        </div>
+        <script type="text/javascript" src="//fc.webmasterpro.de/counter.php?name=mh-audio"></script>
+<noscript><div><img src="//fc.webmasterpro.de/as_noscript.php?name=mh-audio" style="width:1px;height:1px;" alt="" /></div></noscript>
+<!-- https://fc.webmasterpro.de -->
+</BODY>
+</HTML>

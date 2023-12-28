@@ -1,0 +1,2103 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<!--
+Design by TEMPLATED
+http://templated.co
+Released for free under the Creative Commons Attribution License
+
+Name       : TailPiece
+Description: A two-column, fixed-width design with dark color scheme.
+Version    : 1.0
+Released   : 20130902
+
+-->
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <!-- Google Analytics -->
+    <script>
+        window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+        ga('create', 'UA-77078028-1', 'auto');
+        ga('send', 'pageview');
+    </script>
+    <script async src='https://www.google-analytics.com/analytics.js'></script>
+    <!-- End Google Analytics -->
+
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>Step Up Transformer Calculations</title>
+    <meta name="keywords" content=""/>
+    <meta name="description" content=""/>
+    <link href="http://fonts.googleapis.com/css?family=Source+Sans+Pro:200,300,400,600,700,900" rel="stylesheet"/>
+    <link rel="shortcut icon" href="../favicon.ico" type="image/x-icon">
+    <link href="../css/default.css" rel="stylesheet" type="text/css" media="all"/>
+    <link href="../css/fonts.css" rel="stylesheet" type="text/css" media="all"/>
+
+    <!--[if IE 6]>
+    <link href="default_ie6.css" rel="stylesheet" type="text/css"/><![endif]-->
+    <script src="../js/fab.js"></script>
+
+    <script type="text/javascript">
+	function Loading()
+	{
+		var gain        = 0;
+		var loading     = 0;
+		var resistance  = 1000 * document.stepup.resistance.value;
+		var ratio       = 1.0 * document.stepup.ratio.value;
+        var txtLoading = "";
+
+		if ( isNaN(resistance) || resistance == "" || isNaN(ratio) || ratio == "" )
+		{
+            txtLoading = "Invalid Input!";
+            document.getElementById("errLoading").innerHTML = txtLoading;
+		}
+		else
+		{
+            txtLoading = "";
+ 		    loading  = resistance / (ratio * ratio);
+		    gain = 20 * ( Math.log(ratio) / Math.log(10) );
+		    document.getElementById("errLoading").innerHTML = txtLoading;
+		    document.stepup.gain.value      =  round(gain, 2);
+		    document.stepup.loading.value   = round(loading, 1);
+		}
+	}
+
+	function Parallel()
+	{
+		var gain        = 0;
+		var resistance  = 0;
+		var phonostage  = document.parallel.phonostage.value;
+		var loading     = document.parallel.loading.value;
+		var ratio       = document.parallel.ratio.value;
+		var reflected   = loading * ratio * ratio;
+		var PL = "";
+        var txtParallel = "";
+
+		if ( isNaN(phonostage) || phonostage == "" || isNaN(loading)  || loading == "" || isNaN(ratio) || ratio == "" )
+		{
+            txtParallel = "Invalid Inpu!";
+            document.getElementById("errResistor").innerHTML = txtParallel;
+		}
+		else
+		{
+            txtParallel = "";
+            phonostage  = phonostage * 1000; // kohms to Ohms
+		    resistance  = phonostage * reflected / (phonostage - reflected);
+		    resistance  = resistance / 1000;  // Ohm to kOhm
+		    gain        = 20 * ( Math.log(ratio) / Math.log(10) );
+            PL = Math.pow(ratio, 2) * loading;
+
+            document.getElementById("errResistor").innerHTML = txtParallel;
+		    document.parallel.gain.value =  round(gain, 1);
+		    document.parallel.PL.value =  round(PL, 2);
+
+	        if(resistance < 0)
+			{
+				//alert("The desired loading of "+ loading + " ohms is to high,\nplease lower the loading!");
+				txtParallel = "The desired loading of "+ loading + " ohms is to high,\nplease lower the loading!"
+				document.getElementById("errResistor").innerHTML = txtParallel;
+				document.parallel.resistance.value = round(resistance, 1);
+			}
+		else
+			{
+			document.parallel.resistance.value = round(resistance, 1);
+			}
+
+		}
+		
+		//phonostage      = phonostage * 1000; // kohms to Ohms
+		//resistance      = phonostage * reflected / (phonostage - reflected);
+	
+		//gain            = 20 * ( Math.log(ratio) / Math.log(10) );
+
+		//document.parallel.gain.value =  round(gain, 1);
+
+		//if(resistance < 0)
+		//	{
+		//		alert("The desired loading of "+ loading + " ohms is to high,\nplease lower the loading!");
+		//	}
+		//else
+		//	{
+		//	document.parallel.resistance.value = round(resistance, 1);
+		//	//document.frm2.Text1.value = round(resistance, 1)
+		//	}
+	}
+
+	function calcgain()
+	{
+		var mcout = document.maxgain.mcout.value;
+		var mmin = document.maxgain.mmin.value;
+		var gain = 0;
+        var txtGain = "";
+
+        if ( isNaN(mcout) || isNaN(mmin) || mcout == "" || mmin == "" )
+        {
+            txtGain = "Invalid Input!";
+            document.getElementById("errGain").innerHTML = txtGain;
+        }
+        else
+        {
+            txtGain = "";
+ 		    gain    = mmin / mcout;
+		    gaindb  = 20 * ( Math.log(gain) / Math.log(10) );
+
+            document.getElementById("errGain").innerHTML = txtGain;
+		    document.maxgain.gain.value     =  round(gain, 1);
+		    document.maxgain.gaindb.value   =  round(gaindb, 1);
+        }
+	}
+
+	function round(number,X) 
+	{
+	// rounds number to X decimal places, defaults to 3
+		X = (!X ? 3 : X);
+		return Math.round(number*Math.pow(10,X))/Math.pow(10,X);
+	}
+
+	function CloseR(Rval, IEASeries){
+
+		if(Rval <= 0){
+			return 0;
+		}
+		Expo = Math.floor(Math.log(Rval) / Math.log(10));
+		Mant = Rval / Math.pow(10,Expo);
+		x = Math.floor(IEASeries * Math.log(Mant) / Math.log(10));
+		min_dist = 1000;
+		for (i = (x - 1) ; i <= (x + 1); i++ )
+		{
+			y = (Math.pow(10, (i / IEASeries))).toFixed(2);
+			dist = Math.abs(Mant - y);
+			if(dist < min_dist){
+				min_dist = dist;
+				closest = i;
+			}
+		}
+		x = (Math.pow(10, (closest / IEASeries))).toFixed(2);
+		y = Math.pow(10, Expo);
+		return x*y;
+	}
+
+	function E_6(Val){
+		if(Val <= 0){
+			return 0;
+		}
+		Clist = "1,1.5,2.2,3.3,4.7,6.8,10";
+		Vals = Clist.split(",") //convert to zero based array;
+		n = Vals.length
+		//find mantissa &#038; exponent of Val;
+		Expo = Math.floor(Math.log(Val) / Math.log(10));
+		Mant = Val / Math.pow(10,Expo);
+		min_dist = 1000;
+		for (i = 0; i<=  n; i++){
+			dist = Math.abs(Mant - Vals[i]);
+			if(dist < min_dist){
+				min_dist = dist;
+				closest = i;
+			}
+		}
+		return Vals[closest] * Math.pow(10,Expo);
+	}
+	function E_12(Val){
+		if(Val <= 0){
+			return 0;
+		}
+		Clist = "1,1.2,1.5,1.8,2.2,2.7,3.3,3.9,4.7,5.6,6.8,8.2,10";
+		Vals = Clist.split(",") //convert to zero based array;
+		n = Vals.length
+		//find mantissa &#038; exponent of Val;
+		Expo = Math.floor(Math.log(Val) / Math.log(10));
+		Mant = Val / Math.pow(10,Expo);
+		min_dist = 1000;
+		for (i = 0; i<=  n; i++){
+			dist = Math.abs(Mant - Vals[i]);
+			if(dist < min_dist){
+				min_dist = dist;
+				closest = i;
+			}
+		}
+		return Vals[closest] * Math.pow(10,Expo);
+	}
+
+	function E_24(Val){
+		if(Val <= 0){
+			return 0;
+		}
+		Clist = "1,1.1,1.2,1.3,1.5,1.6,1.8,2.0,2.2,2.4,2.7,3.0,3.3,3.6,3.9,4.3,4.7,5.1,5.6,6.2,6.8,7.5,8.2,9.1,10" //2% &#038;& 5% vals;
+		Vals = Clist.split(",") //convert to zero based array;
+		n = Vals.length
+		//find mantissa &#038; exponent of Val;
+		Expo = Math.floor(Math.log(Val) / Math.log(10));
+		Mant = Val / Math.pow(10,Expo);
+		min_dist = 1000;
+		for (i = 0; i<=  n; i++){
+			dist = Math.abs(Mant - Vals[i]);
+			if(dist < min_dist){
+				min_dist = dist;
+				closest = i;
+			}
+		}
+		return Vals[closest] * Math.pow(10,Expo);
+	}
+
+	function E_48(Val){
+		return CloseR(Val, 48).toPrecision(3);
+	}
+
+	function E_96(Val){
+		return CloseR(Val, 96).toPrecision(3);
+	}
+
+	function E_192(Val){
+		return CloseR(Val, 192).toPrecision(3);
+	}
+
+
+	function Find(){
+	 v=document.frm2.Text1.value;
+	 v6=rd(E_6(v),2);
+	 v12=rd(E_12(v),2);
+	 v24=rd(E_24(v),2);
+	 v48=rd(E_48(v),2);
+	 v96=rd(E_96(v),2);
+	 v192=rd(E_192(v),2);
+
+	 e6=rd((100*(v6-v)/v),2)  + "%";
+	 e12=rd((100*(v12-v)/v),2)  + "%";
+	 e24=rd((100*(v24-v)/v),2)  + "%";
+	 e48=rd((100*(v48-v)/v),2)  + "%";
+	 e96=rd((100*(v96-v)/v),2)  + "%";
+	 e192=rd((100*(v192-v)/v),2)  + "%";
+	 
+	 r6h = rd(v6 * 1.2,2);
+	 r6l = rd(v6 * 0.8,2);
+	  r12h = rd(v12 * 1.1,2);
+	 r12l = rd(v12 * 0.9,2);
+	  r24h = rd(v24 * 1.05,2);
+	 r24l = rd(v24 * 0.95,2);
+	  r48h = rd(v48 * 1.02,2);
+	 r48l = rd(v48 * 0.98,2);
+	  r96h = rd(v96 * 1.01,2);
+	 r96l = rd(v96 * 0.99,2);
+	  r192h = rd(v192 * 1.005,2);
+	 r192l = rd(v192 * 0.995,2);
+	 
+	// document.frm2.Text2").value=v6;
+	 document.frm2.Text2.value = v6; 
+	 document.frm2.Text3.value=v12;
+	 document.frm2.Text4.value=v24;
+	 document.frm2.Text5.value=v48;
+	 document.frm2.Text6.value=v96;
+	 document.frm2.Text7.value=v192;
+
+	 document.frm2.Text8.value=e6;
+	 document.frm2.Text9.value=e12;
+	 document.frm2.Text10.value=e24;
+	 document.frm2.Text11.value=e48;
+	 document.frm2.Text12.value=e96;
+	 document.frm2.Text13.value=e192;
+	 
+	 document.frm2.text14.value = "20% = " + r6l + " to " + r6h;
+	 document.frm2.text15.value = "10% = " + r12l + " to " + r12h;
+	 document.frm2.text16.value = "5% = " + r24l + " to " + r24h;
+	 document.frm2.text17.value = "2% = " + r48l + " to " + r48h;
+	 document.frm2.text18.value = "1% = " + r96l + " to " + r96h;
+	 document.frm2.text19.value = "0.5% = " + r192l + " to " + r192h;
+
+	}
+
+	function rd(num,precision) {
+
+		precision = parseInt(precision);
+		var result1 = num * Math.pow(10, precision);
+		var result2 = Math.round(result1);
+		var result3 = result2 / Math.pow(10, precision);
+		return result3;
+	}
+
+// calculate parallel resistors
+function rpxcalc()
+{
+
+// search Resistors
+			    var target, R1alt, R2alt;
+
+			    target = document.rpx.D3.value;  // calculate C2
+			    R1alt = 0 ; 		// Best value so far ...
+			    R2alt = 0 ;
+			    Ealt = 9999999 ;	// Error of best value
+				Rx = 0 ;
+				err = 1 ;
+			    j = 1 ;
+			    k = 1 ;
+			    var R24 = new Array();
+
+			    R24[1]=1;R24[2]=1.1;R24[3]=1.2;R24[4]=1.3;
+			    R24[5]=1.5;R24[6]=1.6;R24[7]=1.8;R24[8]=2;
+			    R24[9]=2.2;R24[10]=2.4;R24[11]=2.7;R24[12]=3;
+			    R24[13]=3.3;R24[14]=3.6;R24[15]=3.9;R24[16]=4.3;
+			    R24[17]=4.7;R24[18]=5.1;R24[19]=5.6;R24[20]=6.2;
+			    R24[21]=6.8;R24[22]=7.5;R24[23]=8.2;R24[24]=9.1;
+
+			    for (var i=1;i<=24;i++)
+			    	{
+					R24[i+24]=(R24[i]*10);
+					R24[i+48]=(R24[i]*100);
+					R24[i+72]=(R24[i]*1000);
+					R24[i+96]=(R24[i]*10000);
+					R24[i+120]=(R24[i]*100000);
+					R24[i+144]=(R24[i]*1000000);
+			    	}
+
+
+			    for (var j=1;j<=169;j++)
+			    {
+			    	for (var k=1;k<=169;k++)
+			    	{
+
+					Rx = 1/((1/R24[j])+(1/R24[k]));
+					err = Math.abs(target-Rx);
+
+			    	if ( err < Ealt )
+			    		{
+			    		R1alt = R24[j];
+			    		R2alt = R24[k];
+			    		Ealt = err;
+			    		}
+			    	}
+			    }
+
+				Rx = 1 / ((1/R1alt)+(1/R2alt));
+				Rx = Math.round(100*Rx)/100;
+				error = Math.round(100000*((Rx/target)-1))/1000;
+				document.rpx.cc1.value = round(R1alt, 3);
+			    document.rpx.cc2.value = round(R2alt, 3);
+			    document.rpx.ccx.value = round(Rx, 3);
+			    document.rpx.ccerr.value = error;
+}
+
+function TransLoading()
+        {
+        	 if (document.TransLoad.TurnsRatio0.value < 1) 
+        	 	{
+        	 		document.TransLoad.TurnsRatio0.value = 1;
+        	 	}
+        	 	
+        	 if (document.TransLoad.TurnsRatio.value > 0)
+        	 {
+        	 
+				var loading = 0;
+		       var resistance = 1000 * document.TransLoad.PreAmpLoad.value;
+		       var ratio = 1.0 * (document.TransLoad.TurnsRatio.value/document.TransLoad.TurnsRatio0.value);
+	
+	        	loading = resistance / (ratio * ratio);
+	
+	        	document.TransLoad.EffLoad.value = Math.round(loading * 10) / 10;
+	        }
+	        else
+	        {
+	        	alert("Please enter the number of turns for the transformer secondary");
+	        	document.TransLoad.TurnsRatio.focus();
+	        }
+        }
+        
+function TransParallel()
+        {
+        		// primary turns
+        	 if (document.TransLoad.TurnsRatio01.value < 1) 
+        	 {
+        	 	document.TransLoad.TurnsRatio01.value = 1;
+        	 }
+        	 
+        	 //alert("1")
+        	 // optimal load 
+        	 if (document.TransLoad.OptLoad.value > 0)
+        	 {
+        	 		// Phono Ri
+        	 		var PhonoRi = document.TransLoad.PreAmpLoad2.value;
+        	 		PhonoRi = PhonoRi * 1000; // Ohm to kOhm
+        	 		//alert(PhonoRi);
+        	 		// secondary turns
+	        	 if (document.TransLoad.TurnsRatio2.value > 0)
+   		     	 {
+			    	var AmpLoad = 1000 * document.TransLoad.PreAmpLoad2.value;
+		   		 	var resistance = 0;
+	   		   		var loading = 1.0 * document.TransLoad.OptLoad.value;
+		       	 	var ratio = 1.0 *  (document.TransLoad.TurnsRatio2.value/document.TransLoad.TurnsRatio01.value);
+			        var reflected = loading * ratio * ratio;
+	
+			        resistance = AmpLoad * reflected / (PhonoRi - reflected);
+	   			 	resistance = 0.001 * resistance;
+	   			 	
+	   			 	//alert("Ratio = "+ ratio);
+	 				//alert("Reflected ="+ reflected);
+	 				//alert("Resistance = "+ resistance);
+	
+					if (Math.round(resistance * 10) / 10 > 0)
+					{
+		       		 document.TransLoad.ParallelRes.value = round(resistance, 3);   //Math.round(resistance * 10) / 10;
+		       		 //alert("Paralell Resistor = "+ ParallelRes);
+		       		}
+		       		else
+		       		{
+		       		  alert("Cannot achieve desired optimum load with these parameters");
+		       		}
+		          }	       
+		       else
+	   		    {
+	       	 		alert("Please enter the number of turns for the transformer secondary");
+	        		document.TransLoad.TurnsRatio2.focus();
+		        }
+		     }
+		    else
+		    {
+       	 	alert("Please enter the desired optimum load in ohms");
+        		document.TransLoad.OptLoad.focus();
+		    } 
+        } 
+        
+
+
+function showTable(){
+document.getElementById('table').style.visibility = "visible";
+}
+function hideTable(){
+document.getElementById('table').style.visibility = "hidden";
+}           
+</script>
+</head>
+<body>
+<div id="header" class="container">
+    <div id="logo">
+        <h2>HiFi&nbsp;&nbsp;Audio&nbsp;&nbsp;Design</h2>
+    </div>
+    <br>
+    <div id="menu">
+    <br>
+    <center>
+        <ul>
+            <li><a href="javascript:history.back()" access˚key="1" title=""><-- Back</a></li>
+            <!--
+            <li><a href="Loudspeaker.html" accesskey="2" title="">Loudspeaker</a></li>
+            <li><a href="Acoustic.html" accesskey="3" title="">Acoustic</a></li> -->
+            <li><a href="../Calculator.html" accesskey="4" title="">Calculators</a></li>
+             <li><a href="../../Library.html" accesskey="4" title="">Library</a></li>
+            <!--
+            <li><a href="Software.html" accesskey="6" title="">Software</a></li>
+            <li><a href="Elektronic.html" accesskey="5" title="">Electronic</a></li>
+            <li><a href="Measurement.html" accesskey="5" title="">Measurement</a></li>
+            <li class="active"><a href="Links.html" accesskey="5" title="">Links/Downloads</a></li>
+            <li><a href="EmailFormNew.asp" accesskey="5" title="">Contact</a></li> -->
+        </ul>
+        </center>
+    </div> 
+</div>
+
+<div id="page">
+    <div class="container">
+  
+        <div class="title">
+            <br><h1><i>Step Up Transformer</i></h1>
+        </div>
+        <div class="box0">
+            <div class="box margin-btm">
+                <div class="details">
+                    <p> <!-- Start Content -->
+                    <center><img src="../images/Graham Slee.jpg"></center>
+                    <table align="center" cellspacing=0 cellpadding=2 width=75%>
+                        <tr>
+                            <td align="center"><a href="#a" class="calcButton">Calculate min. Gain</a></td>
+                            <td align="center"><a href="#b" class="calcButton">Calculate Loading</a></td>
+                            <td align="center"><a href="#c" class="calcButton">Resistor tuning</a></td>
+                        </tr>
+                    </table>
+                    
+                    
+                    <br>
+                    <br>
+                    <a name="a"></a>
+                    <form name="maxgain">
+                        <table cellspacing="0" cellpadding="2" border="0" width="100%" align="center" class="Calctable">
+                            <tr>
+                                <td width="100%">
+                                    <table align="center" cellspacing="0" cellpadding="2" width="55%">
+                                    <tr><td colspan="2" height="25"><br><h2><i>Calculate min. Gain</i></h2><br></td></tr>
+                                        <tr>
+                                            <td align="right">MC output : </td>
+                                            <td>
+                                                <input type="number" step="0.01" min="0.001" max="5" name="mcout"
+                                                       id="mcout" class="frmInput" style="width: 7em;">&nbsp;mV
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td align="right">MM Phono input sensitivity : </td>
+                                            <td>
+                                                <input type="number" step="0.01" min="1" max="10" name="mmin"
+                                                       class="frmInput" style="width: 7em;" value="3.0"> mV
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td align="right">X Factor : </td>
+                                            <td>
+                                                <input type="number" name="gain" class="frmOutput" style="width: 7em;"
+                                                       readonly>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td align="right">Gain = </td>
+                                            <td>
+                                                <input type="number" name="gaindb" class="frmOutput" style="width: 7em;"
+                                                       readonly> dB
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="2" align="center">
+                                                <font color="red"><strong><span id="errGain"></span></strong></font>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="2" align="center">
+                                                <input type="button" value="Calculate Gain" class="calcButton"
+                                                       onclick="calcgain();"><br><br></td>
+                                        </tr>
+                                    </table>
+                                </td>
+                            </tr>
+                        </table>
+                    </form>
+                    <br><br>
+                    <hr size="1" width="100%">
+                    <br><br>
+                    <a name="b"></a>
+                    <form name="stepup">
+                        <center>
+                            <h2><i>Calculate Loading</i></h2>
+                        </center>
+                        <table cellspacing="0" cellpadding="6" border="0" width="100%" align="center">
+                            <tr>
+                                <td>
+                                    <table align="center" width="75%" cellspacing="0" cellpadding="2">
+                                        <tr>
+                                            <td>
+                                                The Moving Magnet input has its own impedance generally
+                                                equal to 47
+                                                Kohms.
+                                                <br>
+                                                The signal emitted by the MC cartridge must be in accordance
+                                                to that 47
+                                                Kohms.
+                                                A step-up modifies the impedance of the output by a factor
+                                                equal to the
+                                                square of the amplification ratio.
+                                                <br><br>
+                                                This is known as "natural impedance".
+                                                <br><br>
+                                                A step-up with an amplification ratio of <strong>5</strong>
+                                                has a
+                                                natural impedance and load impedance of <strong>1880
+                                                ohms</strong>
+                                                <br><br>(if your Moving Magnet input impedance is 47 kohms
+                                                then:
+                                                <br><br><strong>47 kohms / 5<sup>2</sup>) = 1880
+                                                ohms</strong>
+
+
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td align="center">
+                                                <strong>Standard step-up ratios are</strong><br>
+                                                <table>
+                                                    <tr>
+                                                        <td>
+                                                            <ul>
+                                                                <li>1:5 (14dB)</li>
+                                                                <li>1:10 (20dB)</li>
+                                                                <li>1:20 (26dB)</li>
+                                                                <li>1:30 (29.5dB)</li>
+                                                            </ul>
+                                                        </td>
+                                                    </tr>
+                                                </table>
+
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td align="center">
+                                                <table cellspacing="0" cellpadding="2" class="Calctable">
+                                                <tr><td colspan="2" align="center"><br><h2><i>Calculate the loading your cartridge sees.</i></h2><br></td></tr>
+                                                    <tr>
+                                                        <td align="right">Phono stage impedance : </td>
+                                                        <td>
+                                                            <input type="number" step="1" min="33" max="68"
+                                                                   name="resistance" class="frmInput" value="47.0"
+                                                                   style="width: 7em;"> K&#8486;
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td align="right">Turns Ratio:1 : </td>
+                                                        <td>
+                                                            <input type="number" step="1" min="4" max="25" name="ratio"
+                                                                   class="frmInput" value="10" style="width: 7em;"></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td align="right">Gain = </td>
+                                                        <td>
+                                                            <input type="text" name="gain" class="frmOutput"
+                                                                   style="width: 7em;"
+                                                                   readonly> dB
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td align="right">Loading = </td>
+                                                        <td>
+                                                            <input type="text" name="loading"
+                                                                   class="frmOutput" style="width: 7em;"
+                                                                   readonly> &#8486;
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td colspan="2" align="center">
+                                                            <font color="red"><strong><span
+                                                                    id="errLoading"></span></strong></font>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td colspan="2" align="center">
+                                                            <input type="button" value="Calculate Loading"
+                                                                   class="calcButton"
+                                                                   onclick="Loading();"><br><br></td>
+                                                    </tr>
+                                                </table>
+                                                </form>
+                                            </td>
+                                        </tr>
+                                       <tr>
+                                        	<td align="center">
+                                        	<br><br>
+                                        <form name="TransLoad">
+            								<table cellspacing="0" cellpadding="2" class="Calctable" border="0">
+            								<tr>
+            									<td colspan="2" align="center">
+            									<br>
+            									<h2><i><a name="StepUpLoading"></a>Step Up Transformer Loading (ohms)<i></h2>
+            									<br>
+            									</td>
+            								</tr>
+              								<tr>
+                								<td align="right">Phono Stage Load: </td>
+                								<td><input type="text" name="PreAmpLoad" value="47"style="width: 7em;" class="frmInput">
+                  								K&#8486;</td>
+              								</tr>
+              								<tr>
+                								<td align="right">Transformer Primary: </td>
+                								<td><input type="text" name="TurnsRatio0" style="width: 7em;" style="width: 7em;" class="frmInput">
+                  								turns</td>
+              								</tr>
+             								<tr>
+                								<td align="right">Transformer Secondary: </td>
+                								<td><input type="text" name="TurnsRatio" style="width: 7em;" style="width: 7em;" class="frmInput">
+                  								turns</td>
+              								</tr>
+              								<tr>
+                								<td align="right">Effective Load: </td>
+                								<td><input type="text" name="EffLoad" style="width: 7em;" readonly class="frmOutput">
+                  								&#8486;</td>
+              								</tr>
+              								<tr>
+               									 <td colspan=2 align="center">
+                								<br>
+                								<input type="button" value="Calculate Transformer Load" name="StepUpLoad" class="calcButton" onClick="TransLoading()">
+                								<br><br>
+                								</td>
+              								</tr>
+            								</table> 
+                                      	
+                                        	</td>
+                                        <tr>
+                                        	<td align="center">
+                                        	<br><br>
+            								<table cellspacing="0" cellpadding="2" class="Calctable" border="0">
+            								<tr>
+            									<td colspan="2" align="center">
+            									<br>
+            									<h2><i><a name="StepUpLoading"></a>Fine Tune Step Up Transformer Loading (Desired Parallel Resistance in ohms)<i></h2>
+            									<br>
+            									</td>
+            								</tr>
+              								<tr>
+                								<td align="right">Desired Optimum Load: </td>
+                								<td><input type="text" name="OptLoad" class="frmInput" size="6"> &#8486;</td>
+              								</tr>
+              								<tr>
+                								<td align="right">Transformer Primary: </td>
+               									<td><input type="text" name="TurnsRatio01" class="frmInput" size="6"> turns</td>
+              								</tr>
+              								<tr>
+                								<td align="right">Transformer Secondary: </td>
+                								<td><input type="text" name="TurnsRatio2" class="frmInput" size="6"> turns</td>
+              								</tr>
+              								<tr>
+                								<td align="right">Phono Stage Load: </td>
+                								<td><input type="text" name="PreAmpLoad2" class="frmInput" size="6"> K&#8486;</td>
+              								</tr>
+             	 							<tr>
+                								<td align="right">Secondary Parallel Resistor: </td>
+                								<td><input type="text" name="ParallelRes" class="frmOutput" size="6" readonly> K&#8486;</td>
+              								</tr>
+              								<tr>
+                								<td colspan="2" align="center"><br><input type="button" class="calcButton" value="Calculate Resistor Value" name="B9" onClick="TransParallel()"><br><br></td>
+              								</tr>
+            								</table>  
+            								</form>                                      	                                     	
+                                        	</td>
+                                        </tr> 
+                                    </table>
+                                    <br>
+                                </td>
+                            </tr>                                                  
+                        </table>
+
+                    
+                    
+                    
+                    <br><br>
+                    <hr size="1" width="100%">
+                    <br><br>
+                    <a name="c"></a>
+                    <form name="parallel">
+                        <center>
+                            <h2><i>Resistor tuning</i></h2>
+                        </center>
+                        <table align="center" width="75%" cellspacing="0" cellpadding="2">
+                            <tr>
+                                <td>
+                                    Resistor tuning is a way to modify (<strong>to lower</strong>) the
+                                    reflected load
+                                    impedance directly
+                                    linked to the gain of your step-up transformer.
+                                    <br>
+                                    <br>
+                                    You can lower the load impedance by adding a resistor between the + and
+                                    the - of
+                                    the RCA plug (out of the step-up).
+                                    <br>
+                                    Suppose you have a <strong>1:10 gain step-up</strong>. Your actual load
+                                    impedance is
+                                    <strong>470 ohms</strong>
+                                    (natural impedance). You would like to test a load impedance of <strong>100
+                                    ohms</strong>.
+                                    <br>
+                                    <br>
+                                    By adding a resistor, you're modifying the impedance of the Moving
+                                    Magnet input
+                                    (actually equal to 47 000 ohms - standard).
+                                    <br>
+                                    <br>
+                                    To have a load impedance of <strong>100 ohms</strong>, you need to have
+                                    an Moving
+                                    Magnet input
+                                    impedance of <strong>10000 ohms</strong>
+                                    <br>
+                                    <br>
+                                    <strong>Rload = 1/(1/10000-1/47000) = 12.7 kOhms</strong>
+                                </td>
+                            </tr>
+                        </table>
+                        <br>
+                        <table cellspacing="0" cellpadding="2" border="0" width="100%" align="center">
+                            <tr>
+                                <td>
+                                    <table align="center" cellspacing="0" cellpadding="2" width="75%">
+                                        <tr>
+                                            <td align="center">
+                                                What resistor should you put in parallel with the 47k
+                                                phonostage<br>
+                                                to change the loading to a desired value?<br>
+                                                <br>
+                                                <i>Note, you can only go lower in value, not higher (<font
+                                                        color="red"><strong>negative answer
+                                                    means unrealizable</strong></font>).</i>
+                                                <br>
+                                                <br>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td width="540">
+                                                <table align="center" width="75%" cellspacing="0"
+                                                       cellpadding="2"class="Calctable">
+                                                    <tr>
+                                                        <td align="center" width="100%">
+                                                            <table align="center" cellspacing="0" cellpadding="2" border="0">
+                                                                <tr>
+                                                                    <td align="right">Phonostage : </td>
+                                                                    <td>
+                                                                        <input type="number" step="1" min="10" max="100"
+                                                                               name="phonostage"
+                                                                               class="frmInput" value="47.0"
+                                                                               style="width: 7em;"> K&#8486;
+                                                                    </td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td align="right">Desired Loading :</td>
+                                                                    <td>
+                                                                        <input type="number" step="0.1" min="10"
+                                                                               max="100000" name="loading"
+                                                                               class="frmInput" value="100"
+                                                                               style="width: 7em;"> &#8486;
+                                                                    </td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td align="right">Turns Ratio:1 : </td>
+                                                                    <td>
+                                                                        <input type="number" name="ratio"
+                                                                               class="frmInput"
+                                                                               value="10" style="width: 7em;"></td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td colspan="2">&nbsp;</td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td align="right">Gain = </td>
+                                                                    <td>
+                                                                        <input type="number" name="gain"
+                                                                               class="frmOutput"
+                                                                               style="width: 7em;" readonly> dB
+                                                                    </td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td align="right">Resistor = </td>
+                                                                    <td>
+                                                                        <input type="number" name="resistance"
+                                                                               class="frmOutput" style="width: 7em;"
+                                                                               readonly> k&#8486;
+                                                                    </td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td align="right">Phonostage Loading = </td>
+                                                                    <td>
+                                                                        <input type="number" name="PL"
+                                                                               class="frmOutput" style="width: 7em;"
+                                                                               readonly> &#8486;
+                                                                    </td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td colspan="2" align="center">
+                                                                        <font color="red"><strong><span
+                                                                                id="errResistor"></span></strong></font>
+                                                                    </td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td colspan="2" align="center">
+                                                                        <input type="button"
+                                                                               value="Calculate Resistor"
+                                                                               class="calcButton"
+                                                                               onclick="Parallel();">
+                                                                               <br><br>
+                                                                    </td>
+                                                                </tr>
+                                                            </table>
+                                                        </td>
+                                                    </tr>
+                                                </table>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </td>
+                            </tr>
+                        </table>
+                    </form>
+                    <br><br>
+                    <center>
+                        <img src="../images/StepUp4.gif">
+                    </center>
+                    <br>
+                    <table align="center" width="75%" cellspacing="0" cellpadding="2">
+                        <tr>
+                            <td>
+                                <strong><h2><i>Example:</i></h2></strong>
+                                <br>
+                                You have a Moving Coil Cartride with <strong>0.5 mV</strong> output and you would like
+                                to obtain
+                                <strong>5 mV</strong>
+                                in your Moving Magnet Phono Amplifier input, so you need a <strong>1:10</strong>
+                                transformer.
+                                <br>
+                                <br>
+                                You would like to have a load impedance of <strong>40 ohms</strong>.
+                                <br>
+                                <br>
+                                With a gain of <strong>1:10 ( 20dB )</strong>, you need an impedance of <strong>4000
+                                ohms</strong> on yor Phono Amplifier input <strong><br>
+                                ( Transformer Ratio^2 * Desired Loading = 10^2 * 40)</strong>
+                                <br><br>
+                                The resistor must have a value equal to:
+                                <br>
+                                <br>
+                                <strong>Rload = 1 / (1 / Desired Loading - 1 / Phonostage)</strong><br>
+                                <!--
+                                <br>
+                                Where<br>
+                                <ul>
+                                    <li><strong>Desired Loading</strong> is the impedance you want for your Moving
+                                        Magnet Phono Amplifier
+                                    </li>
+                                    and<br>
+                                    <li><strong>R2</strong> is the actual impedance of your Moving Magnet
+                                        input
+                                    </li>
+                                </ul>
+                                -->
+                                <br>
+                                <strong>Rload = 1/(1/4000 - 1/47000) = 4372 ohms</strong>
+                            </td>
+                        </tr>
+                    </table>
+                    <br><br>
+                    <hr size="1" width="100%">
+                    <br><br>
+                    <FORM NAME="rpx" action="">
+                        <table align="center" cellspacing="0" cellpadding="2" width="75%" border="0" class="Calctable">
+                        <tr><td colspan="8" align="center">
+                        <br>
+                        <h2><i>Enter <strong>R<sub>load</sub></strong> to calculate the two
+                                        required resistors values you need.</i></h2><br>
+                        </td></tr>
+                            <tr>
+                                <td width="60" align="right">
+                                    <strong>R<Sub>load</Sub></strong> = 
+                                </td>
+                                <td colspan="7">
+                                    <input type="number" step="0.01" name="D3" class="frmInput" style="width: 7em;"> Resistor value
+                                    you
+                                    are looking for
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="8" height="10"></td>
+                            </tr>
+                            <!-- R Parallel -->
+                            <tr>
+                                <td align="right"><strong>Found</strong> :</td>
+                                <td><input type="text" class="frmOutput" name="cc1" style="width: 6em;"
+                                           style="text-align: center;"
+                                           readonly/> Ω
+                                </td>
+                                <td align="right"><strong>parallel</strong></td>
+                                <td><input type="text" class="frmOutput" name="cc2" style="width: 6em;"
+                                           style="text-align: center;"
+                                           readonly/> Ω
+                                </td>
+                                <td align="center">=</td>
+                                <td><input type="text" class="frmOutputBold" name="ccx" style="width: 6em;"
+                                           style="text-align: center;"
+                                           readonly/> Ω,
+                                </td>
+                                <td><strong>Error</strong> =</td>
+                                <td><input type="text" class="frmOutput" name="ccerr" style="width: 7em;"
+                                           style="text-align: center;" readonly/> %
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="8" height="15"></td>
+                            </tr>
+                            <tr>
+                                <td colspan="8" align="center">
+                                    <input type="BUTTON" class="calcButton" name="Button1" value=" Calculate Resistors "
+                                           onClick="rpxcalc();"><br><br>
+                                </td>
+                            </tr>
+                        </table>
+                    </form>
+                    <br><br>
+                    <hr size=1 width="75%">
+                    <br>
+                    
+                    
+                    <!--
+                    <center>                     
+                    	
+        					<input type='button' onClick='javascript:showTable();' value='show Informatiom Tables' class="calcButton">
+        					&nbsp;&nbsp;
+       						<input type='button' onClick='javascript:hideTable();' value='hide Information Tables' class="calcButton">                    
+                    	<br>
+                    </center>
+                    -->
+                    
+                    
+                    <br><br>
+                    <table align="center" width="75%" cellspacing="0" cellpadding="2" border="0" id="table">
+                        <tr>
+                            <td>
+                                <h2><i>What types of audio transformers exist?</i></h2><br>
+                                There are two basic types of audio transformers with each having multiple functions:<br><br>
+                                <ul>
+                                    <li>Step-up / Step-down transformers</li>
+                                    <li>Signal level compatibility or matching</li>
+                                    <li>Impedance compatibility or matching</li>
+                                    <br>and<br><br>
+                                    <li>Unity 1:1 transformers</li>
+                                    <li>DC blocking</li>
+                                    <li>Radio Frequency Interference (RFI) blocking</li>
+                                    <li>Ground lift and device isolation</li>
+                                </ul>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <h2><i>Step-up / Step-down transformer</i></h2>
+                                <br>
+                                In a step-up / step-down transformer, the primary and secondary have a different
+                                number of windings, thus they have different impedances. Different impedances cause
+                                the signal level to change as it goes through the transformer.
+                                <br>
+                                If the secondary has a higher impedance (more windings) than the primary, the signal
+                                level at the secondary will be a higher voltage than at the primary. A transformer
+                                with multiple taps provides access to multiple impedances and to different signal
+                                gains or losses.<br>
+                                <br>
+                                <h2><i>Unity 1:1 transformer</i></h2>
+                                <br>
+                                Often called an isolation transformer, it has the same number of windings on each
+                                coil. As the impedance is identical for the primary and secondary, the signal level
+                                does not change.
+                                <br><br>
+                                A unity transformer allows an audio signal to pass unmodified from the primary to
+                                the secondary while blocking DC voltage and radio frequency interference (RFI).
+                                Also, since the primary and secondary are insulated from each other, a unity transformer
+                                will electrically isolate different pieces of equipment.
+                                <br><br>
+                                This can solve hum problems by isolating ("lifting") the grounds of different devices.
+                                <br>
+                                <br>
+                                <h2><i>Moving Coil Cartridges</i></h2>
+                                <br>
+                                The characteristics you should take care of for this kind of cartridge to be correctly
+                                exploited by your system are:<br>
+                                <ul>
+                                    <li>The output level, in millivolts</li>
+                                    <li>The internal impedance, in ohms</li>
+                                    <li>The load impedance, in ohms</li>
+                                </ul>
+                                The function of a step-up transformer is to raise the output of the MC cartridge
+                                in order to be correctly handled by a Moving Magnet phono section.<br>
+                                At the same time, the step-up transformer adapts the impedance of the signal produced
+                                by the MC cartridge to an impedance that can be "seen" by your Moving Magnet input.<br>
+                                <br>
+                                <strong>For this reason, check the compatibility of your MC / step-up combo. Most of the
+                                    time, if the sound isn't good it's because of a compatibility problem.</strong>
+                                <br><br>
+                                If a step-up has a gain of 1:10, this means that the output of the cartridge will
+                                be multiplied by 10. If the output out of the cartridge is 0.3 mV, you'll have,
+                                after the step-up, 3 mV, perfect for a Moving Magnet input.<br><br>
+                                The Moving Magnet input has its own impedance generally equal to 47 Kohms. The signal
+                                emitted by the MC cartridge must be in accordance to that 47 Kohms.
+                                <br><br>
+                                <strong>A step-up modifies the impedance of the output by a factor equal to the square
+                                    of
+                                    the amplification ratio. This is known as "natural impedance".</strong>
+                                <br>
+                                A step-up with an amplification ratio of 10 has a natural impedance and load impedance
+                                of <strong>470 ohms</strong><br>
+                                (if your Moving Magnet input impedance is <strong>47 kohms:
+                                470 = 47000/10<sup>2</sup></strong>).
+                                <br>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <center>
+                                    <img src="../images/StepUp2.jpg" width="500"></center>
+                                <br>
+                                <br>
+                                For one channel, there are two coils: a <strong>primary</strong> (the 'input': for the
+                                signal
+                                emitted by the cartridge) and a <strong>secondary</strong> (the 'ouput': the amplified
+                                signal
+                                will go out to your Moving Magnet amplifier stage).
+                                <br>
+                                <br>
+                                You will see that there are less turns on the secondary than on the primary. This
+                                is not a strange idea from the designer of this scheme. Your amplification ratio
+                                is a direct result of the turns ratio (primary/secondary).
+                                <br>
+                                <br>
+                                This explains why, on a step-up that can be used with several internal impedances
+                                cartridges, the gain differs according to the internal impedance you're selecting.<br>
+                                <br>
+                                <center>
+                                    <strong>In a perfect transformer: N2/N1 = V2/V1 = x</strong></center>
+                                <br>
+                                <center>
+                                    <img src="../images/StepUp3.gif"></center>
+                                <br>
+                            </td>
+                        </tr>
+                    </table>
+
+                    <table border="1" cellspacing="0" cellpadding="2" align="center">
+                        <tr>
+                            <td>Where:</td>
+                            <td>N1:/td>
+                            <td>number of turns of the primary coil</td>
+                        </tr>
+                        <tr>
+                            <td>&nbsp;</td>
+                            <td>N2:</td>
+                            <td>number of turns of the secondary coil</td>
+                        </tr>
+                        <tr>
+                            <td>&nbsp;</td>
+                            <td>V1:</td>
+                            <td>input voltage of the step-up</td>
+                        </tr>
+                        <tr>
+                            <td>&nbsp;</td>
+                            <td>V2:</td>
+                            <td>output voltage of the step-up</td>
+                        </tr>
+                        <tr>
+                            <td>&nbsp;</td>
+                            <td>x:</td>
+                            <td>amplification ratio/td>
+                        </tr>
+                        <tr>
+                            <td>and</td>
+                            <td colspan="2"><strong>Z2/Z1 = N2<sup>2</sup>/N1<sup>2</sup> = x<sup>2</sup></strong></td>
+                        </tr>
+                        <tr>
+                            <td>Where:</td>
+                            <td>Z1:</td>
+                            <td>impedance of the primary coil</td>
+                        </tr>
+                        <tr>
+                            <td>&nbsp;</td>
+                            <td>Z2:</td>
+                            <td>impedance of the secondary coil</td>
+                        </tr>
+                        <tr>
+                            <td colspan="3">&nbsp;</td>
+                        </tr>
+                        <tr>
+                            <td>&nbsp;</td>
+                            <td>R:</td>
+                            <td>phonostage load</td>
+                        </tr>
+                    </table>
+                    <br>
+                    <center>
+                        <strong><font color="red">Never try to check the windings with an ordinary
+                            multimeter.
+                            <br>
+                            The DC-current of the meter will magnetise the core!</font></strong>
+                    </center>
+                    <br>
+                    <table border="1" cellspacing="0" cellpadding="2" align="center" width="75%">
+                        <tr>
+                            <td>
+                                <strong><i>Another important point:</i></strong>
+                                <br>
+                                the grounding of the step-up. If you're having grounding problems, or shielding
+                                problems, you'll probably have "hum".
+                                <br>
+                                <br>
+                                <br>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <H2><i>Which Step-Up Transformer for my cartridge?</i></H2>
+                                If you're looking for a step-up you can buy second hand step-up transformers, brand
+                                new or build them yourself using parts from manufacturers like
+                                <a href="http://www.sowter.co.uk/phono-cartridge-transformers.php" target="_blank"
+                                   class="calcButton">&nbsp;Sowter&nbsp;</a>,
+                                <a href="http://www.lundahl.se/mic_inp.html" target="_blank"
+                                   class="calcButton">Lundhal</a>, <a href="http://www.tube-amps.net/index.htm"
+                                                                      target="_blank" class="calcButton">Hashimoto</a>,
+                                <a href="http://www.amplimo.nl" target="_blank" class="calcButton">Amplino</a>,
+                                <a href="http://www.jensen-transformers.com/mc.html" target="_blank" class="calcButton">Jensen</a>
+                                <br>
+                                <br>
+                                <br>
+                        </tr>
+                    </table>
+                    <center>
+                        <h2><i>Step-Up Transformers Specifications</i></h2>
+                    </center>
+                    <table align="center" width="100%" cellspacing="0" cellpadding="2">
+                        <tr>
+                            <td>
+                                <table align="center" width="75%" cellspacing="0" cellpadding="2">
+                                    <tr>
+                                        <td>
+                                            <strong>X Factor</strong></td>
+                                        <td>
+                                            =
+                                        </td>
+                                        <td>
+                                            10^[( gain )/20]
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <strong>Gain in db</strong></td>
+                                        <td>
+                                            =
+                                        </td>
+                                        <td>
+                                            20*ln(X Factor)/ln(10)
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <strong>Natural impedance</strong></td>
+                                        <td>
+                                            =
+                                        </td>
+                                        <td>
+                                            47000/[(X Factor)^2]
+                                        </td>
+                                    </tr>
+                                </table>
+                            </td>
+                        </tr>
+                    </table>
+                    <br>
+                    <table cellspacing="0" cellpadding="0" border="0" width="75%" align="center">
+                        <tr>
+                            <td width="100%">
+                                <table cellspacing="0" cellpadding="0" align="center" bgcolor="#fafafa"
+                                       border="1"
+                                       width="740">
+                                    <tr>
+                                        <td align="center"><strong>Manufacturer</strong></td>
+                                        <td align="center"><strong>Model</strong></td>
+                                        <td align="center"><strong>Gain</strong> (db)</td>
+                                        <td align="center"><strong>X Factor</strong></td>
+                                        <td align="center"><strong>Natural Impedance</strong></td>
+                                        <td align="center"><strong>Recommended Impedance</strong></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Ortofon</td>
+                                        <td>T5</td>
+                                        <td>26</td>
+                                        <td>20,0</td>
+                                        <td>118,1</td>
+                                        <td>3-40 ohms</td>
+                                    </tr>
+                                    <tr>
+                                        <td>&nbsp;</td>
+                                        <td>T10</td>
+                                        <td>32</td>
+                                        <td>39,8</td>
+                                        <td>29,7</td>
+                                        <td>2-4 ohms</td>
+                                    </tr>
+                                    <tr>
+                                        <td>&nbsp;</td>
+                                        <td>T10 MK2</td>
+                                        <td>28</td>
+                                        <td>25,1</td>
+                                        <td>74,5</td>
+                                        <td>2-6 ohms</td>
+                                    </tr>
+                                    <tr>
+                                        <td>&nbsp;</td>
+                                        <td>T20</td>
+                                        <td>32</td>
+                                        <td>39,8</td>
+                                        <td>29,7</td>
+                                        <td>2-4 ohms</td>
+                                    </tr>
+                                    <tr>
+                                        <td>&nbsp;</td>
+                                        <td>T20MKII</td>
+                                        <td>28</td>
+                                        <td>25,1</td>
+                                        <td>74,5</td>
+                                        <td>2-6 ohms</td>
+                                    </tr>
+                                    <!--tr>
+                                    <td>&nbsp;</td>
+                                    <td>
+                                        T30</td>
+                                    <td>
+                                        20</td>
+                                    <td>
+                                        10,0</td>
+                                    <td>
+                                        470,0</td>
+                                    <td>
+                                        24-48 ohms*</td>
+                                </tr>
+                                <tr>
+                                    <td>&nbsp;</td>
+                                    <td>&nbsp;</td>
+                                    <td>
+                                        29</td>
+                                    <td>
+                                        28,2</td>
+                                    <td>
+                                        59,2</td>
+                                    <td>
+                                        6-12 ohms*</td>
+                                </tr>
+                                <tr>
+                                    <td>&nbsp;</td>
+                                    <td>&nbsp;</td>
+                                    <td>
+                                        32</td>
+                                    <td>
+                                        39,8</td>
+                                    <td>
+                                        29,7</td>
+                                    <td>
+                                        5</td>
+                                </tr-->
+                                    <tr>
+                                        <td>&nbsp;</td>
+                                        <td>SPU-T100</td>
+                                        <td>26</td>
+                                        <td>20,0</td>
+                                        <td>118,1</td>
+                                        <td>1-6 ohms</td>
+                                    </tr>
+                                    <tr>
+                                        <td>&nbsp;</td>
+                                        <td>T1000</td>
+                                        <td>26</td>
+                                        <td>20,0</td>
+                                        <td>118,1</td>
+                                        <td>2-6 ohms</td>
+                                    </tr>
+                                    <tr>
+                                        <td>&nbsp;</td>
+                                        <td>T2000</td>
+                                        <td>35</td>
+                                        <td>56,2</td>
+                                        <td>14,9</td>
+                                        <td>3</td>
+                                    </tr>
+                                    <tr>
+                                        <td>&nbsp;</td>
+                                        <td>T3000</td>
+                                        <td>30</td>
+                                        <td>31,6</td>
+                                        <td>47,0</td>
+                                        <td>2-10 ohms</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Fidelity Research</td>
+                                        <td>FRT-4</td>
+                                        <td>31</td>
+                                        <td>35,5</td>
+                                        <td>37,3</td>
+                                        <td>3</td>
+                                    </tr>
+                                    <tr>
+                                        <td>&nbsp;</td>
+                                        <td>&nbsp;</td>
+                                        <td>26</td>
+                                        <td>20,0</td>
+                                        <td>118,1</td>
+                                        <td>10</td>
+                                    </tr>
+                                    <tr>
+                                        <td>&nbsp;</td>
+                                        <td>&nbsp;</td>
+                                        <td>25</td>
+                                        <td>17,8</td>
+                                        <td>148,6</td>
+                                        <td>30</td>
+                                    </tr>
+                                    <tr>
+                                        <td>&nbsp;
+                                        </td>
+                                        <td>&nbsp;
+                                        </td>
+                                        <td>
+                                            20
+                                        </td>
+                                        <td>
+                                            10,0
+                                        </td>
+                                        <td>
+                                            470,0
+                                        </td>
+                                        <td>
+                                            100
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>&nbsp;
+                                        </td>
+                                        <td>
+                                            FR XF-1
+                                        </td>
+                                        <td>
+                                            30
+                                        </td>
+                                        <td>
+                                            31,6
+                                        </td>
+                                        <td>
+                                            47,0
+                                        </td>
+                                        <td>
+                                            4-18 ohms
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>&nbsp;
+                                        </td>
+                                        <td>
+                                            FRT-3
+                                        </td>
+                                        <td>
+                                            26
+                                        </td>
+                                        <td>
+                                            20,0
+                                        </td>
+                                        <td>
+                                            118,1
+                                        </td>
+                                        <td>
+                                            30
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>&nbsp;
+                                        </td>
+                                        <td>&nbsp;
+                                        </td>
+                                        <td>
+                                            31
+                                        </td>
+                                        <td>
+                                            35,5
+                                        </td>
+                                        <td>
+                                            37,3
+                                        </td>
+                                        <td>
+                                            10
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>&nbsp;
+                                        </td>
+                                        <td>
+                                            XG5
+                                        </td>
+                                        <td>
+                                            34
+                                        </td>
+                                        <td>
+                                            50,1
+                                        </td>
+                                        <td>
+                                            18,7
+                                        </td>
+                                        <td>
+                                            &lt; 3 ohms
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>&nbsp;
+                                        </td>
+                                        <td>&nbsp;
+                                        </td>
+                                        <td>
+                                            26
+                                        </td>
+                                        <td>
+                                            20,0
+                                        </td>
+                                        <td>
+                                            118,1
+                                        </td>
+                                        <td>
+                                            3-18 ohms
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>&nbsp;
+                                        </td>
+                                        <td>&nbsp;
+                                        </td>
+                                        <td>
+                                            22
+                                        </td>
+                                        <td>
+                                            12,6
+                                        </td>
+                                        <td>
+                                            296,5
+                                        </td>
+                                        <td>
+                                            18-40
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>&nbsp;
+                                        </td>
+                                        <td>
+                                            X1-M
+                                        </td>
+                                        <td>
+                                            30
+                                        </td>
+                                        <td>
+                                            31,6
+                                        </td>
+                                        <td>
+                                            47,0
+                                        </td>
+                                        <td>
+                                            4-18 ohms
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>&nbsp;
+                                        </td>
+                                        <td>
+                                            X1-H
+                                        </td>
+                                        <td>
+                                            25
+                                        </td>
+                                        <td>
+                                            17,8
+                                        </td>
+                                        <td>
+                                            148,6
+                                        </td>
+                                        <td>
+                                            19-40 ohms
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>&nbsp;
+                                        </td>
+                                        <td>
+                                            X1-L
+                                        </td>
+                                        <td>
+                                            36
+                                        </td>
+                                        <td>
+                                            63,1
+                                        </td>
+                                        <td>
+                                            11,8
+                                        </td>
+                                        <td>
+                                            3
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            Denon
+                                        </td>
+                                        <td>
+                                            AU 320
+                                        </td>
+                                        <td>
+                                            31,1
+                                        </td>
+                                        <td>
+                                            36
+                                        </td>
+                                        <td>
+                                            36
+                                        </td>
+                                        <td>
+                                            3
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>&nbsp;
+                                        </td>
+                                        <td>&nbsp;
+                                        </td>
+                                        <td>
+                                            20,0
+                                        </td>
+                                        <td>
+                                            10
+                                        </td>
+                                        <td>
+                                            470
+                                        </td>
+                                        <td>
+                                            40
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>&nbsp;
+                                        </td>
+                                        <td>
+                                            AU 340
+                                        </td>
+                                        <td>
+                                            30,4
+                                        </td>
+                                        <td>
+                                            33
+                                        </td>
+                                        <td>
+                                            43
+                                        </td>
+                                        <td>
+                                            3
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>&nbsp;
+                                        </td>
+                                        <td>&nbsp;
+                                        </td>
+                                        <td>
+                                            20,0
+                                        </td>
+                                        <td>
+                                            10
+                                        </td>
+                                        <td>
+                                            470
+                                        </td>
+                                        <td>
+                                            40
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>&nbsp;
+                                        </td>
+                                        <td>
+                                            AU310
+                                        </td>
+                                        <td>
+                                            20,0
+                                        </td>
+                                        <td>
+                                            10
+                                        </td>
+                                        <td>
+                                            470
+                                        </td>
+                                        <td>
+                                            40
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>&nbsp;
+                                        </td>
+                                        <td>
+                                            AUS1
+                                        </td>
+                                        <td>
+                                            22,3
+                                        </td>
+                                        <td>
+                                            13
+                                        </td>
+                                        <td>
+                                            278
+                                        </td>
+                                        <td>
+                                            3-40 ohms
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>&nbsp;
+                                        </td>
+                                        <td>
+                                            AU300LC
+                                        </td>
+                                        <td>
+                                            20,0
+                                        </td>
+                                        <td>
+                                            10
+                                        </td>
+                                        <td>
+                                            470
+                                        </td>
+                                        <td>
+                                            40
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            Audio Technica
+                                        </td>
+                                        <td>
+                                            AT700T
+                                        </td>
+                                        <td>
+                                            34
+                                        </td>
+                                        <td>
+                                            50,1
+                                        </td>
+                                        <td>
+                                            18,7
+                                        </td>
+                                        <td>
+                                            3
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>&nbsp;
+                                        </td>
+                                        <td>&nbsp;
+                                        </td>
+                                        <td>
+                                            26
+                                        </td>
+                                        <td>
+                                            20,0
+                                        </td>
+                                        <td>
+                                            118,1
+                                        </td>
+                                        <td>
+                                            20
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>&nbsp;
+                                        </td>
+                                        <td>&nbsp;
+                                        </td>
+                                        <td>
+                                            23
+                                        </td>
+                                        <td>
+                                            14,1
+                                        </td>
+                                        <td>
+                                            235,6
+                                        </td>
+                                        <td>
+                                            40
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            EAR
+                                        </td>
+                                        <td>
+                                            MC4
+                                        </td>
+                                        <td>
+                                            29,5
+                                        </td>
+                                        <td>
+                                            30
+                                        </td>
+                                        <td>
+                                            52,2
+                                        </td>
+                                        <td>
+                                            3
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>&nbsp;
+                                        </td>
+                                        <td>&nbsp;
+                                        </td>
+                                        <td>
+                                            27,6
+                                        </td>
+                                        <td>
+                                            24
+                                        </td>
+                                        <td>
+                                            81,6
+                                        </td>
+                                        <td>
+                                            6
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>&nbsp;
+                                        </td>
+                                        <td>&nbsp;
+                                        </td>
+                                        <td>
+                                            25,1
+                                        </td>
+                                        <td>
+                                            18
+                                        </td>
+                                        <td>
+                                            145,1
+                                        </td>
+                                        <td>
+                                            12
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>&nbsp;
+                                        </td>
+                                        <td>&nbsp;
+                                        </td>
+                                        <td>
+                                            20,0
+                                        </td>
+                                        <td>
+                                            10
+                                        </td>
+                                        <td>
+                                            470,0
+                                        </td>
+                                        <td>
+                                            40
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>&nbsp;
+                                        </td>
+                                        <td>
+                                            MC3
+                                        </td>
+                                        <td>
+                                            29,5
+                                        </td>
+                                        <td>
+                                            30
+                                        </td>
+                                        <td>
+                                            52
+                                        </td>
+                                        <td>
+                                            4
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>&nbsp;
+                                        </td>
+                                        <td>&nbsp;
+                                        </td>
+                                        <td>
+                                            26,0
+                                        </td>
+                                        <td>
+                                            20
+                                        </td>
+                                        <td>
+                                            118
+                                        </td>
+                                        <td>
+                                            12
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>&nbsp;
+                                        </td>
+                                        <td>&nbsp;
+                                        </td>
+                                        <td>
+                                            20,0
+                                        </td>
+                                        <td>
+                                            10
+                                        </td>
+                                        <td>
+                                            470
+                                        </td>
+                                        <td>
+                                            40
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            Supex
+                                        </td>
+                                        <td>
+                                            SDT 3300
+                                        </td>
+                                        <td>
+                                            28,5
+                                        </td>
+                                        <td>
+                                            26,6
+                                        </td>
+                                        <td>
+                                            66,4
+                                        </td>
+                                        <td>
+                                            2-10 ohms
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            Bryston
+                                        </td>
+                                        <td>
+                                            TF1
+                                        </td>
+                                        <td>
+                                            22,5
+                                        </td>
+                                        <td>
+                                            13,3
+                                        </td>
+                                        <td>
+                                            264,3
+                                        </td>
+                                        <td>
+                                            5-35 ohms
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>&nbsp;
+                                        </td>
+                                        <td>&nbsp;
+                                        </td>
+                                        <td>
+                                            16,5
+                                        </td>
+                                        <td>
+                                            6,7
+                                        </td>
+                                        <td>
+                                            1052,2
+                                        </td>
+                                        <td>
+                                            40-250 ohms
+                                        </td>
+                                    </tr>
+                                    <!--tr>
+                                    <td>
+                                        Rothwell</td>
+                                    <td>
+                                        rothwell</td>
+                                    <td>
+                                        22,0</td>
+                                    <td>
+                                        12,6</td>
+                                    <td>
+                                        296,5</td>
+                                    <td>
+                                        100</td>
+                                </tr-->
+                                    <tr>
+                                        <td>
+                                            Nakamichi
+                                        </td>
+                                        <td>
+                                            MCB100
+                                        </td>
+                                        <td>
+                                            26,0
+                                        </td>
+                                        <td>
+                                            20
+                                        </td>
+                                        <td>
+                                            117,5
+                                        </td>
+                                        <td>
+                                            2-20 ohms
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            Sony
+                                        </td>
+                                        <td>
+                                            HA-T110
+                                        </td>
+                                        <td>
+                                            26
+                                        </td>
+                                        <td>
+                                            20
+                                        </td>
+                                        <td>
+                                            117,5
+                                        </td>
+                                        <td>
+                                            3 - 40 ohms
+                                        </td>
+                                    </tr>
+                                </table>
+                            </td>
+                        </tr>
+                    </table>
+
+                    
+                    
+                    <hr size="1" width="100%">
+                    <br><br>
+                    <center>
+                        <h2><i>Links</i></h2>
+                    </center>
+                    <table align=center width="75%" cellspacing="0" cellpadding="2">
+                        <tr>
+                            <td><a href="http://www.hagtech.com/loading.html" class="calcButton"
+                                   target="_blank">Cartridge
+                                loading</a> by Jim Hagerman<br><br>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><a href="http://www.jensen-transformers.com/transformers/moving-coil/"
+                                   class="calcButton" target="_blank">Jensen</a> provides a lot of
+                                information<br><br>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><a href="http://www.sowter.co.uk/phono-cartridge-transformers.php"
+                                   class="calcButton"
+                                   target="_blank">Sowter</a> provides help to choose the correct
+                                product you need
+                                for your cartridge<br><br>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><a href="http://www.lundahl.se/" class="calcButton" target="_blank">Lundahl</a>
+                                Transformers<br><br>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><a href="http://www.kandkaudio.com/moving-coil-phono-step-up-kits/"
+                                   class="calcButton" target="_blank">K&K Audio</a> specialist in
+                                Lundhal
+                                transformers<br><br>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><a href="http://www.sacthailand.com/Transformer_MC.html"
+                                   class="calcButton"
+                                   target="_blank">SACThailand</a> SILK Supermalloy MC-step up
+                                transformer
+                            </td>
+                        </tr>
+                    </table>
+                    </center>
+                    <br><br>
+                    <hr size="1" width="75%">
+                    <br><br>
+                    <center>
+						<br>                    
+                        <a href="javascript:history.back()" class="calcButton"><<< Back</a>
+                    </center>
+                    </p> <!-- End Content -->
+                </div><!-- details -->
+            </div> <!-- box margin-btm -->
+        </div> <!-- box0 -->
+    </div> <!-- container -->
+    <div class="copyright">
+        &copy;
+        <span id="copyright">
+        <script>document.getElementById('copyright').appendChild(document.createTextNode(new Date().getFullYear()))</script>
+        &nbsp;mh-Audio.nl&nbsp;&nbsp;-&nbsp;&nbsp;<a href="../disclaimer.html"><font
+                color="#000000">Disclaimer</font></a>
+    </span>
+    </div>
+</div> <!-- id=header class="container -->
+<script type="text/javascript" src="//fc.webmasterpro.de/counter.php?name=mh-audio"></script>
+<noscript><div><img src="//fc.webmasterpro.de/as_noscript.php?name=mh-audio" style="width:1px;height:1px;" alt="" /></div></noscript>
+<!-- https://fc.webmasterpro.de -->
+</body>
+</html>

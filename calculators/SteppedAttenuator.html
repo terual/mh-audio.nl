@@ -1,0 +1,524 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<!--
+Design by TEMPLATED
+http://templated.co
+Released for free under the Creative Commons Attribution License
+
+Name       : TailPiece 
+Description: A two-column, fixed-width design with dark color scheme.
+Version    : 1.0
+Released   : 20130902
+
+-->
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <!-- Google Analytics -->
+    <script>
+        window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+        ga('create', 'UA-77078028-1', 'auto');
+        ga('send', 'pageview');
+    </script>
+    <script async src='https://www.google-analytics.com/analytics.js'></script>
+    <!-- End Google Analytics -->
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>HiFi Loudspeaker Design</title>
+    <meta name="keywords" content=""/>
+    <meta name="description" content=""/>
+    <link href="http://fonts.googleapis.com/css?family=Source+Sans+Pro:200,300,400,600,700,900" rel="stylesheet"/>
+    <link rel="shortcut icon" href="../favicon.ico" type="image/x-icon">
+    <link href="../css/default.css" rel="stylesheet" type="text/css" media="all"/>
+    <link href="../css/fonts.css" rel="stylesheet" type="text/css" media="all"/>
+
+    <!--[if IE 6]>
+    <link href="default_ie6.css" rel="stylesheet" type="text/css"/><![endif]-->
+    <script language="javascript">
+function CloseR(Rval, IEASeries){
+    //IEASeries = 192 for 0.1% standard values;
+    //IEASeries = 96 for 1% standard values;
+    if(Rval <= 0){
+        return 0;
+    }
+    Expo = Math.floor(Math.log(Rval) / Math.log(10));
+    Mant = Rval / Math.pow(10,Expo);
+    x = Math.floor(IEASeries * Math.log(Mant) / Math.log(10));
+    min_dist = 1000;
+    for (i = (x - 1) ; i <= (x + 1); i++ )
+    {
+        y = (Math.pow(10, (i / IEASeries))).toFixed(2);
+        dist = Math.abs(Mant - y);
+        if(dist < min_dist){
+            min_dist = dist;
+            closest = i;
+        }
+    }
+    x = (Math.pow(10, (closest / IEASeries))).toFixed(2);
+    y = Math.pow(10, Expo);
+    return x*y;
+}
+
+function E_6(Val){
+    if(Val <= 0){
+        return 0;
+    }
+    Clist = "1,1.5,2.2,3.3,4.7,6.8,10";
+    Vals = Clist.split(",") //convert to zero based array;
+    n = Vals.length
+    //find mantissa &#038; exponent of Val;
+    Expo = Math.floor(Math.log(Val) / Math.log(10));
+    Mant = Val / Math.pow(10,Expo);
+    min_dist = 1000;
+    for (i = 0; i<=  n; i++){
+        dist = Math.abs(Mant - Vals[i]);
+        if(dist < min_dist){
+            min_dist = dist;
+            closest = i;
+        }
+    }
+    return Vals[closest] * Math.pow(10,Expo);
+}
+function E_12(Val){
+    if(Val <= 0){
+        return 0;
+    }
+    Clist = "1,1.2,1.5,1.8,2.2,2.7,3.3,3.9,4.7,5.6,6.8,8.2,10";
+    Vals = Clist.split(",") //convert to zero based array;
+    n = Vals.length
+    //find mantissa &#038; exponent of Val;
+    Expo = Math.floor(Math.log(Val) / Math.log(10));
+    Mant = Val / Math.pow(10,Expo);
+    min_dist = 1000;
+    for (i = 0; i<=  n; i++){
+        dist = Math.abs(Mant - Vals[i]);
+        if(dist < min_dist){
+            min_dist = dist;
+            closest = i;
+        }
+    }
+    return Vals[closest] * Math.pow(10,Expo);
+}
+
+function E_24(Val){
+    if(Val <= 0){
+        return 0;
+    }
+    Clist = "1,1.1,1.2,1.3,1.5,1.6,1.8,2.0,2.2,2.4,2.7,3.0,3.3,3.6,3.9,4.3,4.7,5.1,5.6,6.2,6.8,7.5,8.2,9.1,10" //2% &#038;& 5% vals;
+    Vals = Clist.split(",") //convert to zero based array;
+    n = Vals.length
+    //find mantissa &#038; exponent of Val;
+    Expo = Math.floor(Math.log(Val) / Math.log(10));
+    Mant = Val / Math.pow(10,Expo);
+    min_dist = 1000;
+    for (i = 0; i<=  n; i++){
+        dist = Math.abs(Mant - Vals[i]);
+        if(dist < min_dist){
+            min_dist = dist;
+            closest = i;
+        }
+    }
+    return Vals[closest] * Math.pow(10,Expo);
+}
+
+function E_48(Val){
+    return CloseR(Val, 48).toPrecision(3);
+}
+
+function E_96(Val){
+    return CloseR(Val, 96).toPrecision(3);
+}
+
+function E_192(Val){
+    return CloseR(Val, 192).toPrecision(3);
+}
+
+
+function Find(){
+ v=document.frm2.Text1.value;
+ v6=rd(E_6(v),2);
+ v12=rd(E_12(v),2);
+ v24=rd(E_24(v),2);
+ v48=rd(E_48(v),2);
+ v96=rd(E_96(v),2);
+ v192=rd(E_192(v),2);
+
+ e6=rd((100*(v6-v)/v),2)  + "%";
+ e12=rd((100*(v12-v)/v),2)  + "%";
+ e24=rd((100*(v24-v)/v),2)  + "%";
+ e48=rd((100*(v48-v)/v),2)  + "%";
+ e96=rd((100*(v96-v)/v),2)  + "%";
+ e192=rd((100*(v192-v)/v),2)  + "%";
+ 
+ r6h = rd(v6 * 1.2,2);
+ r6l = rd(v6 * 0.8,2);
+  r12h = rd(v12 * 1.1,2);
+ r12l = rd(v12 * 0.9,2);
+  r24h = rd(v24 * 1.05,2);
+ r24l = rd(v24 * 0.95,2);
+  r48h = rd(v48 * 1.02,2);
+ r48l = rd(v48 * 0.98,2);
+  r96h = rd(v96 * 1.01,2);
+ r96l = rd(v96 * 0.99,2);
+  r192h = rd(v192 * 1.005,2);
+ r192l = rd(v192 * 0.995,2);
+ 
+// document.frm2.Text2").value=v6;
+ document.frm2.Text2.value = v6; 
+ document.frm2.Text3.value=v12;
+ document.frm2.Text4.value=v24;
+ document.frm2.Text5.value=v48;
+ document.frm2.Text6.value=v96;
+ document.frm2.Text7.value=v192;
+
+ document.frm2.Text8.value=e6;
+ document.frm2.Text9.value=e12;
+ document.frm2.Text10.value=e24;
+ document.frm2.Text11.value=e48;
+ document.frm2.Text12.value=e96;
+ document.frm2.Text13.value=e192;
+ 
+ document.frm2.text14.value = "20% = " + r6l + " to " + r6h;
+ document.frm2.text15.value = "10% = " + r12l + " to " + r12h;
+ document.frm2.text16.value = "5% = " + r24l + " to " + r24h;
+ document.frm2.text17.value = "2% = " + r48l + " to " + r48h;
+ document.frm2.text18.value = "1% = " + r96l + " to " + r96h;
+ document.frm2.text19.value = "0.5% = " + r192l + " to " + r192h;
+
+}
+
+function rd(num,precision) {
+
+	precision = parseInt(precision);
+    var result1 = num * Math.pow(10, precision);
+    var result2 = Math.round(result1);
+    var result3 = result2 / Math.pow(10, precision);
+	return result3;
+}
+
+    </script>
+</head>
+<body>
+<div id="header" class="container">
+    <div id="logo">
+        <h2>HiFi&nbsp;&nbsp;Audio&nbsp;&nbsp;Prive</h2>
+    </div>
+    <div id="menu">
+    <br><br>
+    <center>
+        <ul>
+            <li><a href="javascript:history.back()" access˚key="1" title=""><-- Back</a></li>
+            <!--
+            <li><a href="Loudspeaker.html" accesskey="2" title="">Loudspeaker</a></li>
+            <li><a href="Acoustic.html" accesskey="3" title="">Acoustic</a></li> -->
+            <li><a href="../Calculator.html" accesskey="4" title="">Calculators</a></li>
+             <li><a href="../../Library.html" accesskey="4" title="">Library</a></li>
+            <!--
+            <li><a href="Software.html" accesskey="6" title="">Software</a></li>
+            <li><a href="Elektronic.html" accesskey="5" title="">Electronic</a></li>
+            <li><a href="Measurement.html" accesskey="5" title="">Measurement</a></li>
+            <li class="active"><a href="Links.html" accesskey="5" title="">Links/Downloads</a></li>
+            <li><a href="EmailFormNew.asp" accesskey="5" title="">Contact</a></li> -->
+        </ul>
+        </center>
+    </div>
+</div>
+<div id="page">
+    <div class="container">
+        <div class="title">
+            <h2><i>Calculate Stepped Attenuator</i></h2>
+        </div>
+        <div class="box0">
+            <div class="box margin-btm">
+                <center><br><img src="../images/attenuator_parts.jpg"></center>
+                <div class="details">
+                    <p> <!-- Start Content -->
+                    <table align="center" width="98%" class="header" border=1>
+                        <tr>
+                            <td valign="top"><img src="../images/attenuation.jpg"></td>
+                            <td class="textlight" valign="top">
+                                <br>
+                                <strong>Formulas</strong>:<br><br>
+                                <strong>V<sub>out</sub> = V<sub>in</sub> * R1 /(R1+R2)</strong><br><br>
+                                <strong>Total Resistance (Rt) = R1 + R2 </strong>:
+                                <input class="frmInput" name="txtRx" value="50000" size="6">
+                                &nbsp;&nbsp;
+                                <input class="calcButton" type="submit" name="submit"  value="calculate">
+                                <br><br>
+                                R1 = series resistor<br>
+                                R2 = shunt resistor<br><br>
+                                The total resistance of the attenuator is: <strong>R1 + R2</strong><br>
+                                Thate does not include any impedance after the attenuator.<br><br>
+                                To calculate the total impedance including the load on the output,
+                                calculate the parallel resistance of the load and R2, add this to the value of
+                                R1.<br><br>
+                                <U>Example:</U><br>
+                                R1 = 50.000 ohms<br>
+                                R2 = 100 ohms<br>
+                                R<sub>load</sub> = 50000 ohms<br><br>
+                                <strong>R<sub>parallel</sub> = (R2 * R<sub>load</sub>) / (R2 + R<sub>load</sub>)</strong><br>
+                                R<sub>parallel</sub> = (100 * 50000 ) / (100 + 50000) = 99.8 ohms<br>
+                                <strong>R<sub>total</sub> = R1 + R<sub>parallel</sub> = 49900,2 ohms</strong><br>
+                                <br><br>
+                                Converting a voltage to decibels: <strong>20 * log(n)</strong><br><br>
+                                where n = the voltage or resistance ratio.<br><br>
+                                <U>Example:</U><br>
+                                R1 = 50000 ohms<br>
+                                R2 = 100 ohms<br><br>
+                   				<br><br>
+                                R<sub>total</sub> ( R1 + R2 ) = 50100 ohms<br><br>
+                                <strong>dB = 20 * log(R2/R<sub>total</sub>)<br><br>
+                                
+                                
+                                
+                                    <strong>dB = 20 * log(100/50100) = -53.99dB</strong>
+                                    <br><br>
+
+                                    <img src="images/sch_ser4.gif">
+                                    <br>
+
+                            </td>
+                            </tr>
+                            </table>
+
+
+                                <br>
+
+                                <form name="frm">
+                                    <!-- table cellspacing="0" cellpadding="2" border="1" align="center" ID="Table1">
+                                        <tr>
+                                            <td class="textdark">
+                                                <b>Total Resistance (Rt) = R1 + R2 </strong>:
+                                            </td>
+                                            <td class="text" width="50">
+                                                <input class="textdark" type="textdark" name="txtRx" value="50000"
+                                                       size="6"></td>
+                                            <td class="textdark">
+                                                Ohms
+                                            </td>
+                                        </tr>
+                                       
+                                        <TR>
+                                            <td valign=top class="textdark"><B>Steps</B>&nbsp;(24 steps are recommended )</td>
+                                            <TD valign=top width=50><input class="textdark" type="text" name="txtS" value="24" size=6></TD>
+                                            <td valign=top></td>
+                                        </TR>
+                                       
+                                        <tr>
+                                            <td class="text" valign="top" colspan="6" align="center">
+                                                &nbsp;&nbsp;<input class="calcButton" type="submit" name="submit"
+                                                                   value="calculate">
+                                            </td>
+                                        </tr>
+                                    </table -->
+                                </form>
+                    </center>
+                    <br>
+                    <center>
+               <br>
+            <a href="http://www.hificollective.co.uk/components/potentiometers.html" class="button" target="_blank">HiFi Collective</a>
+                
+                    </center>
+                    <br>
+                    <hr size="1" width="75%">
+                    <center>
+                        <b>
+                            <h1>
+                                <i>Search closest standard resistor value</i></h1>
+                        </strong>
+                        <table align="center">
+                            <tr>
+                                <td class="text">
+                                    <li>E6: 20% resistors</li>
+                                </td>
+                                <td class="text">
+                                    <li>E12: 10% resistors</li>
+                                </td>
+                                <td class="text">
+                                    <li>E24: 5% resistors</li>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="text">
+                                    <li>E48: 2% resistors</li>
+                                </td>
+                                <td class="text">
+                                    <li>E96: 1% resistors</li>
+                                </td>
+                                <td class="text">
+                                    <li>E192: 0.5%, 0.25%, 0.1% resistors</li>
+                                </td>
+                            </tr>
+                        </table>
+                        <form name="frm2">
+                            <table cellspacing="0" cellpadding="0" border="0" width="700" align="center" id="Table1">
+                                <tr>
+                                    <td class="textdark"><br><br>
+                                        <table cellpadding="2">
+                                            <tr>
+                                                <td class="textdark" align="left">
+                                                    Fill the desired value in, the closest standard value are shown in
+                                                    the different
+                                                    E serials:
+                                                    <input class="textdark" id="Text1" type="text" name="Text1" size="6"
+                                                           maxlength="8">
+                                                    ohms&nbsp;
+                                                    <input class="textdark" type="button" class="text" value="search"
+                                                           onclick="Find()">
+                                                </td>
+                                            </tr>
+                                        </table>
+                                        <br>
+                                        <table id="Table1" cellpadding="1" align="center" class="header">
+                                            <tr>
+                                                <td class="text" align="center" width="120">
+                                                    EIA Serie
+                                                </td>
+                                                <td class="text" align="center">
+                                                    closest value
+                                                </td>
+                                                <td class="text" align="center" width="200">
+                                                    deviation, compared<br>
+                                                    with theoretical value
+                                                </td>
+                                                <td class="text" align="center">
+                                                    min/max value
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td class="text" align="center">
+                                                    E6
+                                                </td>
+                                                <td class="text" align="center">
+                                                    <input class="textdark" type="text" name="Text2" size="8" readonly>
+                                                </td>
+                                                <td class="text" align="center">
+                                                    <input class="textdark" type="text" name="Text8" size="8" readonly>
+                                                </td>
+                                                <td class="text" align="center">
+                                                    <input class="textdark" type="text" name="text14" size="28"
+                                                           readonly></td>
+                                            </tr>
+                                            <tr>
+                                                <td class="text" align="center">
+                                                    E12
+                                                </td>
+                                                <td class="text" align="center">
+                                                    <input class="textdark" type="text" name="Text3" size="8" readonly>
+                                                </td>
+                                                <td class="text" align="center">
+                                                    <input class="textdark" type="text" name="Text9" size="8" readonly>
+                                                </td>
+                                                <td class="text" align="center">
+                                                    <input class="textdark" type="text" name="text15" size="28"
+                                                           readonly></td>
+                                            </tr>
+                                            <tr>
+                                                <td class="text" align="center">
+                                                    E24
+                                                </td>
+                                                <td class="text" align="center">
+                                                    <input class="textdark" type="text" name="Text4" size="8" readonly>
+                                                </td>
+                                                <td class="text" align="center">
+                                                    <input class="textdark" type="text" name="Text10" size="8" readonly>
+                                                </td>
+                                                <td class="text" align="center">
+                                                    <input class="textdark" type="text" name="text16" size="28"
+                                                           readonly></td>
+                                            </tr>
+                                            <tr>
+                                                <td class="text" align="center">
+                                                    E48
+                                                </td>
+                                                <td class="text" align="center">
+                                                    <input class="textdark" type="text" name="Text5" size="8" readonly>
+                                                </td>
+                                                <td class="text" align="center">
+                                                    <input class="textdark" type="text" name="Text11" size="8" readonly>
+                                                </td>
+                                                <td class="text" align="center">
+                                                    <input class="textdark" type="text" name="text17" size="28"
+                                                           readonly></td>
+                                            </tr>
+                                            <tr>
+                                                <td class="textlight" align="center">
+                                                    E96 (recommended)
+                                                </td>
+                                                <td class="text" align="center">
+                                                    <input class="textdark" type="text" name="Text6" size="8" readonly>
+                                                </td>
+                                                <td class="text" align="center">
+                                                    <input class="textdark" type="text" name="Text12" size="8" readonly>
+                                                </td>
+                                                <td class="text" align="center">
+                                                    <input class="textdark" type="text" name="text18" size="28"
+                                                           readonly></td>
+                                            </tr>
+                                            <tr>
+                                                <td class="text" align="center">
+                                                    E192
+                                                </td>
+                                                <td class="text" align="center">
+                                                    <input class="textdark" type="text" name="Text7" size="8" readonly>
+                                                </td>
+                                                <td class="text" align="center">
+                                                    <input class="textdark" type="text" name="Text13" size="8" readonly>
+                                                </td>
+                                                <td class="text" align="center">
+                                                    <input class="textdark" type="text" name="text19" size="28"
+                                                           readonly></td>
+                                            </tr>
+                                            <tr>
+                                                <td colspan="4">&nbsp;</td>
+                                            </tr>
+                                        </table>
+                                        <br>
+                                    </td>
+                                </tr>
+                            </table>
+                        </form>
+                    </center>
+                    <br><br>
+                    <hr size="1" width="75%">
+                    <br><br>
+                    <center>
+                        <a href="javascript:history.back()" class="calcButton"><<< Back</a>
+                    </center>
+                    <br><br>
+                    </p> <!-- End Content -->
+                </div>
+            </div>
+        </div>
+
+        <!--
+        <div class="boxB">
+            <div class="box">
+                <img src="images/Acoustics.jpg" width="320" height="180" alt="" />
+                <div class="details">
+                    <p>Consectetuer adipiscing elit. Nam pede erat, porta eu, lobortis eget, tempus et, tellus. Etiam neque. Vivamus consequat lorem at nisl.</p>
+                </div>
+                <a href="#" class="button">More Details</a>
+            </div>
+        </div>
+
+
+        <div class="boxC">
+            <div class="box">
+                <img src="images/Calculator.jpg" width="320" height="180" alt="" />
+                <div class="details">
+                    <p>Consectetuer adipiscing elit. Nam pede erat, porta eu, lobortis eget, tempus et, tellus. Etiam neque. Vivamus consequat lorem at nisl.</p>
+                </div>
+                <a href="#" class="button">More Details</a>
+            </div>
+
+            <div class="box">
+                <img src="images/pic06.jpg" width="320" height="200" alt="" />
+                <div class="details">
+                    <p>Consectetuer adipiscing elit. Nam pede erat, porta eu, lobortis eget, tempus et, tellus. Etiam neque. Vivamus consequat lorem at nisl.</p>
+                </div>
+                <a href="#" class="button">More Details</a>
+            </div>
+            -->
+    </div>
+</div>
+</div>
+</body>
+</html>

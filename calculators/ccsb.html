@@ -1,0 +1,321 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<!--
+Design by TEMPLATED
+http://templated.co
+Released for free under the Creative Commons Attribution License
+
+Name       : TailPiece 
+Description: A two-column, fixed-width design with dark color scheme.
+Version    : 1.0
+Released   : 20130902
+
+-->
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <!-- Google Analytics -->
+    <script>
+        window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+        ga('create', 'UA-77078028-1', 'auto');
+        ga('send', 'pageview');
+
+    </script>
+    <script async src='https://www.google-analytics.com/analytics.js'></script>
+    <!-- End Google Analytics -->
+
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>Common-Cathode Stage, bypassed Cathode</title>
+ <meta name="Keywords" content="HiFi, Audio, Loudspeakers, Database, Acoustic treatment, 
+		OnlineCalculator, LoudspeakerBasics, Links, Tubes, Buizen, Music, Muziek, Musik, 
+		Lautsprechergrundlagen, Lautsprecherberechnungen, Lautsprecher-Database, 
+		Analog to digital, Vinyl, Tapes, old records vinyl on cd, Acoustic, Bass Absorber,
+		acoustic electric,acoustic foam panel,acoustic measurements,acoustic panel,boston acoustic
+		acoustic neuromas,room acoustics,acoustics,acoustic foam,speaker cable,acoustic phonetics,
+		acoustic panels,acoustic ceiling,acoustic materials,acoustic neuroma,audio acoustic,acoustic,
+		acoustic insulation,acoustic wall panels,acoustic treatment,acoustic solution,acoustic wall panel,
+		acoustic bass,acoustic baffles,diy speaker cable, Room modes,
+		acoustic software,
+		room acoustics,
+		audio acoustic,
+		acoustic foam,
+		musical acoustics">
+<meta name="Description" content="Resource for building, calculate and measuring Hi Fi Loudspeakers,DIY LoudspeakerSite, Acoustic treatment, loudspeaker calculations, hifi links, high end">
+    <link href="http://fonts.googleapis.com/css?family=Source+Sans+Pro:200,300,400,600,700,900" rel="stylesheet"/>
+    <link rel="shortcut icon" href="../favicon.ico" type="image/x-icon">
+    <link href="../css/default.css" rel="stylesheet" type="text/css" media="all"/>
+    <link href="../css/fonts.css" rel="stylesheet" type="text/css" media="all"/>
+
+    <!--[if IE 6]>
+    <link href="default_ie6.css" rel="stylesheet" type="text/css"/><![endif]-->
+    <script src="../js/fab.js"></script>
+
+    <script type="text/javascript">
+function round(number,X) {
+// rounds number to X decimal places, defaults to 3
+X = (!X ? 3 : X);
+return Math.round(number*Math.pow(10,X))/Math.pow(10,X);
+}
+
+function calcGainByPass()
+{
+var mu		= eval(document.frm10.mubp.value);		// amplification
+var Rp		= eval(document.frm10.Rpbp.value);		// plate resistor to Ohms
+var Rload	= eval(document.frm10.Rload.value);	    // Load to Ohms
+var ri      = eval(document.frm10.ribp.value);		// the internal plate resistance of the tube to ohms
+var Ra = 0
+var Ci
+
+if (document.frm10.Rload.value !='')
+{
+    Ra = (Rp * Rload) / (Rp + Rload)
+}
+else
+{
+    Ra = Rp;
+}
+
+// amplification
+var Av
+Av = (mu * Ra) / (Ra + ri); // no capacitor !!
+document.frm10.Gainbp.value = round(Av,2);
+
+var dB
+dB = 20 * (Math.log(Av) / Math.LN10);
+document.frm10.dB.value = round(dB,2);
+
+//Output impedance (Output anode):
+if (document.frm10.Rload.value != '')
+{
+    Rout = eval((Rload * Rp) / (Rload + Rp));   // Rload
+    document.frm10.Rout.value = round(Rout,1);
+}
+else
+{
+    Rout = eval((ri * Rp) / (ri + Rp));         // without Rload
+    document.frm10.Rout.value = round(Rout,1);
+}
+
+// Ci
+Ci = 1 / (2* 3.14159 * 5 * 1000000) 
+Ci = Ci * 1000000000;
+document.frm10.Ci.value = round(Ci,1);
+
+}
+    </script>
+</head>
+<body>
+<div id="header" class="container">
+    <div id="logo">
+        <h2>HiFi&nbsp;&nbsp;Audio&nbsp;&nbsp;Prive</h2>
+    </div>
+    <br>
+    <div id="menu"><br><center>
+        <ul>
+            <li><a href="../index.html" accesskey="1" title="">Home</a></li>
+            <!--
+            <li><a href="../Loudspeaker.html" accesskey="2" title="">Loudspeaker</a></li>
+            <li><a href="../Acoustic.html" accesskey="3" title="">Acoustic</a></li>
+            -->
+            <li class="active"><a href="../Calculator.html" accesskey="4" title="">Calculators</a></li>
+            <!--
+            <li><a href="../Software.html" accesskey="6" title="">Soft & Hardware</a></li>
+            <li><a href="../Elektronic.html" accesskey="5" title="">Electronic</a></li>
+            <li><a href="../Measurement.html" accesskey="5" title="">Measurement</a></li>
+            <li><a href="../Links.html" accesskey="5" title="">Links/Downloads</a></li>
+            -->
+            <li><a href="../Library.html" accesskey="7" title="">Library</a></li>
+            <!--
+            <li><a href="../EmailFormNew.asp" accesskey="5" title="">Contact</a></li>
+            -->
+        </ul>
+        </center>
+    </div>
+</div>
+<button onclick="topFunction()" id="myBtn" title="Go To Top">⬆</button>
+<button id="myBtnDown" onclick="scrollWin()" title="Scroll Down">⬇</button>
+<div id="page">
+    <div class="container">
+   
+        <div class="title">
+            <center>
+                <br><h1><i>Common-Cathode Stage, <br>bypassed Cathode</i></h1>
+            </center>
+        </div>
+        <div class="box0">
+            <div class="box margin-btm">
+                <center>
+                    <br><img src="../ChooseTubeCalc.png" alt=""/><br><br>
+                </center>
+                <div class="details">
+                    <table align="center" cellspacing="0" cellpadding="2" width="60%" border="0">
+                        <tr>
+                            <td align="center"><strong><i>Recommended to read:</i></strong></td>
+                        </tr>
+                        <tr>
+                            <td>
+                                Using Tube Curves - <a href="https://wtfamps.com/load-line-calculations/"
+                                                       target="_blank" class="calcButton">Load Line Calculations</a><br><br>
+                                Tube CAD Journal - <a
+                                    href="http://www.tubecad.com/articles_2003/Grounded_Cathode_Amplifier/page6.html"
+                                    target="_blank" class="calcButton">Extrapolation from Plate Curves</a><br><br>
+                                Tube CAD Journal - <a
+                                    href="http://www.tubecad.com/articles_2003/Grounded_Cathode_Amplifier/index.html"
+                                    target="_blank" class="calcButton">The Grounded-Cathode Amplifier</a><br><br>
+                                The Valve Wizard - <a href="http://www.valvewizard.co.uk/heater.html"
+                                                      target="_blank" class="calcButton">Heater / Filament Supplies</a><br>
+                            </td>
+                        </tr>
+                    </table>
+                    <br><br>
+                    <p> <!-- Start Content -->
+                    <form name="frm10">
+                    <table align="center" width="75%" border="0" cellspacing="0" cellpadding="2"class="Calctable">
+                    <tr>
+                    <td align="center">
+                            <br><h2><i>Common-Cathode Stage, bypassed Cathode</i></h2><br>
+                        <table align="center" width="75%" border="0" cellspacing="0" cellpadding="2">
+                            <tr>
+                                <td colspan="3">
+                                    By placing a capacitor in parallel with the cathode
+                                    bias resistor any instantaneous rise in cathode
+                                    current will be diverted into charging the capacitor, and if
+                                    cathode current falls, the capacitor will supply the deficit from
+                                    its own charge. Another way of looking at it is to say that the
+                                    capacitor shunts or ‘bypasses’ to ground any AC signals on
+                                    the cathode so that signal current does not flow in the cathode
+                                    resistor, while the DC bias voltage remains unchanged. With
+                                    either explanation the result is the same: the cathode bypass
+                                    capacitor ‘smoothes out’ changes in cathode voltage, helping
+                                    to hold the cathode voltage constant, preventing cathode
+                                    feedback and allowing full gain to be realised.
+                                    <br><br>
+                                    A capacitor will allow greater current flow at high frequencies
+                                    than it will at low frequencies. If we want the stage to have maximum
+                                    gain at all
+                                    audible frequencies then the capacitor must be large enough* to smooth
+                                    out the
+                                    lowest frequencies of interest, and the stage could be described as
+                                    being ‘fully
+                                    bypassed’.
+                                    If the capacitor is made relatively small then only high frequencies
+                                    will be smoothed
+                                    out while lower frequencies will not. Therefore the stage will have
+                                    maximum gain at
+                                    high frequencies and minimum gain at low frequencies, producing a treble
+                                    boost,
+                                    and the stage would be termed ‘partially bypassed’. To the designer,
+                                    this is an
+                                    extremely useful consequence of using cathode bias.
+                                    If the stage has no cathode bypass capacitor it may be described as
+                                    ‘unbypassed’ and
+                                    will have minimum gain.
+                                    <br>
+                                    <center>
+                                        <img src="../images/WBCS.gif" width="550">
+                                    </center>
+                                    <br>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Tube gain (from tube datasheet)
+                                </td>
+                                <td width="170"><input name="mubp" style="width: 6em;"> mu <font color="red">*</font>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Rp (value of resistor between plate and power supply)
+                                </td>
+                                <td><input name="Rpbp" style="width: 6em;" class="frmInput">&nbsp;Ohms <font color="red">*</font></td>
+                            </tr>
+                            <tr>
+                                <td>Ri (the internal plate resistance of the tube )</td>
+                                <td><input name="ribp" style="width: 6em;" class="frmInput"value="">&nbsp;Ohms <font color="red">*</font></td>
+                            </tr>
+                            <tr>
+                                <td>Rload (resistance of the next stage)</td>
+                                <td><input name="Rload" style="width: 6em;" class="frmInput" value="1000">&nbsp;Ohms
+                                </td>
+                            </tr>
+                                                        <tr>
+                                <td align="center" colspan="2">
+                                    <font color="red">*</font> = required values</font><br>
+                                    <input onClick="calcGainByPass()" type="button"
+                                           value="Calculate" name="calc" class="calcButton">
+                                </td>
+                            </tr>
+                            </table>
+                            <br>
+                             </form>
+                             
+                            <hr width="75%" size="1"><br>
+                            <h2><i>Calculations</i></h2><br>
+                            
+                            <table align=center border="0">
+                            <tr>
+                                <td align="right" width=520><strong>Gain</strong></td>
+                                <td colspan=2><input type="number" name="Gainbp" style="width: 6em;" class="frmOutput"
+                                           readonly>&nbsp;=&nbsp;<input
+                                         name="dB" style="width: 6em;" class="frmOutput" readonly>&nbsp;dB
+                                </td>
+                            </tr>
+                            <tr>
+                                <td align="right"><strong>Impedance Output Anode</strong></td>
+                                <td><input  name="Rout" style="width: 6em;" class="frmOutput" readonly>
+                                    Ohms
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    Input coupling capacitor: Because the grid is now at a high DC potential
+                                    it will require a coupling capacitor to block the DC from upsetting
+                                    previous stages.<br>
+                                    I will choose an arbitrary reactance of 1Meg at a low frequency of 5Hz
+                                    and calculate the value.
+                                </td>
+                                <td valign="top">
+                                    <input name="Ci" style="width: 6em;" class="frmOutput" readonly> uF
+                                </td>
+                            </tr>
+                            
+                            </td>
+                            </tr>
+                            <tr>
+                                <td colspan="2">
+                                    <br>
+                                    <strong>Heater elevation:</strong> <br>It is very important not to exceed the
+                                    maximum heater-to-cathode voltage. Since the cathode is at a high
+                                    voltage it is often necessary to elevate the heater supply to ensure
+                                    safe operation and long valve life.
+                                    <br> <<br>
+                                    More about <a href="http://www.valvewizard.co.uk/heater.html" target="_blank" class="calcButton">Heater / Filament Supplies</a><br>
+                                </td>
+                            </tr>
+                        </table>
+                        <br><br>
+                        </td>
+                        </tr>
+                        </table>
+                        <br><br>
+                    <hr size="1" width="75%">
+                        <br><br>
+                        <center>
+                            <a href="javascript:history.back();" class="calcButton"><<< Back</a>
+                        </center>
+                        <br><br>
+                   
+                    </p> <!-- End Content -->
+                </div>
+            </div>
+        </div>
+        <div class="copyright">
+            &copy;
+            <span id="copyright">
+        <script>document.getElementById('copyright').appendChild(document.createTextNode(new Date().getFullYear()))</script>
+        &nbsp;mh-Audio.nl&nbsp;&nbsp;-&nbsp;&nbsp;<a href="../disclaimer.html"><font
+                    color="#000000">Disclaimer</font></a>
+    </span>
+        </div>
+        <script type="text/javascript" src="//fc.webmasterpro.de/counter.php?name=mh-audio"></script>
+<noscript><div><img src="//fc.webmasterpro.de/as_noscript.php?name=mh-audio" style="width:1px;height:1px;" alt="" /></div></noscript>
+<!-- https://fc.webmasterpro.de -->
+</body>
+</html>
