@@ -1,0 +1,321 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<!--
+Design by TEMPLATED
+http://templated.co
+Released for free under the Creative Commons Attribution License
+
+Name       : TailPiece 
+Description: A two-column, fixed-width design with dark color scheme.
+Version    : 1.0
+Released   : 20130902
+
+-->
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>Designing loudspeakers - 34 pages, written by Peter Comeau</title>
+    <meta name="keywords" content=""/>
+    <meta name="description" content=""/>
+    <link href="http://fonts.googleapis.com/css?family=Source+Sans+Pro:200,300,400,600,700,900" rel="stylesheet"/>
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+    <link href="default.css" rel="stylesheet" type="text/css" media="all"/>
+    <link href="fonts.css" rel="stylesheet" type="text/css" media="all"/>
+
+    <!--[if IE 6]>
+    <link href="default_ie6.css" rel="stylesheet" type="text/css"/><![endif]-->
+    <script src="../js/fab.js"></script>
+
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/lodash.js/3.10.1/lodash.js'></script>
+    <script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
+
+<style>
+	.myBtn1 {
+    /*
+  		background-color: #cdcdcd; /* Green */
+  		border: none;
+  		color: red;
+  		padding: 5px 10px;
+  		text-align: center;
+  		/*text-decoration: none;*/
+  		display: inline-block;
+  		font-size: 16px;
+  	*/	
+  		
+  		
+   display: none;
+  /* position: fixed;
+   bottom: 36px;
+   right: 50px; */
+   font-size: 18px;
+   /*font-style: italic;*/
+   font-weight: bold;
+   border: none;
+   outline: none;
+   background-color: #f9a415;
+   /* background-color: #F00000; */
+   /*color: #444444;*/
+   color: #444;
+   cursor: pointer;
+   padding: 10px;
+   border-radius: 50%;
+   box-shadow: 0 6px 10px 0 #333;
+   transition: all 0.1s ease-in-out;
+   opacity: 0.7;
+   transition: 0.1s;
+   z-index: 9999;  		
+}
+
+ #myBtn1:hover {
+    opacity: 1
+ }
+ 
+ 	.lbrButton 
+	{ 
+	    display: block;
+        width: 80%;
+		background-color: #f9a415;
+		border: solid 2px #f9a415;
+		border-radius: 8px;
+		font-family: 'Verdana', sans-serif;
+		font-size: 10pt;
+		color: #000;
+		text-decoration:none;
+		padding-left: 5px;
+		padding-right: 5px;
+		padding-top: 5px;
+		padding-bottom: 5px;
+	}
+	.lbrButton:hover 
+	{
+    	background-color: #333;
+   	 	color: white;
+   	 	border-radius: 8px;
+	}	
+	
+ /* Scrollbar */
+:root {
+  --shadow: #43a047;
+  --scrollbarBG: #eee;
+  --thumbBG: #f9a415;;
+}
+::-webkit-scrollbar {
+  width: 15px;
+}
+::-webkit-scrollbar-track {
+  background: var(--scrollbarBG);
+}
+/*
+::-webkit-scrollbar-thumb {
+  background-color: var(--thumbBG);
+  box-shadow: 0 -100vh 0 100vh var(--shadow), 0 0 15px 5px black;
+}
+*/
+
+::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,1); 
+}
+
+::-webkit-scrollbar-thumb:window-inactive {
+	background: rgba(255,0,0,0.4); 
+}
+
+/*End Scrollbar */	
+ </style>
+    
+    
+<script src="js/fab.js"></script>
+<script>
+/*
+ * When Link button is clicked, scroll to the iframe
+*/
+function locate()
+{
+  document.body.scrollTop = 1800;
+  document.documentElement.scrollTop = 1800;
+}
+
+
+
+function locatetop() 
+{
+  document.body.scrollTop = 980;
+  document.documentElement.scrollTop = 980;
+}
+
+/*
+ * When Link button is clicked, scroll up to the menu
+*/
+function toggle_by_id(id, on) {
+    var lst = document.getElementsById(id);
+    for(var i = 0; i < lst.length; ++i) {
+        lst[i].style.display = on ? '' : 'none';
+        alert(i);
+    }
+}
+</script>	
+
+</head>
+<body>
+<div id="header" class="container">
+    <div id="logo">
+        <h2>HiFi&nbsp;&nbsp;Audio&nbsp;&nbsp;Design</h2>
+    </div>
+    <br>
+    <div id="menu">
+        <ul>
+            <li><a href="index.html" accesskey="1" title="">Home</a></li>
+            <li class="active"><a href="Loudspeaker.html" accesskey="2" title="">Loudspeaker</a></li>
+            <li><a href="Acoustic.html" accesskey="3" title="">Acoustic</a></li>
+            <li><a href="../Calculator.html" accesskey="4" title="">Calculators</a></li>
+            <li><a href="Software.html" accesskey="6" title="">Soft & Hardware</a></li>
+            <li><a href="Elektronic.html" accesskey="5" title="">Electronic</a></li>
+            <li><a href="Measurement.html" accesskey="5" title="">Measurement</a></li>
+            <li><a href="Links.html" accesskey="5" title="">Links/Downloads</a></li>
+            <li><a href="library.html" accesskey="7" title="">library</a></li>
+            <li><a href="EmailFormNew.asp" accesskey="5" title="">Contact</a></li>
+        </ul>
+    </div> <!-- menu -->
+</div> <!-- header & container -->
+<div id="page">
+    <div class="container">
+    <!-- PayPal Donate Button -->
+    <div class="copyright">
+		<center> 
+			<i>Please donate to keep this site alive...</i><br>       
+			<form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_blank">
+				<input type="hidden" name="cmd" value="_donations" />
+				<input type="hidden" name="business" value="VSAAYZF3DEGLC" />
+				<input type="hidden" name="currency_code" value="EUR" />
+				<input type="image" src="https://www.paypalobjects.com/en_US/NL/i/btn/btn_donateCC_LG.gif" border="0" name="submit" title="Please donate to keep this site alive!" alt="Donate with PayPal button" />
+				<img alt="" border="0" src="https://www.paypal.com/en_NL/i/scr/pixel.gif" width="1" height="1" />
+			</form>
+		</center>     
+    </div>
+    <!-- END PayPal Donate Button -->        
+        <div class="title">
+            <br><h1><i>Designing loudspeakers</i></h1>
+        </div>
+        <div class="box0">
+            <div class="box margin-btm">
+            <br>
+            <center><img src="images/library.png" width="520" alt=""/></center>
+            <br>
+            
+            <table align="center" width="85%" cellspacing="0" cellpadding="2" class="Calctable">
+            	<tr>
+            		<td align="center">
+                		<div id="details">
+                		<p> <!-- Start Content -->
+                		<table width="70%"><tr>
+                		<td>
+                		<center><h2><i>Designing loudspeakers - 34 pages</i></h2><i>written by Peter Comeau</i><br><br></center>
+                		<i>
+                		Peter Comeau has experienced virtually every aspect of the hi-fi business.<br>
+                		He started out in retail during the heyday of the Tottenham Court Road, then moved into magazine journalism.<br>
+                		He subsequently founded and ran Heybrook for many years prior to moving to China to oversee the design side
+                		of the IAG operation (which includes Quad, Mission and Wharfedale brands).
+                		</i>
+                		<br><br>
+                	</td>
+                </tr>
+
+
+                <tr>    
+                	<td align="center">
+                    	<a href="library/loudspeakers/petercomeau/designing_spkrs_Pt1fb.pdf" target="iframe_pc" class="lbrButton" id="1" onclick="locate();;">Part 1 – The Baffle&nbsp;&nbsp;&nbsp;&nbsp;[ 2 pages ]</a><br>
+                    	<!-- a href="library/loudspeakers/petercomeau/designing_spkrs_Pt1fb.pdf" target="iframe_pc" class="lbrButton" id="1" onclick="locate();, toggle_by_id(1, on);">Part 1 – The Baffle</a -->
+                    </td>
+                </tr>
+            	<tr>    
+                    <td align="center">
+                    	<a href="library/loudspeakers/petercomeau/designing_spkrs_Pt2cb.pdf" target="iframe_pc" class="lbrButton" id="2" onclick="locate();;">Part 2 - Which Enclosure&nbsp;&nbsp;&nbsp;&nbsp;[ 2 pages ]</a><br>
+                    </td>
+                </tr>
+                <tr>    
+                    <td align="center">
+                    	<a href="library/loudspeakers/petercomeau/designing_spkrs_Pt3br.pdf" target="iframe_pc" class="lbrButton" onclick="locate();;">Part 3 Bass Reflex&nbsp;&nbsp;&nbsp;&nbsp;[ 2 pages ]</a><br>
+                    </td>
+                </tr>
+                <tr>    
+                    <td align="center">
+                    	<a href="library/loudspeakers/petercomeau/designing_spkrs_Pt4tl.pdf" target="iframe_pc" class="lbrButton" onclick="locate();">Part 4 Quarter Wave and Transmission Line systems&nbsp;&nbsp;&nbsp;&nbsp;[ 3 pages ]</a><br>
+                    </td>
+                </tr>
+                <tr>    
+                    <td align="center">
+                    	<a href="library/loudspeakers/petercomeau/designing_spkrs_Pt5he.pdf" target="iframe_pc" class="lbrButton" onclick="locate();">Part 5 Horns and Efficiency&nbsp;&nbsp;&nbsp;&nbsp;[ 3 pages ]</a><br>
+                    </td>
+                </tr>  
+                <tr>    
+                    <td align="center">
+                    	<a href="library/loudspeakers/petercomeau/designing_spkrs_Pt6cr.pdf" target="iframe_pc" class="lbrButton" onclick="locate();">Part 6 Crossover Design&nbsp;&nbsp;&nbsp;&nbsp;[ 4 pages ]</a><br>
+                    </td>
+                </tr>
+                <tr>    
+                    <td align="center">
+                    	<a href="library/loudspeakers/petercomeau/designing_spkrs_Pt7ct.pdf" target="iframe_pc" class="lbrButton" onclick="locate();">Part 7 Crossover Design continued&nbsp;&nbsp;&nbsp;&nbsp;[ 3 pages ]</a><br>
+                    </td>
+                </tr>
+                <tr>    
+                    <td align="center">
+                    	<a href="library/loudspeakers/petercomeau/designing_spkrs_Pt8mm.pdf" target="iframe_pc" class="lbrButton" onclick="locate();">Part 8 - Loudspeaker Measurements&nbsp;&nbsp;&nbsp;&nbsp;[ 5 pages ]</a><br>
+                    </td>
+                </tr>
+                <tr>    
+                    <td align="center">
+                    	<a href="library/loudspeakers/petercomeau/Designing_Spkrs_Pt9lp.pdf" target="iframe_pc" class="lbrButton" onclick="locate();">Part 9 – WD18BR – A Bass Reflex Project&nbsp;&nbsp;&nbsp;&nbsp;[ 5 pages ]</a><br>
+                    </td>
+                </tr>
+                <tr>    
+                    <td align="center">
+                    	<a href="library/loudspeakers/petercomeau/designing_spkrs_Pt10ia.pdf" target="iframe_pc" class="lbrButton" onclick="locate();">Part 10 – WD18BR – Crossover Development&nbsp;&nbsp;&nbsp;&nbsp;[ 5 pages ]</a><br>
+                    </td>
+                </tr> 
+                <tr><td height="20"></td></tr>                  		                		                   		                   		                   		
+            </table>
+            </td>
+            </tr>
+            </table>
+			
+            <center>
+                <br><br>
+                <a href="javascript:history.back()" class="calcButton"><<< Back</a>
+            </center> 
+            <br><br>
+            <table align="center" width="100%"  cellspacing="0" cellpadding="2" class="Menutable">
+            	<tr style="display: visible;" class="content">
+                	<td>
+                        <iframe name="iframe_pc" width="99%" height="900" frameBorder="0"></iframe>
+                    </td>
+                </tr>
+            </table>   
+            <br><br>
+            <center><button onclick="locatetop()" id="myBtn1" title="Go To Top" class="myBtn1">⬆</button></center>		
+
+            <br><br>
+            <center>
+                <a href="javascript:history.back()" class="calcButton"><<< Back</a>
+            </center> 
+            <br><br>             		 		
+            </p><!-- End Content  -->              
+            </div> <!-- box margin-btm -->
+        </div> <!-- box0 -->
+    </div><!-- container -->
+    <div class="copyright">
+    &copy;
+    <span id="copyright">
+    <script>document.getElementById('copyright').appendChild(document.createTextNode(new Date().getFullYear()))</script>
+    &nbsp;mh-Audio.nl&nbsp;&nbsp;-&nbsp;&nbsp;<a href="../disclaimer.html"><font color="#000000">Disclaimer</font></a>          
+	</span>
+</div>
+</div><!-- page -->
+</div>
+
+ <script type="text/javascript" src="//fc.webmasterpro.de/counter.php?name=mh-audio"></script>
+<noscript><div><img src="//fc.webmasterpro.de/as_noscript.php?name=mh-audio" style="width:1px;height:1px;" alt="" /></div></noscript>
+<!-- https://fc.webmasterpro.de -->
+</body>
+</html>
+
