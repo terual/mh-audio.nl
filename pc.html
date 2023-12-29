@@ -25,45 +25,39 @@ Released   : 20130902
     <!--[if IE 6]>
     <link href="default_ie6.css" rel="stylesheet" type="text/css"/><![endif]-->
     <script src="../js/fab.js"></script>
-<!--
-    <script src='https://cdnjs.cloudflare.com/ajax/libs/lodash.js/3.10.1/lodash.js'></script>
-    <script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
--->
 <style>
 	.myBtn1 {
     /*
-  		background-color: #cdcdcd; /* Green */
-  		border: none;
-  		color: red;
-  		padding: 5px 10px;
-  		text-align: center;
-  		/*text-decoration: none;*/
-  		display: inline-block;
-  		font-size: 16px;
-  	*/	
-  		
-  		
-   display: none;
-  /* position: fixed;
-   bottom: 36px;
-   right: 50px; */
-   font-size: 18px;
-   font-style: italic;
-   font-weight: bold;
-   border: none;
-   outline: none;
-   background-color: #f9a415;
-   /* background-color: #F00000; */
-   /*color: #444444;*/
-   color: #444;
-   cursor: pointer;
-   padding: 10px;
-   border-radius: 50%;
-   box-shadow: 0 6px 10px 0 #333;
-   transition: all 0.1s ease-in-out;
-   opacity: 0.7;
-   transition: 0.1s;
-   z-index: 9999;  		
+  	background-color: #cdcdcd; /* Green */
+  	border: none;
+  	color: red;
+  	padding: 5px 10px;
+  	text-align: center;
+  	/*text-decoration: none;*/
+  	display: inline-block;
+  	font-size: 16px;
+  	*/		
+   	display: none;
+  	/* position: fixed;
+   	bottom: 36px;
+   	right: 50px; */
+   	font-size: 18px;
+   	font-style: italic;
+   	font-weight: bold;
+   	border: none;
+  	 outline: none;
+   	background-color: #f9a415;
+  	 /* background-color: #F00000; */
+   	/*color: #444444;*/
+   	color: #444;
+   	cursor: pointer;
+   	padding: 10px;
+   	border-radius: 50%;
+   	box-shadow: 0 6px 10px 0 #333;
+   	transition: all 0.1s ease-in-out;
+  	 opacity: 0.7;
+   	transition: 0.1s;
+   	z-index: 9999;  		
 }
 
  #myBtn1:hover {
@@ -72,8 +66,8 @@ Released   : 20130902
  
  	.lbrButton 
 	{ 
-	    display: block;
-        width: 80%;
+	    	display: block;
+        	width: 80%;
 		background-color: #f9a415;
 		border: solid 2px #f9a415;
 		border-radius: 8px;
@@ -88,11 +82,10 @@ Released   : 20130902
 	}
 	.lbrButton:hover 
 	{
-    	background-color: #333;
+    		background-color: #333;
    	 	color: white;
    	 	border-radius: 8px;
 	}	
-	
  /* Scrollbar */
 :root {
   --shadow: #43a047;
@@ -122,9 +115,7 @@ Released   : 20130902
 }
 
 /*End Scrollbar */	
- </style>
-    
-    
+ </style>  
 <script src="js/fab.js"></script>
 <script>
 /*
@@ -135,8 +126,6 @@ function locate()
   document.body.scrollTop = 1800;
   document.documentElement.scrollTop = 1800;
 }
-
-
 
 function locatetop() 
 {
@@ -155,7 +144,6 @@ function toggle_by_id(id, on) {
     }
 }
 </script>	
-
 </head>
 <body>
 <div id="header" class="container">
@@ -176,7 +164,7 @@ function toggle_by_id(id, on) {
             <li><a href="Measurement.html" accesskey="5" title="">Measurement</a></li>
             <li><a href="Links.html" accesskey="5" title="">Links/Downloads</a></li>
 		-->
-            <li><a href="library.html" accesskey="7" title="">library</a></li>
+            <li><a href="library.html" accesskey="7" title="">Library</a></li>
 		<!--
             <li><a href="EmailFormNew.asp" accesskey="5" title="">Contact</a></li>
 		-->
@@ -216,18 +204,21 @@ function toggle_by_id(id, on) {
 
                 <tr>    
                 	<td align="center">
-                    	<a href="library/loudspeakers/petercomeau/designing_spkrs_pt1fb.pdf" target="iframe_pc" class="lbrButton" id="1" onclick="locate();;">Part 1 – The Baffle&nbsp;&nbsp;&nbsp;&nbsp;[ 2 pages ]</a><br>
-                    	<!-- a href="library/loudspeakers/petercomeau/designing_spkrs_Pt1fb.pdf" target="iframe_pc" class="lbrButton" id="1" onclick="locate();, toggle_by_id(1, on);">Part 1 – The Baffle</a -->
+                    	<a href="library/loudspeakers/petercomeau/designing_spkrs_pt1fb.pdf" target="iframe_pc" class="lbrButton" id="1" onclick="locate();">Part 1 – The Baffle&nbsp;&nbsp;&nbsp;&nbsp;[ 2 pages ]</a><br>
+                    	<a href="library/loudspeakers/petercomeau/designing_spkrs_Pt1fb.pdf" target="iframe_pc" class="lbrButton" id="1" onclick="locate(); toggle_by_id(1, on);">Part 1 – The Baffle</a ><br>
                     </td>
                 </tr>
             	<tr>    
                     <td align="center">
-                    	<a href="library/loudspeakers/petercomeau/designing_spkrs_pt2cb.pdf" target="iframe_pc" class="lbrButton" id="2" onclick="locate();;">Part 2 - Which Enclosure&nbsp;&nbsp;&nbsp;&nbsp;[ 2 pages ]</a><br>
+                    	<!--
+			    <a href="library/loudspeakers/petercomeau/designing_spkrs_pt2cb.pdf" target="iframe_pc" class="lbrButton" id="2" onclick="locate();">Part 2 - Which Enclosure&nbsp;&nbsp;&nbsp;&nbsp;[ 2 pages ]</a><br>
+			-->
+			    <a href="library/loudspeakers/petercomeau/designing_spkrs_pt2cb.pdf" target="blank" class="lbrButton" id="2">Part 2 - Which Enclosure&nbsp;&nbsp;&nbsp;&nbsp;[ 2 pages ]</a>
                     </td>
                 </tr>
                 <tr>    
                     <td align="center">
-                    	<a href="library/loudspeakers/petercomeau/designing_spkrs_pt3br.pdf" target="iframe_pc" class="lbrButton" onclick="locate();;">Part 3 Bass Reflex&nbsp;&nbsp;&nbsp;&nbsp;[ 2 pages ]</a><br>
+                    	<a href="library/loudspeakers/petercomeau/designing_spkrs_pt3br.pdf" target="iframe_pc" class="lbrButton" onclick="locate();">Part 3 Bass Reflex&nbsp;&nbsp;&nbsp;&nbsp;[ 2 pages ]</a><br>
                     </td>
                 </tr>
                 <tr>    
