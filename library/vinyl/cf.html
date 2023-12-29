@@ -1,0 +1,833 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<!--
+Design by TEMPLATED
+http://templated.co
+Released for free under the Creative Commons Attribution License
+
+Name       : TailPiece 
+Description: A two-column, fixed-width design with dark color scheme.
+Version    : 1.0
+Released   : 20130902
+
+-->
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <!-- Google Analytics -->
+    <script>
+        window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+        ga('create', 'UA-77078028-1', 'auto');
+        ga('send', 'pageview');
+
+    </script>
+    <script async src='https://www.google-analytics.com/analytics.js'></script>
+    <!-- End Google Analytics -->
+
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>Vinyl Cleaning Fluid Recipes</title>
+    <meta name="keywords" content=""/>
+    <meta name="description" content=""/>
+    <link href="http://fonts.googleapis.com/css?family=Source+Sans+Pro:200,300,400,600,700,900" rel="stylesheet"/>
+    <link rel="shortcut icon" href="../../favicon.ico" type="image/x-icon">
+    <link href="../../css/default.css" rel="stylesheet" type="text/css" media="all"/>
+    <link href="../../css/fonts.css" rel="stylesheet" type="text/css" media="all"/>
+
+    <!--[if IE 6]>
+    <link href="default_ie6.css" rel="stylesheet" type="text/css"/><![endif]-->
+    <script src="../../js/fab.js"></script>
+<style>
+
+#customers {
+  font-family: Verdana, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+#customers td, #customers th {
+  border: 1px solid #ddd;
+  padding: 8px;
+-moz-box-shadow: inset -2px -2px 2px #888;		/* Firefox 3.5 - 3.6 */
+-webkit-box-shadow: inset -2px -2px 2px #888;	/* Safari 3-4, iOS 4.0.2 - 4.2, Android 2.3+ */
+box-shadow: inset -2px -2px 2px #888;			/* Opera 10.5, IE 9, Firefox 4+, Chrome 6+, iOS 5 */  
+}
+
+#customers tr:nth-child(even){background-color: #f2f2f2;}
+
+#customers tr:hover {background-color: #ddd;}
+
+#customers th {
+  padding-top: 12px;
+  padding-bottom: 12px;
+  text-align: center;
+  background-color: #f9a415;
+  color: #2222FF;
+}
+
+
+#modalContainer {
+	background-color:rgba(0, 0, 0, 0.3);
+	position:absolute;
+	width:100%;
+	height:100%;
+	top:0px;
+	left:0px;
+	z-index:10000;
+	 /*background-image:url(tp.png); required by MSIE to prevent actions on lower z-index elements */
+}
+
+#alertBox {
+	position:relative;
+	width:410px;
+	min-height:175px;
+	margin-top:100px;
+	margin-bottom:30px;
+	border:1px solid #666;
+	background-color:#eee;
+	background-repeat:no-repeat;
+	/*background-position:20px 30px;*/
+	background: #ffffff url("CF_BG.png") no-repeat center !important;
+}
+
+#modalContainer > #alertBox {
+	position:fixed;
+}
+
+
+#alertBox h1 {
+	margin:0;
+	font:bold 1.3em Verdana, sans-serif;
+	font-style: italic;
+	background-color:#f9a415;
+	color: #234;
+	text-align: center;
+	border-bottom:1px solid #000;
+	padding:2px 0 2px 2px;
+	text-decoration:none;
+    -webkit-box-shadow: 10px 10px 15px rgba(0, 0, 0, 0.3);
+  		-moz-box-shadow: 10px 10px 15px rgba(0, 0, 0, 0.3);
+  		box-shadow: 10px 10px 15px rgba(0, 0, 0, 0.3);  	
+}
+
+
+#alertBox p {
+	font:1.1em Verdana, sans-serif;
+	height:80px;
+	padding-left:5px;
+	padding-right:5px;
+	margin-left:5px;
+	margin-right:5px;
+	margin-top:5px;
+}
+
+#alertBox #closeBtn {
+	display:block;
+	position:relative;
+	margin:5px auto;
+	padding: 4px 4px 4px 4px;
+	border:1px solid #666;	
+	width:80px;
+	font:bold 0.9em Verdana, sans-serif;
+	font-style: italic;
+	text-transform:uppercase;
+	text-align:center;
+	color:#222;
+	background-color:#f9a415;
+	border-radius: 8px;
+	text-decoration:none;
+    -webkit-box-shadow: 10px 10px 15px rgba(0, 0, 0, 0.3);
+  		-moz-box-shadow: 10px 10px 15px rgba(0, 0, 0, 0.3);
+  		box-shadow: 10px 10px 15px rgba(0, 0, 0, 0.3);  
+   z-index: 9999;  	
+}
+
+/* Calculate Button */
+.btnCF {
+  background-color: #f9a415;
+  border:1px solid #666;
+  border-radius: 8px;
+  color: #222;
+  padding: 4px 4px 4px 4px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font:bold 0.92em Verdana, sans-serif;
+  margin: 4px 2px;
+  cursor: pointer;
+    -webkit-box-shadow: 10px 10px 15px rgba(0, 0, 0, 0.3);
+  		-moz-box-shadow: 10px 10px 15px rgba(0, 0, 0, 0.3);
+  		box-shadow: 10px 10px 15px rgba(0, 0, 0, 0.3);  
+}
+
+/* Dashed grey line */
+hr.new {
+  border-top: 2px dashed grey;
+}
+
+a {
+  color: #000; 
+}
+</style>
+
+<script>
+function goBack() {
+  window.history.back();
+}
+
+function round(number,X) 
+{
+// rounds number to X decimal places, defaults to 3
+    X = (!X ? 3 : X);
+    return Math.round(number*Math.pow(10,X))/Math.pow(10,X);
+}
+
+function GtoL(n)
+{
+	var n;	
+
+	if (n==1) 
+	{
+		var L = document.frm.L1.value;
+		var G = L * 0.264172052;
+		//var L = G / 3.78541178;	
+		if ( G > 1)
+		{
+			//document.getElementById("L1").innerHTML = L + " liters are "+  round(G,2) + " US gallons";
+			document.frm.G1.value = round(G,2);
+		}
+		else
+		{
+			//document.getElementById("L1").innerHTML = L + " liter is "+  round(G,2) + " US gallon";
+			document.frm.G1.value = round(G,2); 
+
+		}
+	}
+	
+	if (n==2) 
+	{
+		var G = document.frm.G2.value;
+		//var G = L * 0.264172052;
+		var L = G / 3.78541178;	
+		if ( G > 1)
+		{
+			document.getElementById("L2").innerHTML = G + " US gal are "+  round(L,2) + " liter";
+		}
+		else
+		{
+			document.getElementById("L2").innerHTML = G + " US gal is "+  round(L,2) + " liter";
+		}
+	}	
+}
+// ALERT Box with calculations =======================================
+
+var ALERT_TITLE = "Cleaning Fluids calculations";
+var ALERT_BUTTON_TEXT = "Ok";
+
+if(document.getElementById) {
+    window.alert = function(txt) {
+        createCustomAlert(txt);
+    }
+}
+
+function createCustomAlert(txt) {
+    d = document;
+
+    if(d.getElementById("modalContainer")) return;
+
+    mObj = d.getElementsByTagName("body")[0].appendChild(d.createElement("div"));
+    mObj.id = "modalContainer";
+    mObj.style.height = d.documentElement.scrollHeight + "px";
+
+    alertObj = mObj.appendChild(d.createElement("div"));
+    alertObj.id = "alertBox";
+    if(d.all && !window.opera) alertObj.style.top = document.documentElement.scrollTop + "px";
+    alertObj.style.left = (d.documentElement.scrollWidth - alertObj.offsetWidth)/2 + "px";
+    alertObj.style.visiblity="visible";
+
+    h1 = alertObj.appendChild(d.createElement("h1"));
+    h1.appendChild(d.createTextNode(ALERT_TITLE));
+
+    msg = alertObj.appendChild(d.createElement("p"));
+    //msg.appendChild(d.createTextNode(txt));
+    msg.innerHTML = txt;
+
+    btn = alertObj.appendChild(d.createElement("a"));
+    btn.id = "closeBtn";
+    btn.appendChild(d.createTextNode(ALERT_BUTTON_TEXT));
+    btn.href = "#";
+    btn.focus();
+    btn.onclick = function() { removeCustomAlert();return false; }
+
+    alertObj.style.display = "block";
+
+}
+
+
+function removeCustomAlert() {
+    document.getElementsByTagName("body")[0].removeChild(document.getElementById("modalContainer"));
+}
+
+// END ALERT Box =============================================
+
+// Calculation ===============================================
+function calc(x,y, n)	// x = water,  y = alcohol, n = identifier of recipe
+{
+	var dw, a, total,z, x,y,n
+	dw = "";
+	a = "";
+	total = "";
+	
+if (n == 1)
+	{
+		var z = document.frm.z1.value;
+		 z = z.replace(",",".");
+		
+		total = z / (x + y);	// parts	
+		dw = x * total;			// water liter
+		a = y * total;			// alco	liter
+		galw = dw/3.78541178;	// gallon water
+		gala = a/3.78541178;	// gallon alcohol
+		d = 0.75 * z;
+		alert("For "+ z +" liter Cleaning Fluid you will need:" + '<br><br>' + dw + " liter or "+ round(galw,2) + " gallon distilled water" + '<br>' + a + " liter or " + round(gala,2) + " gallon denatured alcohol" + '<br>' + d + " drops" );		
+	}
+	
+if (n == 2)
+	{	
+		var z = document.frm.z2.value;
+		 z = z.replace(",",".");
+
+		total = z / (x + y);	// parts
+		dw = x * total;		// water
+		a = y * total;		// alco
+		galw = dw/3.78541178;	// gallon water
+		gala = a/3.78541178;	// gallon alcohol				
+		d = 0.75 * z;
+		alert("For "+ z +" liter Cleaning Fluid you need:" + '<br><br>' + dw + " liter distilled water" + '<br>' + a + " liter rubbing alcohol" + '<br>' + d + " drops" );		
+	}
+	
+if (n == 3)
+	{
+		var z =document.frm.z3.value;
+		 z = z.replace(",",".");
+		 
+		total = z / (x + y);	// parts
+		dw = x * total;		// water
+		a = y * total;		// alco	
+		galw = dw/3.78541178;	// gallon water
+		gala = a/3.78541178;	// gallon alcohol		
+		alert("For "+ z +" liter Cleaning Fluid you will need:  " + '<br><br>' + dw + " liter distilled water" + '<br>' + a + " liter ethanol");					
+	}
+
+if (n == 4)		// Laura Dearborn's recipe
+	{
+		var z = document.frm.z4.value;
+		 z = z.replace(",",".");
+		 
+		total = z / (x + y);	// parts
+		dw = x * total;		// water
+		a = y * total;		// alco	
+		galw = dw/3.78541178;	// gallon water
+		gala = a/3.78541178;	// gallon alcohol		
+		d = 0.25 * z
+		alert("For "+ z +" liter Cleaning Fluid you will need: " + '<br><br>' + dw + " liter distilled water " + '<br>' + a + " liter Isopropyl " + '<br>' + d + " drop Triton X-114 or Monolan 2000");		
+	}
+
+if (n == 5)	// Don Roderick's recipe
+	{
+		var z = document.frm.z5.value;
+		 z = z.replace(",",".");
+		 
+		total = z / (x + y);	// parts
+		dw = x * total;		// water
+		a = y * total;		// alco	
+		galw = dw/3.78541178;	// gallon water
+		gala = a/3.78541178;	// gallon alcohol		
+		d = 1.875 * z;
+		d = round(d,1);
+		alert("For "+ z +" liter Cleaning Fluid you will need: " + '<br><br>'+ dw + " liter or " + round(galw,2) + " gallon distilled water " + '<br>' + a + " liter or " + round(gala,2) + " gallon Isopropyl " + '<br>' + d + " drops dishwashing detergent w/o additives");		
+	}
+
+if (n == 6)
+	{
+		var z = document.frm.z6.value;
+		 z = z.replace(",",".");
+		 
+		total = z / (x + y);	// parts
+		dw = x * total;		// water
+		a = y * total;		// alco	
+		galw = dw/3.78541178;	// gallon water
+		gala = a/3.78541178;	// gallon alcohol		
+		var d1 = 2.5 * z;
+		var d2 = 2.5 * z;
+		alert("For "+ z +" liter Cleaning Fluid you will need:    "+ '<br><br>' + dw + " liter or " + round(galw,2) + " gallon distilled water " + '<br>' + a + " liter or " + round(gala,2) + " gallon NON-Lanolin Isopropyl" + '<br>' + d1 + " drops Photo-Flo + "+ d2 + " drops 'Direct' tile cleaner" );		
+	}	
+
+if (n == 7)		// mh-audio
+	{
+		var z = document.frm.z7.value;
+		 z = z.replace(",",".");
+	
+		total = z / (x + y);		// liter / (water + alcohol)
+		dw = x * total;				// water
+		a = y * total;				// alco	
+		galw = dw/3.78541178;	// gallon water
+		gala = a/3.78541178;	// gallon alcohol		
+		var d = ((5/1000) * z) * 1000;	//liter to ml
+	
+		alert("For "+ z +" liter Cleaning Fluid you will need:   "+ '<br><br>' + dw + " liter or " + round(galw,2) + " gallon distilled water" + '<br>' + a + " liter or " + round(gala,2) + " gallon Isopropyl alcohol 99,9%" + '<br>' + d + " ml ILFOTOL Wetting Agent" );		
+	}		
+
+if (n == 8)		// Steven Rochlin's recipes
+	{
+		var z = document.frm.z8.value;
+		 z = z.replace(",",".");
+	
+		total = z / (x + y);	// parts
+		dw = x * total;			// water
+		dw = round(dw,2);
+		a = y * total;			// alco	
+		a = round(a,2);
+		galw = dw/3.78541178;	// gallon water
+		gala = a/3.78541178;	// gallon alcohol		
+		d = 10 * z;
+		alert("For "+ z +" liter Cleaning Fluid you will need:" + '<br><br>'+ dw + " liter distilled water " + '<br>' + a + " liter denatured alcohol" + '<br>' + d + " drops Photoflo" );	
+	}	
+
+if (n == 9)
+	{
+		var z = document.frm.z9.value;
+		 z = z.replace(",",".");
+		 
+		total = z / (x + y);	// parts
+		dw = x * total;		// water
+		dw = round(dw,2);
+		a = y * total;		// alco	
+		a = round(a,2);
+		galw = dw/3.78541178;	// gallon water
+		gala = a/3.78541178;	// gallon alcohol		
+		alert("For "+ z +" liter Cleaning Fluid you will need:" + '<br><br>'+ dw + " liter distilled water" + '<br>' + a  + " liter  denatured alcohol");		
+	}		
+
+if (n == 10)
+	{
+		var z = document.frm.z10.value;
+		 z = z.replace(",",".");
+		 
+		total = z / (x + y);	// parts
+		dw = x * total;		// water
+		dw = round(dw,2);
+		a = y * total;		// alco	
+		a = round(a,2);
+		galw = dw/3.78541178;	// gallon water
+		gala = a/3.78541178;	// gallon alcohol		
+		alert("For "+ z +" liter Cleaning Fluid you will need:" + '<br><br>' + dw + " liter distilled water" + '<br>' + a + " liter Isopropyl"+ '<br>' +  "none Detergent");;		
+	}		
+
+if (n == 11)	// Steven Rochlin's recipes
+	{
+		var z =document.frm.z11.value;
+		 z = z.replace(",",".");
+
+		total = z / (x + y);	// parts
+		dw = x * total;		// water
+		dw = round(dw,2);
+		a = y * total;		// alco	
+		a = round(a,2);
+		galw = dw/3.78541178;	// gallon water
+		gala = a/3.78541178;	// gallon alcohol		
+		d = 1/4 * z;
+		alert("For "+ z +" liter Cleaning Fluid you will need:" + '<br><br>'+ dw + " liter distilled water " + '<br>' + a + " liter Isopropyl " + '<br>' + d + " drop of Triton X-100");		
+	}
+	
+if (n == 12)	// mh-audio
+	{
+		var z = document.frm.z12.value;
+		 z = z.replace(",",".");
+
+		total = z / (x + y);	// parts
+		dw = x * total;		// water
+		dw = round(dw,2);
+		a = y * total;		// alco	
+		a = round(a,2);
+		galw = dw/3.78541178;	// gallon water
+		gala = a/3.78541178;	// gallon alcohol		
+		d = 1 * z;
+		alert("For "+ z +" liter Cleaning Fluid you will need:" + '<br><br>'+ dw + " liter or " + round(galw,2) + " gallon distilled water " + '<br>' + a + " liter or " + round(gala,2)  + " gallno(s) Bio-Ethanol >99.6% " + '<br>' + d + " ml Non-Ionic Photo-Grade Surfactant");		
+	}
+	
+if (n == 15)		// mh-audio
+	{
+		var z = document.frm.z15.value;	// how much Liters
+		 z = z.replace(",",".");
+	 
+		total = z / (x + y);			// liter / ( x = water +  y = Tergitol)
+		dw = x * total;					// water
+		galw = dw/3.78541178;	// gallon water	
+		var d = ((5/1000) * z) * 1000;	//liter to ml
+		alert("For "+ z +" liter Cleaning Fluid you will need:   "+ '<br><br>' + dw + " liter or "+ round(galw,3) +" deionized water" + '<br>' + round(d,2) + " ml Tergitol 15-S-7" );		
+	}							
+}
+// End Calculation ===========================================
+</script>
+</head>
+<body>
+<div id="header" class="container">
+    <div id="logo">
+        <h2>HiFi&nbsp;&nbsp;Audio&nbsp;&nbsp;Design</h2>
+    </div>
+    <br>
+    <div id="menu">
+        <ul>
+            <li><a href="index.html" access˚key="1" title="">Home</a></li>
+            <!--
+            <li><a href="Loudspeaker.html" accesskey="2" title="">Loudspeaker</a></li>
+            <li><a href="Acoustic.html" accesskey="3" title="">Acoustic</a></li> -->
+            <li><a href="Calculator.html" accesskey="4" title="">Calculators</a></li>
+             <li><a href="../../Library.html" accesskey="4" title="">Library</a></li>
+            <!--
+            <li><a href="Software.html" accesskey="6" title="">Software</a></li>
+            <li><a href="Elektronic.html" accesskey="5" title="">Electronic</a></li>
+            <li><a href="Measurement.html" accesskey="5" title="">Measurement</a></li>
+            <li class="active"><a href="Links.html" accesskey="5" title="">Links/Downloads</a></li>
+            <li><a href="EmailFormNew.asp" accesskey="5" title="">Contact</a></li> -->
+        </ul>
+    </div>       
+</div> <!-- header & container -->
+<!--
+<button onclick="topFunction()" id="myBtn" title="Go To Top">⬆</button>
+<button id="myBtnDown" onclick="scrollWin()" title="Scroll Down">⬇</button>
+--?
+<div id="page">
+    <div class="container">
+        <div class="title">
+           <br><h1><i>Vinyl Cleaning Fluid Recipes</i></h1> <!-- <br><h2><i>and calculate <br>the amount of fluids required.</i></h2> -->
+        </div>
+        <div class="box0">
+            <div class="box margin-btm">
+                <center><br><img src="dusty-records.jpg" width="846" alt="Image"/></center>
+                <div class="details">
+                <p> <!-- Start Content -->
+                <form name="frm">
+					<table align="center" border="0" width="100%" class="Calctable">
+					<tr>
+						<td><br>
+							<table align="center" width="100%">
+								<tr>
+									<td align="center">
+										<table align="center">
+										<tr>
+											<td align="center">
+											<h1><i>Vinyl Cleaning Fluid Recipes</i></h1></i>
+											<i><strong>and the ability to calculate the amount of liquid for the selected amount of cleaning liquid.</strong></i>
+											<br><br><br>
+											<table class="Vinyltable"><tr><td>
+											<table border="0" width="100%" align="center" id="customers">
+												<tr>
+													<td align="center" colspan="4"><h3><i>Steven Rochlin's recipes</i></h3>The following recipes are for a 4 liter (1,06 gallon) solution unless otherwise stated</td>
+												</t>
+												<tr>
+													<th width="19%">Distilled water</th>  
+													<th width="21%">Alcohol</hd>   
+													<th width="40%">Detergent</th>
+													<th>How much cleaning fluid do you need?</th>
+												</tr>
+												<tr>
+													<td>1 part</td>      
+													<td>1 part isopropyl</td>       
+													<td>none</td>
+													<td>
+														<input type="test" name="z10" size="2" value="4"> liter
+														<input type="button" value ="Calculate" class="btnCF" onclick="calc(1,1,10)">
+													</td>
+												</tr>
+												<tr>
+													<td>1 part</td> 
+													<td>1 part isopropyl</td> 
+													<td>a drop of Triton X-100</td>
+													<td>
+														<input type="test" name="z11" size="2" value="4"> liter
+														<input type="button" value ="Calculate" class="btnCF" onclick="calc(1,1,11)">
+													</td>
+												</tr>
+												<tr>
+    												<td>1 quart (~ 1 liter)</td> 
+    												<td>1/2 quart denatured</td>  
+    												<td>10 drops Photoflo</td>
+													<td>
+														<input type="test" name="z8" size="2" value="1"> liter
+														<input type="button" value ="Calculate" class="btnCF" onclick="calc(1,0.5,8)">
+													</td>    												
+												</tr>
+												<tr>
+													<td>3 parts</td>     
+													<td>1 part denatured</td>            
+													<td>a few drops</td>
+													<td>
+														
+														<input type="test" name="z1" size="2" value="4"> liter
+														<input type="button" value ="Calculate" class="btnCF" onclick="calc(3,1,1)">
+													</td>
+												</tr>
+												<tr>
+													<td>3 parts</td>   
+													<td>1 part rubbing</td>   
+													<td>a few drops</td>
+													<td>
+														<input type="test" name="z2" size="2" value="4"> liter
+														<input type="button" value ="Calculate" class="btnCF" onclick="calc(3,1,2)">
+													</td>												
+												</tr>
+												<tr>
+													<td>4 parts</td>  
+													<td>1 part ethanol</td>          
+													<td>some (Genie in the Bottle)</td>
+													<td>
+														<input type="test" name="z3" size="2" value="4"> liter
+														<input type="button" value ="Calculate" class="btnCF" onclick="calc(4,1,3)">
+														<!--p id="demo1"></p-->
+													</td>													
+												</tr>
+												<!--tr>
+													<td>Liter to US gallon</td>
+													<td>
+													<input type="number" name="L1"> liter(s)
+													</td>
+													<td><input type="number" name="G1" readonly> US gallon</td>
+													<td><input type="button" value="Calculate" onclick="GtoL(1);"></td>
+												</tr-->
+											</table>
+											
+											<!-- <br><hr size="1" width="75%" class="new"><br> --><br><br>
+											<table border="0" width="100%" align="center" id="customers">
+												<tr>
+													<td align="center" colspan="4"><h3><i>Laura Dearborn's recipe</i></h3>The following recipe is for a 4 liter (1,06 gallon) solution.</td>
+												</tr>
+												<tr>
+													<th width="19%">Distilled water</th>  
+													<th  width="21%">Alcohol</th>   
+													<th width="40%">Detergent</th>
+													<th>How much cleaning fluid do you need?</th>
+												</tr>
+												<tr>
+													<td>3 parts</td>
+													<td>1 part isopropyl</td>
+													<td>1 drop Triton X-114 or Monolan 2000</td>
+													<td>
+														<input type="test" name="z4" size="2" value="4"> liter
+														<input type="button" value ="Calculate" class="btnCF" onclick="calc(3,1,4)">
+														<!--p id="demo1"></p-->
+													</td>													
+												</tr>
+												<!--tr>
+													<td>US gallons to liter</td>
+													<td>
+													<input type="number" name="G2"> Gallons
+													</td>
+													<td><input type="button" value="Calculate" onclick="GtoL(2);"></td>
+													<td><strong><div id="L2"></div></strong></td>
+												</tr-->
+											</table>
+											
+											<br><br>
+											<table border="0" width="100%" align="center" id="customers">
+												<tr>
+													<td align="center" colspan="4"><h3><i>Don Roderick's recipe</i></h3>The following recipe is for a 4 liter (1,06 gallon) solution.</td>
+												</tr>
+												<tr>
+													<th width="19%">Distilled water</th>  
+													<th width="21%">Alcohol</hd>   
+													<th width="40%">Detergent</th>
+													<th>How much cleaning fluid do you need?</th>
+												</tr>
+												<tr>
+													<td>4 parts</td>
+													<td>1 part isopropyl (91%)</td>
+													<td>7-8 drops dishwashing detergent w/o additives</td>	
+													<td>
+														<input type="test" name="z5" size="2" value="4"> liter
+														<input type="button" value ="Calculate" class="btnCF" onclick="calc(4,1,5)">
+													</td>																											
+												</tr>
+											</table>
+											
+											<!-- <br><hr size="1" width="75%" class="new"><br> --><br><br>
+											<table border="0" width="100%" align="center" id="customers">
+												<tr>
+													<td align="center" colspan="4"><h3><i>Keith Monks's recipe (TAS)</i></h3>The following recipe is for a 4 liter (1,06 gallon) solution.</td>
+												</tr>
+												<tr>
+													<th width="19%">Distilled water</th>  
+													<th colspan="2" width="60%">Alcohol + Detergent</th> 
+													<th>How much cleaning fluid do you need?</th>  
+												</tr>
+												<tr>
+													<td>1 part</td>
+													<td colspan="2">1 part denatured alcohol</td>
+													<td>
+														<input type="test" name="z9" size="2" value="4"> liter
+														<input type="button" value ="Calculate" class="btnCF" onclick="calc(1,1,9)">
+													</td>
+												</tr>
+											</table>
+											
+											<!-- <br><hr size="1" width="75%" class="new"><br> --><br><br>
+											<table border="0" width="100%" align="center" id="customers">
+												<tr>
+													<td align="center" colspan="4"><h3><i>Jonathan Scull's recipe (Stereophile)</i></h3>The following recipe is for a 4 liter (1,06 gallon) solution.</td>
+												</tr>
+											<tr>
+												<th width="19%">Distilled water</th>  
+												<th width="21%">Alcohol</th>   
+												<th width="40%">Detergents</th>
+												<th>How much cleaning fluid do you need?</th>
+											</tr>
+											<tr>
+												<td>3 parts</td>
+												<td>1 part NON-Lanolin Isopropyl</td>
+												<td>10 drops Photo-Flo + 10 drops "Direct" tile cleaner</td>
+												<td>
+													<input type="test" name="z6" size="2" value="4"> liter
+													<input type="button" value ="Calculate" class="btnCF" onclick="calc(3,1,6)">
+												</td>												
+											</tr>
+										</table>
+										<!-- <br><hr size="1" width="75%" class="new"><br> --><br><br>
+										
+										<table border="0" width="100%" align="center" id="customers">
+											<tr>
+												<td align="center" colspan="4"><h3><i>HiFi&nbsp;&nbsp;Audio&nbsp;&nbsp;Design</i></h3>The following recipes are for a 1 liter (0.264 US gallons) solution unless otherwise stated</td>
+											</tr>
+											<tr>
+												<th width="19%">Distilled water</th>  
+												<th width="21%">Alcohol</th>   
+												<th width="40%">Detergents</th>
+												<th>How much cleaning fluid do you need?</th>
+											</tr>
+											<tr>
+												<td>4 part</td>
+												<td>1 part Isopropyl >99,6%</td>
+												<td>5 ml ILFOTOL Wetting Agent</td>
+												<td>
+													
+													<input type="test" name="z7" size="2" value="1"> liter
+													<input type="button" value ="Calculate" class="btnCF" onclick="calc(4,1,7)">
+												</td>	
+											</tr>
+											<tr>
+												<td>4 part</td>
+												<td>1 part Bio-Ethanol >99.6%</td>
+												<td>1 ml Non-Ionic Photo-Grade Surfactant</td>
+												<td>
+													<input type="test" name="z12" size="2" value="1"> liter
+													<input type="button" value ="Calculate" class="btnCF" onclick="calc(4,1,12)">
+												</td>	
+											</tr>
+											<tr>
+												<td>1 part deionized water</td>
+												<td></td>
+												<td>0.5% Tergitol 15-S-7
+												</td>
+												<td>
+													<input type="test" name="z15" size="2" value="1"> liter
+													<input type="button" value ="Calculate" class="btnCF" onclick="calc(0.995,0.005,15)">
+												</td>	
+											</tr>
+											<tr>
+												<td colspan="5" align="center"><a href="https://www.nedcc.org/audio-preservation/cleaning-discs" target="_blank">The recipe with Tergitol 15-S-7 is used by the Library Of Congress.</a></td>
+											</tr>																							
+										</table>
+										</td></tr></table>	
+										<br><br>									
+										<center>
+										<i>I know there are more "solutions" but these are just meant to be starting points and/or examples.</i>
+										<br><br><br>
+										<table width="95%" class="Vinyltable">
+										<tr>
+											<td>
+										<table width="100%" align="center" border="0" id="customers">
+											<tr>	
+												<td colspan="2" align="left"><h2><i>Ingredients:</i></h2></td>
+											</tr>
+											<tr>
+												<td valign="top" width="140">
+												<strong>1) Water</strong>
+												</td>
+												<td>
+												The highest purity of distilled water is  triple filtered and steam condensed/distilled 
+												to eliminate thoroughly the contaminants and mineral deposits in tap water.<br><br> 
+												Avoid water sold for other purposes, such as car batteries, and on no account use tap water. 
+												By using pure distilled water you will still save two thirds of the cost of commercial record 
+												cleaner without taking any risks trying to save a few pennies more.
+												</td>
+											</tr>	
+											<tr>
+												<td valign="top">
+												<strong>2) Alcohol</strong>
+												</td>
+												<td>
+												The purpose of cleaning is to ensure naked contact between the stylus and the information encoded 
+												into the grooves, and nothing between the two, hence the use of alcohol to dissolve any surface 
+												contaminants (cigarette smoke, skin oils, mould-release, airborne matter).<br><br>
+												The main active cleaning ingredient is the well known and commonly used Isopropanol, known as  Isopropyl AlcohoI 
+												or lPA for short. It is readily available from chemical suppliers at 99.9% purity – the highest 
+												laboratory-grade commercially available.<br><br>
+												Denatured alcohol is ethanol (ethyl alcohol) made unfit for human consumption by adding one or more chemicals (denaturants) to it. 
+												Denaturing refers to removing a property from the alcohol (being able to drink it), not to chemically altering or decomposing it, 
+												so denatured alcohol contains ordinary ethyl alcohol and is also usable to clean records.
+												</td>
+											</tr>
+											<tr>
+												<td valign="top"><strong>3) Wetting Agent</strong></td>
+												<td>
+												<strong>Surfactant: the all-important “secret” ingredient.</strong><br>
+												Wetting agent belongs to a chemical group known as  “surfactants”, whose rate of dilution results 
+												in different effects. At very low levels they act as an emulsifier, at a higher level they act to 
+												reduce surface tension (wetting) and at higher still, they become a detergent (look up the ingredients 
+												of washing up liquid – “ionic and non-ionic surfactants”).<br><br>
+												You must add wetting agent. IPA/distilled water mix on its own does not “wet”, and will not penetrate 
+												the vinyl grooves. Due to water surface tension, the liquid without surfactant draws back from the vinyl 
+												to form rivulets and pools, drawn to itself.
+											</td>
+											</tr>											
+										</table>
+											</td>
+										</tr>
+										</table>	
+										<br><br>
+										Want to learn more about how to take care of your records?<br>
+										<a href="http://blog.discogs.com/wp-content/uploads/2019/11/ebook.pdf" target="_blank" class="calcButton">The Discogs’ Guide to Record Collecting eBook</a>
+										</center>
+									</td>
+								</tr>	
+							</table>
+							<br><br>
+						</td>
+					</tr>
+				</table>
+				</td></tr></table>	
+				</form>
+                    <br><br>
+                    <hr size="1" width="75%">
+                    <br><br>
+                    <center>
+                        <button onclick="goBack()" class="calcButton"><<< Back</button>
+                    </center>
+                    <br><br>				
+                </p><!-- End Content  -->
+               
+            </div> <!-- box margin-btm -->
+        </div> <!-- box0 -->
+    </div><!-- container -->
+</div><!-- page -->
+<div class="copyright">
+    &copy;
+    <span id="copyright">
+    <script>document.getElementById('copyright').appendChild(document.createTextNode(new Date().getFullYear()))</script>
+    &nbsp;mh-Audio.nl&nbsp;&nbsp;-&nbsp;&nbsp;<a href="../../disclaimer.html"><font color="#000000">Disclaimer</a>          
+	</span>
+</div>
+ </div>  <!-- details -->
+ <script type="text/javascript" src="//fc.webmasterpro.de/counter.php?name=mh-audio"></script>
+<noscript><div><img src="//fc.webmasterpro.de/as_noscript.php?name=mh-audio" style="width:1px;height:1px;" alt="" /></div></noscript>
+<!-- https://fc.webmasterpro.de -->
+</body>
+</html>
+
