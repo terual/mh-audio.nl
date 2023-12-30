@@ -1,0 +1,692 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<!--
+
+Name       : TailPiece 
+Description: A one & three-column, fixed-width design with dark color scheme.
+Version    : 1.0
+Released   : October 2018
+
+-->
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <!-- Google Analytics -->
+    <script>
+        window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+        ga('create', 'UA-77078028-1', 'auto');
+        ga('send', 'pageview');
+    </script>
+    <script async src='https://www.google-analytics.com/analytics.js'></script>
+    <!-- End Google Analytics -->
+
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>Different Loudspeaker explaint</title>
+ <meta name="Keywords" content="HiFi, Audio, Loudspeakers, Database, Acoustic treatment, 
+		OnlineCalculator, LoudspeakerBasics, Links, Tubes, Buizen, Music, Muziek, Musik, 
+		Lautsprechergrundlagen, Lautsprecherberechnungen, Lautsprecher-Database, 
+		Analog to digital, Vinyl, Tapes, old records vinyl on cd, Acoustic, Bass Absorber,
+		acoustic electric,acoustic foam panel,acoustic measurements,acoustic panel,boston acoustic
+		acoustic neuromas,room acoustics,acoustics,acoustic foam,speaker cable,acoustic phonetics,
+		acoustic panels,acoustic ceiling,acoustic materials,acoustic neuroma,audio acoustic,acoustic,
+		acoustic insulation,acoustic wall panels,acoustic treatment,acoustic solution,acoustic wall panel,
+		acoustic bass,acoustic baffles,diy speaker cable, Room modes,
+		acoustic software,
+		room acoustics,
+		audio acoustic,
+		acoustic foam,
+		musical acoustics">
+<meta name="Description" content="Resource for building, calculate and measuring Hi Fi Loudspeakers,DIY LoudspeakerSite, Acoustic treatment, loudspeaker calculations, hifi links, high end">
+    <link href="http://fonts.googleapis.com/css?family=Source+Sans+Pro:200,300,400,600,700,900" rel="stylesheet"/>
+    <link href="default.css" rel="stylesheet" type="text/css" media="all"/>
+    <link href="fonts.css" rel="stylesheet" type="text/css" media="all"/>
+
+    <!--[if IE 6]>
+    <link href="default_ie6.css" rel="stylesheet" type="text/css"/><![endif]-->
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+    <script src="js/fab.js"></script>
+
+    <script type="text/javascript">
+/*
+ * When Calculate button is clicked, scroll to the calculations
+*/
+function locate() {
+  document.body.scrollTop = 1340;
+  document.documentElement.scrollTop = 1340;
+}    
+  
+    
+var xmlhttp;
+function loadXMLDoc(url)
+{
+xmlhttp=null;
+if (window.XMLHttpRequest)
+  {// code for Firefox, Opera, IE7, etc.
+  xmlhttp=new XMLHttpRequest();
+  }
+else if (window.ActiveXObject)
+  {// code for IE6, IE5
+  xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+  }
+if (xmlhttp!=null)
+  {
+  xmlhttp.onreadystatechange=state_Change;
+  xmlhttp.open("GET",url,true);
+  xmlhttp.send(null);
+  }
+else
+  {
+  alert("Your browser does not support XMLHTTP.");
+  }
+}
+
+function state_Change()
+{
+if (xmlhttp.readyState==4)
+  {// 4 = "loaded"
+  if (xmlhttp.status==200)
+    {// 200 = "OK"
+    document.getElementById('T1').innerHTML=xmlhttp.responseText;
+    }
+  else
+    {
+    alert("Problem retrieving data:" + xmlhttp.statusText);
+    }
+  }
+}
+
+function removeElement() // Hide Basics
+{
+    document.getElementById("Basics").style.display = "none";
+}
+
+
+function resetElement() {
+    document.getElementById("Basics").style.display = "block";
+    //document.getElementById("imgbox2").style.visibility = "visible";
+}
+
+
+function changeImage(x)
+{
+	 //alert(x);
+	 if ( x == 3 )
+		{
+ 		//alert("Dipol");
+ 		document.images["pic"].src = "Pages/images/209jamo.jpg";
+ 		}
+ 	else if ( x == 2 )
+ 		{
+ 		//alert("ESL");
+ 		document.images["pic"].src = "Pages/images/ELS_MLogan.jpg";
+ 		}
+ 	else if ( x == 1 )
+ 		{
+		//alert("TML"); 
+		document.images["pic"].src = "Pages/images/TML_IMF_white.gif";
+ 		}
+ 	else if ( x == 4 )
+ 		{
+		//alert("Bass Reflex"); 
+		document.images["pic"].src = "Pages/images/onken.jpg";
+ 		} 	
+ 	else if ( x == 5 )
+ 		{
+		//alert("Bass Reflex"); 
+		document.images["pic"].src = "Pages/images/DangerHighVoltage.jpg";
+ 		}  	
+ 	else if ( x == 6 )
+ 		{
+		//alert("Bass Reflex"); 
+		document.images["pic"].src = "Pages/images/Loudspeaker/sealed-enclosure-subwoofer.jpg";
+ 		}   				
+ 	else
+ 		{
+ 		//alert("default");
+ 		document.images["pic"].src = "../images/Loudspeaker/esotec_mw152.jpg";
+ 		}
+}
+
+
+// When click on the button, scroll to the top of the document
+function topFunction() {
+  document.body.scrollTop = 0;
+  document.documentElement.scrollTop = 0;
+}
+
+window.onscroll = function() {scrollFunction()};
+
+function scrollFunction() {
+  if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+    document.getElementById("myBtn").style.display = "block";
+  } else {
+    document.getElementById("myBtn").style.display = "none";
+  }
+}
+
+// When the user clicks on the button, scroll to the top of the document
+function topFunction() {
+  document.body.scrollTop = 0;
+  document.documentElement.scrollTop = 0;
+}
+
+/**
+	* When Calculate button is clicked, scroll to the calculations
+*/
+function locate() {
+  document.body.scrollTop = 200;
+  document.documentElement.scrollTop = 200;
+}
+
+    </script>
+</head>
+<body>
+<div id="header" class="container">
+    <div id="logo">
+        <h2>HiFi&nbsp;&nbsp;Audio&nbsp;&nbsp;Design</h2>
+    </div>
+    <br>
+    <div id="menu">
+        <ul>
+            <li><a href="index.html" accesskey="1" title="">Home</a></li>
+            <li class="active"><a href="loudspeaker.html" accesskey="2" title="">Loudspeaker</a></li>
+            <li><a href="acoustic.html" accesskey="3" title="">Acoustic</a></li>
+            <li><a href="calculator.html" accesskey="4" title="">Calculators</a></li>
+            <li><a href="Library.html" accesskey="7" title="">Library</a></li>
+            
+            <!--           
+            <li><a href="Software.html" accesskey="6" title="">Soft & Hardware</a></li>
+            <li><a href="Elektronic.html" accesskey="5" title="">Electronic</a></li>
+            <li><a href="Measurement.html" accesskey="5" title="">Measurement</a></li>
+            <li><a href="Links.html" accesskey="5" title="">Links/Downloads</a></li>
+            <li><a href="Library.html" accesskey="7" title="">Library</a></li>
+            <li><a href="EmailFormNew.asp" accesskey="5" title="">Contact</a></li>
+            -->
+        </ul>
+    </div>    
+</div>
+<button onclick="topFunction()" id="myBtn" title="Go To Top">⬆</button>
+<button id="myBtnDown" onclick="scrollWin()" title="Scroll Down">⬇</button>
+<div id="page">
+    <div class="container">
+        <div class="title">
+            <h1><i>Loudspeakers</i></h1>
+        </div>
+        <div class="box0">
+            <div class="box margin-btm">
+                <center><br><img src="images/esotec_mw152.jpg" height="250" alt="image" id="pic"/></center>
+                <div class="details">
+                    <center>
+                    	<br><h2><i>Loudspeaker Systems Explained</i></h2>
+                    </center>
+                    <br>
+                    <table align="center" cellspacing="8" cellpadding="4" class="Calctable" border="0">
+                    <tr><td height="10"></td></tr>
+                        <tr>
+                            <td class="text" align="center">
+                            <a href="#" onclick="loadXMLDoc('Pages/SE.html?p=4'), removeElement(), changeImage(6)" class="calcButton" 
+                               onmouseover="this.style.color='#EEEEEE'"  onmouseout="this.style.color='#000000'">Closed Loudspeaker</a>
+                            <a href="#" onclick="loadXMLDoc('Pages/BR.html?p=4'), removeElement(), changeImage(4)" class="calcButton"
+                               onmouseover="this.style.color='#EEEEEE'" onmouseout="this.style.color='#000000'">Bass - Reflex Loudspeaker</a>
+                           <a href="#" onclick="loadXMLDoc('Pages/TML.html?p=1'), removeElement(), changeImage(1)" class="calcButton"
+                              onmouseover="this.style.color='#EEEEEE'" onmouseout="this.style.color='#000000'">Transmission Line Loudspeaker</a>
+							<a href="#" onclick="loadXMLDoc('Pages/ELS.html?p=2'), removeElement(), changeImage(2)" class="calcButton"
+                              onmouseover="this.style.color='#EEEEEE'" onmouseout="this.style.color='#000000'">Electrostatic Loudspeaker</a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="text" align="center">
+                            <a href="#top" onclick="loadXMLDoc('Pages/OB.html?p=3'), removeElement(), changeImage(3);" class="calcButton"
+                               onmouseover="this.style.color='#EEEEEE'" onmouseout="this.style.color='#000000'">Dipol Loudspeaker</a>
+							<a href="#"	onclick="loadXMLDoc('Pages/PS.html?p=4'), removeElement(), changeImage(5)" class="calcButton"
+                               onmouseover="this.style.color='#EEEEEE'" onmouseout="this.style.color='#000000'">Plasma Loudspeaker</a>
+                            <a href="SpeakerGlossary.html" onmouseover="this.style.color='#EEEEEE'" onmouseout="this.style.color='#000000'" class="calcButton">Loudspeaker Glossary</a>
+                            <a href="Plans/Plans.html" class="calcButton">Download Horn Construction Plans</a>       
+                            </td>
+                        </tr>
+                        <tr>
+                        	<td colspan="4" align="center"><br>
+                        		<a href="PC.html" class="calcButton">Designing Loudspeakers</a> (written by Peter Comeau)
+                        	</td>
+                        </tr>
+                        <tr><td height="10"></td></tr>
+                    </table>
+                    <br>
+                    <div id="T1" style="border:0px solid black;height:40;width:800;padding:4"></div>
+                    <br>
+                    <button onclick="topFunction()" id="myBtn" title="Go to top">Top</button>
+                    <button id="myBtnDown" onclick="scrollWin()" title="Scroll Down">⬇</button>
+                    <div id="Basics">
+                        <p>
+                            <table align="center" cellspacing="0" cellpadding="2" width="75%">
+                                <tr>
+                                    <td>
+                                        <center><h2><i>Basics About Loudspeakers</i></h2></center>
+                                        <br>
+                                        There are many different kinds of drivers but they all do basically the same
+                                        thing: create sound waves. By far the most common type of driver is the moving
+                                        coil electrodynamic piston driver. It has a moving part called a diaphragm that
+                                        acts like a piston to pump air and thereby create sound waves. A common
+                                        diaphragm for a woofer is a paper cone. A common diaphragm for a tweeter is a
+                                        fabric dome. <br><br>
+                                        Drivers come in different sizes because it is nearly impossible to make one
+                                        piston driver that can reproduce sound waves over the entire 20 Hz to 20 kHz
+                                        frequency range of human hearing. To produce low frequencies a driver needs to
+                                        have a large diaphragm and enough mass to resonate at a low frequency. To
+                                        produce high frequencies a driver needs to have a small diaphragm with a low
+                                        mass. Obviously, these requirements are in opposition so drivers are usually
+                                        designed to produce only a portion of the sound. <br><br>
+                                        Tweeters are the smaller drivers since they produce the highest frequencies with
+                                        the shortest wavelengths. Woofers are the largest drivers since they produce the
+                                        lowest frequencies with the longest wavelengths. <br><br>
+                                        There are also midrange drivers of various sizes that reproduce middle
+                                        frequencies between the tweeter and woofer. Midrange drivers are used in
+                                        multi-way speakers with three or more driver sizes. Some have open backs and
+                                        some have sealed backs.
+                                        Besides their different size, there is another very significant difference
+                                        between a tweeter and a woofer. The tweeter usually has a sealed back while the
+                                        woofer usually has an open back. With a sealed back, the tweeter emits sound
+                                        waves from the front side only. A woofer emits sound waves from both its front
+                                        and back side.
+                                        <br><br>
+
+                                        To understand how speakers work, you first need to understand how
+                                        <strong>sound</strong>
+                                        works.
+                                        <br>
+                                        Inside your ear is a very thin piece of skin called the eardrum. When your
+                                        eardrum vibrates, your brain interprets the vibrations as sound - that's how you
+                                        hear. Rapid changes in air pressure are the most common thing to vibrate your
+                                        eardrum. <br>
+                                        <br>
+                                        An object produces sound when it vibrates in air (sound can also travel through
+                                        liquids and solids, but air is the transmission medium when we listen to
+                                        speakers). When something vibrates, it moves the air particles around it. Those
+                                        air particles in turn move the air particles around them, carrying the pulse of
+                                        the vibration through the air as a traveling disturbance. <br>
+                                        <br>
+                                        To see how this works, let's look at a simple vibrating object -- a bell. When
+                                        you ring a bell, the metal vibrates -- flexes in and out -- rapidly. When it
+                                        flexes out on one side, it pushes out on the surrounding air particles on that
+                                        side. These air particles then collide with the particles in front of them,
+                                        which collide with the particles in front of them and so on. When the bell
+                                        flexes away, it pulls in on these surrounding air particles, creating a drop in
+                                        pressure that pulls in on more surrounding air particles, which creates another
+                                        drop in pressure that pulls in particles that are even farther out and so on.
+                                        This decreasing of pressure is called <strong>rarefaction</strong>. <br>
+                                        <br>
+                                        In this way, a vibrating object sends a <strong>wave</strong> of pressure
+                                        fluctuation
+                                        through the atmosphere. When the fluctuation wave reaches your ear, it vibrates
+                                        the eardrum back and forth. Our brain interprets this motion as sound.<br>
+                                        <br>
+                                        <center><h2><i>Differentiating Sound:</i></h2></center>
+                                        We hear different sounds from different vibrating objects because of variations
+                                        in:
+                                        <ul>
+                                            <li>Sound-wave frequency - A higher wave frequency simply means that the air
+                                                pressure fluctuates faster. We hear this as a higher pitch. When there
+                                                are fewer fluctuations in a period of time, the pitch is lower.
+                                            </li>
+                                            <br>
+                                            <li>Air-pressure level - This is the wave's amplitude, which determines how
+                                                loud the sound is. Sound waves with greater amplitudes move our ear
+                                                drums more, and we register this sensation as a higher volume.
+                                            </li>
+                                        </ul>
+                                        Sound travels in waves of air pressure fluctuation, and that we hear sounds
+                                        differently depending on the frequency and amplitude of these waves. We also
+                                        learned that microphones translate sound waves into electrical signals, which
+                                        can be encoded onto CDs, tapes, LPs, etc. Players convert this stored
+                                        information back into an electric current for use in the stereo system. <br>
+                                        <br>
+                                        <center><h2><i>Diaphragm:</i></h2></center>
+                                        A speaker is essentially the final translation machine -- the reverse of the
+                                        microphone. It takes the electrical signal and translates it back into physical
+                                        vibrations to create sound waves. When everything is working as it should, the
+                                        speaker produces nearly the same vibrations that the microphone originally
+                                        recorded and encoded on a tape, CD, LP, etc. <br>
+                                        <br>
+                                        A driver produces sound waves by rapidly vibrating a flexible
+                                        <strong>cone</strong>, or
+                                        <strong>diaphragm</strong>.
+                                        <ul>
+                                            <li>The <strong>cone</strong>, usually made of paper, plastic or metal, is
+                                                attached on
+                                                the wide end to the suspension.
+                                            </li>
+                                            The <strong>suspension</strong>, or <strong>surround</strong>, is a rim of
+                                            flexible material
+                                            that allows the cone to move, and is attached to the driver's metal frame,
+                                            called the <strong>basket</strong>
+                                            </li>
+                                            <li>The narrow end of the cone is connected to the <strong>voice
+                                                coil</strong>.
+                                            </li>
+                                            <li>The coil is attached to the basket by the <strong>spider</strong>, a
+                                                ring of
+                                                flexible material. The spider holds the coil in position, but allows it
+                                                to move freely back and forth.
+                                            </li>
+                                        </ul>
+                                        Some drivers have a <strong>dome</strong> instead of a cone. A dome is just a
+                                        diaphragm
+                                        that extends out instead of tapering in.
+                        <p><font size=3><strong>Voice Coil:</strong></font><br>
+                            <br>
+                            The voice coil is a basic electromagnet. <strong>When the electrical current flowing through
+                                the
+                                voice coil changes direction, the coil's polar orientation reverses.</strong><br>
+                        <p> Running electrical current through the wire creates a magnetic field around the coil,
+                            magnetizing the metal it is wrapped around. The field acts just like the magnetic field
+                            around a permanent magnet: It has a polar orientation -- a "north" end and and a "south" end
+                            -- and it is attracted to iron objects. But unlike a permanent magnet, in an electromagnet
+                            you can alter the orientation of the poles. If you reverse the flow of the current, the
+                            north and south ends of the electromagnet switch. </p>
+                        <p> This is exactly what a signal does -- it constantly <strong>reverses the flow of
+                            electricity</strong>.
+                            If you've ever hooked up a stereo system, then you know that there are two output wires for
+                            each speaker -- typically a black one and a red one. <br>
+                            <br>
+                            Essentially, the amplifier is constantly switching the electrical signal, fluctuating
+                            between a positive charge and a negative charge on the red wire. Since electrons always flow
+                            in the same direction between positively charged particles and negatively charged particles,
+                            the current going through the speaker moves one way and then reverses and flows the other
+                            way. This alternating current causes the polar orientation of the electromagnet to reverse
+                            itself many times a second. <BR>
+                            <BR>
+                        <center><h2><i>Magnets:</i></h2></center>
+                        So how does the fluctuation make the speaker coil move back and forth? The electromagnet is
+                        positioned in a constant magnetic field created by a <strong>permanent magnet</strong>. These
+                        two magnets
+                        -- the electromagnet and the permanent magnet -- interact with each other as any two magnets do.
+                        The positive end of the electromagnet is attracted to the negative pole of the permanent
+                        magnetic field, and the negative pole of the electromagnet is repelled by the permanent magnet's
+                        negative pole. When the electromagnet's polar orientation switches, so does the direction of
+                        repulsion and attraction. In this way, the alternating current constantly reverses the magnetic
+                        forces between the voice coil and the permanent magnet. This pushes the coil back and forth
+                        rapidly, like a piston. <br>
+                        <br>
+                        <strong>When the electrical current flowing through the voice coil changes direction, the coil's
+                            polar orientation reverses. This changes the magnetic forces between the voice coil and the
+                            permanent magnet, moving the coil and attached diaphragm back and forth.</strong><br>
+                        <p> When the coil moves, it pushes and pulls on the speaker cone. This vibrates the air in front
+                            of the speaker, creating sound waves. The electrical audio signal can also be interpreted as
+                            a <strong>wave</strong>. The frequency and amplitude of this wave, which represents the
+                            original sound
+                            wave, dictates the rate and distance that the voice coil moves. This, in turn, determines
+                            the frequency and amplitude of the sound waves produced by the diaphragm. </p>
+                        <p> Different driver sizes are better suited for certain frequency ranges. For this reason,
+                            loudspeaker units typically divide a wide frequency range among <strong>multiple
+                                drivers</strong>. In
+                            the next section, we'll find out how speakers divide up the frequency range, and we'll look
+                            at the main driver types used in loudspeakers. <br>
+                            <br>
+                        <hr size=1>
+                        <br>
+                        <center><h2><i>Moving-Coil Loudspeakers</i></h2></center>
+                        Moving-coil loudspeaker drivers have been in use for several decades. They were
+                        originally invented by Kellogg and Rice (circa 1920). A cutaway view of a movingcoil
+                        loudspeaker driver typical of modern designs is shown in Fig. 1.0 <br>
+                        <center>
+                            <img src=images/Loudspeaker/Cut_Driver.jpg><br>
+                            Fig. 1.0
+                        </center>
+                        <br>
+                        <br>
+                        The behavior of a driver is governed by basic principles of
+                        physics. An alternating current is supplied to the leads of the driver. These leads are
+                        connected to a wire that wraps around a coil former, creating what is known as the voice
+                        coil. The coil has an electrical resistance and inductance associated with it. It is
+                        positioned within the gap created between a hollow cylindrical magnet (e.g., north pole)
+                        and a solid cylindrical pole piece (e.g., south pole). The latter is located within the
+                        hollow coil former. Current applied to the voice coil flows in a circular direction around
+                        the windings. The magnet structure provides magnetic flux through the coil with field
+                        lines running perpendicular to the direction of current flow. <br>
+                        <br>
+                        As is well known in the study of electromagnetism, if a current flows in the
+                        presence of a magnetic field, a Lorentz force is created. When applied to the geometry of
+                        a moving-coil loudspeaker driver, the orthogonally oriented Lorentz Force simplifies to
+                        the product of the effective magnetic flux density, the effective length of the coil in the
+                        field, and the current flowing in the coil. Since the applied current alternates, the Lorentz
+                        force likewise alternates, causing the voice coil (and anything attached to it) to oscillate
+                        in an analogous manner. <br>
+                        <br>
+                        The voice coil is attached to the former, which is attached to a cone or diaphragm.
+                        This diaphragm assembly is held in place by a suspension system that centers the voice
+                        coil in the magnet gap. Suspension systems typically consist of two separate flexible
+                        components: the surround and the spider. These spaced components serve to constrain
+                        the cone vibrations to motion along a single axis and supply a restoring force to return the
+                        cone to its rest position. The suspension system has a compliance and resistance
+                        associated with it. The cone, coil former, voice coil, parts of the suspension system, and
+                        lead wires ideally move in phase as lumped elements with a certain effective mass.
+                        Oscillations of the cone produce fluctuations in air pressure that radiate away from the
+                        driver as sound waves. <br>
+                        <br>
+                        <br>
+                        <h2>Brief History of Moving-Coil Loudspeaker Modeling Development</h2>
+                        Moving-coil loudspeaker drivers have been studied for years. McLachan first
+                        developed equations governing moving-coil loudspeakers in the 1930s. <br>
+                        In the 1940s,
+                        Olson presented analogous circuits that represent the multiple domains of the movingcoil
+                        driver. Later, in 1954, Beranek furthered the developments of Olson in his
+                        development of a partial solution to the response of a bass-reflex loudspeaker system. <br>
+                        In 1958, Novak presented a generalized theory on the design and performance of
+                        vented and closed-box loudspeaker enclosures. However, Thiele is generally thought <br>
+                        of as the first to develop a complete synthesis procedure for direct radiator loudspeakers.
+                        Thiele's work was initially published in the 1961 Proceedings of the Institution of Radio
+                        Engineers. It was then reprinted in the 1971 Journal of the Audio Engineering
+                        Society (JAES). <br>
+                        Between 1968 and 1972, Benson published a series of papers
+                        building on previous work. Work done by Benson was not well known until Small
+                        referenced his work. Small published papers in the internationally published
+                        JAES, which brought recognition to both Benson's and Small's efforts.
+                        A fundamental set of parameters that describe the lumped element model of a
+                        moving-coil loudspeaker have been given the name Thiele/Small Parameters in
+                        recognition of their work. <br>
+                        Knowledge of these parameters is essential in the design of
+                        complete loudspeaker systems. <br>
+                        <br>
+                        <br>
+                        <center><h2><i>Loudspeaker Driver</i></h2></center>
+                        <p>Electrical energy passed from an amplifier is converted into kinetic energy as
+                            the loudspeaker cone moves in and out via electro-mechano-transduction.</p>
+                        <p>
+                        <center>
+                            <img src="images/Loudspeaker/image023.png" alt="" border="0"/>
+                        </center>
+                        </p>
+                        <p>The <strong>voice coil</strong> is attached to the <strong>cone,</strong> which is in turn
+                            held in a
+                            steel <strong>basket</strong> and fixed to a <strong>surround</strong>. Flux is generated
+                            by a magnet and guided by <strong>steel plates</strong> and a <strong>pole piece</strong>
+                            effectively forming a
+                            magnetic circuit. As a time varying current is passed through the coil the interaction with
+                            the
+                            flux generated by the <strong>magnetic</strong> causes a force. Generally
+                            a <strong>spider</strong> is needed to centre the voice coil in the gap, these
+                            are generally made of steam pressed cotton. The coil and magnet are
+                            also kept clean by a protective <strong>dust cap</strong>. The cone is generally
+                            moulded from steam pressed paper though polypropylene, kevlar and even carbon fibre cones
+                            can be used. The resulting piston-like action
+                            of the cone causes changes in the air pressure in front of it, producing
+                            sound energy. A well-designed speaker may only be around 5% efficient,
+                            in other words, 20 watts of electrical power from an amplifier may only
+                            result in 1 watt of sound power.</p>
+                        <br>
+                        <br>
+                        <center><h2><i>Loudspeaker Sensitivity</i></h2></center>
+                        <p>We specify sensitivity
+                            of a loudspeaker in terms of dB SPL for 2.83 V input.The
+                            sound pressure level is measured on-axis in anechoic conditions at a
+                            distance of 1 metre from the loudspeaker. </p>
+                        <p>2.83Volts corresponds to the voltage across a standard 8 ohms speaker driven at 1Watt.</p>
+                        <p>So if we measure 0.2 Pa at one volt what is the Loudspeakers Sensitivity?</p>
+                        <p><img border="0" width="154" height="45" src="images/Loudspeaker/image037.gif"
+                                align="middle"/>= 80dB</p>
+                        <p> Change in SPL if 2.83volts applied is <img src="images/Loudspeaker/image039.gif" width="243"
+                                                                       height="24" border="0" align="middle"/> =9.04dB
+                        </p>
+                        <p><img border="0" width="355" height="23" src="images/Loudspeaker/image041.gif"/></p>
+                        <p>i.e. 89.04 dB&nbsp; @ 1 meter with 2.83V input</p>
+                        <p>The graph below shows typical sensitivities of a wide range of modern speakers</p>
+                        <p>
+                        <center>
+                            <img src="images/Loudspeaker/image042.jpg" alt="" border="0"/>
+                        </center>
+                        </p>
+                        <p>Typically 88dB/2.83V@1m</a></p>
+                        <p>80dB/2.83V@1m flat panel speakers</p>
+                        <p>95dB/2.83V@1m professional monitors</p>
+                        <p>Using peak response or measuring with wide band noise can give misleadingly high
+                            sensitivities. <br>
+                            Measuring with B-weighting gives more accurate picture taking into account subjective
+                            loudness.</p>
+                        <p> Note sensitivity is not necessarily
+                            a guide to how good a speaker is. For instance a PA speaker will have
+                            a sensitivity of around 115dB so sacrificing sound quality for high
+                            output. Conversely a good monitor may be designed to ensure a flat frequency
+                            response with components that also reduce sensitivity.</p>
+                        <br>
+                        <br>
+                        <center><h2><i>Older System</i></h2></center>
+                        <p>Older
+                            system specified efficiency</em> in the rather unusual units
+                            of dB SPL/W/m where the power is the electrical input power. The older
+                            system is still quite popular so it&#8217;s worth knowing about.</p>
+                        <p> A change in input POWER of P<sub>ratio</sub> would cause an increase in radiated sound
+                            pressure level of
+                            10 log(P<sub>ratio</sub>)</p>
+                        <p>because velocity and sound pressure are proportional to Voltage,
+                            whereas power is proportional to voltage squared).</p>
+                        <p>This means for instance if a speaker
+                            with a sensitivity of 100 dB/W/m is powered by 50W, the resulting SPL is </p>
+                        <p> 100+10*LOG(50/1)
+                            = 100 + 17 = 117dB/W/m</p>
+                        <p>Although still commonly used efficiency is not as useful as voltage sensitivity
+                            since input power is difficult to measure given input impedance is frequency
+                            dependant, so for instance a lower frequency will have lower impedance
+                            and suck more power, hence be less efficient. Also modern solid state
+                            amps are voltage sources supplying current on demand so power is less
+                            important than dB for volts.</p>
+                        <br>
+                        <br>
+                        <center><h2><i>Frequency Response</i></h2></center>
+                        <p>The resulting SPL for a speaker powered
+                            across a range (sweep) of narrow band frequencies is the frequency response.
+                            Frequency response is often quoted as the maximum deviation in SPL within
+                            a specified range. For example&#8230;</p>
+                        <p>Frequency response from 20Hz - 20kHz&nbsp;</p>
+                        <center>
+                            <p>Often manufactures will also provide a plot of frequency response&#8230;</p>
+                            <p><img src="images/Loudspeaker/image044.gif" alt="Frequency response graph" width="400"
+                                    border="0"/>
+                            </p>
+                            <p>dB against frequency.</p>
+                        </center>
+                        <p> Ideally a speaker will have a flat
+                            response across a wide range. Usually the more ragged the response to
+                            poorer the speaker.</p>
+                        <p> Clearly different types of speaker will
+                            have different responses to suit their application for example</p>
+                        <ul>
+                            <li>Studio Monitors require a flat response</li>
+                            <li>PA Speakers require a high sensitivity at the expense of frequency response</li>
+                            <li>Sub woofers require an improved bass
+                                response at the expense of the higher frequencies
+                            </li>
+                        </ul>
+                        <br>
+                        <br>
+                        <center><h2><i>Improving Bass Response</i></h2></center>
+                        <p>The bass response of a loudspeaker can be improved by using back radiation.
+                            Unfortunately, the front and back radiation is in anti-phase - we need
+                            a &quot;phase inverter&quot; before it is possible to add the front
+                            and back radiation constructively.</p>
+                        <p>Such a strategy is achieved by the &quot;phase inverter&quot; family of loudspeaker
+                            enclosures, which couple front and back radiation from the low frequency
+                            unit(s) through an acoustic phase inverting network.</p>
+                        <p>The phase inverter family includes </p>
+                        <ul>
+                            <li>the transmission line enclosure</li>
+                            <li>the bass reflex enclosure</li>
+                            <li>the auxiliary bass radiator</li>
+                        </ul>
+                        <p>The most important member of the phase inverter family is the:</p>
+                        <center><p><strong>Bass Reflex Enclosure</strong></p></center>
+                        <p>In a bass reflex enclosure, the loudspeaker internally excites a Helmholtz resonator. This is
+                            an acoustic network which has the amplitude and phase
+                            response of a second order resonant system (which gives a phase inversion
+                            above resonance).
+                        <center>
+                            <img src="images/Loudspeaker/image046.gif" alt="Bass reflex cabinet" border="0"/>
+                        </center>
+                        </p>
+                        <p>The bass reflex enclosure is a closed box enclosure with a
+                            &quot;port&quot; in one of the enclosure walls. The port is a tube,
+                            open at one end to the inside volume of the enclosure and open at the
+                            other end to the listening space. Air in the port moves as a single
+                            &quot;lumped mass&quot; which bounces up and down on the spring formed
+                            by the volume of air trapped in the enclosure, giving the system a second
+                            order resonant behaviour.</p>
+                        <p>From resonant frequency upwards, the port radiation and the speaker radiation are
+                            in phase (<em>so they add constructively giving more bass</em>). Below
+                            resonance, the port and speaker radiation are out of phase (<em>so they
+                                add destructively giving less bass than a closed box</em>) At the resonant frequency the
+                            port response much greater than the 'speaker response (because the back load presented to
+                            the loudspeaker is maximum at the resonance of the port.</p>
+                        <p>The frequency responses of the speaker and port in
+                            a bass reflex enclosure are shown individually in the figure below....</p>
+                        <p>
+                        <center>
+                            <img src="images/Loudspeaker/image048.gif" alt="Frequency response" width="324" height="241"
+                                 border="0"/>
+                        </center>
+                        </p>
+                        <br>
+                        <center><h2><i>Directivity</i></h2></center>
+                        <p>At low frequencies sound propagation is
+                            omni directional (spreads out in all directions) for high frequencies
+                            sound propagation becomes much more directional. This holds true for
+                            speakers where the placement of sub woofers is less important than higher
+                            frequency monitors.</p>
+                        <p>This can be shown for a loudspeaker by plotting
+                            a curve of equal SPL hence representing the propagating wave front.</p>
+                        <center>
+                            <h3>Low Frequency</h3>
+                            <img src="images/Loudspeaker/image051.gif" width="350" alt="Omni polar response"
+                                 border="0"/>
+                        </center>
+                        <center>
+                            <h3>High Frequency</h3>
+                            <img src="images/Loudspeaker/image052.gif" width="350" alt="Directional polar response"
+                                 border="0"/>
+                        </center>
+                        <i>This plots are generated with <a
+                                href="http://www.visaton.de/en/literatur/software" target="_blank"
+                                class="calcButton">Visaton BoxSim</a> (German Windows Application)</i>
+
+                        <p>As the frequency increases the propagating wave front
+                            splits into lobes. The forward lobe carries most of the sound energy.</p>
+                        <p>This has an important bearing on stereo
+                            sound systems and mixing as the listener is less likely to care where
+                            low frequency sounds come relative to high frequency sounds. </p>
+                        <br><br>
+                        On the <a href="Calculator.html#l" class="calcButton">Calculator page</a> you wil find 32
+                        Calculator-Modules...
+                        </td>
+                        </tr>
+                        </table>
+                        <br><br>
+                        </p>
+                    </div> <!-- hidden -->
+                </div>
+            </div>
+        </div>
+        <div class="copyright">
+            &copy;
+            <span id="copyright">
+        <script>document.getElementById('copyright').appendChild(document.createTextNode(new Date().getFullYear()))</script>
+        &nbsp;mh-Audio.nl&nbsp;&nbsp;-&nbsp;&nbsp;<a href="disclaimer.html"><font color="#000000">Disclaimer</font></a>
+    </span>
+        </div>
+</body>
+</html>
