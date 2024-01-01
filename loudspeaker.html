@@ -54,7 +54,7 @@ function locate() {
 }    
      
 var xmlhttp;
-function loadXMLDoc(url)
+function loadxmldoc(url)
 {
 xmlhttp=null;
 if (window.XMLHttpRequest)
@@ -115,12 +115,12 @@ function changeImage(x)
  	else if ( x == 2 )
  		{
  		//alert("ESL");
- 		document.images["pic"].src = "pages/images/ELS_MLogan.jpg";
+ 		document.images["pic"].src = "pages/images/els_MLogan.jpg";
  		}
  	else if ( x == 1 )
  		{
 		//alert("TML"); 
-		document.images["pic"].src = "pages/images/TML_IMF_white.gif";
+		document.images["pic"].src = "pages/images/tml_imf_white.gif";
  		}
  	else if ( x == 4 )
  		{
@@ -130,17 +130,17 @@ function changeImage(x)
  	else if ( x == 5 )
  		{
 		//alert("Bass Reflex"); 
-		document.images["pic"].src = "pages/images/DangerHighVoltage.jpg";
+		document.images["pic"].src = "pages/images/dangerhighvoltage.jpg";
  		}  	
  	else if ( x == 6 )
  		{
-		//alert("Bass Reflex"); 
-		document.images["pic"].src = "pages/images/Loudspeaker/sealed-enclosure-subwoofer.jpg";
+		alert("Bass Reflex"); 
+		document.images["pic"].src = "pages/images/loudspeaker/sealed-enclosure-subwoofer.jpg";
  		}   				
  	else
  		{
  		//alert("default");
- 		document.images["pic"].src = "images/Loudspeaker/esotec_mw152.jpg";
+ 		document.images["pic"].src = "images/loudspeaker/esotec_mw152.jpg";
  		}
 }
 
@@ -222,21 +222,21 @@ function locate() {
                     <tr><td height="10"></td></tr>
                         <tr>
                             <td class="text" align="center">
-                            <a href="#" onclick="loadXMLDoc('pages/se.html?p=4'), removeElement(), changeImage(6)" class="calcButton" 
+                            <a href="#" onclick="loadxmldoc('pages/se.html?p=4'), removeElement(), changeImage(6)" class="calcButton" 
                                onmouseover="this.style.color='#EEEEEE'"  onmouseout="this.style.color='#000000'">Closed Loudspeaker</a>
-                            <a href="#" onclick="loadXMLDoc('pages/br.html?p=4'), removeElement(), changeImage(4)" class="calcButton"
+                            <a href="#" onclick="loadxmldoc('pages/br.html?p=4'), removeElement(), changeImage(4)" class="calcButton"
                                onmouseover="this.style.color='#EEEEEE'" onmouseout="this.style.color='#000000'">Bass - Reflex Loudspeaker</a>
-                           <a href="#" onclick="loadXMLDoc('pages/tml.html?p=1'), removeElement(), changeImage(1)" class="calcButton"
+                           <a href="#" onclick="loadxmldoc('pages/tml.html?p=1'), removeElement(), changeImage(1)" class="calcButton"
                               onmouseover="this.style.color='#EEEEEE'" onmouseout="this.style.color='#000000'">Transmission Line Loudspeaker</a>
-			   <a href="#" onclick="loadXMLDoc('pages/els.html?p=2'), removeElement(), changeImage(2)" class="calcButton"
+			   <a href="#" onclick="loadxmldoc('pages/els.html?p=2'), removeElement(), changeImage(2)" class="calcButton"
                               onmouseover="this.style.color='#EEEEEE'" onmouseout="this.style.color='#000000'">Electrostatic Loudspeaker</a>
                             </td>
                         </tr>
                         <tr>
                             <td class="text" align="center">
-                            <a href="#top" onclick="loadXMLDoc('pages/ob.html?p=3'), removeElement(), changeImage(3);" class="calcButton"
+                            <a href="#top" onclick="loadxmldoc('pages/ob.html?p=3'), removeElement(), changeImage(3);" class="calcButton"
                                onmouseover="this.style.color='#EEEEEE'" onmouseout="this.style.color='#000000'">Dipol Loudspeaker</a>
-							<a href="#" onclick="loadXMLDoc('pages/ps.html?p=4'), removeElement(), changeImage(5)" class="calcButton"
+							<a href="#" onclick="loadxmldoc('pages/ps.html?p=4'), removeElement(), changeImage(5)" class="calcButton"
                                onmouseover="this.style.color='#EEEEEE'" onmouseout="this.style.color='#000000'">Plasma Loudspeaker</a>
                             <a href="speakerglossary.html" onmouseover="this.style.color='#EEEEEE'" onmouseout="this.style.color='#000000'" class="calcButton">Loudspeaker Glossary</a>
                             <a href="plans/plans.html" class="calcButton">Download Horn Construction Plans</a>       
