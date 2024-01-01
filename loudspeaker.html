@@ -36,8 +36,8 @@ Released   : October 2018
 		musical acoustics">
 <meta name="Description" content="Resource for building, calculate and measuring Hi Fi Loudspeakers,DIY LoudspeakerSite, Acoustic treatment, loudspeaker calculations, hifi links, high end">
     <link href="http://fonts.googleapis.com/css?family=Source+Sans+Pro:200,300,400,600,700,900" rel="stylesheet"/>
-    <link href="../default.css" rel="stylesheet" type="text/css" media="all"/>
-    <link href="../fonts.css" rel="stylesheet" type="text/css" media="all"/>
+    <link href="cssdefault.css" rel="stylesheet" type="text/css" media="all"/>
+    <link href="css/fonts.css" rel="stylesheet" type="text/css" media="all"/>
 
     <!--[if IE 6]>
     <link href="default_ie6.css" rel="stylesheet" type="text/css"/><![endif]-->
@@ -110,37 +110,37 @@ function changeImage(x)
 	 if ( x == 3 )
 		{
  		//alert("Dipol");
- 		document.images["pic"].src = "Pages/images/209jamo.jpg";
+ 		document.images["pic"].src = "pages/images/209jamo.jpg";
  		}
  	else if ( x == 2 )
  		{
  		//alert("ESL");
- 		document.images["pic"].src = "Pages/images/ELS_MLogan.jpg";
+ 		document.images["pic"].src = "pages/images/ELS_MLogan.jpg";
  		}
  	else if ( x == 1 )
  		{
 		//alert("TML"); 
-		document.images["pic"].src = "Pages/images/TML_IMF_white.gif";
+		document.images["pic"].src = "pages/images/TML_IMF_white.gif";
  		}
  	else if ( x == 4 )
  		{
 		//alert("Bass Reflex"); 
-		document.images["pic"].src = "Pages/images/onken.jpg";
+		document.images["pic"].src = "pages/images/onken.jpg";
  		} 	
  	else if ( x == 5 )
  		{
 		//alert("Bass Reflex"); 
-		document.images["pic"].src = "Pages/images/DangerHighVoltage.jpg";
+		document.images["pic"].src = "pages/images/DangerHighVoltage.jpg";
  		}  	
  	else if ( x == 6 )
  		{
 		//alert("Bass Reflex"); 
-		document.images["pic"].src = "Pages/images/Loudspeaker/sealed-enclosure-subwoofer.jpg";
+		document.images["pic"].src = "pages/images/Loudspeaker/sealed-enclosure-subwoofer.jpg";
  		}   				
  	else
  		{
  		//alert("default");
- 		document.images["pic"].src = "../images/Loudspeaker/esotec_mw152.jpg";
+ 		document.images["pic"].src = "images/Loudspeaker/esotec_mw152.jpg";
  		}
 }
 
@@ -222,29 +222,29 @@ function locate() {
                     <tr><td height="10"></td></tr>
                         <tr>
                             <td class="text" align="center">
-                            <a href="#" onclick="loadXMLDoc('Pages/SE.html?p=4'), removeElement(), changeImage(6)" class="calcButton" 
+                            <a href="#" onclick="loadXMLDoc('pages/se.html?p=4'), removeElement(), changeImage(6)" class="calcButton" 
                                onmouseover="this.style.color='#EEEEEE'"  onmouseout="this.style.color='#000000'">Closed Loudspeaker</a>
-                            <a href="#" onclick="loadXMLDoc('Pages/BR.html?p=4'), removeElement(), changeImage(4)" class="calcButton"
+                            <a href="#" onclick="loadXMLDoc('pages/br.html?p=4'), removeElement(), changeImage(4)" class="calcButton"
                                onmouseover="this.style.color='#EEEEEE'" onmouseout="this.style.color='#000000'">Bass - Reflex Loudspeaker</a>
-                           <a href="#" onclick="loadXMLDoc('Pages/TML.html?p=1'), removeElement(), changeImage(1)" class="calcButton"
+                           <a href="#" onclick="loadXMLDoc('pages/tml.html?p=1'), removeElement(), changeImage(1)" class="calcButton"
                               onmouseover="this.style.color='#EEEEEE'" onmouseout="this.style.color='#000000'">Transmission Line Loudspeaker</a>
-							<a href="#" onclick="loadXMLDoc('Pages/ELS.html?p=2'), removeElement(), changeImage(2)" class="calcButton"
+			   <a href="#" onclick="loadXMLDoc('pages/els.html?p=2'), removeElement(), changeImage(2)" class="calcButton"
                               onmouseover="this.style.color='#EEEEEE'" onmouseout="this.style.color='#000000'">Electrostatic Loudspeaker</a>
                             </td>
                         </tr>
                         <tr>
                             <td class="text" align="center">
-                            <a href="#top" onclick="loadXMLDoc('Pages/OB.html?p=3'), removeElement(), changeImage(3);" class="calcButton"
+                            <a href="#top" onclick="loadXMLDoc('pages/ob.html?p=3'), removeElement(), changeImage(3);" class="calcButton"
                                onmouseover="this.style.color='#EEEEEE'" onmouseout="this.style.color='#000000'">Dipol Loudspeaker</a>
-							<a href="#"	onclick="loadXMLDoc('Pages/PS.html?p=4'), removeElement(), changeImage(5)" class="calcButton"
+							<a href="#" onclick="loadXMLDoc('pages/ps.html?p=4'), removeElement(), changeImage(5)" class="calcButton"
                                onmouseover="this.style.color='#EEEEEE'" onmouseout="this.style.color='#000000'">Plasma Loudspeaker</a>
-                            <a href="SpeakerGlossary.html" onmouseover="this.style.color='#EEEEEE'" onmouseout="this.style.color='#000000'" class="calcButton">Loudspeaker Glossary</a>
-                            <a href="Plans/Plans.html" class="calcButton">Download Horn Construction Plans</a>       
+                            <a href="speakerglossary.html" onmouseover="this.style.color='#EEEEEE'" onmouseout="this.style.color='#000000'" class="calcButton">Loudspeaker Glossary</a>
+                            <a href="plans/plans.html" class="calcButton">Download Horn Construction Plans</a>       
                             </td>
                         </tr>
                         <tr>
                         	<td colspan="4" align="center"><br>
-                        		<a href="PC.html" class="calcButton">Designing Loudspeakers</a> (written by Peter Comeau)
+                        		<a href="pc.html" class="calcButton">Designing Loudspeakers</a> (written by Peter Comeau)
                         	</td>
                         </tr>
                         <tr><td height="10"></td></tr>
