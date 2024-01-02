@@ -1340,12 +1340,14 @@ border:0!important}
 		/* position: absolute; */
 		float: center;
 		top: 8.0em;			
-		font-size: 12pt;
+		font-size: 13pt;
+		text-align: center;
 	}
 	
 	#menu ul
 	{
 		display: inline-block;
+		text-align: center;
 	}
 	
 	#menu li
@@ -1360,14 +1362,16 @@ border:0!important}
 		padding: 0.4em 0.8em;
 		text-decoration: none;
 		font-weight: bold;
+		text-align: center;
 		color: rgba(255,255,255,1.1);
-		text-shadow: 4px 4px 4px #ddd;
+		text-shadow: 2px 2px 2px #ddd;
 	}
 	
 	#menu li:hover a, #menu li.active a, #menu li.active span
 	{
 		border-radius: 20px;
-		color: rgba(254,210,9,0.99);
+		text-align: center;
+		/* color: rgba(254,210,9,0.99); */
 	}
 	
 	#menu .current_page_item a
