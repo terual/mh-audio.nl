@@ -1361,10 +1361,10 @@ border:0!important}
 	{
 		padding: 0.4em 0.8em;
 		text-decoration: none;
-		font-weight: bold;
+		/* font-weight: bold; */
 		text-align: center;
 		color: rgba(255,255,255,1.1);
-		text-shadow: 2px 2px 2px #ddd;
+		/* text-shadow: 2px 2px 2px #ddd; */
 	}
 	
 	#menu li:hover a, #menu li.active a, #menu li.active span
