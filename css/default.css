@@ -1340,7 +1340,7 @@ border:0!important}
 		/* position: absolute; */
 		float: center;
 		top: 8.0em;			
-		font-size: 11pt;
+		font-size: 12pt;
 	}
 	
 	#menu ul
@@ -1361,7 +1361,7 @@ border:0!important}
 		text-decoration: none;
 		font-weight: bold;
 		color: rgba(255,255,255,1.1);
-		text-shadow: 4px 4px 4px #eee;
+		text-shadow: 4px 4px 4px #ddd;
 	}
 	
 	#menu li:hover a, #menu li.active a, #menu li.active span
