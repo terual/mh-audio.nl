@@ -1,0 +1,259 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<!--
+Design by TEMPLATED
+http://templated.co
+Released for free under the Creative Commons Attribution License
+
+Name       : TailPiece 
+Description: A two-column, fixed-width design with dark color scheme.
+Version    : 1.0
+Released   : 20130902
+
+-->
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <!-- Google Analytics -->
+    <script>
+        window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+        ga('create', 'UA-77078028-1', 'auto');
+        ga('send', 'pageview');
+
+
+    </script>
+    <script async src='https://www.google-analytics.com/analytics.js'></script>
+    <!-- End Google Analytics -->
+
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>Calculate the First Floor Reflection</title>
+    <meta name="keywords" content=""/>
+    <meta name="description" content=""/>
+    <link href="http://fonts.googleapis.com/css?family=Source+Sans+Pro:200,300,400,600,700,900" rel="stylesheet"/>
+    <link rel="shortcut icon" href="../favicon.ico" type="image/x-icon">
+    <link href="../css/default.css" rel="stylesheet" type="text/css" media="all"/>
+    <link href="../css/fonts.css" rel="stylesheet" type="text/css" media="all"/>
+
+    <!--[if IE 6]>
+    <link href="default_ie6.css" rel="stylesheet" type="text/css"/><![endif]-->
+    <script src="../js/fab.js"></script>
+<script LANGUAGE="JavaScript">
+function round(number,X) {
+	// rounds number to X decimal places, defaults to 3
+    	X = ( !X ? 3 : X) ;
+    	return Math.round( number * Math.pow( 10,X ) ) / Math.pow( 10,X );
+	}
+	
+function calcvr() {
+	var x180, x360
+	var d   = eval(document.vr.md.value); 		// = distance to mic / 2 = x / 2
+	var h   = eval(document.vr.Mh.value); 			// = height of mic
+	var Dh  = eval(document.vr.Dh.value); 	// = height of speaker
+	//var sos = document.getElementById("sos").value;	// Speed of Sound default is 343.2 m/s
+	var sos = eval(document.vr.sos.value);
+
+if ( isNaN(d) || d == "" || isNaN(h) || h == "" || isNaN(Dh) || Dh == "" || isNaN(sos) || sos == "")
+    {
+        txtErr = "Invalid Input!";
+        document.getElementById("err3").innerHTML = txtErr;
+    }
+else
+    {	
+    txtErr = "";
+    document.getElementById("err3").innerHTML = txtErr;	 
+	var u  = (h/Dh);	// mic height / mic distance	
+	var v  = ( u * d ) / ( u + 1) ;
+	var w  = Math.sqrt( ( Math.pow( h,2 ) )+( Math.pow( v,2 ) ) );
+	var x  = d - v;
+	var y  = Math.sqrt((Math.pow(Dh,2))+(Math.pow(x,2)));		
+	var z  = Math.sqrt( ( Math.pow( ( h - Dh ), 2 ) ) + ( Math.pow( d, 2 ) ) );
+	var xx = ( y + w ) - z;
+	var ms = ( (xx / 100 ) / sos ) * 1000;
+	var f  = 180 / ( 360 * ( xx / ( sos * 100 ) ) );
+	var ff = 360 / ( 360 * ( xx / ( sos * 100 ) ) );
+	var ms = round(ms,3);
+	var d2 = Math.sqrt( Math.pow( h,2 ) + Math.pow(( d / 2 ),2 ) );	// distance first reflection
+
+	var f  = round(f,2);
+	var ff = round(ff,2);
+	var d2 = round(d2,2);
+
+	document.vr.d2.value   = d2;
+	document.vr.ms.value   = ms;
+	document.vr.x180.value = f;
+	document.vr.x360.value = ff;
+	}
+}
+</script>
+    <script src="js/fab.js"></script>
+</head>
+<body>
+<div id="header" class="container">
+    <div id="logo">
+        <h2>HiFi&nbsp;&nbsp;Audio&nbsp;&nbsp;Design</h2>
+    </div>
+    <br>
+    <div id="menu">
+        <ul>
+            <li><a href="../../index.html" accesskey="1" title="">Home</a></li>
+            <li><a href="../../loudspeaker.html" accesskey="2" title="">Loudspeaker</a></li>
+            <li><a href="../../acoustic.html" accesskey="3" title="">Acoustic</a></li>
+            <li class="active"><a href="../../calculator.html" accesskey="4" title="">Calculators</a></li>
+            <li><a href="../../library.html" accesskey="7" title="">Library</a></li>
+            <!--
+            <li><a href="../Software.html" accesskey="6" title="">Soft & Hardware</a></li>
+            <li><a href="../Elektronic.html" accesskey="5" title="">Electronic</a></li>
+            <li><a href="../Measurement.html" accesskey="5" title="">Measurement</a></li>
+            <li><a href="../Links.html" accesskey="5" title="">Links/Downloads</a></li>
+            <li><a href="../EmailFormNew.asp" accesskey="5" title="">Contact</a></li>
+            -->
+        </ul>
+    </div>
+</div>
+<button onclick="topFunction()" id="myBtn" title="Go To Top">⬆</button>
+<button id="myBtnDown" onclick="scrollWin()" title="Scroll Down">⬇</button>
+<div id="page">
+    <div class="container">      
+        <div class="title">
+            <h2><i>Calculate the First Floor Reflection</i></h2>
+        </div>
+        <div class="box0">
+            <div class="box margin-btm">
+                <div class="details">
+                    <p> <!-- Start Content -->
+					<table align="center" width="75%" cellpadding="0" cellspacing="2" border="0">
+					<tr>
+						<td>
+						<br><br>
+						Early reflection points or first reflections are terms to describe direct sound which arrives at the listener’s ears 
+						before the rest of the reflected sound does.<br><br>
+						Sound reflects not just off the walls to the left and right, but off the floor, the ceiling and everything in-between.<br><br>
+						Direct sound combines with reflected sound which causes interference at the listening position – also known as comb filtering.<br>
+					    The result is the listener not being able to accurately hear what’s coming out of the speakers.<br><br>
+						Naturally, the character of those first reflections has a huge influence on your total sound.
+						</td>
+					</tr>
+				</table>
+				<br>
+				<center><br><img src="../images/acoustics/ffr.jpg"  alt=""/></center>
+				<br>
+		<table border="0" cellpadding="0" cellspacing="8" border="0" align="center" width="75%" class="Calctable">
+		<tr><td colspan="2">
+						<center><br><h2><i>Floor Reflection Calculator</center></i></h2>
+					</td></tr>
+			<tr>
+				<td></td>
+					<td>
+					<form name="vr">
+						<table align="center" border="0" cellspacing="4" cellpadding="2" width="100%">
+							<tr><td colspan="2" height="20"></td></tr>
+							<tr>
+								<td align="right">Driver distance from floor (h1) : </td>
+								<td><input type="number" step="1" name="Dh" value="100" size="8"> cm</td>
+							</tr>	
+							<tr><td colspan="2" height="20"></td></tr>						
+							<tr>
+								<td align="right">Ear height (h2) : </td>
+								<td><input type="text" name="Mh" value="100" size="8"> cm</td>
+							</tr>
+							<tr>
+								<td align="right">Ear distance to driver (d) : </td>
+								<td><input type="number" step="1" name="md" value="100" size="8"> cm</td>
+							</tr>
+							<tr><td colspan="2" height="20"></td></tr>
+                            <tr>
+                                <td align="right">Speed Of Sound&nbsp; : </td>
+                                <td><input class="frmInput" type="number" step="0.1" name="sos"
+                                                            style="width: 5em;" value="343.2">&nbsp;m/s  ( default is <strong>343.2</strong> m/s )
+                                </td>
+                            </tr> 							
+                                            <tr><td colspan="2" height="20"></td></tr>                                                                                     
+                                            <tr>
+                                                <td colspan="2" align="center"><input class="calcButton" type="button" value="Calculate" onClick="calcvr()"></td>
+                                            </tr>
+                                                 <td colspan="2" align="center"><font color="red">&nbsp;<strong><span
+                                                    id="err3"></span></strong></font></td>
+                                        	</tr> 
+                                            <tr>
+
+                                                <td align="right">Distance 1st Floor Reflection&nbsp;= </td>
+                                                <td><input class="frmOutput" type="number" name="d2" style="width: 5em;" readonly>&nbsp;cm
+                                                </td>
+                                            </tr>
+                                            <tr>
+
+                                                <td align="right">First Floor Reflection arrives after&nbsp;= </td>
+                                                <td><input class="frmOutput" type="number" step="1" min="50" name="ms"
+                                                            style="width: 5em;" value="" readonly>&nbsp;ms
+                                                </td>
+                                            </tr>                                            
+                                            <tr>
+
+                                                <td align="right">1st Floor Refection [subtractive]&nbsp;= </td>
+                                                <td><input class="frmOutput" type="number" name="x180"  style="width: 5em;"
+                                                           readonly>&nbsp;Hz
+                                                    @ 180 degrees&nbsp; ( Dip )
+                                                </td>
+                                            </tr>
+                                            <tr>
+
+                                                <td align="right">1st Floor Refection [additive]&nbsp;= </td>
+                                                <td><input class="frmOutput" type="number" name="x360"  style="width: 5em;"
+                                                           readonly>&nbsp;Hz
+                                                    @ 360 degrees&nbsp; ( Peak )
+                                                </td>
+                                            </tr>
+                                            <tr><td colspan="2" height="20"></td></tr>                                     
+						</table>
+					</form>
+				</td>
+			</tr>
+		</table>
+</div>
+</form>
+					<br><br>
+                    <hr size="1" width="75%">
+                    <br>
+ 					<center>
+					<table align="center" width="65%" cellspacing="0" cellpadding="6" class="calcTable">
+						<tr>
+							<td align="center">
+							<a href="CPP.html" class="calcButton">Calculate the First Sidewall Reflection and Panel Placement</a>
+							<br><br><br>
+                    		<a href="../Acoustics.html#top" class="calcButton">Calculate Your Panel Absorber</a><br>							
+							</td>
+							<!--td align="center" colspan="2"><a href="FCR.html" class="calcButton">Calculate the First Ceiling Reflection and Panel Placement</a></td-->
+						</tr>
+					</table>
+					<br>
+                    <hr size="1" width="75%">
+                    <br><br>
+ 					<center>
+                    	<A HREF="https://www.hifizine.com/2011/12/listening-room-reflections-and-the-energy-time-curve/" TARGET="BLANK" TITLE="HiFizine.com" CLASS="calcButton">LISTENING-ROOM REFLECTIONS AND THE ENERGY-TIME CURVE</A>
+                    	<br><br>
+                    	By reading this article you should get a good understanding of how important reflections are to what we hear and how to use ETC's to<br> analyze the reflections in your room.
+                    	<br><br>
+                    	More about <a href="https://audiouniversityonline.com/comb-filtering-explained/" target="blank" class="calcButton">Comb-Filtering...</a>                    	
+                    	<br><br> 
+                    	<a href="http://arqen.com/acoustics-101/room-setup-acoustic-treatment/" target="blank" Title="Arqen.com" class="calcButton">Acoustic Treatment Setup in Your Listening Room or Studio</a>
+                    	<br><br><br>       	
+                    	<hr size="1" width="75%">
+                    	<br><br>
+                        <a href="javascript:history.back()" class="calcButton"><<< Back</a>
+                    </center>
+                    <br><br>
+                    <!-- End Content  -->
+                    </p>
+                </div>
+            </div>
+        </div>
+
+    <div class="copyright">
+        &copy;
+        <span id="copyright">
+        <script>document.getElementById('copyright').appendChild(document.createTextNode(new Date().getFullYear()))</script>
+        &nbsp;mh-Audio.nl&nbsp;&nbsp;-&nbsp;&nbsp;<a href="../disclaimer.html"><font
+                color="#000000">Disclaimer</font></a>
+    </span>
+    </div>
+</body>
+</html>
