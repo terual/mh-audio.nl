@@ -1,0 +1,1408 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<!--
+Design by TEMPLATED
+http://templated.co
+Released for free under the Creative Commons Attribution License
+
+Name       : TailPiece 
+Description: A two-column, fixed-width design with dark color scheme.
+Version    : 1.0
+Released   : 20130902
+
+-->
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <!-- Google Analytics -->
+    <script>
+        window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+        ga('create', 'UA-77078028-1', 'auto');
+        ga('send', 'pageview');
+    </script>
+    <script async src='https://www.google-analytics.com/analytics.js'></script>
+    <!-- End Google Analytics -->
+
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>Reverberation - Calculator</title>
+ <meta name="Keywords" content="HiFi, Audio, Loudspeakers, Database, Acoustic treatment, 
+		OnlineCalculator, LoudspeakerBasics, Links, Tubes, Buizen, Music, Muziek, Musik, 
+		Lautsprechergrundlagen, Lautsprecherberechnungen, Lautsprecher-Database, 
+		Analog to digital, Vinyl, Tapes, old records vinyl on cd, Acoustic, Bass Absorber,
+		acoustic electric,acoustic foam panel,acoustic measurements,acoustic panel,boston acoustic
+		acoustic neuromas,room acoustics,acoustics,acoustic foam,speaker cable,acoustic phonetics,
+		acoustic panels,acoustic ceiling,acoustic materials,acoustic neuroma,audio acoustic,acoustic,
+		acoustic insulation,acoustic wall panels,acoustic treatment,acoustic solution,acoustic wall panel,
+		acoustic bass,acoustic baffles,diy speaker cable, Room modes,
+		acoustic software,
+		room acoustics,
+		audio acoustic,
+		acoustic foam,
+		musical acoustics">
+<meta name="Description" content="Resource for building, calculate and measuring Hi Fi Loudspeakers,DIY LoudspeakerSite, Acoustic treatment, loudspeaker calculations, hifi links, high end">
+    <link href="http://fonts.googleapis.com/css?family=Source+Sans+Pro:200,300,400,600,700,900" rel="stylesheet"/>
+    <link href="../../default.css" rel="stylesheet" type="text/css" media="all"/>
+    <link href="../../fonts.css" rel="stylesheet" type="text/css" media="all"/>
+    <link rel="shortcut icon" href="../favicon.ico" type="image/x-icon">
+
+    <!--[if IE 6]>
+    <link href="default_ie6.css" rel="stylesheet" type="text/css"/><![endif]-->
+    <script src="../js/fab.js"></script>
+
+    <script language="JavaScript1.2">
+<!-- start
+var Volume;
+var freq_index;
+
+function clear_input()
+{
+document.room.units[0].checked=1;
+for (i=0; i <= 2; i++)
+{
+    document.room.elements[i].value=""
+};
+for (i = 1; i <= 6; i++)
+{
+    document.frm.wind_l[i-1].value=0;
+    document.frm.wind_h[i-1].value=0;
+    document.frm.howmany[i-1].value=0;
+}
+    document.frm.rt60.value=0;
+}
+function feet_meter()
+{
+    var u;
+    if (document.room.units[0].checked)
+    {
+        u=0.04968;
+    }
+    else
+    {
+        u=0.163;
+    }
+return u;
+}
+
+function freq()
+{
+    var freq_index,f;
+
+    for (i=0; i<=5; i++)
+    {
+        if (document.frm.freq[i].checked) f = document.frm.freq[i].value;
+    }
+    freq_index = "f"+f;
+    return freq_index;
+}
+
+function Calculate()
+{
+    if (checkinput())
+    {
+    engage();
+    var RT60=(feet_meter()*(Volume/Sa_total()))*100;
+    RT60=(Math.round(RT60))/100;
+    document.frm.rt60.value=RT60;
+    }
+}
+
+
+function checkinput()
+{
+var  W,L,H;
+var txtErr = "";
+
+W = parseFloat(document.room.width.value);
+L = parseFloat(document.room.length.value);
+H = parseFloat(document.room.height.value);
+
+if ( isNaN(W) || W == "" || isNaN(L) || L == "" || isNaN(H) || H == "" )
+    {
+            txtErr = "Invalid Input!";
+            document.getElementById("txtErr").innerHTML = txtErr;
+            return false;
+    }
+    else
+    {
+        engage();
+        var RT60=(feet_meter()*(Volume/Sa_total()))*100;
+        RT60=(Math.round(RT60))/100;
+        document.frm.rt60.value=RT60;
+    }
+    return true;
+}
+
+
+// Sa for a single wall
+function Sa_single(frm, coeff1,length,height,coeff2,number){
+var Sa;
+var add_frm;
+add_frm = height*length;
+Sa = frm*coeff1- number*add_frm*coeff1 + number*add_frm*coeff2;
+return Sa;
+}
+function Sa_total()
+{
+var Stotal =0;
+freq_index = freq();
+
+for (i = 1; i <= 6; i++)
+{
+    option_number1 = document.frm.materials[i-1].options.selectedIndex;
+    option_number2 = document.frm.materials_w[i-1].options.selectedIndex;
+if (freq_index == "f125")
+{
+    coeff1 = ac_List[option_number1+1].f125;
+    coeff2 = ac_List[option_number2+1].f125;
+}
+if (freq_index == "f250")
+{
+    coeff1 = ac_List[option_number1+1].f250;
+    coeff2 = ac_List[option_number2+1].f250;
+}
+if (freq_index == "f500")
+{
+    coeff1 = ac_List[option_number1+1].f500;
+    coeff2 = ac_List[option_number2+1].f500;
+}
+if (freq_index == "f1000")
+{
+    coeff1 = ac_List[option_number1+1].f1000;
+    coeff2 = ac_List[option_number2+1].f1000;
+}
+if (freq_index == "f2000")
+{
+    coeff1 = ac_List[option_number1+1].f2000;
+    coeff2 = ac_List[option_number2+1].f2000;
+}
+if (freq_index == "f4000")
+{
+    coeff1 = ac_List[option_number1+1].f4000;
+    coeff2 = ac_List[option_number2+1].f4000;
+}
+window_l = parseFloat(document.frm.wind_l[i-1].value);
+window_h = parseFloat(document.frm.wind_h[i-1].value);
+window_number = parseFloat(document.frm.howmany[i-1].value);
+Si = Sa_single(wall_area[i],coeff1,window_l,window_h,coeff2,window_number);
+Stotal += Si;
+}
+return Stotal;
+}
+// Absorption Coefficients Object
+function coeff(freq_1, freq_2, freq_3, freq_4, freq_5, freq_6){
+this.f125 = freq_1;
+this.f250 = freq_2;
+this.f500 = freq_3;
+this.f1000 = freq_4;
+this.f2000 = freq_5;
+this.f4000 = freq_6;
+}
+var ac_List = new Array(20);
+ac_List[1] = new coeff(0.36,0.44,0.31,0.29,0.39,0.25);
+ac_List[2] = new coeff(0.01,0.05,0.06,0.07,0.09,0.08);
+ac_List[3] = new coeff(0.03,0.03,0.03,0.04,0.05,0.07);
+ac_List[4] = new coeff(0.14,0.10,0.06,0.05,0.04,0.03);
+ac_List[5] = new coeff(0.28,0.22,0.17,0.09,0.10,0.11);
+ac_List[6] = new coeff(0.03,0.04,0.11,0.17,0.24,0.35);
+ac_List[7] = new coeff(0.14,0.35,0.55,0.72,0.70,0.65);
+ac_List[8] = new coeff(0.01,0.01,0.02,0.02,0.02,0.02);
+ac_List[9] = new coeff(0.15,0.11,0.10,0.07,0.06,0.07);
+ac_List[10] = new coeff(0.02,0.06,0.14,0.37,0.60,0.65);
+ac_List[11] = new coeff(0.08,0.24,0.57,0.69,0.71,0.73);
+ac_List[12] = new coeff(0.76,0.93,0.83,0.99,0.99,0.94);
+ac_List[13] = new coeff(0.14,0.20,0.76,0.79,0.58,0.37);
+ac_List[14] = new coeff(0.29,0.10,0.05,0.04,0.07,0.09);
+ac_List[15] = new coeff(0.05,0.03,0.02,0.02,0.03,0.02);
+ac_List[16] = new coeff(0.10,0.05,0.04,0.03,0.03,0.03);
+ac_List[17] = new coeff(0.01,0.01,0.01,0.01,0.02,0.02);
+ac_List[18] = new coeff(0.01,0.01,0.01,0.01,0.02,0.03);
+ac_List[19] = new coeff(0.014,0.018,0.02,0.036,0.035,0.028);
+ac_List[20] = new coeff(0.13,0.26,0.39,0.46,0.43,0.41);
+ac_List[21] = new coeff(0.27,0.4,0.56,0.65,0.64,0.56);
+//end of coefficient stuff
+
+var wall_area = new Array(6)
+
+function engage()
+{
+var  W,L,H;
+var txtErr = "";
+
+W = parseFloat(document.room.width.value);
+L = parseFloat(document.room.length.value);
+H = parseFloat(document.room.height.value);
+
+if ( isNaN(W) || W == "" || isNaN(L) || L == "" || isNaN(H) || H == "" )
+    {
+            txtErr = "Invalid Input!";
+            document.getElementById("txtErr").innerHTML = txtErr;
+    }
+    else
+    {
+        txtErr = "";
+        document.getElementById("txtErr").innerHTML = txtErr;
+
+        var RT60=(feet_meter()*(Volume/Sa_total()))*100;
+        RT60=(Math.round(RT60))/100;
+        document.frm.rt60.value=RT60;
+
+        wall_area[1] = W*H; // front
+        wall_area[2] = W*H; // back
+        wall_area[3] = L*H; // left
+        wall_area[4] = L*H; // right
+        wall_area[5] = L*W; // ceiling
+        wall_area[6] = L*W; // floor
+        Volume = L*W*H;
+    }
+}
+// end RT60 calculation Sabine formula -->
+
+
+
+    </script>
+</head>
+<body>
+<div id="header" class="container">
+    <div id="logo">
+        <h2>HiFi&nbsp;&nbsp;Audio&nbsp;&nbsp;Design</h2>
+    </div>
+    <br>
+    <div id="menu">
+        <ul>
+            <li><a href="../index.html" accesskey="1" title="">Home</a></li>
+            <li><a href="../loudspeaker.html" accesskey="2" title="">Loudspeaker</a></li>
+            <li><a href="../acoustic.html" accesskey="3" title="">Acoustic</a></li>
+            <li class="active"><a href="../calculator.html" accesskey="4" title="">Calculators</a></li>
+             <li><a href="../library.html" accesskey="7" title="">Library</a></li>
+             <!--
+            <li><a href="../Software.html" accesskey="6" title="">Soft & Hardware</a></li>
+            <li><a href="../Elektronic.html" accesskey="5" title="">Electronic</a></li>
+            <li><a href="../Measurement.html" accesskey="5" title="">Measurement</a></li>
+            <li><a href="../Links.html" accesskey="5" title="">Links/Downloads</a></li>
+            <li><a href="../Library.html" accesskey="7" title="">Library</a></li>
+            <li><a href="../EmailFormNew.asp" accesskey="5" title="">Contact</a></li>
+            -->
+        </ul>
+    </div>
+</div>
+<button onclick="topFunction()" id="myBtn" title="Go To Top">⬆</button>
+<button id="myBtnDown" onclick="scrollWin()" title="Scroll Down">⬇</button>
+<div id="page">
+    <div class="container">     
+        <div class="title">
+            <br><h1><i>Reverberation - Calculator</i></h1>
+        </div>
+        <div class="box0">
+            <div class="box margin-btm">
+                <br>
+                <center><img src="../images/acoustics/reverberation.jpg" height="180" alt=""/></center>
+                <div class="details">
+                    <p> <!-- Start Content -->
+                    <table align="center" cellspacing="0" cellpadding="6" width="100%">
+                        <tr>
+                            <td>
+                                <table align="center" width="95%" cellspacing="0" cellpadding="2" border="0">
+                                    <tr>
+                                        <td>
+                                            Wallace C. Sabine (Sabin) (1868 - 1919) came up with the formula in &quot;Collected
+                                            Papers on Acoustics&quot; appeared in print 1922: <br>
+                                            <br>
+                                            <strong>RT<sub>60</sub></strong> = <i>k</i> &times; <i>V</i> / <i>A</i>
+                                            <br>
+                                            with <i>k</i> = (24 <strong>&times;</strong> ln 10) / <i>c</i><sub>20</sub>
+                                            = <strong>0,161</strong> (metric)
+                                            <br>
+                                            <i>V</i> = room volume in m<sup>3</sup> &#160;&#160;&#160;<em>A</em> =
+                                            <strong><i>&alpha;</i> &times; <i>S</i></strong> = equivalent absorption
+                                            surface in m<sup>2</sup><br><br>
+
+                                            <strong>RT<sub>60</sub></strong> = reverberation time in s &#160;&#160;&#160;<i>S</i>
+                                            = absorbing surface in m<sup>2</sup><br>
+                                            <i>A</i> = <i>&alpha;</i><sub>1</sub> <strong>&times;</strong> <i>S</i><sub>1</sub>
+                                            + <i>&alpha;</i><sub>2</sub> <strong>&times;</strong> <i>S</i><sub>2</sub> +
+                                            <i>&alpha;</i><sub>3</sub> <strong>&times;</strong> <i>S</i><sub>3</sub> + .
+                                            . .
+                                            &#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;<i>c</i><sub>20</sub>
+                                            = 343 m/s at 20&deg;C
+                                            <br>
+                                            <strong>RT<sub>60</sub> is the reverberation time, the sound pressure level
+                                                of a signal needs to decay to the value of (-) 60 dB.</strong>
+                                            <br>
+                                            <strong><i>k</i></strong> is a constant that equals <strong>0.161</strong>
+                                            when the units of measurement are expressed in meters and 0.049 when units
+                                            are expressed in feet.
+                                            <br><br>
+                                            <strong><i>A = S</i> &times; <i>&alpha;</i></strong> is the total surface
+                                            absorption <strong><i>A</i></strong> of a room expressed in sabins. It is
+                                            the sum of all the surface areas in the room multiplied by their respective
+                                            absorption coefficients. The absorption coefficients <strong><i>&alpha;</i></strong>
+                                            express the absorption factor of materials at given frequencies.
+                                            <br><br>
+                                            <strong><i>V</i></strong> is the volume of the enclosure. The figures used
+                                            in this calculator come from the table of absorption coefficients for
+                                            various materials.
+                                            <br>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </td>
+                        </tr>
+                    </table>
+                    <br><br>
+                    <center><h2 class="menu"><i><strong>Enter the measurements of the room.</strong></i></h2></center>
+                    <br>
+
+                    <form name="room">
+                        <table border="0" align="center" cellpadding="0" cellspacing="0" width="85%" class="Calctable">
+                            <tr>
+                                <td>&nbsp</td>
+                            </tr>
+                            <tr>
+                                <td align="center">Width
+                                    <input class="frmInput" type=number step="0.01" name="width" size="10">
+                                    Length
+                                    <input class="frmInput" type=number step="0.01" name="length" size="10">
+                                    Height
+                                    <input class="frmInput" type=number step="0.01" name="height" size="10">
+                                    <input class="frmInput" type="radio" name="units">
+                                    feet
+                                    <input class="frmInput" type="radio" name="units" checked>
+                                    meters
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="2" align="center">
+                                    <font color="red"><strong><span id="txtErr"></span></strong></font>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>&nbsp</td>
+                            </tr>
+                        </table>
+                    </form>
+                    <br><br>
+                    <form name="frm">
+                        <table align="center" border="1" cellpadding="0" cellspacing="2" width="95%" class="Calctable">
+
+                            <tr>
+                                <td rowspan="2" align="center"><strong>Walls</strong></td>
+                                <td rowspan="2" align="center"><strong>Material</strong></td>
+                                <td colspan="3" align="center"><strong>Windows, doors and other surfaces</strong></td>
+                            </tr>
+                            <tr>
+                                <td align="center"><strong>Deflection Material</strong></td>
+                                <td align="center"><strong>Size</strong></td>
+                                <td align="center"><strong>How many</strong></td>
+                            </tr>
+                            <tr>
+
+                                <td><strong>Front</strong></td>
+                                <td align=center>
+                                    <select name="materials" size="1">
+                                        <option value="1">Concrete-unpainted</option>
+                                        <option value="2">Concrete-painted</option>
+                                        <option value="3">Brick</option>
+                                        <option value="4">Plaster on lath</option>
+                                        <option value="5">Plywood paneling</option>
+                                        <option value="6">Drapery-lightwt</option>
+                                        <option value="7">Drapery-heavywt</option>
+
+                                        <option value="8">Terrazzo</option>
+                                        <option value="9">Wood floor</option>
+                                        <option value="10">Carpet on concrete</option>
+                                        <option value="11">Carpet on pad</option>
+                                        <option value="12">Ac. tile suspended</option>
+                                        <option value="13">Ac. tile on concrete</option>
+                                        <option value="14" selected>Gypsum board</option>
+                                        <option value="15">Glass-large panes</option>
+                                        <option value="16">Glass-windows</option>
+
+                                        <option value="17">Marble or Tile</option>
+                                        <option value="18">Water Surface</option>
+                                    </select>
+                                </td>
+                                <td align=center>
+                                    <select name="materials_w" size="1">
+                                        <option value="1">Concrete-unpainted</option>
+                                        <option value="2">Concrete-painted</option>
+                                        <option value="3">Brick</option>
+                                        <option value="4">Plaster on lath</option>
+                                        <option value="5">Plywood paneling</option>
+
+                                        <option value="6">Drapery-lightwt</option>
+                                        <option value="7">Drapery-heavywt</option>
+                                        <option value="8">Terrazzo</option>
+                                        <option value="9">Wood floor</option>
+                                        <option value="10">Carpet on concrete</option>
+                                        <option value="11">Carpet on pad</option>
+                                        <option value="12">Ac. tile suspended</option>
+                                        <option value="13">Ac. tile on concrete</option>
+                                        <option value="14">Gypsum board</option>
+
+                                        <option value="15">Glass-large panes</option>
+                                        <option value="16" selected>Glass-windows</option>
+                                        <option value="17"> Marble or Tile</option>
+                                        <option value="18">Water Surface</option>
+                                    </select>
+                                </td>
+                                <td align=center>
+                                    <input type="number" step="0.01" class="frmInput" name="wind_l" value=0 size="3">
+                                    &times;
+                                    <input class="frmInput" type="number" step="0.01" name="wind_h" value="0" size="3">
+                                </td>
+                                <td align="center">
+
+                                    <input class="frmInput" type="number" step="1" name="howmany" value="0" size="2">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Back</td>
+                                <td align=center>
+                                    <select name="materials" size="1">
+                                        <option value="1">Concrete-unpainted</option>
+                                        <option value="2">Concrete-painted</option>
+                                        <option value="3">Brick</option>
+                                        <option value="4">Plaster on lath</option>
+                                        <option value="5">Plywood paneling</option>
+
+                                        <option value="6">Drapery-lightwt</option>
+                                        <option value="7">Drapery-heavywt</option>
+                                        <option value="8">Terrazzo</option>
+                                        <option value="9">Wood floor</option>
+                                        <option value="10">Carpet on concrete</option>
+                                        <option value="11">Carpet on pad</option>
+                                        <option value="12">Ac. tile suspended</option>
+                                        <option value="13">Ac. tile on concrete</option>
+                                        <option value="14" selected>Gypsum board</option>
+
+                                        <option value="15">Glass-large panes</option>
+                                        <option value="16">Glass-windows</option>
+                                        <option value="17"> Marble or Tile</option>
+                                        <option value="18">Water Surface</option>
+                                    </select>
+                                </td>
+                                <td align=center>
+                                    <select name="materials_w" size="1">
+                                        <option value="1">Concrete-unpainted</option>
+                                        <option value="2">Concrete-painted</option>
+
+                                        <option value="3">Brick</option>
+                                        <option value="4">Plaster on lath</option>
+                                        <option value="5">Plywood paneling</option>
+                                        <option value="6">Drapery-lightwt</option>
+                                        <option value="7">Drapery-heavywt</option>
+                                        <option value="8">Terrazzo</option>
+                                        <option value="9">Wood floor</option>
+                                        <option value="10">Carpet on concrete</option>
+                                        <option value="11">Carpet on pad</option>
+
+                                        <option value="12">Ac. tile suspended</option>
+                                        <option value="13">Ac. tile on concrete</option>
+                                        <option value="14">Gypsum board</option>
+                                        <option value="15">Glass-large panes</option>
+                                        <option value="16" selected>Glass-windows</option>
+                                        <option value="17"> Marble or Tile</option>
+                                        <option value="18">Water Surface</option>
+                                    </select>
+                                </td>
+
+                                <td align="center">
+                                    <input type="number" step="0.01" class="frmInput" name="wind_l" value="0" size="3">
+                                    &times;
+                                    <input type="number" step="0.01" class="frmInput" name="wind_h" value="0" size="3">
+                                </td>
+                                <td align="center">
+                                    <input class="frmInput" type="number" step="1" name="howmany" value="0" size="2">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Left</td>
+                                <td align="center">
+                                    <select name="materials" size="1">
+                                        <option value="1">Concrete-unpainted</option>
+                                        <option value="2">Concrete-painted</option>
+
+                                        <option value="3">Brick</option>
+                                        <option value="4">Plaster on lath</option>
+                                        <option value="5">Plywood paneling</option>
+                                        <option value="6">Drapery-lightwt</option>
+                                        <option value="7">Drapery-heavywt</option>
+                                        <option value="8">Terrazzo</option>
+                                        <option value="9">Wood floor</option>
+                                        <option value="10">Carpet on concrete</option>
+                                        <option value="11">Carpet on pad</option>
+
+                                        <option value="12">Ac. tile suspended</option>
+                                        <option value="13">Ac. tile on concrete</option>
+                                        <option value="14" selected>Gypsum board</option>
+                                        <option value="15">Glass-large panes</option>
+                                        <option value="16">Glass-windows</option>
+                                        <option value="17"> Marble or Tile</option>
+                                        <option value="18"> Water Surface</option>
+                                    </select>
+
+                                </td>
+                                <td align="center">
+                                    <select name="materials_w" size="1">
+                                        <option value="1">Concrete-unpainted</option>
+                                        <option value="2">Concrete-painted</option>
+                                        <option value="3">Brick</option>
+                                        <option value="4">Plaster on lath</option>
+                                        <option value="5">Plywood paneling</option>
+                                        <option value="6">Drapery-lightwt</option>
+                                        <option value="7">Drapery-heavywt</option>
+
+                                        <option value="8">Terrazzo</option>
+                                        <option value="9">Wood floor</option>
+                                        <option value="10">Carpet on concrete</option>
+                                        <option value="11">Carpet on pad</option>
+                                        <option value="12">Ac. tile suspended</option>
+                                        <option value="13">Ac. tile on concrete</option>
+                                        <option value="14">Gypsum board</option>
+                                        <option value="15">Glass-large panes</option>
+                                        <option value="16" selected>Glass-windows</option>
+
+                                        <option value="17"> Marble or Tile</option>
+                                        <option value="18"> Water Surface</option>
+                                    </select>
+                                </td>
+                                <td align="center">
+                                    <input class="frmInput" type="number" step="0.01" name="wind_l" value="0" size="3">
+                                    &times;
+                                    <input class="frmInput" type="number" step="0.01" name="wind_h" value="0" size="3">
+                                </td>
+                                <td align="center">
+                                    <input class="frmInput" type="number" step="1" name="howmany" value="0" size="2">
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td>Right</td>
+                                <td align=center>
+                                    <select name="materials" size="1">
+                                        <option value="1">Concrete-unpainted</option>
+                                        <option value="2">Concrete-painted</option>
+                                        <option value="3">Brick</option>
+                                        <option value="4">Plaster on lath</option>
+                                        <option value="5">Plywood paneling</option>
+                                        <option value="6">Drapery-lightwt</option>
+
+                                        <option value="7">Drapery-heavywt</option>
+                                        <option value="8">Terrazzo</option>
+                                        <option value="9">Wood floor</option>
+                                        <option value="10">Carpet on concrete</option>
+                                        <option value="11">Carpet on pad</option>
+                                        <option value="12">Ac. tile suspended</option>
+                                        <option value="13">Ac. tile on concrete</option>
+                                        <option value="14" selected>Gypsum board</option>
+                                        <option value="15">Glass-large panes</option>
+
+                                        <option value="16">Glass-windows</option>
+                                        <option value="17"> Marble or Tile</option>
+                                        <option value="18"> Water Surface</option>
+                                    </select>
+                                </td>
+                                <td align="center">
+                                    <select name="materials_w" size="1">
+                                        <option value="1">Concrete-unpainted</option>
+                                        <option value="2">Concrete-painted</option>
+                                        <option value="3">Brick</option>
+
+                                        <option value="4">Plaster on lath</option>
+                                        <option value="5">Plywood paneling</option>
+                                        <option value="6">Drapery-lightwt</option>
+                                        <option value="7">Drapery-heavywt</option>
+                                        <option value="8">Terrazzo</option>
+                                        <option value="9">Wood floor</option>
+                                        <option value="10">Carpet on concrete</option>
+                                        <option value="11">Carpet on pad</option>
+                                        <option value="12">Ac. tile suspended</option>
+
+                                        <option value="13">Ac. tile on concrete</option>
+                                        <option value="14">Gypsum board</option>
+                                        <option value="15">Glass-large panes</option>
+                                        <option value="16" selected>Glass-windows</option>
+                                        <option value="17"> Marble or Tile</option>
+                                        <option value="18"> Water Surface</option>
+                                    </select>
+                                </td>
+                                <td align="center">
+
+                                    <input class="frmInput" type="number" step="0.01" name="wind_l" value="0" size="3">
+                                    &times;
+                                    <input class="frmInput" type="number" step="0.01" name="wind_h" value="0" size="3">
+                                </td>
+                                <td align="center">
+                                    <input class="frmInput" type="number" step="1" name="howmany" value="0" size="2">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Ceiling</td>
+                                <td align="center">
+                                    <select name="materials" size="1">
+                                        <option value="1">Concrete-unpainted</option>
+                                        <option value="2" selected>Concrete-painted</option>
+
+                                        <option value="3">Brick</option>
+                                        <option value="4">Plaster on lath</option>
+                                        <option value="5">Plywood paneling</option>
+                                        <option value="6">Drapery-lightwt</option>
+                                        <option value="7">Drapery-heavywt</option>
+                                        <option value="8">Terrazzo</option>
+                                        <option value="9">Wood floor</option>
+                                        <option value="10">Carpet on concrete</option>
+                                        <option value="11">Carpet on pad</option>
+
+                                        <option value="12">Ac. tile suspended</option>
+                                        <option value="13">Ac. tile on concrete</option>
+                                        <option value="14">Gypsum board</option>
+                                        <option value="15">Glass-large panes</option>
+                                        <option value="16">Glass-windows</option>
+                                        <option value="17"> Marble or Tile</option>
+                                        <option value="18"> Water Surface</option>
+                                    </select>
+
+                                </td>
+                                <td align="center">
+                                    <select name="materials_w" size="1">
+                                        <option value="1">Concrete-unpainted</option>
+                                        <option value="2">Concrete-painted</option>
+                                        <option value="3">Brick</option>
+                                        <option value="4">Plaster on lath</option>
+                                        <option value="5">Plywood paneling</option>
+                                        <option value="6">Drapery-lightwt</option>
+                                        <option value="7">Drapery-heavywt</option>
+
+                                        <option value="8">Terrazzo</option>
+                                        <option value="9">Wood floor</option>
+                                        <option value="10">Carpet on concrete</option>
+                                        <option value="11">Carpet on pad</option>
+                                        <option value="12">Ac. tile suspended</option>
+                                        <option value="13">Ac. tile on concrete</option>
+                                        <option value="14">Gypsum board</option>
+                                        <option value="15">Glass-large panes</option>
+                                        <option value="16" selected>Glass-windows</option>
+
+                                        <option value="17"> Marble or Tile</option>
+                                        <option value="18"> Water Surface</option>
+                                    </select>
+                                </td>
+                                <td align="center">
+                                    <input class="frmInput" type="number" step="0.01" name="wind_l" value="0" size="3">
+                                    &times;
+                                    <input class="frmInput" type="number" step="0.01" name="wind_h" value="0" size="3">
+                                </td>
+                                <td align="center">
+                                    <input class="frmInput" type="number" step="1" name="howmany" value="0" size="2">
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td>Floor</td>
+                                <td align="center">
+                                    <select name="materials" size="1">
+                                        <option value="1">Concrete-unpainted</option>
+                                        <option value="2">Concrete-painted</option>
+                                        <option value="3">Brick</option>
+                                        <option value="4">Plaster on lath</option>
+                                        <option value="5">Plywood paneling</option>
+                                        <option value="6">Drapery-lightwt</option>
+
+                                        <option value="7">Drapery-heavywt</option>
+                                        <option value="8">Terrazzo</option>
+                                        <option value="9" selected>Wood floor</option>
+                                        <option value="10">Carpet on concrete</option>
+                                        <option value="11">Carpet on pad</option>
+                                        <option value="12">Ac. tile suspended</option>
+                                        <option value="13">Ac. tile on concrete</option>
+                                        <option value="14">Gypsum board</option>
+                                        <option value="15">Glass-large panes</option>
+
+                                        <option value="16">Glass-windows</option>
+                                        <option value="17"> Marble or Tile</option>
+                                        <option value="18"> Water Surface</option>
+                                        <option value="19">Metal or wood seats</option>
+                                        <option value="20">Upholstered seats</option>
+                                        <option value="21">Audience in seats</option>
+                                    </select>
+                                </td>
+                                <td align="center">
+
+                                    <select name="materials_w" size="1">
+                                        <option value="1">Concrete-unpainted</option>
+                                        <option value="2">Concrete-painted</option>
+                                        <option value="3">Brick</option>
+                                        <option value="4">Plaster on lath</option>
+                                        <option value="5">Plywood paneling</option>
+                                        <option value="6">Drapery-lightwt</option>
+                                        <option value="7">Drapery-heavywt</option>
+                                        <option value="8">Terrazzo</option>
+
+                                        <option value="9">Wood floor</option>
+                                        <option value="10" selected>Carpet on concrete</option>
+                                        <option value="11">Carpet on pad</option>
+                                        <option value="12">Ac. tile suspended</option>
+                                        <option value="13">Ac. tile on concrete</option>
+                                        <option value="14">Gypsum board</option>
+                                        <option value="15">Glass-large panes</option>
+                                        <option value="16">Glass-windows</option>
+                                        <option value="17"> Marble or Tile</option>
+
+                                        <option value="18"> Water Surface</option>
+                                        <option value="19">Metal or wood seats</option>
+                                        <option value="20">Upholstered seats</option>
+                                        <option value="21">Audience in seats</option>
+                                    </select>
+                                </td>
+                                <td align="center">
+                                    <input class="frmInput" type="number" step="0.01" name="wind_l" value="0" size="3">
+                                    &times;
+                                    <input class="frmInput" type="number" step="0.01" name="wind_h" value="0" size="3">
+                                </td>
+                                <td align="center">
+
+                                    <input class="frmInput" type="number" step="1" name="howmany" value="0" size="2">
+                                </td>
+                            </tr>
+
+
+                            <tr>
+                                <td colspan="5" align="center">Choose Frequency to calculate Rt<sub>60</sub> and hit
+                                    Calculate
+                                    <input type="radio" name="freq" value="125">
+                                    125 Hz
+                                    <input type="radio" name="freq" value="250">
+                                    250 Hz
+                                    <input type="radio" name="freq" value="500">
+                                    500 Hz
+                                    <input type="radio" name="freq" value="1000" checked>
+                                    1000 Hz
+                                    <input type="radio" name="freq" value="2000">
+                                    2000 Hz
+                                    <input type="radio" name="freq" value="4000">
+                                    4000 Hz</center>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="5">
+                                    <strong>Estimated <i>RT</i><sub>60</sub> of this room is</strong>&nbsp;&nbsp;<input
+                                        class="frmOutput" type="text" name="rt60"
+                                        size="10">&nbsp;<strong>seconds.</strong>
+                                    &nbsp;&nbsp;&nbsp;&nbsp;<input type="button" class="calcButton"
+                                                                   onClick="Calculate()" value="Calculate Rt60">
+                                </td>
+                            </tr>
+                        </table>
+                    </form>
+                    <br><br>
+                    <center>
+                        <br><br><br>
+                        <table border="1" cellspacing="0" cellpadding="0" align="center" width="85%">
+                            <tr>
+                                <td colspan="7" align="center"><h2><i>Some usefull Absorbtion Coefficients</i></h2></td>
+                            </tr>
+                            <tr>
+                                <td width="544" colspan="7" valign="top">
+                                    Dimensions are given in imperial or metric, as originally published.
+                                </td>
+                            </tr>
+                            <tr>
+                                <td width="220">
+                                    <i><STRONG>Material</STRONG></i>
+                                </td>
+                                <td class="td" width="50">
+                                    <i><STRONG>&nbsp;125Hz</STRONG> </i>
+                                </td>
+                                <td class="td" width="50">
+                                    <i><STRONG>&nbsp;250Hz</STRONG> </i>
+                                </td>
+                                <td class="td" width="50">
+                                    <i><STRONG>&nbsp;500Hz</STRONG> </i>
+                                </td>
+                                <td class="td" width="50">
+                                    <i><STRONG>&nbsp;1kHz</STRONG> </i>
+                                </td>
+                                <td class="td" width="50">
+                                    <i><STRONG>2kHz</STRONG></i>
+                                </td>
+                                <td class="td" width="50">
+                                    <i><STRONG>4kHz</STRONG></i>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td width="220">
+                                    <p class="MsoNormal"><span>
+								50mm Acoustic Foam
+                                </td>
+                                <td class="td" width="50">
+                                    0.08
+                                </td>
+                                <td class="td" width="50">
+                                    0.25
+                                </td>
+                                <td class="td" width="50">
+                                    0.6
+                                </td>
+                                <td class="td" width="50">
+                                    0.9
+                                </td>
+                                <td class="td" width="50">
+                                    0.95
+                                </td>
+                                <td class="td" width="50">
+                                    0.9
+                                </td>
+                            </tr>
+                            <tr>
+                                <td width="220">
+                                    <p class="MsoNormal"><span>
+								100mm Acoustic Foam
+                                </td>
+                                <td class="td" width="50">
+                                    0.2
+                                </td>
+                                <td class="td" width="50">
+                                    0.7
+                                </td>
+                                <td class="td" width="50">
+                                    0.99
+                                </td>
+                                <td class="td" width="50">
+                                    0.99
+                                </td>
+                                <td class="td" width="50">
+                                    0.99
+                                </td>
+                                <td class="td" width="50">
+                                    0.99
+                                </td>
+                            </tr>
+                            <tr>
+                                <td width="220">
+                                    <p class="MsoNormal"><span>
+								50mm Mineral Wool (Med Density)
+                                </td>
+                                <td class="td" width="50">
+                                    0.2
+                                </td>
+                                <td class="td" width="50">
+                                    0.45
+                                </td>
+                                <td class="td" width="50">
+                                    0.7
+                                </td>
+                                <td class="td" width="50">
+                                    0.8
+                                </td>
+                                <td class="td" width="50">
+                                    0.8
+                                </td>
+                                <td class="td" width="50">
+                                    0.8
+                                </td>
+                            </tr>
+                            <tr>
+                                <td width="220">
+                                    <p class="MsoNormal"><span>
+								Plaster on brick
+                                </td>
+                                <td class="td" width="50">
+                                    0.013
+                                </td>
+                                <td class="td" width="50">
+                                    0.015
+                                </td>
+                                <td class="td" width="50">
+                                    0.02
+                                </td>
+                                <td class="td" width="50">
+                                    0.03
+                                </td>
+                                <td class="td" width="50">
+                                    0.04
+                                </td>
+                                <td class="td" width="50">
+                                    0.05
+                                </td>
+                            </tr>
+                            <tr>
+                                <td width="220">
+                                    <p class="MsoNormal"><span>
+								Cotton drapes draped to half area. 15oz/sq yd
+                                </td>
+                                <td class="td" width="50">
+                                    0.07
+                                </td>
+                                <td class="td" width="50">
+                                    0.37
+                                </td>
+                                <td class="td" width="50">
+                                    0.49
+                                </td>
+                                <td class="td" width="50">
+                                    0.81
+                                </td>
+                                <td class="td" width="50">
+                                    0.65
+                                </td>
+                                <td class="td" width="50">
+                                    0.54
+                                </td>
+                            </tr>
+                            <tr>
+                                <td width="220">
+                                    <p class="MsoNormal"><span>
+								Foam backed carpet on concrete
+                                </td>
+                                <td class="td" width="50">
+                                    0.05
+                                </td>
+                                <td class="td" width="50">
+                                    0.16
+                                </td>
+                                <td class="td" width="50">
+                                    0.44
+                                </td>
+                                <td class="td" width="50">
+                                    0.7
+                                </td>
+                                <td class="td" width="50">
+                                    0.6
+                                </td>
+                                <td class="td" width="50">
+                                    0.4
+                                </td>
+                            </tr>
+                            <tr>
+                                <td width="220">
+                                    <p class="MsoNormal"><span>
+								Heavy carpet + heavy foam underlay on concrete
+                                </td>
+                                <td class="td" width="50">
+                                    0.15
+                                </td>
+                                <td class="td" width="50">
+                                    0.25
+                                </td>
+                                <td class="td" width="50">
+                                    0.5
+                                </td>
+                                <td class="td" width="50">
+                                    0.6
+                                </td>
+                                <td class="td" width="50">
+                                    0.7
+                                </td>
+                                <td class="td" width="50">
+                                    0.8
+                                </td>
+                            </tr>
+                            <tr>
+                                <td width="220">
+                                    <p class="MsoNormal"><span>
+								Coarse concrete
+                                </td>
+                                <td class="td" width="50">
+                                    0.36
+                                </td>
+                                <td class="td" width="50">
+                                    0.44
+                                </td>
+                                <td class="td" width="50">
+                                    0.31
+                                </td>
+                                <td class="td" width="50">
+                                    0.29
+                                </td>
+                                <td class="td" width="50">
+                                    0.39
+                                </td>
+                                <td class="td" width="50">
+                                    0.25
+                                </td>
+                            </tr>
+                            <tr>
+                                <td width="220">
+                                    <p class="MsoNormal"><span>
+								Painted concrete
+                                </td>
+                                <td class="td" width="50">
+                                    0.01
+                                </td>
+                                <td class="td" width="50">
+                                    0.05
+                                </td>
+                                <td class="td" width="50">
+                                    0.06
+                                </td>
+                                <td class="td" width="50">
+                                    0.07
+                                </td>
+                                <td class="td" width="50">
+                                    0.09
+                                </td>
+                                <td class="td" width="50">
+                                    0.08
+                                </td>
+                            </tr>
+                            <tr>
+                                <td width="220">
+                                    <p class="MsoNormal"><span>
+								Wood floor
+                                </td>
+                                <td class="td" width="50">
+                                    0.15
+                                </td>
+                                <td class="td" width="50">
+                                    0.11
+                                </td>
+                                <td class="td" width="50">
+                                    0.10
+                                </td>
+                                <td class="td" width="50">
+                                    0.07
+                                </td>
+                                <td class="td" width="50">
+                                    0.06
+                                </td>
+                                <td class="td" width="50">
+                                    0.07
+                                </td>
+                            </tr>
+                            <tr>
+                                <td width="220">
+                                    <p class="MsoNormal"><span>
+								Window glass
+                                </td>
+                                <td class="td" width="50">
+                                    0.35
+                                </td>
+                                <td class="td" width="50">
+                                    0.25
+                                </td>
+                                <td class="td" width="50">
+                                    0.18
+                                </td>
+                                <td class="td" width="50">
+                                    0.12
+                                </td>
+                                <td class="td" width="50">
+                                    0.07
+                                </td>
+                                <td class="td" width="50">
+                                    0.04
+                                </td>
+                            </tr>
+                            <tr>
+                                <td width="220">
+                                    <p class="MsoNormal"><span>
+								Plate glass
+                                </td>
+                                <td class="td" width="50">
+                                    0.18
+                                </td>
+                                <td class="td" width="50">
+                                    0.06
+                                </td>
+                                <td class="td" width="50">
+                                    0.04
+                                </td>
+                                <td class="td" width="50">
+                                    0.03
+                                </td>
+                                <td class="td" width="50">
+                                    0.02
+                                </td>
+                                <td class="td" width="50">
+                                    0.02
+                                </td>
+                            </tr>
+                            <tr>
+                                <td width="220">
+                                    <p class="MsoNormal"><span>
+								6mm glass
+                                </td>
+                                <td class="td" width="50">
+                                    0.1
+                                </td>
+                                <td class="td" width="50">
+                                    0.06
+                                </td>
+                                <td class="td" width="50">
+                                    0.04
+                                </td>
+                                <td class="td" width="50">
+                                    0.03
+                                </td>
+                                <td class="td" width="50">
+                                    0.02
+                                </td>
+                                <td class="td" width="50">
+                                    0.02
+                                </td>
+                            </tr>
+                            <tr>
+                                <td width="220">
+                                    <p class="MsoNormal"><span>
+								Plaster on brick
+                                </td>
+                                <td class="td" width="50">
+                                    0.013
+                                </td>
+                                <td class="td" width="50">
+                                    0.015
+                                </td>
+                                <td class="td" width="50">
+                                    0.02
+                                </td>
+                                <td class="td" width="50">
+                                    0.03
+                                </td>
+                                <td class="td" width="50">
+                                    0.04
+                                </td>
+                                <td class="td" width="50">
+                                    0.05
+                                </td>
+                            </tr>
+                            <tr>
+                                <td width="220">
+                                    <p class="MsoNormal"><span>
+								9mm Plasterboard over 20mm air gap
+                                </td>
+                                <td class="td" width="50">
+                                    0.3
+                                </td>
+                                <td class="td" width="50">
+                                    0.2
+                                </td>
+                                <td class="td" width="50">
+                                    0.15
+                                </td>
+                                <td class="td" width="50">
+                                    0.05
+                                </td>
+                                <td class="td" width="50">
+                                    0.05
+                                </td>
+                                <td class="td" width="50">
+                                    0.05
+                                </td>
+                            </tr>
+                            <tr>
+                                <td width="220">
+                                    <p class="MsoNormal"><span>
+								Brickwork
+                                </td>
+                                <td class="td" width="50">
+                                    0.05
+                                </td>
+                                <td class="td" width="50">
+                                    0.04
+                                </td>
+                                <td class="td" width="50">
+                                    0.02
+                                </td>
+                                <td class="td" width="50">
+                                    0.04
+                                </td>
+                                <td class="td" width="50">
+                                    0.05
+                                </td>
+                                <td class="td" width="50">
+                                    0.05
+                                </td>
+                            </tr>
+                            <tr>
+                                <td width="220">
+                                    <p class="MsoNormal"><span>
+								Vinyl flooring
+                                </td>
+                                <td class="td" width="50">
+                                    0.03
+                                </td>
+                                <td class="td" width="50">
+                                    0.04
+                                </td>
+                                <td class="td" width="50">
+                                    0.05
+                                </td>
+                                <td class="td" width="50">
+                                    0.04
+                                </td>
+                                <td class="td" width="50">
+                                    0.05
+                                </td>
+                                <td class="td" width="50">
+                                    0.05
+                                </td>
+                            </tr>
+                            <tr>
+                                <td width="220">
+                                    <p class="MsoNormal"><span>
+								Breeze block
+                                </td>
+                                <td class="td" width="50">
+                                    0.25
+                                </td>
+                                <td class="td" width="50">
+                                    0.40
+                                </td>
+                                <td class="td" width="50">
+                                    0.6
+                                </td>
+                                <td class="td" width="50">
+                                    0.5
+                                </td>
+                                <td class="td" width="50">
+                                    0.75
+                                </td>
+                                <td class="td" width="50">
+                                    0.5
+                                </td>
+                            </tr>
+                            <tr>
+                                <td width="220">
+                                    <p class="MsoNormal"><span>
+								LF panel absorber
+                                </td>
+                                <td class="td" width="50">
+                                    0.28
+                                </td>
+                                <td class="td" width="50">
+                                    0.22
+                                </td>
+                                <td class="td" width="50">
+                                    0.17
+                                </td>
+                                <td class="td" width="50">
+                                    0.09
+                                </td>
+                                <td class="td" width="50">
+                                    0.10
+                                </td>
+                                <td class="td" width="50">
+                                    0.11
+                                </td>
+                            </tr>
+                            <tr>
+                                <td width="220">
+                                    <p class="MsoNormal"><span>
+								Perforated Helmholz absorber, 4-inch depth, mineral wool damping, 0.79% 
+								perforation.
+                                </td>
+                                <td class="td" width="50">
+                                    0.4
+                                </td>
+                                <td class="td" width="50">
+                                    0.84
+                                </td>
+                                <td class="td" width="50">
+                                    0.4
+                                </td>
+                                <td class="td" width="50">
+                                    0.16
+                                </td>
+                                <td class="td" width="50">
+                                    0.14
+                                </td>
+                                <td class="td" width="50">
+                                    0.12
+                                </td>
+                            </tr>
+                            <tr>
+                                <td width="220">
+                                    <p class="MsoNormal"><span>
+								Perforated Helmholz absorber,8-inch depth, mineral wool damping, 0.79% 
+								perforation.
+                                </td>
+                                <td class="td" width="50">
+                                    0.98
+                                </td>
+                                <td class="td" width="50">
+                                    0.88
+                                </td>
+                                <td class="td" width="50">
+                                    0.52
+                                </td>
+                                <td class="td" width="50">
+                                    0.21
+                                </td>
+                                <td class="td" width="50">
+                                    0.16
+                                </td>
+                                <td class="td" width="50">
+                                    0.14
+                                </td>
+                            </tr>
+                            <tr>
+                                <td width="220">
+                                    <p class="MsoNormal"><span>
+								Broad-band absorber, 1-inch fibreglass slab at mouth of 7-inch deep cavity
+                                </td>
+                                <td class="td" width="50">
+                                    0.67
+                                </td>
+                                <td class="td" width="50">
+                                    0.98
+                                </td>
+                                <td class="td" width="50">
+                                    0.98
+                                </td>
+                                <td class="td" width="50">
+                                    0.93
+                                </td>
+                                <td class="td" width="50">
+                                    0.98
+                                </td>
+                                <td class="td" width="50">
+                                    0.96
+                                </td>
+                            </tr>
+                            <tr>
+                                <td width="220">
+                                    <p class="MsoNormal"><span>
+								Padded seat (unoccupied)
+                                </td>
+                                <td class="td" width="50">
+                                    0.1
+                                </td>
+                                <td class="td" width="50">
+                                    0.2
+                                </td>
+                                <td class="td" width="50">
+                                    0.25
+                                </td>
+                                <td class="td" width="50">
+                                    0.3
+                                </td>
+                                <td class="td" width="50">
+                                    0.4
+                                </td>
+                                <td class="td" width="50">
+                                    0.3
+                                </td>
+                            </tr>
+                        </table>
+                        <br><br>
+                        <hr size="1" width="75%">
+                    <br>
+                    <center>
+         				<br>                     
+                        <a href="javascript:history.back()" class="calcButton"><<< Back</a>
+                    </center>
+                    <br><br>
+                        </p> <!-- End Content -->
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="copyright">
+        &copy;
+        <span id="copyright">
+        <script>document.getElementById('copyright').appendChild(document.createTextNode(new Date().getFullYear()))</script>
+        &nbsp;mh-Audio.nl&nbsp;&nbsp;-&nbsp;&nbsp;<a href="../disclaimer.html"><font
+                color="#000000">Disclaimer</font></a>
+    </span>
+    </div>
+</body>
+</html>

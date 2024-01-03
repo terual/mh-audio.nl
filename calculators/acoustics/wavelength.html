@@ -1,0 +1,578 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<!--
+Design by TEMPLATED
+http://templated.co
+Released for free under the Creative Commons Attribution License
+
+Name       : TailPiece 
+Description: A two-column, fixed-width design with dark color scheme.
+Version    : 1.0
+Released   : 20130902
+
+-->
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <!-- Google Analytics -->
+    <script>
+        window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+        ga('create', 'UA-77078028-1', 'auto');
+        ga('send', 'pageview');
+    </script>
+    <script async src='https://www.google-analytics.com/analytics.js'></script>
+    <!-- End Google Analytics -->
+
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>Wavelength - Frequency Calculator</title>
+ 	<meta name="Keywords" content="HiFi, Audio, Loudspeakers, Database, Acoustic treatment, 
+		OnlineCalculator, LoudspeakerBasics, Links, Tubes, Buizen, Music, Muziek, Musik, 
+		Lautsprechergrundlagen, Lautsprecherberechnungen, Lautsprecher-Database, 
+		Analog to digital, Vinyl, Tapes, old records vinyl on cd, Acoustic, Bass Absorber,
+		acoustic electric,acoustic foam panel,acoustic measurements,acoustic panel,boston acoustic
+		acoustic neuromas,room acoustics,acoustics,acoustic foam,speaker cable,acoustic phonetics,
+		acoustic panels,acoustic ceiling,acoustic materials,acoustic neuroma,audio acoustic,acoustic,
+		acoustic insulation,acoustic wall panels,acoustic treatment,acoustic solution,acoustic wall panel,
+		acoustic bass,acoustic baffles,diy speaker cable, Room modes,
+		acoustic software,
+		room acoustics,
+		audio acoustic,
+		acoustic foam,
+		musical acoustics">
+	<meta name="Description" content="Resource for building, calculate and measuring Hi Fi Loudspeakers,DIY LoudspeakerSite, Acoustic treatment, loudspeaker calculations, hifi links, high end">
+    <link rel="shortcut icon" href="../favicon.ico" type="image/x-icon">
+    <link href="http://fonts.googleapis.com/css?family=Source+Sans+Pro:200,300,400,600,700,900" rel="stylesheet"/>
+    <link href="../../default.css" rel="stylesheet" type="text/css" media="all"/>
+    <link href="../../fonts.css" rel="stylesheet" type="text/css" media="all"/>
+
+    <!--[if IE 6]>
+    <link href="default_ie6.css" rel="stylesheet" type="text/css"/><![endif]-->
+    <script src="../js/fab.js"></script>
+
+<script language="JavaScript1.2">
+
+// ==========================================================
+// Start Calculation: Wavelength
+// ==========================================================
+function round(number,X) {
+// rounds number to X decimal places, defaults to 3
+	X = (!X ? 3 : X);
+	return Math.round(number*Math.pow(10,X))/Math.pow(10,X);
+}
+
+function calcWL()
+{
+var c, f, wl
+c = parseFloat(document.frm.temp.value);
+f = parseFloat(document.frm.f.value);
+
+
+// validate f
+if (isNaN(f) || f < 10 || f > 25000)
+{
+textF = " 10 - 25000 Hz";
+}
+else
+{
+textF = "";
+}
+document.getElementById("errF").innerHTML = textF;
+
+//calulate wavelength
+wl = c / f;				// meter
+w2 = wl * 3.2808;		// feet	
+w3 = (wl * 100) / 2.54;	// inch
+
+document.frm.wl.value = round(wl,3);	// meter
+document.frm.wl1.value = round((wl * 100),3);	// centimeter
+document.frm.w2.value = round(w2,3);	// feet
+document.frm.w3.value = round(w3,3);	// inch
+}
+// ==========================================================
+// End Calculation: Wavelength
+// ==========================================================
+
+// ==========================================================
+// Start Calculation: Frequency
+// ==========================================================
+function calcWL2()
+{
+var c, cf, cwl, x
+
+c = eval(document.frmWL.temp2.value);
+cwl = eval(document.frmWL.cwl.value);
+
+
+for (i=0;i<3;i++){
+	if (document.frmWL.inftm[i].checked==1)
+	x = document.frmWL.inftm[i].value;
+}
+
+if ( x < 1){
+	cwl = cwl * x;
+}
+//alert(cwl);
+/*   // validate  c
+if (isNaN(cwl) || cwl < 0.013 || cwl > 34)
+{
+textC = " 0.013 - 22 meter";
+}
+else
+{
+textC = "";
+}
+document.getElementById("errC").innerHTML = textC;
+*/
+
+cf = c / cwl; // Frequency in Hz
+
+document.frmWL.cf.value = round(cf,2);	// Hz
+document.frmWL.cf1.value = round((cf/1000),2);	// kHz
+}
+// ==========================================================
+// End Calculation: Frequency
+// ==========================================================
+
+
+// ======================================================
+// Calculation: Speed of sound in air and the temperature 
+// ======================================================
+function decideConvert(temp)
+{
+temp = parseFloat(document.ebs.Temp.value);
+
+// validate  Temp
+if (isNaN(temp) || temp < -20 || temp > 30)
+{
+textTEMP = " -10 - +30 deg. Celsius";
+}
+else
+{
+textTEMP = "";
+}
+document.getElementById("errTEMP").innerHTML = textTEMP;
+
+
+if (document.ebs.tempunit[0].checked)
+{
+Ktemp = parseFloat(convertCtoK(temp));
+}
+else if (document.ebs.tempunit[1].checked)
+{
+Ktemp = parseFloat(convertFtoK(temp));
+}
+else if (document.ebs.tempunit[2].checked)
+{
+Ktemp = parseFloat(temp);
+}
+else if (document.ebs.tempunit[3].checked)
+{
+Ktemp = parseFloat(convertRtoK(temp));
+}
+//SS = 643.855 * Math.pow((Ktemp/273.15),0.5);
+SS = 643.5428 * Math.pow((Ktemp/273.15),0.5);
+document.ebs.Mph.value = round(convertknotstomph(SS),2);
+document.ebs.Knots.value = round(SS,2);
+document.ebs.Mps.value = round(convertknotstomps(SS),2);
+document.ebs.Ftps.value = round(convertknotstoftps(SS),2);
+document.ebs.Kmph.value = round(convertknotstokmph(SS),2);
+}
+
+function convertFtoK(Fahr)
+{
+Kelvin = (Fahr + 459.67) / 1.8;
+return Kelvin;
+}
+function convertCtoK(Cels)
+{
+Kelvin = Cels + 273.15;
+return Kelvin;
+}
+function convertRtoK(Rankin)
+{
+Kelvin = Rankin / 1.8;
+return Kelvin;
+}
+function convertknotstomph(knots)
+{
+mph = 1.15155 * knots;
+return mph;
+}
+function convertknotstomps(knots)
+{
+mps = 0.514791 * knots;
+return mps;
+}
+function convertknotstoftps(knots)
+{
+ftps = 1.68895 * knots;
+return ftps;
+}
+function convertknotstokmph(knots)
+{
+kmph = 1.85325 * knots;
+return kmph;
+}
+function roundOff(value)
+{
+value = Math.round(1000*value)/1000;
+return value;
+}
+function setToNull()
+{
+document.ebs.Mph.value="";
+document.ebs.Knots.value="";
+document.ebs.Mps.value="";
+document.ebs.Ftps.value="";
+document.ebs.Kmph.value="";
+document.ebs.Temp.value="";
+}
+// ==========================================================
+// End Calculation: Speed of sound in air and the temperature
+// ==========================================================
+</script>
+</head>
+<body>
+<div id="header" class="container">
+    <div id="logo">
+        <h2>HiFi&nbsp;&nbsp;Audio&nbsp;&nbsp;Design</h2>
+    </div>
+    <br>
+    <div id="menu">
+        <ul>
+            <li><a href="../index.html" accesskey="1" title="">Home</a></li>
+            <li><a href="../Loudspeaker.html" accesskey="2" title="">Loudspeaker</a></li>
+            <li><a href="../Acoustic.html" accesskey="3" title="">Acoustic</a></li>
+            <li class="active"><a href="../Calculator.html" accesskey="4" title="">Calculators</a></li>
+            <li><a href="../Library.html" accesskey="7" title="">Library</a></li>
+            <!--
+            <li><a href="../Software.html" accesskey="6" title="">Soft & Hardware</a></li>
+            <li><a href="../Elektronic.html" accesskey="5" title="">Electronic</a></li>
+            <li><a href="../Measurement.html" accesskey="5" title="">Measurement</a></li>
+            <li><a href="../Links.html" accesskey="5" title="">Links/Downloads</a></li>
+            <li><a href="../EmailFormNew.asp" accesskey="5" title="">Contact</a></li>
+            -->
+        </ul>
+    </div>
+</div>
+<button onclick="topFunction()" id="myBtn" title="Go To Top">⬆</button>
+<button id="myBtnDown" onclick="scrollWin()" title="Scroll Down">⬇</button>
+<div id="page">
+    <div class="container">      
+        <div class="title">
+            <br><h1><i>Wavelength - Frequency Calculator</i></h1>
+        </div>
+        <div class="box0">
+            <div class="box margin-btm">
+                <center><br><img src="../images/acoustics/wavelength.jpg" width="320" height="180" alt=""/></center>
+                <div class="details">
+                    <p> <!-- Start Content -->
+                    <table align="center" cellspacing="0" cellpadding="6" width="75%">
+                        <tr>
+                            <td>
+                               In air at 20 °C, sound has a speed (c) of about 344 m/sec ( = 1238 km/h  = Mach 1 ). 
+                               On the basis of this you can calculate the corresponding wavelength λ (lambda) for each frequency f. 
+                               This wavelength is equal to the distance the sound travels when one complete vibration has occurred.
+                            </td>
+                        </tr>
+                    </table>
+                    <br><br>
+
+                    <table border="0" align="center" cellspacing="0" cellpadding="2" width="100%">
+                        <tr>
+                            <td>
+                                <form name="frm">
+                                    <table align="center" cellspacing="0" cellpadding="2" width="50%" class="Calctable">
+                                    <tr><td colspan="2" height="20"></td></tr>
+                                        <tr>
+                                            <td colspan="2" align="center">
+                                                <h2><i>Frequency to Wavelength</i></h2><br>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td align="right"> Frequency : </td>
+                                            <td><input class="frmInput" type="number" step="0.001" name="f" style="width: 6em;"> Hz
+                                                <font color="red">&nbsp;<span id="errF"></span></font></td>
+                                        </tr>
+                                        <tr class=|calcButton">
+                                            <td align="right"> Temperature : </td>
+                                            <td>
+                                                <select name="temp" class="frmInput" style="width: 6.6em;">
+                                                    <option value="315.919">-25</option>
+                                                    <option value="319.086">-20</option>
+                                                    <option value="322.221">-15</option>
+                                                    <option value="325.327">-10</option>
+                                                    <option value="328.403">-5</option>
+                                                    <option value="331.451">0</option>
+                                                    <option value="334.471">+5</option>
+                                                    <option value="337.463">+10</option>
+                                                    <option value="340.43">+15</option>
+                                                    <option value="343.371" selected>+20</option>
+                                                    <option value="346.287">+25</option>
+                                                    <option value="349.178">+30</option>
+                                                    <option value="352.046">+35</option>
+                                                </select>
+                                                &nbsp;&#176;Celsius
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td align="right"><strong>Wavelength = </strong></td>
+                                            <td><input class="frmOutput" type="number" name="w3" style="width: 6em;" readonly>
+                                                inches
+                                            </td>
+                                        </tr>                                        
+                                        <tr>
+                                            <td align="right"><strong>Wavelength = </strong></td>
+                                            <td><input class="frmOutput" type="number" name="w2" style="width: 6em;" readonly>
+                                                feet
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td align="right"><strong>Wavelength = </strong></td>
+                                            <td><input class="frmOutput" type="number" name="wl" style="width: 6em;" readonly>
+                                                meters
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td align="right"><strong>Wavelength = </strong></td>
+                                            <td><input class="frmOutput" type="number" name="wl1" style="width: 6em;" readonly>
+                                                cm
+                                            </td>
+                                        </tr>                                                                                 
+                                        <tr>
+                                            <td align="center" colspan="2">
+                                            	<br><input class="calcButton" type="button" value="Calculate Wavelength" onClick="calcWL();">
+                                            </td>
+                                        </tr>
+                                        <tr><td colspan="2" height="20"></td></tr>
+                                    </table>
+                                </form>
+                            </td>
+                            <td>
+                                <table align="center" cellspacing="0" cellpadding="2" width="100%">
+                                    <tr>
+                                        <td>
+                                            <form name="frmWL">
+                                				<table align="center" cellspacing="0" cellpadding="2" width="100%" border="0" class="Calctable">
+                                					<tr>
+                                						<td colspan="5" height="20"></td>
+                                					</tr>
+                                                    <tr>
+                                                        <td colspan="5" align="center" class="Frontend_Header">
+                                                            <h2><i>Wavelength to Frequency</i></h2><br>
+                                                        </td>
+                                                    </tr>                    
+                                                    <tr>
+                                                        <td align="right" valign="top" colspan="3"> Wavelength : </td>
+                                                        <td width="90" valign="top">
+                                                        <input class="frmInput" type="number" step="0.001" name="cwl" style="width: 6em;">
+                                                            <!-- font color="red">&nbsp;<span id="errC"></span></font -->                                                           
+                                                        </td>                                                        
+                                                        <td>
+                                                        	<input type="radio" name="inftm" value="0.0254"> inches
+                                                        	<input type="radio" name="inftm" value="0.3047999"> feet
+                                                        	<input type="radio" name="inftm" value="0.01"> cm 
+                                                        	<input type="radio" name="inftm" value="1" checked> meter  
+                                                        </td>                                                       
+                                                    </tr>
+                                                    <tr>
+                                                        <td align="right" colspan="3"> Temperature : </td>
+                                                        <td>
+                                                            <select name="temp2" class="frmInput" style="width: 6.6em;">
+                                                                <option value="315.919">-25</option>
+                                                                <option value="319.086">-20</option>
+                                                                <option value="322.221">-15</option>
+                                                                <option value="325.327">-10</option>
+                                                                <option value="328.403">-5</option>
+                                                                <option value="331.451">0</option>
+                                                                <option value="334.471">+5</option>
+                                                                <option value="337.463">+10</option>
+                                                                <option value="340.43">+15</option>
+                                                                <option value="343.371" selected>+20</option>
+                                                                <option value="346.287">+25</option>
+                                                                <option value="349.178">+30</option>
+                                                                <option value="352.046">+35</option>
+                                                            </select>
+                                                        
+                                                        </td>
+                                                        <td>
+                                                        	&nbsp;&#176;Celsius
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td align="right" colspan="3"><strong>Frequency = </strong></td>
+                                                        <td>
+                                                        	<input class="frmOutput" type="number" style="width: 6em;" name="cf" readonly>
+                                                        </td>
+                                                        <td>
+                                                        	Hz
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td align="right" colspan="3"><strong>Frequency = </strong></td>
+                                                        <td>
+                                                        	<input class="frmOutput" type="number" style="width: 6em;" name="cf1" readonly>
+                                                        </td>
+                                                        <td>
+                                                        	kHz
+                                                        </td>
+                                                    </tr>              
+                                                    <tr><td colspan="5" height="50"></td></tr>
+                                                    <tr>
+                                                        <td align="center" colspan="5"><br><input class="calcButton"
+                                                                                              type="button"
+                                                                                              value="Calculate Frequency"
+                                                                                              onClick="calcWL2();"></td>
+                                                    </tr>
+                                                    <tr><td colspan="5" height="20"></td></tr>
+                                                </table>
+                                            </form>
+                                        </td>
+                                    </tr>
+                                </table>
+                                </form>
+                            </td>
+                        </tr>
+                    </table>
+                    <br><br><br>
+
+                    <center>
+                        <h2><i>What is the speed of sound in air?</i></h2>
+                    </center>
+                    <table align="center" cellspacing="0" cellpadding="2" width="75%">
+                        <tr>
+                            <td>
+                                The speed of sound changes clearly with temperature, a little bit with humidity − but
+                                not with air pressure (atmospheric pressure).
+                                
+                                
+                                Sound can also propagate through metal, wood or water, for example.<br> 
+                                The speed of sound is different, 
+                                the stiffer the material, the higher the speed. In gases lighter than air, such as helium, 
+                                the speed of sound is also higher, which is why your voice will sound higher if you have inhaled helium gas 
+                                from a helium balloon.<br> 
+                                In air the speed is about 344 m/sec, in steel the speed is about 5800 m/sec, 
+                                in rubber 60 m/sec, in wood (depending on the type and in which direction) +/- 3800 m/sec, in pure Helium gas 1007 m/sec.
+								<br><br>
+								The speed of sound depends on:
+								<ul>
+									<li>The medium (air, metal, wood, etc.): higher density, higher speed</li>
+									<li>Temperature: higher temperature</li> 
+									<li>Humidity (air, wood)</li>
+								</ul>
+								<br>
+								With the calculator below you can see the effect of temperature and humidity. Air pressure has virtually no influence! 
+								You can also see that a higher temperature results in a higher speed. Approximate formula:<br><br>
+
+								c = 20 * √ (273 + T)<br> 
+								T is the temperature in Celsius, c is the speed of sound in meters/sec.
+                            </td>
+                        </tr>
+                    </table>
+                    <br>
+                    <form name="ebs">
+                        <table align="center" cellpadding="0" cellspacing="2" width="75%" class="Calctable">
+                            <tbody>
+                            <tr>
+                                <td>
+                                    <table align="center" cellpadding="2" cellspacing="0" border="0">
+                                        <tbody>
+                                        <tr><td colspan="3" height="20"></td></tr>
+                                        <tr>
+                                            <td>
+                                                Enter the air temperature &<br>
+                                                select the temperature unit
+                                            </td>
+                                            <td width="20">&nbsp;</td>
+                                            <td><strong>The Speed of Sound = </strong></td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                Temperature&nbsp;<input class="frmInput" name="Temp" style="width: 5em;" value="20"
+                                                                        type="text"> &nbsp;&#176;Celsius
+                                                <font color="red">&nbsp;<span id="errTEMP"></span></font>
+                                            </td>
+                                            <td width="20">&nbsp;</td>
+                                            <td>
+                                                <input class="frmOutput" name="Mps" style="width: 5em;" value="" type="text"> m/s
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <input class="frmInput" name="tempunit" checked="checked" type="radio">
+                                                Celsius
+                                            </td>
+                                            <td width="20">&nbsp;</td>
+                                            <td>
+                                                <input class="frmOutput" name="Kmph" style="width: 5em;" value="" type="text"> km/h
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <input class="frmOutput" name="tempunit" type="radio"> Fahrenheit
+                                            </td>
+                                            <td width="20">&nbsp;</td>
+                                            <td>
+                                                <input class="frmOutput" name="Mph" style="width: 5em;" value="" type="text"> mph
+                                                miles per hour
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <input name="tempunit" type="radio"> Kelvin
+                                            </td>
+                                            <td width="20">&nbsp;</td>
+                                            <td>
+                                                <input class="frmOutput" name="Ftps" style="width: 5em;" value="" type="text"> ft/s
+                                                feet per second
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <input name="tempunit" type="radio"> Rankine
+                                            </td>
+                                            <td width="20">&nbsp;</td>
+                                            <td>
+                                                <input class="frmOutput" name="Knots" style="width: 5em;" value="" type="text">
+                                                Knots
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="3" align="center">
+                                                <br>
+                                                <input class="calcButton" name="button"
+                                                       onclick="decideConvert(document.ebs.Temp.value)"
+                                                       value="Calculate Speed Of Sound In Air" type="button">
+                                                <br><br>
+                                            </td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </form>
+                    <br><br>
+                    <hr size="1" width="75%">
+                    <br>
+                    <center>
+         				<br>                     
+                        <a href="javascript:history.back()" class="calcButton"><<< Back</a>
+                    </center>
+                    <br><br>
+                    <!-- End Content  -->
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="copyright">
+        &copy;
+        <span id="copyright">
+        <script>document.getElementById('copyright').appendChild(document.createTextNode(new Date().getFullYear()))</script>
+        &nbsp;mh-Audio.nl&nbsp;&nbsp;-&nbsp;&nbsp;<a href="../disclaimer.html"><font
+                color="#000000">Disclaimer</font></a>
+    </span>
+    </div>
+</body>
+</html>

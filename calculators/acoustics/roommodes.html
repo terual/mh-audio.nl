@@ -1,0 +1,1084 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<!--
+Design by TEMPLATED
+http://templated.co
+Released for free under the Creative Commons Attribution License
+
+Name       : TailPiece 
+Description: A two-column, fixed-width design with dark color scheme.
+Version    : 1.0
+Released   : 20130902
+
+-->
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <!-- Google Analytics -->
+    <script>
+        window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+        ga('create', 'UA-77078028-1', 'auto');
+        ga('send', 'pageview');
+    </script>
+    <script async src='https://www.google-analytics.com/analytics.js'></script>
+    <!-- End Google Analytics -->
+
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>Calculate Room Modes</title>
+ <meta name="Keywords" content="HiFi, Audio, Loudspeakers, Database, Acoustic treatment, 
+		OnlineCalculator, LoudspeakerBasics, Links, Tubes, Buizen, Music, Muziek, Musik, 
+		Lautsprechergrundlagen, Lautsprecherberechnungen, Lautsprecher-Database, 
+		Analog to digital, Vinyl, Tapes, old records vinyl on cd, Acoustic, Bass Absorber,
+		acoustic electric,acoustic foam panel,acoustic measurements,acoustic panel,boston acoustic
+		acoustic neuromas,room acoustics,acoustics,acoustic foam,speaker cable,acoustic phonetics,
+		acoustic panels,acoustic ceiling,acoustic materials,acoustic neuroma,audio acoustic,acoustic,
+		acoustic insulation,acoustic wall panels,acoustic treatment,acoustic solution,acoustic wall panel,
+		acoustic bass,acoustic baffles,diy speaker cable, Room modes,
+		acoustic software,
+		room acoustics,
+		audio acoustic,
+		acoustic foam,
+		musical acoustics">
+<meta name="Description" content="Resource for building, calculate and measuring Hi Fi Loudspeakers,DIY LoudspeakerSite, Acoustic treatment, loudspeaker calculations, hifi links, high end">
+    <link href="http://fonts.googleapis.com/css?family=Source+Sans+Pro:200,300,400,600,700,900" rel="stylesheet"/>
+    <link href="../../default.css" rel="stylesheet" type="text/css" media="all"/>
+    <link href="../../fonts.css" rel="stylesheet" type="text/css" media="all"/>
+    <link rel="shortcut icon" href="../favicon.ico" type="image/x-icon">
+
+    <!--[if IE 6]>
+    <link href="default_ie6.css" rel="stylesheet" type="text/css"/><![endif]-->
+    <script src="../js/fab.js"></script>
+
+    <script language="JavaScript">
+
+function round(number,X) {
+// rounds number to X decimal places, defaults to 3
+    X = (!X ? 3 : X);
+    return Math.round(number*Math.pow(10,X))/Math.pow(10,X);
+}
+
+/**
+	* When Calculate button is clicked, scroll to the calculations
+*/
+function locate() {
+  document.body.scrollTop = 1130;
+  document.documentElement.scrollTop = 1130;
+}
+function mft(what)
+{
+	if(frm.what[1].checked)
+	{
+		frm.cft.value = frm.c.value * 3.28;
+		frm.c.value="";
+		//alert(frm.cft.value);
+		frm.lft.value = frm.l.value * 3.28;
+		frm.l.value   = "";
+		frm.wft.value = frm.w.value * 3.28;
+		frm.w.value   = "";
+		frm.hft.value = frm.h.value * 3.28;
+		frm.h.value   = "";
+	}
+	else
+	{
+		frm.c.value   = frm.cft.value / 3.28;
+		frm.cft.value = "";
+		
+		//alert(frm.c.value);
+		frm.l.value   = frm.lft.value / 3.28;
+		frm.lft.value = "";
+		frm.w.value   = frm.wft.value / 3.28;
+		frm.wft.value = "";
+		frm.h.value   = frm.hft.value / 3.28;
+		frm.hft.value = "";
+	}
+}
+
+function calculate(obj) {
+//alert("calculate");
+	with (Math) {
+	c=eval(obj.c.value); // speed of sound
+	cft 	= eval(obj.cft.value);
+	l		= eval(obj.l.value); // length
+	lft		= eval(obj.lft.value); // length
+	w		= eval(obj.w.value); // width
+	wft		= eval(obj.wft.value); // width
+	h		= eval(obj.h.value); // height
+	hft		= eval(obj.hft.value); // height
+	
+	var T60 = eval(obj.T60.value); // Estimated reverberation time
+	
+	
+	if (frm.what[0].checked){
+		cft     	= c * 3.28;
+		var vol 	= round(w*l*h,2);
+		var A 		= w*l;
+		var Aft 	= A * 10.76; // m to feet
+		var V 		= w*l*h
+		var Vft 	= V * 35.31; // m3 to ft3
+		var S 		= 2 * (l*w + l*h + w*h)
+		var Sft 	= S * 10.76
+		var Le 		= 4 * (l+w+h)
+		var Le_ft 	= Le * 3.28;
+		// Avg wall absorption
+		a 			= (0.163 * w*l*h / (T60*S/1000)) * 100		
+	}
+	else{
+		c 			= cft/3.28;
+		var vol 	= round(wft/3.28*lft/3.28*hft/3.28,2);
+		var Aft 	= wft*lft;
+		var A 		= wft*lft / 10.76; // feet to meter
+		var V 		= wft*lft*hft / 35.31; // ft3 to m3
+		var Vft 	= wft*lft*hft;
+		var S 		= 2 * (lft*wft + lft*hft + wft*hft) / 10.76;
+		var Sft 	= 2 * (lft*wft + lft*hft + wft*hft);
+		var Le_ft 	= 4 * (lft+wft+hft);
+		var Le 		= Le_ft / 3.28;
+		w 			= wft/3.28;
+		h 			= hft/3.28;
+		l 			= lft/3.28;
+		// Avg wall absorption
+		a 			= (0.163 * w*l*h / (T60*S/1000)) * 100				
+	}
+	
+	//var A = w*l; 
+	//var Aft = A * 10.76; // m to feet
+	
+	//var V = w*l*h
+	//var Vft = V * 35.31; // m3 to ft3
+	
+	//var S = 2 * (l*w + l*h + w*h)
+	//var Sft = S * 10.76
+	
+	//var Le = 4 * (l+w+h)
+	//var Le_ft = Le * 3.28;
+	
+	
+	// surface & volume
+	obj.A.value 	= A.toFixed(2);
+	obj.Aft.value 	= Aft.toFixed(2);
+	
+	obj.V.value 	= V.toFixed(2);
+	obj.Vft.value 	= Vft.toFixed(2);
+	
+	obj.S.value 	= S.toFixed(2);
+	obj.Sft.value 	= Sft.toFixed(2);
+	
+	obj.Le.value 	= Le.toFixed(2);
+	obj.Le_ft.value = Le_ft.toFixed(2);
+	
+	 //Schroeder frequency
+	sFs 			= 1900*Math.sqrt(T60/(vol*1000));
+	
+	// Monopole reverb distance
+	Rm 				= 0.1 * Math.sqrt(vol/(3.14159 * T60/1000))
+	Rmft 			= Rm * 3.28;
+	
+	// Avg wall absorption
+	//a = (0.163 * w*l*h / (T60*S/1000)) * 100
+	
+	obj.sfs.value 	= sFs.toFixed(0);  //Schroeder frequency
+	obj.Rm.value 	= Rm.toFixed(2); // Monopole reverb distance
+	obj.Rmft.value 	= Rmft.toFixed(2);
+	
+	obj.a.value 	= a.toFixed(0); // Avg wall absorption
+	
+	//obj.aRt.value = 10;
+	//obj.Rt.value = 100000 * 0.163 * obj.V.value / (obj.S.value * 10)
+	
+	// Axial x00
+	a100 = (c/2) * sqrt((pow(1,2)/pow(l,2)) + (pow(0,2)/pow(w,2)) + (pow(0,2)/pow(h,2)));
+	obj.a100.value = round(a100,2);
+	obj.a200.value = round( (c/2) * sqrt((pow(2,2)/pow(l,2)) + (pow(0,2)/pow(w,2)) + (pow(0,2)/pow(h,2))), 3);
+	//obj.a200.value = round(obj.a200.value,2);	
+	obj.a300.value = round( (c/2) * sqrt((pow(3,2)/pow(l,2)) + (pow(0,2)/pow(w,2)) + (pow(0,2)/pow(h,2))), 3);
+	//obj.a300.value = round(obj.a300.value,2);	
+	obj.a400.value = round( (c/2) * sqrt((pow(4,2)/pow(l,2)) + (pow(0,2)/pow(w,2)) + (pow(0,2)/pow(h,2))), 3);
+	//obj.a400.value = round(obj.a400.value,2);	
+	obj.a500.value = round( (c/2) * sqrt((pow(5,2)/pow(l,2)) + (pow(0,2)/pow(w,2)) + (pow(0,2)/pow(h,2))), 3);
+	//obj.a500.value = round(obj.a500.value,2);	
+	obj.a600.value = round( (c/2) * sqrt((pow(6,2)/pow(l,2)) + (pow(0,2)/pow(w,2)) + (pow(0,2)/pow(h,2))), 3);
+	//obj.a600.value = round(obj.a600.value,2);	
+	obj.a700.value = round( (c/2) * sqrt((pow(7,2)/pow(l,2)) + (pow(0,2)/pow(w,2)) + (pow(0,2)/pow(h,2))), 3);
+	//obj.a700.value = round(obj.a700.value,2);	
+	obj.a800.value = round( (c/2) * sqrt((pow(8,2)/pow(l,2)) + (pow(0,2)/pow(w,2)) + (pow(0,2)/pow(h,2))), 3);
+	//obj.a800.value = round(obj.a800.value,2);	
+	obj.a900.value = round( (c/2) * sqrt((pow(9,2)/pow(l,2)) + (pow(0,2)/pow(w,2)) + (pow(0,2)/pow(h,2))), 3);
+	//obj.a900.value = round(obj.a900.value,2);	
+	
+	//Axial 0x0
+	obj.a010.value = round( (c/2) * sqrt((pow(0,2)/pow(l,2)) + (pow(1,2)/pow(w,2)) + (pow(0,2)/pow(h,2))), 3);
+	//obj.a010.value = round(obj.a010.value,2);
+	obj.a020.value = round( (c/2) * sqrt((pow(0,2)/pow(l,2)) + (pow(2,2)/pow(w,2)) + (pow(0,2)/pow(h,2))), 3);
+	//obj.a020.value = round(obj.a020.value,2);	
+	obj.a030.value = round( (c/2) * sqrt((pow(0,2)/pow(l,2)) + (pow(3,2)/pow(w,2)) + (pow(0,2)/pow(h,2))), 3);
+	//obj.a030.value = round(obj.a030.value,2);	
+	obj.a040.value = round( (c/2) * sqrt((pow(0,2)/pow(l,2)) + (pow(4,2)/pow(w,2)) + (pow(0,2)/pow(h,2))), 3);
+	//obj.a040.value = round(obj.a040.value,2);	
+	obj.a050.value = round( (c/2) * sqrt((pow(0,2)/pow(l,2)) + (pow(5,2)/pow(w,2)) + (pow(0,2)/pow(h,2))), 3);
+	//obj.a050.value = round(obj.a050.value,2);	
+	obj.a060.value = round( (c/2) * sqrt((pow(0,2)/pow(l,2)) + (pow(6,2)/pow(w,2)) + (pow(0,2)/pow(h,2))), 3);
+	//obj.a060.value = round(obj.a060.value,2);	
+	obj.a070.value = round( (c/2) * sqrt((pow(0,2)/pow(l,2)) + (pow(7,2)/pow(w,2)) + (pow(0,2)/pow(h,2))), 3);
+	//obj.a070.value = round(obj.a070.value,2);	
+	obj.a080.value = round( (c/2) * sqrt((pow(0,2)/pow(l,2)) + (pow(8,2)/pow(w,2)) + (pow(0,2)/pow(h,2))), 3);
+	//obj.a080.value = round(obj.a080.value,2);	
+	obj.a090.value = round( (c/2) * sqrt((pow(0,2)/pow(l,2)) + (pow(9,2)/pow(w,2)) + (pow(0,2)/pow(h,2))), 3);
+	//obj.a090.value = round(obj.a090.value,2);	
+	
+	// Axial 00x
+	obj.a001.value = round( (c/2) * sqrt((pow(0,2)/pow(l,2)) + (pow(0,2)/pow(w,2)) + (pow(1,2)/pow(h,2))), 3);
+	//obj.a001.value = round(obj.a001.value,3);
+	obj.a002.value = round( (c/2) * sqrt((pow(0,2)/pow(l,2)) + (pow(0,2)/pow(w,2)) + (pow(2,2)/pow(h,2))), 3);
+	//obj.a002.value = round(obj.a002.value,2);	
+	obj.a003.value = round( (c/2) * sqrt((pow(0,2)/pow(l,2)) + (pow(0,2)/pow(w,2)) + (pow(3,2)/pow(h,2))), 3);
+	//obj.a003.value = round(obj.a003.value,2);	
+	obj.a004.value = round( (c/2) * sqrt((pow(0,2)/pow(l,2)) + (pow(0,2)/pow(w,2)) + (pow(4,2)/pow(h,2))), 3);
+	//obj.a004.value = round(obj.a004.value,2);	
+	obj.a005.value = round( (c/2) * sqrt((pow(0,2)/pow(l,2)) + (pow(0,2)/pow(w,2)) + (pow(5,2)/pow(h,2))), 3);
+	//obj.a005.value = round(obj.a005.value,2);	
+	obj.a006.value = round( (c/2) * sqrt((pow(0,2)/pow(l,2)) + (pow(0,2)/pow(w,2)) + (pow(6,2)/pow(h,2))), 3);
+	//obj.a006.value = round(obj.a006.value,2);	
+	obj.a007.value = round( (c/2) * sqrt((pow(0,2)/pow(l,2)) + (pow(0,2)/pow(w,2)) + (pow(7,2)/pow(h,2))), 3);
+	//obj.a007.value = round(obj.a007.value,2);	
+	obj.a008.value = round( (c/2) * sqrt((pow(0,2)/pow(l,2)) + (pow(0,2)/pow(w,2)) + (pow(8,2)/pow(h,2))), 3);
+	//obj.a008.value = round(obj.a008.value,2);	
+	obj.a009.value = round( (c/2) * sqrt((pow(0,2)/pow(l,2)) + (pow(0,2)/pow(w,2)) + (pow(9,2)/pow(h,2))), 3);
+	////obj.a009.value = round(obj.a009.value,2);
+	
+	
+	// Tangential 10x
+	obj.a101.value = round( (c/2) * sqrt((pow(1,2)/pow(l,2)) + (pow(0,2)/pow(w,2)) + (pow(1,2)/pow(h,2))), 3);
+	//obj.a101.value = round(obj.a101.value, 2);
+	obj.a102.value = round( (c/2) * sqrt((pow(1,2)/pow(l,2)) + (pow(0,2)/pow(w,2)) + (pow(2,2)/pow(h,2))), 3);
+	//obj.a102.value = round(obj.a102.value, 2);	
+	obj.a103.value = round( (c/2) * sqrt((pow(1,2)/pow(l,2)) + (pow(0,2)/pow(w,2)) + (pow(3,2)/pow(h,2))), 3);
+	//obj.a103.value = round(obj.a103.value, 2);	
+	obj.a104.value = round( (c/2) * sqrt((pow(1,2)/pow(l,2)) + (pow(0,2)/pow(w,2)) + (pow(4,2)/pow(h,2))), 3);
+	//obj.a104.value = round(obj.a104.value, 2);	
+	
+	// Tangential 20x
+	obj.a201.value = round( (c/2) * sqrt((pow(2,2)/pow(l,2)) + (pow(0,2)/pow(w,2)) + (pow(1,2)/pow(h,2))), 3);
+	//obj.a201.value = round(obj.a201.value, 2);
+	obj.a202.value = round( (c/2) * sqrt((pow(2,2)/pow(l,2)) + (pow(0,2)/pow(w,2)) + (pow(2,2)/pow(h,2))), 3);
+	//obj.a202.value = round(obj.a202.value, 2);	
+	obj.a203.value = round( (c/2) * sqrt((pow(2,2)/pow(l,2)) + (pow(0,2)/pow(w,2)) + (pow(3,2)/pow(h,2))), 3);
+	//obj.a203.value = round(obj.a203.value, 2);	
+	obj.a204.value = round( (c/2) * sqrt((pow(2,2)/pow(l,2)) + (pow(0,2)/pow(w,2)) + (pow(4,2)/pow(h,2))), 3);
+	//obj.a204.value = round(obj.a204.value, 2);	
+	
+	// Tangential 30x
+	obj.a301.value = round( (c/2) * sqrt((pow(3,2)/pow(l,2)) + (pow(0,2)/pow(w,2)) + (pow(1,2)/pow(h,2))), 3);
+	obj.a302.value = round( (c/2) * sqrt((pow(3,2)/pow(l,2)) + (pow(0,2)/pow(w,2)) + (pow(2,2)/pow(h,2))), 3);
+	obj.a303.value = round( (c/2) * sqrt((pow(3,2)/pow(l,2)) + (pow(0,2)/pow(w,2)) + (pow(3,2)/pow(h,2))), 3);
+	obj.a304.value = round( (c/2) * sqrt((pow(3,2)/pow(l,2)) + (pow(0,2)/pow(w,2)) + (pow(4,2)/pow(h,2))), 3);
+	
+	
+	// Tangential 40x
+	obj.a401.value = round( (c/2) * sqrt((pow(4,2)/pow(l,2)) + (pow(0,2)/pow(w,2)) + (pow(1,2)/pow(h,2))), 3);
+	obj.a402.value = round( (c/2) * sqrt((pow(4,2)/pow(l,2)) + (pow(0,2)/pow(w,2)) + (pow(2,2)/pow(h,2))), 3);
+	obj.a403.value = round( (c/2) * sqrt((pow(4,2)/pow(l,2)) + (pow(0,2)/pow(w,2)) + (pow(3,2)/pow(h,2))), 3);
+	obj.a404.value = round( (c/2) * sqrt((pow(4,2)/pow(l,2)) + (pow(0,2)/pow(w,2)) + (pow(4,2)/pow(h,2))), 3);
+	
+	
+	// Tangential 1x0
+	obj.a110.value = round( (c/2) * sqrt((pow(1,2)/pow(l,2)) + (pow(1,2)/pow(w,2)) + (pow(0,2)/pow(h,2))), 3);
+	obj.a120.value = round( (c/2) * sqrt((pow(1,2)/pow(l,2)) + (pow(2,2)/pow(w,2)) + (pow(0,2)/pow(h,2))), 3);
+	obj.a130.value = round( (c/2) * sqrt((pow(1,2)/pow(l,2)) + (pow(3,2)/pow(w,2)) + (pow(0,2)/pow(h,2))), 3);
+	obj.a140.value = round( (c/2) * sqrt((pow(1,2)/pow(l,2)) + (pow(4,2)/pow(w,2)) + (pow(0,2)/pow(h,2))), 3);
+	
+	
+	// Tangential 2x0
+	obj.a210.value = round( (c/2) * sqrt((pow(2,2)/pow(l,2)) + (pow(1,2)/pow(w,2)) + (pow(0,2)/pow(h,2))), 3);
+	obj.a220.value = round( (c/2) * sqrt((pow(2,2)/pow(l,2)) + (pow(2,2)/pow(w,2)) + (pow(0,2)/pow(h,2))), 3);
+	obj.a230.value = round( (c/2) * sqrt((pow(2,2)/pow(l,2)) + (pow(3,2)/pow(w,2)) + (pow(0,2)/pow(h,2))), 3);
+	obj.a240.value = round( (c/2) * sqrt((pow(2,2)/pow(l,2)) + (pow(4,2)/pow(w,2)) + (pow(0,2)/pow(h,2))), 3);
+	
+	
+	// Tangential 3x0
+	obj.a310.value = round( (c/2) * sqrt((pow(3,2)/pow(l,2)) + (pow(1,2)/pow(w,2)) + (pow(0,2)/pow(h,2))), 3);
+	obj.a320.value = round( (c/2) * sqrt((pow(3,2)/pow(l,2)) + (pow(2,2)/pow(w,2)) + (pow(0,2)/pow(h,2))), 3);
+	obj.a330.value = round( (c/2) * sqrt((pow(3,2)/pow(l,2)) + (pow(3,2)/pow(w,2)) + (pow(0,2)/pow(h,2))), 3);
+	obj.a340.value = round( (c/2) * sqrt((pow(3,2)/pow(l,2)) + (pow(4,2)/pow(w,2)) + (pow(0,2)/pow(h,2))), 3);
+	
+	
+	// Tangential 4x0
+	obj.a410.value = round( (c/2) * sqrt((pow(4,2)/pow(l,2)) + (pow(1,2)/pow(w,2)) + (pow(0,2)/pow(h,2))), 3);
+	obj.a420.value = round( (c/2) * sqrt((pow(4,2)/pow(l,2)) + (pow(2,2)/pow(w,2)) + (pow(0,2)/pow(h,2))), 3);
+	obj.a430.value = round( (c/2) * sqrt((pow(4,2)/pow(l,2)) + (pow(3,2)/pow(w,2)) + (pow(0,2)/pow(h,2))), 3);
+	obj.a440.value = round( (c/2) * sqrt((pow(4,2)/pow(l,2)) + (pow(4,2)/pow(w,2)) + (pow(0,2)/pow(h,2))), 3);
+	
+	
+	// Tangential 01x
+	obj.a011.value = round( (c/2) * sqrt((pow(0,2)/pow(l,2)) + (pow(1,2)/pow(w,2)) + (pow(1,2)/pow(h,2))), 3);
+	obj.a012.value = round( (c/2) * sqrt((pow(0,2)/pow(l,2)) + (pow(1,2)/pow(w,2)) + (pow(2,2)/pow(h,2))), 3);
+	obj.a013.value = round( (c/2) * sqrt((pow(0,2)/pow(l,2)) + (pow(1,2)/pow(w,2)) + (pow(3,2)/pow(h,2))), 3);
+	obj.a014.value = round( (c/2) * sqrt((pow(0,2)/pow(l,2)) + (pow(1,2)/pow(w,2)) + (pow(4,2)/pow(h,2))), 3);
+	
+	
+	// Tangential 02x
+	obj.a021.value = round( (c/2) * sqrt((pow(0,2)/pow(l,2)) + (pow(2,2)/pow(w,2)) + (pow(1,2)/pow(h,2))), 3);
+	obj.a022.value = round( (c/2) * sqrt((pow(0,2)/pow(l,2)) + (pow(2,2)/pow(w,2)) + (pow(2,2)/pow(h,2))), 3);
+	obj.a023.value = round( (c/2) * sqrt((pow(0,2)/pow(l,2)) + (pow(2,2)/pow(w,2)) + (pow(3,2)/pow(h,2))), 3);
+	obj.a024.value = round( (c/2) * sqrt((pow(0,2)/pow(l,2)) + (pow(2,2)/pow(w,2)) + (pow(4,2)/pow(h,2))), 3);
+	
+	
+	// Tangential 03x
+	obj.a031.value = round( (c/2) * sqrt((pow(0,2)/pow(l,2)) + (pow(3,2)/pow(w,2)) + (pow(1,2)/pow(h,2))), 3);
+	obj.a032.value = round( (c/2) * sqrt((pow(0,2)/pow(l,2)) + (pow(3,2)/pow(w,2)) + (pow(2,2)/pow(h,2))), 3);
+	obj.a033.value = round( (c/2) * sqrt((pow(0,2)/pow(l,2)) + (pow(3,2)/pow(w,2)) + (pow(3,2)/pow(h,2))), 3);
+	obj.a034.value = round( (c/2) * sqrt((pow(0,2)/pow(l,2)) + (pow(3,2)/pow(w,2)) + (pow(4,2)/pow(h,2))), 3);
+	
+	
+	// Tangential 04x
+	obj.a041.value = round( (c/2) * sqrt((pow(0,2)/pow(l,2)) + (pow(4,2)/pow(w,2)) + (pow(1,2)/pow(h,2))), 3);
+	obj.a042.value = round( (c/2) * sqrt((pow(0,2)/pow(l,2)) + (pow(4,2)/pow(w,2)) + (pow(2,2)/pow(h,2))), 3);
+	obj.a043.value = round( (c/2) * sqrt((pow(0,2)/pow(l,2)) + (pow(4,2)/pow(w,2)) + (pow(3,2)/pow(h,2))), 3);
+	obj.a044.value = round( (c/2) * sqrt((pow(0,2)/pow(l,2)) + (pow(4,2)/pow(w,2)) + (pow(4,2)/pow(h,2))), 3);
+	
+	
+	// Oblique 04x
+	obj.a111.value = round( (c/2) * sqrt((pow(1,2)/pow(l,2)) + (pow(1,2)/pow(w,2)) + (pow(1,2)/pow(h,2))), 3);
+	
+	obj.a112.value = round( (c/2) * sqrt((pow(1,2)/pow(l,2)) + (pow(1,2)/pow(w,2)) + (pow(2,2)/pow(h,2))), 3);
+	obj.a121.value = round( (c/2) * sqrt((pow(1,2)/pow(l,2)) + (pow(2,2)/pow(w,2)) + (pow(1,2)/pow(h,2))), 3);
+	obj.a211.value = round( (c/2) * sqrt((pow(2,2)/pow(l,2)) + (pow(1,2)/pow(w,2)) + (pow(1,2)/pow(h,2))), 3);
+	
+	obj.a221.value = round( (c/2) * sqrt((pow(2,2)/pow(l,2)) + (pow(2,2)/pow(w,2)) + (pow(1,2)/pow(h,2))), 3);
+	obj.a212.value = round( (c/2) * sqrt((pow(2,2)/pow(l,2)) + (pow(1,2)/pow(w,2)) + (pow(2,2)/pow(h,2))), 3);
+	obj.a122.value = round( (c/2) * sqrt((pow(1,2)/pow(l,2)) + (pow(2,2)/pow(w,2)) + (pow(2,2)/pow(h,2))), 3);
+	
+	obj.a222.value = round((c/2) * sqrt((pow(2,2)/pow(l,2)) + (pow(2,2)/pow(w,2)) + (pow(2,2)/pow(h,2))),2);
+	 }
+}
+
+
+    </SCRIPT>
+</head>
+<body>
+<div id="header" class="container">
+    <div id="logo">
+        <h2>HiFi&nbsp;&nbsp;Audio&nbsp;&nbsp;Design</h2>
+    </div>
+    <br>
+    <div id="menu">
+        <ul>
+            <li><a href="../index.html" accesskey="1" title="">Home</a></li>
+            <li><a href="../Loudspeaker.html" accesskey="2" title="">Loudspeaker</a></li>
+            <li><a href="../Acoustic.html" accesskey="3" title="">Acoustic</a></li>
+            <li class="active"><a href="../Calculator.html" accesskey="4" title="">Calculators</a></li>
+            <li><a href="../Library.html" accesskey="7" title="">Library</a></li>
+            <!--
+            <li><a href="../Software.html" accesskey="6" title="">Soft & Hardware</a></li>
+            <li><a href="../Elektronic.html" accesskey="5" title="">Electronic</a></li>
+            <li><a href="../Measurement.html" accesskey="5" title="">Measurement</a></li>
+            <li><a href="../Links.html" accesskey="5" title="">Links/Downloads</a></li>       
+            <li><a href="../EmailFormNew.asp" accesskey="5" title="">Contact</a></li>
+            -->
+        </ul>
+    </div>
+</div>
+<button onclick="topFunction()" id="myBtn" title="Go To Top">⬆</button>
+<button id="myBtnDown" onclick="scrollWin()" title="Scroll Down">⬇</button>
+<div id="page">
+    <div class="container">     
+        <div class="title">
+            <br><h1><i>Calculate Room Modes</i></h1>
+        </div>
+        <div class="box0">
+            <div class="box margin-btm">
+                <center><br><img src="../images/acoustics/roommodes.png" width="320" height="180" alt=""/></center>
+                <div class="details">
+                    <p> <!-- Start Content -->
+                    <FORM name="frm" method="get">
+                        <table align="center" cellspacing="0" cellpadding="6" width="100%">
+                            <tr>
+                                <td width="40">&nbsp;</td>
+                                <td>
+                                    This calculator is an easy way to calculate Room Modes or Standing Waves in an
+                                    enclosed rectangular space.<br>
+                                    You need to look out for Modes that are close together and below about 300 Hz.<br>
+                                    <br>
+                                    Enter the dimension of your space and the speed of sound (distance per second)
+                                    and click "calculate".
+                                    <br>
+                                    <br>
+                                    Sound at sea level = 342 meters per second, or 1122 feet per second.<br>
+                                    <br>
+                                    <br>
+                                </td>
+                                <td width="40">&nbsp;</td>
+                            </tr>
+                        </table>
+                        </center>
+                    <table align="center" cellspacing="0" cellpadding="6" width="100%" class="Calctable">
+                            <tr>
+                                <td>
+                                <br>
+                                    <TABLE cellSpacing="0" cellPadding="6" width="75%" border="0" align="center">
+                                        <TR>
+                                            <td align="right">
+                                                <strong>Choose:</strong>&nbsp;
+                                            </td>
+                                            <td>
+                                                <input type="radio" name="what" value="meter" onClick="mft(this.form)"
+                                                       checked>&nbsp;meter
+                                            </td>
+                                            <td colspan="4" align="left"> <input type="radio" name="what" value="feet" onClick="mft(this.form)">&nbsp;feet</td>
+                                            </td>
+                                        </tr>
+                                        <TR>
+                                            <td align="right"><strong>Speed of Sound</strong> : </td>
+                                            <td>
+                                                <input type="number" step="0.0001" class="frmInput"  style="width: 5em;" value="342"
+                                                       name="c">
+                                            </td>
+                                            <td>m/s</td>
+                                            <td><input type="number" step="0.0001" class="frmInput" style="width: 6em;" name="cft"
+                                                       ID="Text6"></td>
+                                            <td>ft/s</td>
+                                        </TR>
+                                        <TR>
+                                            <td align="right"><strong>Length of Room</strong> : </td>
+                                            <td>
+                                                <input type="number" step="0.0001" class="frmInput" style="width: 6em;" name="l"
+                                                       value="5.2">
+                                            </td>
+                                            <td>m</td>
+                                            <td><input type="number" step="0.0001" class="frmInput" style="width: 6em;" name="lft"
+                                                       ID="Text7"></td>
+                                            <td>ft</td>
+                                        </TR>
+                                        <TR>
+                                            <td align="right"><strong>Width of Room</strong> : </td>
+                                            <td>
+                                                <input type="number" step="0.0001" class="frmInput" class="frmInput"
+                                                       style="width: 6em;" name="w" value="3.6">
+                                            </td>
+                                            <td>m</td>
+                                            <td><input type="number" step="0.0001" class="frmInput" style="width: 6em;" name="wft"
+                                                       ID="Text8"></td>
+                                            <td>ft</td>
+                                        </TR>
+                                        <TR>
+                                            <td align="right"><strong>Height of Room</strong> : </td>
+                                            <td>
+                                                <input type="number" step="0.0001" class="frmInput" style="width: 6em;" name="h"
+                                                       value="2.45">
+                                            </td>
+                                            <td>m
+                                            </td>
+                                            <td><input type="number" readonly step="0.0001" class="frmInput" style="width: 6em;"
+                                                       name="hft"
+                                                       ID="Text9"></td>
+                                            <td>ft</td>
+                                        </TR>
+                                        <tr>
+                                            <td align="right"><strong>Estimated reverberation time T<sub>60</sub></strong> : </td>
+                                            <td><input class="frmInput" type="number" step="0.0001" name="T60" value="250"
+                                                       style="width: 6em;"
+                                                       ID="Text1" NAME="Text1"></td>
+                                            <td colspan="4">ms</td>
+                                        </tr>
+                                        <!--
+                <tr>
+                    <td class=td>Estimated avg wall absorption a =</td>
+                    <td class=td><input  type=text name=aRt size=3 ID="Text2"></td>
+                    <td class=td>%</td>
+                </tr>
+                -->
+                                        <TR>
+                                            <td colspan="6" align="center">
+                                                <input class="calcButton" onClick="calculate(this.form), locate();" type="button"
+                                                       value="calculate" name="Button"><br>
+                                            </td>
+                                        </TR>
+                                        <tr>
+                                        	<td colspan="6" align="center"><strong><i>These mathematical models will not replace accurate measurements.</i></strong></td>
+                                        </tr>
+                                    </TABLE>
+                                    <br>
+                                </td>
+                            </tr>
+                        </table>
+                        <br>
+                    <br><br>
+                    <center><h2><I>Calculations</I></h2><br></center>
+                    <table align="center" cellspacing="0" cellpadding="6" width="50%" class="Calctable">
+                            <tr>
+                                <td>
+                                    <table align="center">
+                                    	 <tr><td colspan="5" height="10"></td></tr>
+                                        <tr>
+                                            <td align="right">Floor area A =</td>
+                                            <td><input class="frmOutput" type="number" name="A" style="width: 6em;" readonly></td>
+                                            <td>m<sup>2</sup>&nbsp;&nbsp;</td>
+                                            <td><input class="frmOutput" type="number" name="Aft" style="width: 6em;" readonly>
+                                            </td>
+                                            <td>ft<sup>2</sup></td>
+                                        </tr>
+                                        <tr>
+                                            <td align="right">Volume V =</td>
+                                            <td><input class="frmOutput" type="number" name="V" style="width: 6em;" readonly></td>
+                                            <td>m<sup>3</sup>&nbsp;&nbsp;</td>
+                                            <td><input class="frmOutput" type="number" name="Vft" style="width: 6em;" ID="Text2"
+                                                       readonly></td>
+                                            <td>ft<sup>3</sup></td>
+                                        </tr>
+                                        <tr>
+                                            <td align="right">Surface area S =</td>
+                                            <td><input class="frmOutput" type="number" name="S" style="width: 6em;" readonly></td>
+                                            <td>m<sup>2</sup>&nbsp;&nbsp;</td>
+                                            <td><input class="frmOutput" type="number" name="Sft" style="width: 6em;" ID="Text3"
+                                                       readonly></td>
+                                            <td>ft<sup>2</sup></td>
+                                        </tr>
+                                        <tr>
+                                            <td align="right">Edge length L<sub>e</sub> =</td>
+                                            <td><input class="frmOutput" type="number" name="Le" style="width: 6em;" readonly></td>
+                                            <td>m</td>
+                                            <td><input class="frmOutput" type="number" name="Le_ft" style="width: 6em;" ID="Text4"
+                                                       readonly></td>
+                                            <td>ft</td>
+                                        </tr>
+                                        <tr>
+                                            <td align="right">Schroeder frequency f<sub>s</sub> =</td>
+                                            <td><input class="frmOutput" type="number" name="sfs" style="width: 6em;" readonly>
+                                            </td>
+                                            <td colspan="3">Hz</td>
+                                        </tr>
+                                        <tr>
+                                            <td align="right">Monopole reverb distance R<sub>m</sub> =</td>
+                                            <td><input class="frmOutput" type="number" name="Rm" style="width: 6em;" readonly></td>
+                                            <td>m</td>
+                                            <td><input class="frmOutput" type="number" name="Rmft" style="width: 6em;" ID="Text5"
+                                                       readonly></td>
+                                            <td>ft</td>
+                                        </tr>
+                                        <tr>
+                                            <td align="right">Avg wall absorption a =</td>
+                                            <td><input class="frmOutput" type="number" name="a" style="width: 6em;" readonly></td>
+                                            <td colspan="3">%</td>
+                                        </tr>
+                                        <tr><td colspan="5" height="10"></td></tr>
+                                    </table>
+                                </td>
+                            </tr>
+                        </table>
+                    <br><br>
+                        <span>
+							<center><h2 class="menu"><strong>Axial Modes</strong></h2>
+							Involve Two Parallel Surfaces - opposite walls, or the 
+								floor and ceiling. These are the strongest modes.</center>
+						</span>
+                    <br>
+                    <table align="center" cellspacing="0" cellpadding="2" width="100%" class="Calctable">
+                            <tr>
+                                <td>
+                                    <TABLE cellSpacing="0" cellPadding="2" border="1" width="85%" align="center">
+                                    <tr>
+                                    	<td rowspan="12"><img src="../images/acoustics/rmaxial.jpg"></td>
+                                    </tr>                                    
+                                        <TR>
+                                            <td colspan="2" align="center">Length</td>
+                                            <td colspan="2" align="center">Width</td>
+                                            <td colspan="2" align="center">Height</td>
+                                        </TR>
+                                        <TR>
+                                            <td colspan="2" align="center">Mode - Frequency</td>
+                                            <td colspan="2" align="center">Mode - Frequency</td>
+                                            <td colspan="2" align="center">Mode - Frequency</td>       
+                                        </TR>
+                                        <TR>
+                                            <td>1 0 0</td>
+                                            <td><input type="number" readonly class="frmOutput" maxLength="8" style="width: 4em;"
+                                                       name="a100">
+                                            </td>
+                                            <td>0 1 0</td>
+                                            <td><input type="number" readonly class="frmOutput" maxLength="8" style="width: 4em;"
+                                                       name="a010">
+                                            </td>
+                                            <td>0 0 1</td>
+                                            <td><input type="number" readonly class="frmOutput" maxLength="8" style="width: 4em;"
+                                                       name="a001">
+                                            </td>
+                                        </TR>
+                                        <TR>
+                                            <td>2 0 0</td>
+                                            <td><input type="number" readonly class="frmOutput" maxLength="8" style="width: 4em;"
+                                                       name="a200">
+                                            </td>
+                                            <td>0 2 0</td>
+                                            <td><input type="number" readonly class="frmOutput" maxLength="8" style="width: 4em;"
+                                                       name="a020">
+                                            </td>
+                                            <td>0 0 2</td>
+                                            <td><input type="number" readonly class="frmOutput" maxLength="8" style="width: 4em;"
+                                                       name="a002">
+                                            </td>
+                                        </TR>
+                                        <TR>
+                                            <td>3 0 0</td>
+                                            <td><input type="number" readonly class="frmOutput" maxLength="8" style="width: 4em;"
+                                                       name="a300">
+                                            </td>
+                                            <td>0 3 0</td>
+                                            <td><input type="number" readonly class="frmOutput" maxLength="8" style="width: 4em;"
+                                                       name="a030">
+                                            </td>
+                                            <td>0 0 3</td>
+                                            <td><input type="number" readonly class="frmOutput" maxLength="8" style="width: 4em;"
+                                                       name="a003">
+                                            </td>
+                                        </TR>
+                                        <TR>
+                                            <td>4 0 0</td>
+                                            <td><input type="number" readonly class="frmOutput" maxLength="8" style="width: 4em;"
+                                                       name="a400">
+                                            </td>
+                                            <td>0 4 0</td>
+                                            <td><input type="number" readonly class="frmOutput" maxLength="8" style="width: 4em;"
+                                                       name="a040">
+                                            </td>
+                                            <td>0 0 4</td>
+                                            <td><input type="number" readonly class="frmOutput" maxLength="8" style="width: 4em;"
+                                                       name="a004">
+                                            </td>
+                                        </TR>
+                                        <TR>
+                                            <td>5 0 0</td>
+                                            <td><input type="number" readonly class="frmOutput" maxLength="8" style="width: 4em;"
+                                                       name="a500">
+                                            </td>
+                                            <td>0 5 0</td>
+                                            <td><input type="number" readonly class="frmOutput" maxLength="8" style="width: 4em;"
+                                                       name="a050">
+                                            </td>
+                                            <td>0 0 5</td>
+                                            <td><input type="number" readonly class="frmOutput" maxLength="8" style="width: 4em;"
+                                                       name="a005">
+                                            </td>
+                                        </TR>
+                                        <TR>
+                                            <td>6 0 0</td>
+                                            <td><input type="number" readonly class="frmOutput" maxLength="8" style="width: 4em;"
+                                                       name="a600">
+                                            </td>
+                                            <td>0 6 0</td>
+                                            <td><input type="number" readonly class="frmOutput" maxLength="8" style="width: 4em;"
+                                                       name="a060">
+                                            </td>
+                                            <td>0 0 6</td>
+                                            <td><input type="number" readonly class="frmOutput" maxLength="8" style="width: 4em;"
+                                                       name="a006">
+                                            </td>
+                                        </TR>
+                                        <TR>
+                                            <td>7 0 0</td>
+                                            <td><input type="number" readonly class="frmOutput" maxLength="8" style="width: 4em;"
+                                                       name="a700">
+                                            </td>
+                                            <td>0 7 0</td>
+                                            <td><input type="number" readonly class="frmOutput" maxLength="8" style="width: 4em;"
+                                                       name="a070">
+                                            </td>
+                                            <td>0 0 7</td>
+                                            <td><input type="number" readonly class="frmOutput" maxLength="8" style="width: 4em;"
+                                                       name="a007">
+                                            </td>
+                                        </TR>
+                                        <TR>
+                                            <td>8 0 0</td>
+                                            <td><input type="number" readonly class="frmOutput" maxLength="8" style="width: 4em;"
+                                                       name="a800">
+                                            </td>
+                                            <td>0 8 0</td>
+                                            <td><input type="number" readonly class="frmOutput" maxLength="8" style="width: 4em;"
+                                                       name="a080">
+                                            </td>
+                                            <td>0 0 8</td>
+                                            <td><input type="number" readonly class="frmOutput" maxLength="8" style="width: 4em;"
+                                                       name="a008">
+                                            </td>
+                                        </TR>
+                                        <TR>
+                                            <td>9 0 0</td>
+                                            <td><input type="number" readonly class="frmOutput" maxLength="8" style="width: 4em;"
+                                                       name="a900">
+                                            </td>
+                                            <td>0 9 0</td>
+                                            <td><input type="number" readonly class="frmOutput" maxLength="8" style="width: 4em;"
+                                                       name="a090">
+                                            </td>
+                                            <td>0 0 9</td>
+                                            <td><input type="number" readonly class="frmOutput" maxLength="8" style="width: 4em;"
+                                                       name="a009">
+                                            </td>
+                                        </TR>
+                                    </TABLE>
+                                    <br>
+                                </td>
+                            </tr>
+                        </table>
+                    <br><br>
+                        <span>
+							<center><h2 class="menu"><strong>Tangential Modes</strong></h2>
+							Involve Two sets of Parallel Surfaces - all four 
+								walls, or two walls the ceiling and the floor. These are about half as strong 
+								as the Axial modes.<br></center>
+						</span>
+                    <table align="center" cellspacing="0" cellpadding="6" width="100%" class="Calctable">
+                            <tr>
+                                <td>
+                                    <TABLE cellSpacing="0" cellPadding="2" border="1" width="85%" align="center">
+                                    <tr>
+                                    	<td rowspan="19"><img src="../images/acoustics/rmtangential.jpg"></td>
+                                    </tr>
+                                        <TR>
+                                            <td colspan="2" align="center">Length - Width</td>
+                                            <td colspan="2" align="center">Length - Height</td>
+                                            <td colspan="2" align="center">Width - Height</td>
+                                        </TR>
+                                        <TR>
+                                            <td colspan="2" align="center">Mode - Frequency</td>
+                                            <td colspan="2" align="center">Mode - Frequency</td>
+                                            <td colspan="2" align="center">Mode - Frequency</td>
+                                        </TR>
+                                        <TR>
+                                            <td>1 1 0</td>
+                                            <td><input type="number" readonly class="frmOutput" maxLength="8" style="width: 4em;"
+                                                       name="a110">
+                                            </td>
+                                            <td>1 0 1</td>
+                                            <td><input type="number" readonly class="frmOutput" maxLength="8" style="width: 4em;"
+                                                       name="a101">
+                                            </td>
+                                            <td>0 1 1</td>
+                                            <td><input type="number" readonly class="frmOutput" maxLength="8" style="width: 4em;"
+                                                       name="a011">
+                                            </td>
+                                        </TR>
+                                        <TR>
+                                            <td>1 2 0</td>
+                                            <td><input type="number" readonly class="frmOutput" maxLength="8" style="width: 4em;"
+                                                       name="a120">
+                                            </td>
+                                            <td>1 0 2</td>
+                                            <td><input type="number" readonly class="frmOutput" maxLength="8" style="width: 4em;"
+                                                       name="a102">
+                                            </td>
+                                            <td>0 1 2</td>
+                                            <td><input type="number" readonly class="frmOutput" maxLength="8" style="width: 4em;"
+                                                       name="a012">
+                                            </td>
+                                        </TR>
+                                        <TR>
+                                            <td>1 3 0</td>
+                                            <td><input type="number" readonly class="frmOutput" maxLength="8" style="width: 4em;"
+                                                       name="a130">
+                                            </td>
+                                            <td>1 0 3</td>
+                                            <td><input type="number" readonly class="frmOutput" maxLength="8" style="width: 4em;"
+                                                       name="a103">
+                                            </td>
+                                            <td>0 1 3</td>
+                                            <td><input type="number" readonly class="frmOutput" maxLength="8" style="width: 4em;"
+                                                       name="a013">
+                                            </td>
+                                        </TR>
+                                        <TR>
+                                            <td>1 4 0</td>
+                                            <td><input type="number" readonly class="frmOutput" maxLength="8" style="width: 4em;"
+                                                       name="a140">
+                                            </td>
+                                            <td>1 0 4</td>
+                                            <td><input type="number" readonly class="frmOutput" maxLength="8" style="width: 4em;"
+                                                       name="a104">
+                                            </td>
+                                            <td>0 1 4</td>
+                                            <td><input type="number" readonly class="frmOutput" maxLength="8" style="width: 4em;"
+                                                       name="a014">
+                                            </td>
+                                        </TR>
+                                        <TR>
+                                            <td>2 1 0</td>
+                                            <td><input type="number" readonly class="frmOutput" maxLength="8" style="width: 4em;"
+                                                       name="a210">
+                                            </td>
+                                            <td>2 0 1</td>
+                                            <td><input type="number" readonly class="frmOutput" maxLength="8" style="width: 4em;"
+                                                       name="a201">
+                                            </td>
+                                            <td>0 2 1</td>
+                                            <td><input type="number" readonly class="frmOutput" maxLength="8" style="width: 4em;"
+                                                       name="a021">
+                                            </td>
+                                        </TR>
+                                        <TR>
+                                            <td>2 2 0</td>
+                                            <td><input type="number" readonly class="frmOutput" maxLength="8" style="width: 4em;"
+                                                       name="a220">
+                                            </td>
+                                            <td>2 0 2</td>
+                                            <td><input type="number" readonly class="frmOutput" maxLength="8" style="width: 4em;"
+                                                       name="a202">
+                                            </td>
+                                            <td>0 2 2</td>
+                                            <td><input type="number" readonly class="frmOutput" maxLength="8" style="width: 4em;"
+                                                       name="a022">
+                                            </td>
+                                        </TR>
+                                        <TR>
+                                            <td>2 3 0</td>
+                                            <td><input type="number" readonly class="frmOutput" maxLength="8" style="width: 4em;"
+                                                       name="a230">
+                                            </td>
+                                            <td>2 0 3</td>
+                                            <td><input type="number" readonly class="frmOutput" maxLength="8" style="width: 4em;"
+                                                       name="a203">
+                                            </td>
+                                            <td>0 2 3</td>
+                                            <td><input type="number" readonly class="frmOutput" maxLength="8" style="width: 4em;"
+                                                       name="a023">
+                                            </td>
+                                        </TR>
+                                        <TR>
+                                            <td>2 4 0</td>
+                                            <td><input type="number" readonly class="frmOutput" maxLength="8" style="width: 4em;"
+                                                       name="a240">
+                                            </td>
+                                            <td>2 0 4</td>
+                                            <td><input type="number" readonly class="frmOutput" maxLength="8" style="width: 4em;"
+                                                       name="a204">
+                                            </td>
+                                            <td>0 2 4</td>
+                                            <td><input type="number" readonly class="frmOutput" maxLength="8" style="width: 4em;"
+                                                       name="a024">
+                                            </td>
+                                        </TR>
+                                        <TR>
+                                            <td>3 1 0</td>
+                                            <td><input type="number" readonly class="frmOutput" maxLength="8" style="width: 4em;"
+                                                       name="a310">
+                                            </td>
+                                            <td>3 0 1</td>
+                                            <td><input type="number" readonly class="frmOutput" maxLength="8" style="width: 4em;"
+                                                       name="a301">
+                                            </td>
+                                            <td>0 3 1</td>
+                                            <td><input type="number" readonly class="frmOutput" maxLength="8" style="width: 4em;"
+                                                       name="a031">
+                                            </td>
+                                        </TR>
+                                        <TR>
+                                            <td>3 2 0</td>
+                                            <td><input type="number" readonly class="frmOutput" maxLength="8" style="width: 4em;"
+                                                       name="a320">
+                                            </td>
+                                            <td>3 0 2</td>
+                                            <td><input type="number" readonly class="frmOutput" maxLength="8" style="width: 4em;"
+                                                       name="a302">
+                                            </td>
+                                            <td>0 3 2</td>
+                                            <td><input type="number" readonly class="frmOutput" maxLength="8" style="width: 4em;"
+                                                       name="a032">
+                                            </td>
+                                        </TR>
+                                        <TR>
+                                            <td>3 3 0</td>
+                                            <td><input type="number" readonly class="frmOutput" maxLength="8" style="width: 4em;"
+                                                       name="a330">
+                                            </td>
+                                            <td>3 0 3</td>
+                                            <td><input type="number" readonly class="frmOutput" maxLength="8" style="width: 4em;"
+                                                       name="a303">
+                                            </td>
+                                            <td>0 3 3</td>
+                                            <td><input type="number" readonly class="frmOutput" maxLength="8" style="width: 4em;"
+                                                       name="a033">
+                                            </td>
+                                        </TR>
+                                        <TR>
+                                            <td>3 4 0</td>
+                                            <td><input type="number" readonly class="frmOutput" maxLength="8" style="width: 4em;"
+                                                       name="a340">
+                                            </td>
+                                            <td>3 0 4</td>
+                                            <td><input type="number" readonly class="frmOutput" maxLength="8" style="width: 4em;"
+                                                       name="a304">
+                                            </td>
+                                            <td>0 3 4</td>
+                                            <td><input type="number" readonly class="frmOutput" maxLength="8" style="width: 4em;"
+                                                       name="a034">
+                                            </td>
+                                        </TR>
+                                        <TR>
+                                            <td>4 1 0</td>
+                                            <td><input type="number" readonly class="frmOutput" maxLength="8" style="width: 4em;"
+                                                       name="a410">
+                                            </td>
+                                            <td>4 0 1</td>
+                                            <td><input type="number" readonly class="frmOutput" maxLength="8" style="width: 4em;"
+                                                       name="a401">
+                                            </td>
+                                            <td>0 4 1</td>
+                                            <td><input type="number" readonly class="frmOutput" maxLength="8" style="width: 4em;"
+                                                       name="a041">
+                                            </td>
+                                        </TR>
+                                        <TR>
+                                            <td>4 2 0</td>
+                                            <td><input type="number" readonly class="frmOutput" maxLength="8" style="width: 4em;"
+                                                       name="a420">
+                                            </td>
+                                            <td>4 0 2</td>
+                                            <td><input type="number" readonly class="frmOutput" maxLength="8" style="width: 4em;"
+                                                       name="a402">
+                                            </td>
+                                            <td>0 4 2</td>
+                                            <td><input type="number" readonly class="frmOutput" maxLength="8" style="width: 4em;"
+                                                       name="a042">
+                                            </td>
+                                        </TR>
+                                        <TR>
+                                            <td>4 3 0</td>
+                                            <td><input type="number" readonly class="frmOutput" maxLength="8" style="width: 4em;"
+                                                       name="a430">
+                                            </td>
+                                            <td>4 0 3</td>
+                                            <td><input type="number" readonly class="frmOutput" maxLength="8" style="width: 4em;"
+                                                       name="a403">
+                                            </td>
+                                            <td>0 4 3</td>
+                                            <td><input type="number" readonly class="frmOutput" maxLength="8" style="width: 4em;"
+                                                       name="a043">
+                                            </td>
+                                        </TR>
+                                        <TR>
+                                            <td>4 4 0</td>
+                                            <td><input type="number" readonly class="frmOutput" maxLength="8" style="width: 4em;"
+                                                       name="a440">
+                                            </td>
+                                            <td>4 0 4</td>
+                                            <td><input type="number" readonly class="frmOutput" maxLength="8" style="width: 4em;"
+                                                       name="a404">
+                                            </td>
+                                            <td>0 4 4</td>
+                                            <td><input type="number" readonly class="frmOutput" maxLength="8" style="width: 4em;"
+                                                       name="a044">
+                                            </td>
+                                        </TR>
+                                    </TABLE>
+                                    <br>
+                                </td>
+                            </tr>
+                        </table>
+                    <br><br>
+                        <span>
+							<center><h2 class="menu"><strong>Oblique Modes</strong></h2>
+							Involve all six surfaces - four walls, the ceiling 
+								and the floor. These are about one quarter as strong as the Axial modes, and 
+								half as strong as the tangential modes.<br></center>
+						</span>
+                    <table align="center" cellspacing="0" cellpadding="6" width="100%" class="Calctable">
+                            <tr>
+                                <td>
+                                    <TABLE cellSpacing="0" cellPadding="2" border="1" width="85%" align="center">
+                                    <tr>
+                                    	<td rowspan="4"><img src="../images/acoustics/rmoblique.jpg"></td>
+                                    </tr>                                    
+                                        <TR>
+                                            <td colspan="2">Mode - Frequency</td>
+                                            <td colspan="2">Mode - Frequency</td>
+                                            <td colspan="2">Mode - Frequency</td>
+                                            <td colspan="2">Mode - Frequency</td>
+                                        </TR>
+                                        <TR>
+                                            <td>1 1 1</td>
+                                            <td><input type="number" readonly class="frmOutput" maxLength="8" style="width: 4em;"
+                                                       name="a111">
+                                            </td>
+                                            <td>1 1 2</td>
+                                            <td><input type="number" readonly class="frmOutput" maxLength="8" style="width: 4em;"
+                                                       name="a112">
+                                            </td>
+                                            <td>1 2 1</td>
+                                            <td><input type="number" readonly class="frmOutput" maxLength="8" style="width: 4em;"
+                                                       name="a121">
+                                            </td>
+                                            <td>2 1 1</td>
+                                            <td><input type="number" readonly class="frmOutput" maxLength="8" style="width: 4em;"
+                                                       name="a211">
+                                            </td>
+                                        </TR>
+                                        <TR>
+                                            <td>2 2 2</td>
+                                            <td><input type="number" readonly class="frmOutput" maxLength="8" style="width: 4em;"
+                                                       name="a222">
+                                            </td>
+                                            <td>2 2 1</td>
+                                            <td><input type="number" readonly class="frmOutput" maxLength="8" style="width: 4em;"
+                                                       name="a221">
+                                            </td>
+                                            <td>2 1 2</td>
+                                            <td><input type="number" readonly class="frmOutput" maxLength="8" style="width: 4em;"
+                                                       name="a212">
+                                            </td>
+                                            <td>1 2 2</td>
+                                            <td><input type="number" readonly class="frmOutput" maxLength="8" style="width: 4em;"
+                                                       name="a122">
+                                            </td>
+                                        </TR>
+                                    </TABLE>
+                                    <br>
+                    </FORM>
+                    </td>
+                    </tr>
+                    </table>
+                    <br><br><br>
+                    <center>
+                        <table align="center" width="75%">
+                            <tr>
+                                <td>
+                                    Since the wavelengths at these frequencies fit exactly into the room, you'll find
+                                    much higher sound levels at the room boundaries (and particularly in the corners,
+                                    where two or more sets of modes coincide), plus a series of low and high levels
+                                    (minima and maxima) spaced between the boundaries.
+                                    <br><br>
+                                    If you're lucky, or have built the room with acoustics in mind, the three sets of
+                                    Axial modes will be smoothly spaced from the lowest room-mode frequency to several
+                                    hundred Hertz, beyond which their numerous peaks and troughs can be effectively
+                                    treated using acoustic tiles. If not, some frequencies from the different mode
+                                    series will coincide, causing even larger peaks and troughs in your frequency
+                                    response.
+                                    <br><br>
+                                    The very worst case is a cubic room, since all three mode series will be identical,
+                                    but thankfully there are published lists of preferred ratios for room dimensions
+                                    that ensure relatively smoothly spaced modes.
+                                </td>
+                            </tr>
+                        </table>
+                    </center>
+                    <br><br>
+                    <hr sze="1" width="75%">
+                    <br>
+                    <center>
+         				<br>                     
+                        <a href="javascript:history.back()" class="calcButton"><<< Back</a>
+                    </center>
+                    <br><br>
+                    </p> <!-- End Content -->
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="copyright">
+        &copy;
+        <span id="copyright">
+        <script>document.getElementById('copyright').appendChild(document.createTextNode(new Date().getFullYear()))</script>
+        &nbsp;mh-Audio.nl&nbsp;&nbsp;-&nbsp;&nbsp;<a href="../disclaimer.html"><font
+                color="#000000">Disclaimer</font></a>
+    </span>
+    </div>
+<script type="text/javascript" src="//fc.webmasterpro.de/counter.php?name=mh-audio"></script>
+<noscript><div><img src="//fc.webmasterpro.de/as_noscript.php?name=mh-audio" style="width:1px;height:1px;" alt="" /></div></noscript>
+<!-- https://fc.webmasterpro.de -->
+</body>
+</html>
