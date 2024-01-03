@@ -1,0 +1,265 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<!--
+Design by TEMPLATED
+http://templated.co
+Released for free under the Creative Commons Attribution License
+
+Name       : TailPiece 
+Description: A two-column, fixed-width design with dark color scheme.
+Version    : 1.0
+Released   : 20130902
+
+-->
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <!-- Google Analytics -->
+    <script>
+        window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+        ga('create', 'UA-77078028-1', 'auto');
+        ga('send', 'pageview');
+    </script>
+    <script async src='https://www.google-analytics.com/analytics.js'></script>
+    <!-- End Google Analytics -->
+
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>Calculate the First Sidewall Reflection and Panel Placement</title>
+ <meta name="Keywords" content="HiFi, Audio, Loudspeakers, Database, Acoustic treatment, 
+		OnlineCalculator, LoudspeakerBasics, Links, Tubes, Buizen, Music, Muziek, Musik, 
+		Lautsprechergrundlagen, Lautsprecherberechnungen, Lautsprecher-Database, 
+		Analog to digital, Vinyl, Tapes, old records vinyl on cd, Acoustic, Bass Absorber,
+		acoustic electric,acoustic foam panel,acoustic measurements,acoustic panel,boston acoustic
+		acoustic neuromas,room acoustics,acoustics,acoustic foam,speaker cable,acoustic phonetics,
+		acoustic panels,acoustic ceiling,acoustic materials,acoustic neuroma,audio acoustic,acoustic,
+		acoustic insulation,acoustic wall panels,acoustic treatment,acoustic solution,acoustic wall panel,
+		acoustic bass,acoustic baffles,diy speaker cable, Room modes,
+		acoustic software,
+		room acoustics,
+		audio acoustic,
+		acoustic foam,
+		musical acoustics">
+<meta name="Description" content="Resource for building, calculate and measuring Hi Fi Loudspeakers,DIY LoudspeakerSite, Acoustic treatment, loudspeaker calculations, hifi links, high end">
+    <link href="http://fonts.googleapis.com/css?family=Source+Sans+Pro:200,300,400,600,700,900" rel="stylesheet"/>
+    <link href="../css/default.css" rel="stylesheet" type="text/css" media="all"/>
+    <link href="../css/fonts.css" rel="stylesheet" type="text/css" media="all"/>
+    <link rel="shortcut icon" href="../favicon.ico" type="image/x-icon">
+
+    <!--[if IE 6]>
+    <link href="default_ie6.css" rel="stylesheet" type="text/css"/><![endif]-->
+
+<script LANGUAGE="JavaScript">
+function round(number,X) {
+	// rounds number to X decimal places, defaults to 3
+    	X = ( !X ? 3 : X) ;
+    	return Math.round( number * Math.pow( 10,X ) ) / Math.pow( 10,X );
+	}
+	
+function calc() {
+	var Y   = eval(document.frm.Y.value); 		// = distance to mic / 2 = x / 2
+	var X1  = eval(document.frm.X1.value); 			// = height of mic
+	var X2  = eval(document.frm.X2.value); 	// = height of speaker
+
+if ( isNaN(Y) || Y == "" || isNaN(X1) || X1 == "" || isNaN(X2) || X2 == "")
+    {
+        txtErr = "Invalid Input!";
+        document.getElementById("err3").innerHTML = txtErr;
+    }
+else
+    {	
+    txtErr = "";
+    document.getElementById("err3").innerHTML = txtErr; 	
+	// calculate D
+	// d = Y * X2 / X1 + X2
+	var d = (Y * X2) / ( X1 + X2);
+
+	document.frm.d.value = round(d,1);	
+	}
+}
+</script>
+    <script src="../js/fab.js"></script>
+</head>
+<body>
+<div id="header" class="container">
+    <div id="logo">
+        <h2>HiFi&nbsp;&nbsp;Audio&nbsp;&nbsp;Design</h2>
+    </div>
+    <br>
+    <div id="menu">
+    <center><br>
+        <ul>
+            <li><a href="javascript:history.back()" access˚key="1" title=""><-- Back</a></li>
+            <!--
+            <li><a href="Loudspeaker.html" accesskey="2" title="">Loudspeaker</a></li>
+            <li><a href="Acoustic.html" accesskey="3" title="">Acoustic</a></li> -->
+            <li><a href="../Calculator.html" accesskey="4" title="">Calculators</a></li>
+             <li><a href="../Library.html" accesskey="4" title="">Library</a></li>
+            <!--
+            <li><a href="Software.html" accesskey="6" title="">Software</a></li>
+            <li><a href="Elektronic.html" accesskey="5" title="">Electronic</a></li>
+            <li><a href="Measurement.html" accesskey="5" title="">Measurement</a></li>
+            <li class="active"><a href="Links.html" accesskey="5" title="">Links/Downloads</a></li>
+            <li><a href="EmailFormNew.asp" accesskey="5" title="">Contact</a></li> -->
+        </ul>
+        </center>
+    </div> 
+</div>
+<div id="page">
+    <div class="container">     
+        <div class="title">
+            <h2><i>Calculate the First Sidewall Reflection and Panel Placement</i></h2>
+        </div>
+        <div class="box0">
+            <div class="box margin-btm">
+                <div class="details">
+                    <p> <!-- Start Content -->
+					<table align="center" width="85%" cellspacing="0" cellpadding="2" border="0">
+					<tr>
+					<td>
+        			<!--div class="title">
+            			<h2><i>Sidewall Panel Placement</i></h2>
+        			</div-->
+        			<center>
+        				<img src="../images/acoustics/CPPHeadline.png" width="600" alt="Panel Absorber"><br>
+        			</center>
+        			<br>
+        			<div class="title"><h3><i>Would you rather hear your music… or your room?</i></h3></div>
+        			
+					The early reflected sound leaves the loudspeaker and then bounces once off the major boundaries in the room before reaching the ears 
+					of the listener. The speaker’s contribution to the early reflected sound is the frequency response at the off axis angles that 
+					represent the sound path from loudspeaker to boundary to listener. 
+					<br>The fittings and furnishings of the room at the locations of the 
+					reflections change the spectral content of this sound on its way to the listener because objects like acoustic panels, carpet, 
+					ceiling tiles are all frequency dependent absorbers. <br><br>
+					You want the soundstage in your room to faithfully reproduce the soundscape encoded in your media. This means you want to hear 
+					spatial cues coming from your speakers — not from your room!<br>
+					But early reflections from your room can overpower the spatial cues in your media. They throw off your imaging, destroy 
+					your soundstage and mask fine details like the sense of depth and width in a recording.<br><br>
+					Naturally, the character of those first reflections has a huge influence on your total sound.
+					<br>
+					This means you can shape your sound with just a few acoustic panels at your first reflection points! 
+					</td>
+					</tr>
+					<tr>
+					<td align="center">
+					<br>
+                		<img src="../images/acoustics/cpp.jpg" width="300"  alt=""/> <!-- ORG. SIZE  488PX WIDTH -->
+                	</td>
+					</tr>					
+					<tr>	
+							<td>
+								<form name="frm">
+                                        <table cellspacing="4" cellpadding="4" align="center" width="95%" border="0" class="CPPtable">
+                                        	<tr><td colspan="4" height="20"></td></tr>
+                                            <tr>
+												<td width="100"></td>
+                                                <td align="right"><strong>Y</strong>&nbsp;:</td>
+                                                <td width="100"><input class="frmInput" type="text" min="50" name="Y"
+                                                            style="width: 5em;" value="260">&nbsp;cm
+                                                </td>         
+                                                  <td>          
+                                                         (distance from your ears in the listening position to your loudspeaker)
+                                                </td>
+                                            </tr>                                            
+                                            <tr>
+												<td></td>
+                                                <td align="right"><strong>X1</strong>&nbsp;:</td>
+                                                <td><input class="frmInput" type="text" min="10" name="X1"
+                                                            style="width: 5em;" value="160">&nbsp;cm  
+                                                </td>
+                                                <td>
+                                                 (distance of the loudspeakers to the sidewall)
+                                                </td>
+                                            </tr>
+                                            <tr>
+												<td></td>
+                                                <td align="right"><strong>X2</strong>&nbsp;:</td>
+                                                <td><input class="frmInput" type="text" min="10" name="X2"
+                                                            style="width: 5em;" value="246">&nbsp;cm</td>
+                                                <td>            
+                                                    (distance of the center of your head to the sidewall)
+                                                </td>                                            
+                                            <tr><td colspan="4" height="20"></td></tr>                                                                                     
+                                            <tr>
+                                                <td colspan="4" align="center"><input class="calcButton" type="button"
+                                                                                      class="textdark" value="Calculate"
+                                                                                      onClick="calc()"></td>
+                                            </tr>
+                                            <tr>
+                                            <td colspan="4" align="center"><font color="red">&nbsp;<strong><span
+                                                    id="err3"></span></strong></font></td>
+                                        	</tr>                                       
+                                            <tr><td colspan="4" height="20"></td></tr>
+                                            <tr>
+												<td></td>
+                                                <td align="right"><strong>D</strong>&nbsp;=</td>
+                                                <td><input class="frmOutput" type="number" name="d" style="width: 5em;" readonly>&nbsp;cm </td>
+                                                <td>( the distance from the horizontal line between your ear and the wall to where you should place the center of the absorber panel. )
+                                                </td>
+                                            </tr>                                           
+                                            <tr>
+                                            <td colspan="4" height="30"></td></tr>
+                                        </table>
+                                        </form>				
+						</tr>	
+					<tr>
+					<td>
+					<br>
+							<ul>
+							<li><strong>Y</strong> is the distance from your ears in the listening position to the line your loudspeker create from side wall to side wall. This is all based on sidewall measurements with no diagonal distances.</li>
+							<li><strong>X1</strong> is the distance of the loudspeakers to the sidewall (should be equal on both sides).</li>
+							<li><strong>X2</strong> is the distance of the center of your head to the sidewall.</li>
+							<br>
+							<li><strong>D</strong> is the distance from the horizontal line between your ear and the wall to where you should place the center of the absorber panel. This places them at the optimal position so the width of the panel can absorb as many reflections as possible from both speakers.</li>
+							</ul>
+							</td>
+					</tr> 											
+					</table>
+					<br>
+                    <hr size="1" width="75%">
+					<br>
+					<center><font color="#FF0000"><i>Note that the <strong><u>ceiling reflection point</u></strong> will always be halfway between your ears and the tweeter if your tweeters are at ear height,<br> which they should be.</i></font></center>
+                    <br>                    
+					<table cellspacing="0" cellpadding="0" align="center" width="45%" border="0">
+						<tr>
+							<td align="center"><br><a href="FFR.html"class="calcButton">Calculate the First Floor Reflection</a><br><br>
+							<a href="../Acoustics.html#top" class="calcButton">Calculate Your Panel Absorber</a><br><br>
+							</td>
+							<!-- td align="center" colspan="2"><a href="FCR.html" class="calcButton">Calculate the First Ceiling Reflection and Panel Placement</a></td -->
+						</tr>
+					</table> 										
+						<br>
+                    <hr size="1" width="75%">
+                    <br><br>
+ 					<center>
+                    	<A HREF="https://www.hifizine.com/2011/12/listening-room-reflections-and-the-energy-time-curve/" TARGET="BLANK" TITLE="HiFizine.com" CLASS="calcButton">LISTENING-ROOM REFLECTIONS AND THE ENERGY-TIME CURVE</A>
+                    	<br><br>
+                    	By reading this article you should get a good understanding of how important reflections are to what we hear and how to use ETC's to<br> analyze the reflections in your room.
+                    	<br><br>
+                    	More about <a href="https://audiouniversityonline.com/comb-filtering-explained/" target="blank" class="calcButton">Comb-Filtering...</a>                    	
+                    	<br><br>  
+                    	<a href="http://arqen.com/acoustics-101/room-setup-acoustic-treatment/" target="blank" Title="Arqen.com" class="calcButton">Acoustic Treatment Setup in Your Listening Room or Studio</a>
+                    	<br><br><br>                   	        	
+                    	<hr size="1" width="75%">
+                    	<br><br>
+                        <a href="javascript:history.back()" class="calcButton"><<< Back</a>
+                    </center>
+                    <br><br>
+                    <!-- End Content  -->
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="copyright">
+        &copy;
+        <span id="copyright">
+        <script>document.getElementById('copyright').appendChild(document.createTextNode(new Date().getFullYear()))</script>
+        &nbsp;mh-Audio.nl&nbsp;&nbsp;-&nbsp;&nbsp;<a href="../disclaimer.html"><font
+                color="#000000">Disclaimer</font></a>
+    </span>
+    </div>
+<script type="text/javascript" src="//fc.webmasterpro.de/counter.php?name=mh-audio"></script>
+<noscript><div><img src="//fc.webmasterpro.de/as_noscript.php?name=mh-audio" style="width:1px;height:1px;" alt="" /></div></noscript>
+<!-- https://fc.webmasterpro.de -->
+</body>
+</html>
+
