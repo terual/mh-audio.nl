@@ -1,0 +1,461 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<!--
+Design by TEMPLATED
+http://templated.co
+Released for free under the Creative Commons Attribution License
+
+Name       : TailPiece 
+Description: A two-column, fixed-width design with dark color scheme.
+Version    : 1.0
+Released   : 20130902
+
+-->
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <!-- Google Analytics -->
+    <script>
+        window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+        ga('create', 'UA-77078028-1', 'auto');
+        ga('send', 'pageview');
+    </script>
+    <script async src='https://www.google-analytics.com/analytics.js'></script>
+    <!-- End Google Analytics -->
+
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>The Wall Behind The Loudspeaker</title>
+ <meta name="Keywords" content="HiFi, Audio, Loudspeakers, Database, Acoustic treatment, 
+		OnlineCalculator, LoudspeakerBasics, Links, Tubes, Buizen, Music, Muziek, Musik, 
+		Lautsprechergrundlagen, Lautsprecherberechnungen, Lautsprecher-Database, 
+		Analog to digital, Vinyl, Tapes, old records vinyl on cd, Acoustic, Bass Absorber,
+		acoustic electric,acoustic foam panel,acoustic measurements,acoustic panel,boston acoustic
+		acoustic neuromas,room acoustics,acoustics,acoustic foam,speaker cable,acoustic phonetics,
+		acoustic panels,acoustic ceiling,acoustic materials,acoustic neuroma,audio acoustic,acoustic,
+		acoustic insulation,acoustic wall panels,acoustic treatment,acoustic solution,acoustic wall panel,
+		acoustic bass,acoustic baffles,diy speaker cable, Room modes,
+		acoustic software,
+		room acoustics,
+		audio acoustic,
+		acoustic foam,
+		musical acoustics">
+<meta name="Description" content="Resource for building, calculate and measuring Hi Fi Loudspeakers,DIY LoudspeakerSite, Acoustic treatment, loudspeaker calculations, hifi links, high end">
+    <link href="http://fonts.googleapis.com/css?family=Source+Sans+Pro:200,300,400,600,700,900" rel="stylesheet"/>
+    <link rel="shortcut icon" href="../favicon.ico" type="image/x-icon">   
+    <link href="css/default.css" rel="stylesheet" type="text/css" media="all"/>
+    <link href="css/fonts.css" rel="stylesheet" type="text/css" media="all"/>
+
+    <!--[if IE 6]>
+    <link href="default_ie6.css" rel="stylesheet" type="text/css"/><![endif]-->
+    <script src="../js/fab.js"></script>
+
+    <script>
+//This script is subject to copyright law.
+//This script may not be copied or used in any way without permission
+//from mhSoft, Amsterdam (The Netherlands).
+//
+//Copyright 2001 mhSoft
+//berechne Quarter wavelength, min. Distance
+function Roundoff(Value)
+	{
+	Value = Math.round(Value);
+	strValue = " " + Value;
+	len = strValue.length;
+	return strValue.substring(0, len -3) + "." + strValue.substring(len -3, len); 
+	}
+	
+function round(number,X) {
+// rounds number to X decimal places, defaults to 3
+    X = (!X ? 3 : X);
+    return Math.round(number*Math.pow(10,X))/Math.pow(10,X);
+}
+	
+function QuarterWavelength()
+{
+var d = 0;
+var txtErr = ""
+	d = document.frm1.d.value;
+	if ( isNaN(d) || d == "")
+	{
+        txtErr = "Invalid Input!";
+        document.getElementById("err1").innerHTML = txtErr;
+	}
+	else
+	{
+        txtErr = "";
+        document.getElementById("err1").innerHTML = txtErr;
+	    document.frm1.Quarterfc.value	= round( ((1.4*343/(4 * d))),2);
+	    document.frm1.Halffc.value		= round( ((1.4*343/(4 * d)) / 2), 2) ;
+	}
+}
+
+function MinimumDistance()
+{
+var f3 = 0;
+var txtErr = "";
+	f3 = document.frm2.f3.value;
+	if ( isNaN(f3) || f3 == "" )
+	{
+	 txtErr = "Invalid Input!";
+	 document.getElementById("err2").innerHTML = txtErr;
+	}
+	else
+	{
+        txtErr = "";
+        document.getElementById("err2").innerHTML = txtErr;
+	    document.frm2.dmin.value = round( ((1.4 * 343 /( 4 * f3))), 2);
+	}
+}
+
+function calc()
+{
+var txtErr = "";
+var dString = document.form.d.value;
+var h1String = document.form.hOne.value;
+var h2String = document.form.hTwo.value;
+var d = parseFloat(dString);
+var h1 = parseFloat(h1String);
+var h2 = parseFloat(h2String);
+
+if ( isNaN(d) || d == "" || isNaN(h1) || h1 == "" || isNaN(h2) || h2 == "" )
+    {
+        txtErr = "Invalid Input!";
+        document.getElementById("err3").innerHTML = txtErr;
+    }
+else
+    {
+        txtErr = "";
+        document.getElementById("err3").innerHTML = txtErr;
+        
+        var v = (h2/h1);
+        var bb = (v*d)/(v+1);
+        var cc = Math.sqrt((Math.pow(h2,2))+(Math.pow(bb,2)));
+        var b = d-bb;
+        var c = Math.sqrt((Math.pow(h1,2))+(Math.pow(b,2)));
+        var d1 = Math.sqrt((Math.pow((h2-h1),2))+(Math.pow(d,2)));
+        var x = (c+cc)-d1;
+        var ms = ((x / 100) / 343.2) * 1000;
+        var f = 180/(360*(x/34320));
+        var roundedms = Math.round(ms*Math.pow(10,2))/Math.pow(10,3);	// milliseconds
+        var roundedf = Math.round(f*Math.pow(10,2))/Math.pow(10,2);		// frequency
+
+        document.form.outputms.value=roundedms * 10;
+        document.form.output.value=roundedf;
+    }
+}
+
+// Bron: http://www.genelec.com 
+
+
+    </script>
+</head>
+<body>
+<div id="header" class="container">
+    <div id="logo">
+        <h2>HiFi&nbsp;&nbsp;Audio&nbsp;&nbsp;Design</h2>
+    </div>
+    <br>
+    <div id="menu">
+        <ul>
+            <li><a href="../index.html" accesskey="1" title="">Home</a></li>
+            <li><a href="../loudspeaker.html" accesskey="2" title="">Loudspeaker</a></li>
+            <li><a href="../acoustic.html" accesskey="3" title="">Acoustic</a></li>
+            <li class="active"><a href="../calculator.html" accesskey="4" title="">Calculators</a></li>
+            <li><a href="../library.html" accesskey="7" title="">Library</a></li>
+            
+            <!-->
+            <li><a href="../Software.html" accesskey="6" title="">Soft & Hardware</a></li>
+            <li><a href="../Elektronic.html" accesskey="5" title="">Electronic</a></li>
+            <li><a href="../Measurement.html" accesskey="5" title="">Measurement</a></li>
+            <li><a href="../Links.html" accesskey="5" title="">Links/Downloads</a></li>
+            <li><a href="../EmailFormNew.asp" accesskey="5" title="">Contact</a></li>
+            -->
+        </ul>
+    </div>
+</div>
+<button onclick="topFunction()" id="myBtn" title="Go To Top">⬆</button>
+<button id="myBtnDown" onclick="scrollWin()" title="Scroll Down">⬇</button>
+<div id="page">
+    <div class="container">     
+        <div class="title">
+            <br><h1><i>The Wall Behind The Loudspeaker</i></h1>
+        </div>
+        <div class="box0">
+            <div class="box margin-btm">
+                <center>
+                    <br><img src="images/acoustics/cancellation_frequency.jpg" width="600">
+                </center>
+                <div class="details">
+                    <p> <!-- Start Content -->
+
+                    <table border="0" cellspacing="0" cellpadding="0" align="center" width="75%">
+                        <tr>
+                            <td>
+                                <br>A critical factor in the bass response
+                                of a speaker in a room is the distance of nearby walls (or boundaries) from the
+                                speaker. The wall behind the speaker reflects the omnidirectional low frequency
+                                sound energy back towards the listening position.<br>
+                                <br>
+                                <center><img SRC="images/Acoustics/cancellation_frequency.gif" border="0" WIDTH="300"
+                                             HEIGHT="258"></center>
+                                <br>
+
+                                When the total distance travelled by this reflected sound is half a wavelength
+                                it destructively interferes with the direct sound causing a notch to appear in
+                                the bass region of the sapeaker. This notch will be typically about
+                                2/3<sup>rd</sup> octave wide and cause a significant decrease of the total bass
+                                energy in the room. You must check that the speaker is not at a distance from
+                                the wall behind it that will cause this cancellation notch to appear in the
+                                frequency range that the speaker can reproduce. For example, if a speaker is
+                                placed so that the front of it is 86cm from the wall behind it the cancellation
+                                frequency will be approximately 100Hz.
+                                <br><br>
+                                <center><img SRC="images/Acoustics/Reflections.gif" border="0" WIDTH="470"
+                                             HEIGHT="336"><br></center>
+                            </td>
+                        </tr>
+                    </table>
+                    <br>
+                    </center>
+                    <br>
+                    <form name="frm1" method="post" action>
+                        <table border="0" cellspacing="0" cellpadding="2" align="center" width="100%">
+                            <tr>
+                                <td align="center"><h2><i>Quarter / Half Wavelength Cancellation
+                                    Frequency</i></h2><br>
+                                    <table border="0" cellspacing="0" cellpadding="2" align="center" width="75%"
+                                           class="Calctable">
+                                        <tr><td colspan="2" height="10"><!-- spacer --></td></tr>
+                                        <tr>
+                                            <td align="right">The distance from speakerfront to the wall
+                                                behind it:
+                                            </td>
+                                            <td colspan="2"><input type="number" step="0.01" class="frmInput" name="d"
+                                                                   style="width: 6em;">&nbsp;meter
+                                                <font color="red">&nbsp;<span id="err1"></span></font>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td></td>
+                                            <td cospan=2><input name="calc" class="calcButton" type="button"
+                                                                value=" Calculate Cancellation Frequency "
+                                                                onClick="QuarterWavelength();" id="button1">
+                                        </tr>
+                                        <tr>
+                                            <td colspan="3">&nbsp;</td>
+                                        </tr>
+                                        <tr>
+                                            <td align="right">Quarter Wavelength Cancellation Frequency =
+                                            </td>
+                                            <td><input type="number" class="frmOutput" name="Quarterfc"
+                                                                    style="width: 6em;" readonly>&nbsp;Hz
+                                            </td>
+                                            <td></td>
+                                        </tr>
+                                        <tr>
+                                            <td align="right">Half Wavelength Cancellation Frequency =</td>
+                                            <td><input type="number" class="frmOutput" name="Halffc"
+                                                                    style="width: 6em;" readonly>&nbsp;Hz
+                                            </td>
+                                            <td></td>
+                                        </tr>
+                                        <tr><td colspan="3" height="10"><!-- spacer --></td></tr>
+                                    </table>
+                                </td>
+                            </tr>
+                        </table>
+                    </form>
+                    <br><br>
+                    <form name="frm2" method="post" action>
+                        <table border="0" cellspacing="0" cellpadding="0" align="center" width="75%">
+                            <tr>
+                                <td>
+                                    <br><br>
+                                    <center><h2><i>Minimum distance of the speaker to the wall with a given Frequency (
+                                        f
+                                        <sub>-3dB</sub> )</i></h2></center>
+                                    <br>
+                                    <table border="0" cellspacing="0" cellpadding="2" align="center" width="75%"
+                                           class="Calctable">
+                                        <tr><td colspan="3" height="10"><!-- spacer --></td></tr>
+                                        <tr>
+                                            <td align="right">f <sub>-3dB</sub></td>
+                                            <td><input type="number" step="0.1" class="frmInput" name="f3"
+                                                                    style="width: 6em;">Hz
+                                                <font color="red">&nbsp;<span id="err2"></span></font>
+                                            </td>
+                                            <td align="left"><input name="calc2" class="calcButton"
+                                                                                 type="button"
+                                                                                 value="Calculate minimum distance"
+                                                                                 onClick="MinimumDistance();"
+                                                                                 id="button2">
+                                        </tr>
+                                        <tr>
+                                            <td colspan="3">&nbsp;</td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="3">Minimum distance of the speaker to the wall =
+                                                <input type="number" class="frmOutput" name="dmin" style="width: 6em;">
+                                                meter
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="3" height="10">&nbsp;</td>
+                                        </tr>                                        
+                                    </table>
+                                    <br>
+                                </td>
+                            </tr>
+                        </table>
+                    </form>
+
+                    <br><br>
+                    <!-- <strong>Half wavelength cancellation frequency</strong> -->
+                    <center>
+                        <table border="0" cellspacing="0" cellpadding="2" align="center" width="75%">
+                            <tr>
+                                <td>There are two different ways to solve this problem. It will depend on
+                                    the room
+                                    as to which one is most suitable and can be used:
+                                    <ul>
+                                        <li>The speaker should be moved as close to the wall behind it as possible so
+                                            that cancellation frequency is very high. At these higher frequencies the
+                                            speaker has far less omni-directional energy so the cancellation effects are
+                                            greatly reduced. One side effect of this method is that the bass tilt should
+                                            be
+                                            set correctly to compensate for the additional loading presented to the bass
+                                            driver by the wall. One final tweak to minimise any remaining cancellation
+                                            effect is to pack any remaining space between the speaker and the wall with
+                                            absorbing material such as rock wool. <br><br>
+                                        <li>The speaker should be moved further away from the wall behind it so that the
+                                            cancellation frequency is well below the low cut off frequency of the
+                                            speaker.
+                                            In practice this is not always possible, as the room may not be large enough
+                                            especially for speakers with a deep low cut-off frequency.
+                                        </li>
+                                    </ul>
+                                </td>
+                            </tr>
+                        </table>
+                        <br><br>
+                        <table border="0" cellspacing="0" cellpadding="2" align="center" width="75%">
+                            <tr>
+                                <td><h2><i>Reflections of other boundaries</i></h2>
+                                	<br>Other sources
+                                    of bass
+                                    cancellation are from reflections off the floor, ceiling, side walls and
+                                    rear wall. The cancellation is still based on half wavelength cancellation of
+                                    the path difference but, as the sound does not travel back on itself, a slightly
+                                    different formula is required. In fact this is the general equation for
+                                    cancellation frequencies and can also be use for desk reflections that occur in
+                                    the mid frequency range.
+                                </td>
+                            </tr>
+                            
+                            <!-- tr>
+                            <td>
+                                <br><br>
+                                <center>
+                                    <h2><i>Floor / Ceiling Reflection Calculator</i></h2>
+                                    <br></center>
+                                <form name="form" onSubmit="calc(); return false">
+                                    <table border="0" cellspacing="0" cellpadding="2" align="center" width=75%"
+                                           class="Calctable">
+										<tr><td colspan="2" height="10"></tr>
+                                        <tr>
+                                            <td align="right">Driver distance from floor (h1) : </td>
+                                            <td><input type="number" step="0.1" class="frmInput" name="hOne"
+                                                       value="100" style="width: 6em;""> cm
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td align="right">Ear height (h2) : </td>
+                                            <td><input type="number" step="0.1" class="frmInput" name="hTwo" value="95"
+                                                       style="width: 6em;""> cm
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td align="right">Ear distance to driver (d) : </td>
+                                            <td><input type="number" step="0.1" class="frmInput" name="d" value="250"
+                                                       style="width: 6em;""> cm
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="2" align="center"><font color="red">&nbsp;<span
+                                                    id="err3"></span></font></td>
+                                        </tr>
+                                        <tr>
+                                            <td>&nbsp;</td>
+                                            <td><input type="submit" class="calcButton" name="calculate"
+                                                       value=" Calculate Reflection"></td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="2">&nbsp;</td>
+                                        </tr>
+                                        <tr>
+                                            <td valign="top" align="right">Reflection arrives</td>
+                                            <td><input type="number" class="frmOutput" name="outputms" readonly
+                                                       style="width: 6em;">
+                                                ms after direct sound
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td align="right">First cancellation occurs at</td>
+                                            <td><input type="number" class="frmOutput" name="output" readonly style="width: 6em;">
+                                                Hz
+                                            </td>
+                                        </tr>
+                                        <tr><td colspan="2" height="10"></td></tr>
+                                    </table>
+                                </form>
+                            </td>
+                            </tr -->
+                            <tr>
+                            	<td align="center"><br><a href="ChooseFirstReflection.html" class="calcButton">Calculate First (early) Reflections</a></td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <p class="break">&nbsp;</p><h2><i>Solution</i></h2>
+                                    <br>There are some differentways to solve these reflection problems <br>
+                                    <ul>
+                                        <li>Change the room shape so that the reflections are not directed towards the
+                                            listening position. This is not always possible for physical and financial
+                                            reasons.
+                                        <li>Ensure that the wall behind the listening position (rear wall) is more that
+                                            3m away from the listening position to avoid low frequency cancellation
+                                            problems. This is often a problem in rooms that are less than 5m in length.
+                                        <li>Add absorbing materials to reduce the level of the reflected sound. Although
+                                            generally a cheaper solution this has the disadvantage that the
+                                            reverberation
+                                            time, T<sub>60</sub>, can be adversely affected.
+                                        </li>
+                                    </ul>
+                                </td>
+                            </tr>
+                        </table>
+                        <br><br>
+                        Source: <a href="http://www.genelec.com" target="_new"
+                                   class="calcButton">http://www.genelec.com</a>
+                    </center>
+                    <br><br>
+                    <hr size="1" width="75%">
+                    <br>
+                    <center>
+         				<br>                     
+                        <a href="javascript:history.back()" class="calcButton"><<< Back</a>
+                    </center>
+                    <br><br>
+                    </p> <!-- End Content -->
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="copyright">
+        &copy;
+        <span id="copyright">
+        <script>document.getElementById('copyright').appendChild(document.createTextNode(new Date().getFullYear()))</script>
+        &nbsp;mh-Audio.nl&nbsp;&nbsp;-&nbsp;&nbsp;<a href="../disclaimer.html"><font
+                color="#000000">Disclaimer</font></a>
+    </span>
+    </div>
+</body>
+</HTML>
