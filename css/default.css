@@ -1337,7 +1337,7 @@ border:0!important}
 
 	#menu
 	{
-		position: absolute;
+		/*  position: absolute;  */
 		float: center;
 		top: 8.0em;			
 		font-size: 13pt;
