@@ -30,8 +30,9 @@
 	{
 		margin: 0px;
 		padding: 0px;
-		/* background: #4C4532; */
-		background: #3e3728;
+		/*  background: #4C4532; 
+		 background: #3e3728; */
+		backgrounf: #9D9D9D;
 		line-height: 1.75em;
 		font-family: 'Verdana', sans-serif;
 		font-size: 10pt;
