@@ -30,15 +30,13 @@
 	{
 		margin: 0px;
 		padding: 0px;
-		/*  background: #4C4532; */
-		 background: #3e3728; 
-		backgrounf: #9D9D9D;
+		/* background: #4C4532; */
+		background: #3e3728;
 		line-height: 1.75em;
 		font-family: 'Verdana', sans-serif;
 		font-size: 10pt;
 		font-weight: 100;
-		/* color: #efefef; */
-		color: #000;
+		color: #000000;		
 	}
 	
 	h1, h2, h3
@@ -88,7 +86,6 @@
 		overflow: hidden;
 		margin: 0em auto;
 		width: 1050px;
-		/* color: #d4d4d4; */
 	}
 
 	.LEDtekst 
@@ -248,7 +245,7 @@ border : 3px ridge lime;
    border: none;
    outline: none;
    /*background-color: #f9a415;*/
-   color: #fff;
+   color: #f00;
    
    cursor: pointer;
    padding-top: 3px;
@@ -285,7 +282,7 @@ border : 3px ridge lime;
    border: none;
    outline: none;
    /*background-color: #f9a415;*/
-   color: #fff;
+   color: #f00;
    
    cursor: pointer;
    padding-top: 3px;
@@ -312,9 +309,9 @@ border : 3px ridge lime;
 	animation:blinkingText 2s infinite;
 }
 @keyframes blinkingText{
-	0%{		color: #000;	}
+	0%{		color: #F00;	}
 	20%{	color: transparent;	}
-	100%{	color: #Fff;	}
+	100%{	color: #F00;	}
 }
 
 
@@ -753,9 +750,7 @@ box-shadow: inset -5px -5px 5px #888;			/* Opera 10.5, IE 9, Firefox 4+, Chrome 
 		text-align: center;
 		font-weight: 700;
 		font-size: 2.5em;
-		/*  color: #e4e4e4;  
-		color: #383326;*/
-		color: #e4e4e4;
+		color: #383326;
 		text-shadow: 3px 4px 6px #444444;
 		letter-spacing: 3px;
 		line-height: 1.6;
@@ -769,8 +764,7 @@ box-shadow: inset -5px -5px 5px #888;			/* Opera 10.5, IE 9, Firefox 4+, Chrome 
 		text-align: center;
 		font-weight: 700;
 		font-size: 2em;
-		/* color: #383326; */
-		color: #e4e4e4;
+		color: #383326;
 		text-shadow: 3px 4px 6px #444444;
 		letter-spacing: 3px;
 		line-height: 1.6;
@@ -783,9 +777,8 @@ box-shadow: inset -5px -5px 5px #888;			/* Opera 10.5, IE 9, Firefox 4+, Chrome 
 		text-align: center;
 		font-weight: 700;
 		font-size: 1.1em;
-		/*color: #383326;
-		color: #111111;*/
-		color: #e4e4e4;
+		/*color: #383326;*/
+		color: #111111;
 		text-shadow: 1px 1px 2px #232323;
 		letter-spacing: 3px;
 		line-height: 1.6;
@@ -1275,11 +1268,6 @@ border:0!important}
 		width: 940px;
 	}
 
-	.box0 
-	{
-		/* background-color: #000; */
-	}
-
 	#wrapper
 	{
 	}
@@ -1349,17 +1337,15 @@ border:0!important}
 
 	#menu
 	{
-		/*  position: absolute;  */
+		/* position: absolute; */
 		float: center;
 		top: 8.0em;			
-		font-size: 13pt;
-		text-align: center;
+		font-size: 11pt;
 	}
 	
 	#menu ul
 	{
 		display: inline-block;
-		text-align: center;
 	}
 	
 	#menu li
@@ -1373,18 +1359,15 @@ border:0!important}
 	{
 		padding: 0.4em 0.8em;
 		text-decoration: none;
-		/* font-weight: bold; */
-		text-align: center;
+		font-weight: bold;
 		color: rgba(255,255,255,1.1);
-		/* text-shadow: 2px 2px 2px #ddd; */
+		text-shadow: 4px 4px 4px #eee;
 	}
 	
 	#menu li:hover a, #menu li.active a, #menu li.active span
 	{
 		border-radius: 20px;
-		text-align: center;
-		/* color: rgba(254,210,9,0.99); */
-		color:	lightblue;
+		color: rgba(254,210,9,0.99);
 	}
 	
 	#menu .current_page_item a
@@ -1413,9 +1396,8 @@ border:0!important}
 	{
 		overflow: hidden;
 		padding: 0em 0em;
-		/*  background: #D7D4C3;  
-		background: #e6e6e6; */
-
+		/*  background: #D7D4C3;  */
+		background: #e6e6e6; 
 	}
 
 /*********************************************************************************/
@@ -1465,7 +1447,7 @@ div.nav ul li {
         margin:0px 0px 0px 0px;
         padding:5px 0px 0px 0px;
         border:1px solid #999;
-        background-color:#efefef;
+        background-color:#fff;
         cursor:hand;
         cursor:pointer;
         text-align:center;
@@ -1478,7 +1460,7 @@ div.tabs {
         float:left;
         width:593px;
         height:185px;
-        background-color:#F00;
+        background-color:#FFF;
         border:1px solid #999;
 }
 div.tabs div {
@@ -1530,7 +1512,7 @@ div.tabs div {
 	.box
 	{
 		/*  background: #F0EFE9;  */
-		background: #F00;
+		background: #FFF;
 		margin-bottom: 1em;
 	}
 	
@@ -1602,7 +1584,7 @@ table#LinkTable {
   .exampleContainer
     {
         display: inline-block;
-       /* background-color: Red; */
+        background-color: Red;
         border-radius: 5px;
         margin-left: 12px;
     }
