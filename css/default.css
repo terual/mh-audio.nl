@@ -1462,7 +1462,7 @@ div.nav ul li {
         margin:0px 0px 0px 0px;
         padding:5px 0px 0px 0px;
         border:1px solid #999;
-        background-color:#fff;
+        background-color:#f00;
         cursor:hand;
         cursor:pointer;
         text-align:center;
@@ -1475,7 +1475,7 @@ div.tabs {
         float:left;
         width:593px;
         height:185px;
-        background-color:#FFF;
+        background-color:#F00;
         border:1px solid #999;
 }
 div.tabs div {
@@ -1527,7 +1527,7 @@ div.tabs div {
 	.box
 	{
 		/*  background: #F0EFE9;  */
-		background: #FFF;
+		background: #F00;
 		margin-bottom: 1em;
 	}
 	
