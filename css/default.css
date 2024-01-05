@@ -88,7 +88,7 @@
 		overflow: hidden;
 		margin: 0em auto;
 		width: 1050px;
-		color: #d4d4d4;
+		/* color: #d4d4d4; */
 	}
 
 	.LEDtekst 
@@ -755,7 +755,7 @@ box-shadow: inset -5px -5px 5px #888;			/* Opera 10.5, IE 9, Firefox 4+, Chrome 
 		font-size: 2.5em;
 		/*  color: #e4e4e4;  
 		color: #383326;*/
-		color: # ff0000;
+		color: #e4e4e4;
 		text-shadow: 3px 4px 6px #444444;
 		letter-spacing: 3px;
 		line-height: 1.6;
@@ -770,7 +770,7 @@ box-shadow: inset -5px -5px 5px #888;			/* Opera 10.5, IE 9, Firefox 4+, Chrome 
 		font-weight: 700;
 		font-size: 2em;
 		/* color: #383326; */
-		color: #FF0000;
+		color: #e4e4e4;
 		text-shadow: 3px 4px 6px #444444;
 		letter-spacing: 3px;
 		line-height: 1.6;
@@ -785,7 +785,7 @@ box-shadow: inset -5px -5px 5px #888;			/* Opera 10.5, IE 9, Firefox 4+, Chrome 
 		font-size: 1.1em;
 		/*color: #383326;
 		color: #111111;*/
-		color: #ff0000;
+		color: #e4e4e4;
 		text-shadow: 1px 1px 2px #232323;
 		letter-spacing: 3px;
 		line-height: 1.6;
