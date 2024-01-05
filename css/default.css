@@ -248,7 +248,7 @@ border : 3px ridge lime;
    border: none;
    outline: none;
    /*background-color: #f9a415;*/
-   color: #f00;
+   color: #fff;
    
    cursor: pointer;
    padding-top: 3px;
@@ -285,7 +285,7 @@ border : 3px ridge lime;
    border: none;
    outline: none;
    /*background-color: #f9a415;*/
-   color: #f00;
+   color: #fff;
    
    cursor: pointer;
    padding-top: 3px;
@@ -312,9 +312,9 @@ border : 3px ridge lime;
 	animation:blinkingText 2s infinite;
 }
 @keyframes blinkingText{
-	0%{		color: #F00;	}
+	0%{		color: #000;	}
 	20%{	color: transparent;	}
-	100%{	color: #F00;	}
+	100%{	color: #Fff;	}
 }
 
 
@@ -753,8 +753,9 @@ box-shadow: inset -5px -5px 5px #888;			/* Opera 10.5, IE 9, Firefox 4+, Chrome 
 		text-align: center;
 		font-weight: 700;
 		font-size: 2.5em;
-		/*  color: #e4e4e4;  */
-		color: #383326;
+		/*  color: #e4e4e4;  
+		color: #383326;*/
+		color: # efefef;
 		text-shadow: 3px 4px 6px #444444;
 		letter-spacing: 3px;
 		line-height: 1.6;
@@ -768,7 +769,8 @@ box-shadow: inset -5px -5px 5px #888;			/* Opera 10.5, IE 9, Firefox 4+, Chrome 
 		text-align: center;
 		font-weight: 700;
 		font-size: 2em;
-		color: #383326;
+		/* color: #383326; */
+		color: #efefef;
 		text-shadow: 3px 4px 6px #444444;
 		letter-spacing: 3px;
 		line-height: 1.6;
@@ -781,8 +783,9 @@ box-shadow: inset -5px -5px 5px #888;			/* Opera 10.5, IE 9, Firefox 4+, Chrome 
 		text-align: center;
 		font-weight: 700;
 		font-size: 1.1em;
-		/*color: #383326;*/
-		color: #111111;
+		/*color: #383326;
+		color: #111111;*/
+		color: #efefef;
 		text-shadow: 1px 1px 2px #232323;
 		letter-spacing: 3px;
 		line-height: 1.6;
