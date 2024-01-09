@@ -1367,7 +1367,7 @@ border:0!important}
 	#menu li:hover a, #menu li.active a, #menu li.active span
 	{
 		border-radius: 20px;
-		color: rgba(254,210,9,0.99);
+		color: rgba(255,180,9,0.99);
 	}
 	
 	#menu .current_page_item a
