@@ -1360,14 +1360,14 @@ border:0!important}
 		padding: 0.4em 0.8em;
 		text-decoration: none;
 		font-weight: bold;
-		color: rgba(255,255,255,1.1);
+		color: rgba(255,255,255,1.0);
 		text-shadow: 4px 4px 4px #eee;
 	}
 	
 	#menu li:hover a, #menu li.active a, #menu li.active span
 	{
 		border-radius: 20px;
-		color: rgba(255,180,9,0.99);
+		color: #00FFFF;
 	}
 	
 	#menu .current_page_item a
