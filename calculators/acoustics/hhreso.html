@@ -1,0 +1,814 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>Calculate Helmholtz - Resonator</title>
+ <meta name="Keywords" content="HiFi, Audio, Loudspeakers, Database, Acoustic treatment, 
+		OnlineCalculator, LoudspeakerBasics, Links, Tubes, Buizen, Music, Muziek, Musik, 
+		Lautsprechergrundlagen, Lautsprecherberechnungen, Lautsprecher-Database, 
+		Analog to digital, Vinyl, Tapes, old records vinyl on cd, Acoustic, Bass Absorber,
+		acoustic electric,acoustic foam panel,acoustic measurements,acoustic panel,boston acoustic
+		acoustic neuromas,room acoustics,acoustics,acoustic foam,speaker cable,acoustic phonetics,
+		acoustic panels,acoustic ceiling,acoustic materials,acoustic neuroma,audio acoustic,acoustic,
+		acoustic insulation,acoustic wall panels,acoustic treatment,acoustic solution,acoustic wall panel,
+		acoustic bass,acoustic baffles,diy speaker cable, Room modes,
+		acoustic software,
+		room acoustics,
+		audio acoustic,
+		acoustic foam,
+		musical acoustics">
+<meta name="Description" content="Resource for building, calculate and measuring Hi Fi Loudspeakers,DIY LoudspeakerSite, Acoustic treatment, loudspeaker calculations, hifi links, high end">
+    <link href="http://fonts.googleapis.com/css?family=Source+Sans+Pro:200,300,400,600,700,900" rel="stylesheet"/>
+    <link href="../../css/default.css" rel="stylesheet" type="text/css" media="all"/>
+    <link href="../../css/fonts.css" rel="stylesheet" type="text/css" media="all"/>
+    <link rel="shortcut icon" href="../favicon.ico" type="image/x-icon">
+
+    <!--[if IE 6]>
+    <link href="default_ie6.css" rel="stylesheet" type="text/css"/><![endif]-->
+    <script src="../js/fab.js"></script>
+
+    <script language="javascript">
+<!--
+function round(number,X) {
+// rounds number to X decimal places, defaults to 3
+    X = (!X ? 3 : X);
+    return Math.round(number*Math.pow(10,X))/Math.pow(10,X);
+}
+
+function calc() //Calculate effective depth of port
+{
+
+ var d	= document.frmHA.d.value  * 10;
+ var d1 = document.frmHA.d1.value * 10;
+ var d2 = document.frmHA.d2.value * 10;
+ var d3 = document.frmHA.d3.value * 10;
+
+ var f	= document.frmHA.f.value;
+ var f1 = document.frmHA.f1.value;
+ var f2 = document.frmHA.f2.value;
+ var f3 = document.frmHA.f3.value;
+
+ var v	= document.frmHA.v.value;
+ var v1 = document.frmHA.v1.value;
+ var v2 = document.frmHA.v2.value;
+ var v3	= document.frmHA.v3.value;
+
+ var l	= ((237 * d * d) / (f * f * v))-0.08 * d
+ var l	= round(l,2);
+ var l1 = ((237 * d1 * d1) / (f1 * f1 * v1))-0.08 * d1
+ var l1 = round(l1,2);
+ var l2 = ((237 * d2 * d2) / (f2 * f2 * v2))-0.08 * d2
+ var l2 = round(l2,2);
+ var l3 = ((237 * d3 * d3) / (f3 * f3 * v3))-0.08 * d3
+ var l3 = round(l3,2);
+ 
+ 
+ document.frmHA.l.value		= l;
+ document.frmHA.l1.value	= l1;
+ document.frmHA.l2.value	= l2;
+ document.frmHA.l3.value	= l3;
+ 
+ document.frmHA.a.value		= round(((d/10)/2 * (d/10)/2)*3.14159, 2);
+ document.frmHA.a1.value	= round(((d1/10)/2 * (d1/10)/2)*3.14159, 2);
+ document.frmHA.a2.value	= round(((d2/10)/2 * (d2/10)/2)*3.14159, 2);
+ document.frmHA.a3.value	= round(((d3/10)/2 * (d3/10)/2)*3.14159, 2);
+}
+
+function sg()//Calculate standing waves for one dimension
+{
+	L=document.frm.L.value;
+	W=document.frm.W.value; 
+	H=document.frm.H.value;
+
+// axilaal length 171 = 344/2
+	F = 171 * 1/L
+	F2 = 171 * 1/W
+	F3 = 172 * 1/H
+	document.frm.sgaL1.value=round(F,2);
+	document.frm.sgaW1.value=round(F2,2);
+	document.frm.sgaH1.value=round(F3,2);
+
+
+	F = 172 * 2/L
+	F2 = 172 * 2/W
+	F3 = 172 * 2/H
+	document.frm.sgaL2.value=round(F,2);
+	document.frm.sgaW2.value=round(F2,2);
+	document.frm.sgaH2.value=round(F3,2);
+
+	F = 172 * 3/L
+	F2 = 172 * 3/W
+	F3 = 172 * 3/H
+	document.frm.sgaL3.value=round(F,2);
+	document.frm.sgaW3.value=round(F2,2);
+	document.frm.sgaH3.value=round(F3,2);
+
+	F = 172 * 4/L 
+	F2 = 172 * 4/W 
+	F3 = 172 * 4/H 
+	document.frm.sgaL4.value=round(F,2);
+	document.frm.sgaW4.value=round(F2,2);
+	document.frm.sgaH4.value=round(F3,2);
+}
+
+function res1()  //Calculate standing waves 
+{
+  // f = c/2 * sqrt( (l/lx)^2 + (m/mx)^2 + (n/nx)^2 ), mit l,m,n = 0,1,2...
+  var h = document.frm1.h.value;
+  var b = document.frm1.b.value;
+  var t = document.frm1.t.value;
+	 
+  document.frm1.r1_h.value = round((0.5 * 344 * Math.sqrt(1 / (h * h))), 2);
+  document.frm1.r1_b.value = round((0.5 * 344 * Math.sqrt(1 / (b * b))), 2);
+  document.frm1.r1_t.value = round((0.5 * 344 * Math.sqrt(1 / (t * t))), 2);
+
+  document.frm1.r2_h.value = round((0.5 * 344 * Math.sqrt(4 / (h * h))), 2);
+  document.frm1.r2_b.value = round((0.5 * 344 * Math.sqrt(4 / (b * b))), 2);
+  document.frm1.r2_t.value = round((0.5 * 344 * Math.sqrt(4 / (t * t))), 2);
+
+  document.frm1.r1_hb.value = round((0.5 * 344 * Math.sqrt((1/(h*h))+(1/(b*b)))), 2);
+  document.frm1.r1_bt.value = round((0.5 * 344 * Math.sqrt((1/(b*b))+(1/(t*t)))), 2);
+  document.frm1.r1_th.value = round((0.5 * 344 * Math.sqrt((1/(t*t))+(1/(h*h)))), 2);
+
+  document.frm1.r2a_hb.value = round((0.5 * 344 * Math.sqrt((4/(h*h))+(1/(b*b)))), 2);
+  document.frm1.r2a_bt.value = round((0.5 * 344 * Math.sqrt((4/(b*b))+(1/(t*t)))), 2);
+  document.frm1.r2a_th.value = round((0.5 * 344 * Math.sqrt((4/(t*t))+(1/(h*h)))), 2);
+
+  document.frm1.r2b_hb.value = round((0.5 * 344 * Math.sqrt((1/(h*h))+(4/(b*b)))), 2);
+  document.frm1.r2b_bt.value = round((0.5 * 344 * Math.sqrt((1/(b*b))+(4/(t*t)))), 2);
+  document.frm1.r2b_th.value = round((0.5 * 344 * Math.sqrt((1/(t*t))+(4/(h*h)))), 2);
+  
+  
+ document.frmHA.f2.value	= round((0.5 * 344 * Math.sqrt(1 / (h * h))), 2);
+ document.frmHA.f1.value	= round((0.5 * 344 * Math.sqrt(1 / (b * b))), 2)
+ document.frmHA.f.value		= round((0.5 * 344 * Math.sqrt(1 / (t * t))), 2);
+}
+
+function res() {
+
+     var vol_l = eval(document.hreso.h.value) * eval(document.hreso.b.value) * eval(document.hreso.t.value) / 1000;
+     document.hreso.vol.value = round(vol_l, 2);
+     var d = eval(document.hreso.d.value);
+     var flaeche = (3.14159 / 4) * 0.0001 * d * d; 
+     var freq = (344 / (2 * 3.14159)) * Math.sqrt(flaeche / ((0.01 * document.hreso.l.value + (0.008 * document.hreso.d.value)) * 0.001 * vol_l)); 
+      
+      
+      //Rik
+      //var x = ((344/6.283)*Math.sqrt((/(0.01*document.hreso.l.value+0.008*flaeche)*(0.001*vol_l))))*flaeche
+      //alert(x)
+      // Rik
+	 document.hreso.freq.value = round(freq,2);
+
+
+	 var pa
+	 pa = ((d/2)* (d/2)) * 3.14159;
+	 document.hreso.pa.value = round(pa,2);
+
+	//Q = 2 � pi � sqrt(V � (l/A)�) = f/(f2 -f1)
+	//mit
+	//Q = G�te
+	//V = Volumen des Resonators [m� = cm�/1000000]
+	//l = L�nge des Kanals in [m = cm/100]
+	//A = Fl�che der Kanal�ffnung [m� = cm�/10000]
+	//sqrt() = Quadratwurzel
+	//pi = 3.1416
+	//f = Frequenz [Hz]
+	//f1 = Frequenz [Hz] unterhalb von f (-3dB)
+	//f2 = Frequenz [Hz] oberhalb von f (-3dB) 
+
+		var l		= document.hreso.l.value;
+		var vol		= document.hreso.vol.value;
+		var vol_x	= vol / 1000	// volumen in m3
+		var l_x		= l/100			// portlength in meter
+		var pa_x	= pa / 10000	// portarea in m2
+
+		var Q1 = 2 * 3.14159
+		var Q2 = Math.pow((l_x/pa_x),3)
+		var Q = Q1 * Math.sqrt(vol_x * Q2)
+
+
+		var BW		= freq / Q
+		var flow	= freq - (BW/2);  //(BW/2) - freq; //freq - (BW/2);
+		var fhigh	= freq + (BW/2);  //(BW/2) + freq;  //freq + (BW/2);
+
+		if (flow <0)
+		{
+			flow = flow * -1
+		}
+
+		//document.hreso.Q.value		= round(Q, 1);
+		document.hreso.BW.value		= round(BW, 2);
+		document.hreso.flow.value	= round(flow, 2);
+		document.hreso.fhigh.value	= round(fhigh, 2);
+		document.hreso.Q.value	= round(Q, 2);
+
+		// calculate k 
+		//	k = 5 � 10-13 � V � F � Q � f�
+
+		//	mit
+		//	k = Ankoppelverh�ltnis [cm�/s�]
+		//	V = Volumen des Resonators [cm�]
+		//	Q = G�te
+		//	f = Frequenz [Hz]
+		//	F = Faktor, der von der Anordnung des Resonators im Raum abh�ngt (gilt nur f�r Einzelresonator)
+		//	F = 1 bei freier Anordnung im Raum
+		//	F = 2 bei Anordnung in einer Wand
+		//	F = 4 bei Anordnung in einer Raumkante
+		//	F = 8 bei Anordnung in einer Raumecke 
+		//�bliche Werte f�r k liegen zwischen 0.02 (f�r geringe �berh�hungen) und 0.4 (f�r starke �berh�hungen).
+		//Gr��te Wirkung zeigen Helmholtzresonatoren also in Raumecken.
+		//Je gr��er die zu bed�mpfende Resonanz�berh�hung ist, desto gr��er mu� auch das Ankoppelverh�ltnis //werden, um die �berh�hung m�glichst effektiv zu bed�mpfen. Es sind also hohe G�ten und gro�e //Volumina erforderlich. 
+
+		var k
+		var F = 8 // raumecke
+
+		k8 = 5 * Math.pow(10, -13) * (vol*1000) * 8 * Q * Math.pow(freq,3) // roomcorner
+		k2 = 5 * Math.pow(10, -13) * (vol*1000) * 2 * Q * Math.pow(freq,3)  // against wall
+		k1 = 5 * Math.pow(10, -13) * (vol*1000) * 1 * Q * Math.pow(freq,3) // free standing
+
+		document.hreso.k1.value = round(k1, 2);
+		document.hreso.k2.value = round(k2, 2);
+		document.hreso.k8.value = round(k8, 2);
+   }
+
+// -->
+    </script>
+</head>
+<body>
+<div id="header" class="container">
+    <div id="logo">
+        <h2>HiFi&nbsp;&nbsp;Audio&nbsp;&nbsp;Design</h2>
+    </div>
+    <br>
+    <div id="menu">
+        <ul>
+            <li><a href="../../index.html" accesskey="1" title="">Home</a></li>
+            <li><a href="../../loudspeaker.html" accesskey="2" title="">Loudspeaker</a></li>
+            <li><a href="../../acoustics.html" accesskey="3" title="">Acoustic</a></li>
+            <li class="active"><a href="../../calculator.html" accesskey="4" title="">Calculators</a></li>
+            <li><a href="../Library.html" accesskey="7" title="">Library</a></li>
+<!--
+            <li><a href="../Software.html" accesskey="6" title="">Soft & Hardware</a></li>
+            <li><a href="../Elektronic.html" accesskey="5" title="">Electronic</a></li>
+            <li><a href="../Measurement.html" accesskey="5" title="">Measurement</a></li>
+            <li><a href="../Links.html" accesskey="5" title="">Links/Downloads</a></li>
+            <li><a href="../Library.html" accesskey="7" title="">Library</a></li>
+            <li><a href="../EmailFormNew.asp" accesskey="5" title="">Contact</a></li>
+-->
+        </ul>
+    </div>
+</div>
+<div id="page">
+    <div class="container">
+        <div class="title">
+            <br><h1><i>Helmholtz Resonator</i></h1>
+        </div>
+                <center>
+                    <br><img src="../../images/acoustics/casestudyfinal.gif" height="200" alt=""/><br>
+                    <i>This graph is the property of <a href="http://www.readyacoustics.com" target="_blank" class="calcButton"><U>Ready
+                        acoustics</U></a></i>
+                </center>
+                <div class="details">
+                    <p> <!-- Start Content -->
+
+                    <table width="85%" align="center">
+                        <tr>
+                            <td>
+                                A Helmholtz resonator is simply a box with a port
+                                on its front side to couple the enclosed volume of the airspace in the box to
+                                the air in the room. The depth of the enclosed airspace in the box behind the
+                                port and the width and depth of the port control the resonant frequency of the
+                                bass trap.
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                Another form of
+                                helmholtz resonator is created using perforated plywood - i.e. plywood with
+                                hundreds of holes in it. You see it in hardware
+                                stores holding up tools etc. If you place a panel of this over an air cavity
+                                like in a panel resonator not only do the little holes act like bottle necks the whole
+                                panel acts as a low
+                                frequency panel resonator!
+                            </td>
+                        </tr>
+                        <tr>
+                            <td align="center"><br><img src="../../images/acoustics/helmholtz-resonator.gif"
+                                                        border="0"><br></td>
+                        </tr>
+                        <tr>
+                            <td>
+                                Standing waves occur at harmonics of the fundamental frequency - that is
+                                2, 3, and 4 times the fundamental. Thus a room with an 2.45 meter ceiling has
+                                standing waves forming at 70 Hz (the fundamental frequency or first harmonic),
+                                140 Hz (the second harmonic), 210 Hz (the third harmonic) and 280 Hz (the fourth
+                                harmonic). <br>
+                                Rooms with smaller dimensions often have standing waves or
+                                resonance build ups that are very noticeable causing coloration at around 200 Hz.
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <table width="100%">
+                                    <tr>
+                                        <td><br>
+                                            <center><h2><i>Calculate Standing Waves for 3 Dimensions (L, W &
+                                                H)</i></h2><br></center>
+                                            <form name="frm">
+                                                <table align=center width="100%" class="header" cellspacing=0 cellpadding=2>
+                                                    <tr>
+                                                        <td align="center">
+                                                            <table ALIGN="center" BORDER="0" width="75%" cellspacing=0
+                                                                   cellpadding="2" class="Calctable">
+                                                                <tr><td colspan="4" height="20"><!-- Spacer --></td></tr>   
+                                                                <tr>
+                                                                    <td align=right>Room dimension:</td>
+                                                                    <td align=center>
+                                                                        <strong>L</strong>ength:<input type="number"
+                                                                                                       step="0.01"
+                                                                                                       name="L"
+                                                                                                       style="width: 5em;"
+                                                                                                       class="frmInput"
+                                                                                                       value="5.2"> m
+                                                                    </td>
+                                                                    <td align=center>
+                                                                        <strong>W</strong>idth:<input type="number"
+                                                                                                      step="0.01"
+                                                                                                      name="W"
+                                                                                                      style="width: 5em;"
+                                                                                                      class="frmInput"
+                                                                                                      value="3.6"> m
+                                                                    </td>
+                                                                    <td align=center>
+                                                                        <strong>H</strong>eight:<input type="number"
+                                                                                                       step="0.01"
+                                                                                                       name="H"
+                                                                                                       style="width: 5em;"
+                                                                                                       class="frmInput"
+                                                                                                       value="2.45"> m
+                                                                    </td>
+                                                                </tr>
+																<tr><td colspan="4" height="20"><!-- Spacer --></td></tr>
+                                                                <tr>
+                                                                    <td>&nbsp;</td>
+                                                                    <td align=center><strong>Length</strong></td>
+                                                                    <td align=center><strong>Width</strong></td>
+                                                                    <td align=center><strong>Height</strong></td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td align=right>fundamental frequency (fo) :</td>
+                                                                    <td align=center>
+                                                                        <input class="frmOutput" type="number"
+                                                                               name="sgaL1" style="width: 5em;"
+                                                                               readonly> Hz
+                                                                    </td>
+                                                                    <td align="center">
+                                                                        <input class="frmOutput" type="number"
+                                                                               name="sgaW1" style="width: 5em;"
+                                                                               readonly> Hz
+                                                                    </td>
+                                                                    <td align="center">
+                                                                        <input class="frmOutput" type="number"
+                                                                               name="sgaH1" style="width: 5em;"
+                                                                               readonly> Hz
+                                                                    </td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td align=right>first harmonic :</td>
+                                                                    <td align="center">
+                                                                        <input class="frmOutput" type="text"
+                                                                               name="sgaL2" style="width: 5em;"
+                                                                               readonly> Hz
+                                                                    </td>
+                                                                    <td align="center">
+                                                                        <input class="frmOutput" type="text"
+                                                                               name="sgaW2" style="width: 5em;"
+                                                                               readonly> Hz
+                                                                    </td>
+                                                                    <td align="center">
+                                                                        <input class="frmOutput" type="number"
+                                                                               name="sgaH2" style="width: 5em;"
+                                                                               readonly> Hz
+                                                                    </td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td align="right">second harmonic :</td>
+                                                                    <td align="center">
+                                                                        <input class="frmOutput" type="number"
+                                                                               name="sgaL3" style="width: 5em;"
+                                                                               readonly> Hz
+                                                                    </td>
+                                                                    <td align="center">
+                                                                        <input class="frmOutput" type="number"
+                                                                               name="sgaW3" style="width: 5em;"
+                                                                               readonly> Hz
+                                                                    </td>
+                                                                    <td align="center">
+                                                                        <input class="frmOutput" type="number"
+                                                                               name="sgaH3" style="width: 5em;"
+                                                                               readonly> Hz
+                                                                    </td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td align="right">third harmonic :</td>
+                                                                    <td align=center>
+                                                                        <input class="frmOutput" type="number"
+                                                                               name="sgaL4" style="width: 5em;"
+                                                                               readonly> Hz
+                                                                    </td>
+                                                                    <td align=center>
+                                                                        <input class="frmOutput" type="number"
+                                                                               name="sgaW4" style="width: 5em;"
+                                                                               readonly> Hz
+                                                                    </td>
+                                                                    <td align=center>
+                                                                        <input class="frmOutput" type="number"
+                                                                               name="sgaH4" style="width: 5em;"
+                                                                               readonly> Hz
+                                                                    </td>
+                                                                </tr>
+
+                                                                <tr>
+                                                                    <td colspan="4" align="center">
+                                                                    <br><input
+                                                                            class="calcButton" type="button" name="calc"
+                                                                            value="Calculate standing waves"
+                                                                            onClick="sg()"><br><br>
+                                                                </tr>
+                                                            </table>
+                                                        </td>
+                                                    </tr>
+                                                </table>
+                                            </form>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><br><br>
+                                The formula for determining the fundamental frequency of a standing wave for
+                                a particular room dimension is:<br><br>
+                                <STRONG>fo = V / 2d</STRONG><br><br>
+                                where: <br>
+                                fo = Fundamental frequency of the standing wave<br>
+                                V = Velocity of sound (344 meter per second)<br>
+                                d = Room dimension being considered in meter (length, width and height)<br>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>
+                                The formula for determining f<sub>res</sub>:<br><br>
+                                <STRONG>f<sub>res</sub></STRONG> = c/2 * sqrt( (l/lx)^2 + (m/mx)^2 + (n/nx)^2 ), with
+                                l,m,n = 0,1,2...<br><br>
+                                <STRONG>c</STRONG> = 344 m<br>
+                            </td>
+                        </tr>
+
+                    </table>
+                    <br>
+
+                    <FORM NAME="hreso">
+                        <center>
+                            <h2><i>Calculate Helmholtz-Resonator</i></h2><br>
+                        </center>
+
+                        <table border="0" cellspacing="0" cellpadding="2" width="85%" align="center" class="Calctable">
+                            <tr>
+                                <td colspan=6 align="center"><strong>Calculate Resonant Frequency, Bandwidth and Q from
+                                    given Volume, Port-
+                                    length and Width.</strong><br><br></td>
+                            </tr>
+                            <tr>
+                                <td width="10"><!-- Spacer --></td>
+                                <td width="160">Height:</td>
+                                <td width="160">Width:</td>
+                                <td width="160">Depth:</td>
+                                <td width="160"><strong>Calculated Volume</strong></td>
+                                <td width="10"><!-- Spacer --></td>
+                            </tr>
+                            <tr>
+                            	<td width="10"><!-- Spacer --></td>
+                                <td><input class="frmInput" type="number" step="0.01" value="200" name="h"
+                                           style="width: 5em;"
+                                           maxlength="10"
+                                           onClick="res()"> cm
+                                </td>
+                                <td><input class="frmInput" type="number" step="0.01" value="17.7" name="b"
+                                           style="width: 5em;"
+                                           maxlength="10"
+                                           onClick="res()"> cm
+                                </td>
+                                <td><input class="frmInput" type="number" step="0.01" value="17.7" name="t"
+                                           style="width: 5em;"
+                                           maxlength="10"
+                                           onClick="res()"> cm
+                                </td>
+                                <td><input class="frmOutput" type="number" value="will be calculated"
+                                           name="vol"  style="width: 5em;"
+                                           maxlength="15" readonly> Liter
+                                </td>
+                                <td width="10"><!-- Spacer --></td>
+                            </tr>
+
+                            <!--
+                            <tr>
+                            <td width="160">Or enter here the port-area</td>
+                            <td colspan="3"><input tye="text" name="bt"> cm<sup>2</sup></td>
+                            </tr>
+                            -->
+
+                            <tr>
+                            	<td width="10"><!-- Spacer --></td>
+                                <td>Port Length:</td>
+                                <td>Port Diameter:</td>
+                                <td colspan="2"><strong>Calculated Port Area:</strong></td>
+                                <td width="10"><!-- Spacer --></td>
+                            </tr>
+                            <tr>
+                            	<td width="20"><!-- Spacer --></td>
+                                <td><input class="frmInput" type="number" step="0.01" value="1.9" name="l"
+                                           style="width: 5em;"
+                                           maxlength="10"
+                                           onClick="res()"> cm
+                                </td>
+                                <td><input class="frmInput" type="number" step="0.01" value="16" name="d"
+                                           style="width: 5em;"
+                                           maxlength="10"
+                                           onClick="res()"> cm
+                                </td>
+                                <td><input class="frmOutput" type="number" name="pa" style="width: 5em;" maxlength="10"
+                                           readonly>cm<sup>2</sup>
+                                </td>
+                                <td width="160"><input type="button" class="calcButton" value="Calculate"
+                                                       onClick="res()"></td>
+                            </tr>
+                            <tr>
+                            <td align="center" colspan="6">
+                            <br>
+                            <table border=0 width="100%" cellspacing="0" cellpadding="2">
+                            <tr bgcolor="#eeeeee">
+                            	<td width="0"><!-- Spacer --></td>
+                                <td><strong>shorter port</strong> = <br><i>higher resonant frequency,<br>higher bandwidth</i></td>
+                                <td><strong>smaller port diameter</strong> = <br><i>lower resonant frequency,<br>lower bandwidth</i></td>
+                                <td><strong>less volume</strong> = <br><i>higher resonant frequency,<br>higher bandwidth</i></td>
+                            </tr>
+                            <tr bgcolor="#eeeeee">
+                            	<td width="0"><!-- Spacer --></td>
+                                <td><strong>longer port</strong> = <br><i>lower resonant frequency,<br>lower bandwidth</i></td>
+                                <td><strong>bigger port diameter</strong> = <br><i>higher resonant frequency,<br>higher bandwidth</i></td>
+                                <td><strong>more volume</strong> = <br><i>lower resonant frequency,<br>lower bandwidth</i></td>
+                            </tr>
+                            <!-- tr>
+                            <td>&nbsp;</td>
+                            <td valign=top colspan="2" align="right"><br><strong><font color="#00cc00">calculated resonant frequency</strong>:</font></td>
+                            <td valign=bottom>
+                            <input type="text" value="" name="freq" size="8" maxlength="10" readonly> Hz
+                            </td>
+                            </tr -->
+                            </table>
+                            </td></tr>
+                            <tr>
+                                <td colspan="5">&nbsp;</td>
+                            </tr>
+                            <tr>
+                            	<td width="0"><!-- Spacer --></td>
+                                <!--td><strong>Q :</strong></td-->
+                                <td><strong>Resonant frequency :</stromg></td>
+                                <td><strong>F<sub>low</sub> (f1) :</stromg></td>
+                                <td><strong>F<sub>high</sub> (f2) :</stromg></td>
+                                <td><strong>Bandwidth :</stromg></td>
+                            </tr>
+                            <tr>
+                            	<td width="0"><!-- Spacer --></td>
+                                <!--td><input type=text name=Q size=6 readonly></td-->
+                                <td><input class="frmOutput" type="number" value="" name="freq" style="width: 6em;" maxlength="10"
+                                           readonly> Hz
+                                </td>
+                                <td><input class="frmOutput" type="number" step="0.001" name=flow style="width: 6em;" readonly> Hz
+                                </td>
+                                <td><input class="frmOutput" type="number" step="0.001" name=fhigh style="width: 6em;" readonly> Hz
+                                </td>
+                                <td><input class="frmOutput" type="number" step="0.001" name=BW style="width: 6em;" readonly>
+                                    Hz<br></td>
+                            </tr>
+                            <tr>
+                            	<td width="0"><!-- Spacer --></td>
+                                <td colspan="2" align="right"><strong>Resonator Quality Factor</strong> =</td>
+                                <td colspan="2"><input type="number" step="0.01" name="Q" class="frmOutput" style="width: 6em;" readonly>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan=5>
+                                    <br>
+                                    <table border=0 cellspacing="0" cellpadding="2">
+                                        <tr>
+                                        	<td width="10"><!-- Spacer --></td>
+                                            <td colspan=3>
+                                                The internal damping of the resonator is thus determined by the quality,
+                                                while the outside damping of the resonator is seized by the sound field
+                                                (thus those effect actually which can be used) by the coupling
+                                                relationship k:<br>
+                                                <table cellpadding="6" cellspacing="6">
+                                                    <tr>
+                                                    	<td width="10"><!-- Spacer --></td>
+                                                        <td>
+                                                            <ul>
+                                                                <li><strong>k = 5 x 10<sup>-13</sup> x V x F x Q x
+                                                                    f<sup>3</sup></strong></li>
+                                                            </ul>
+                                                            <ul>
+                                                                <li>k = coupling relationship [
+                                                                    cm<sup>3</sup>/s<sup>3</sup> ]
+                                                                </li>
+                                                                <li>V = volume of the resonator [ cm<sup>3</sup> ]</li>
+                                                                <li>Q = quality factor</li>
+                                                                <li>F = factor, which depends on the arrangement of the
+                                                                    resonator in the area (applies only to single
+                                                                    resonator)
+                                                                </li>
+                                                                <li>f = frequency [ cycles per second ]</li>
+                                                            </ul>
+                                                        </td>
+                                                        <td width="10"><!-- Spacer --></td>
+                                                    </tr>
+                                                </table>
+                                            </td>
+                                            <td width="10"><!-- Spacer --></td>
+                                        </tr>
+                                        <tr>
+                                        	<td width="10"><!-- Spacer --></td>
+                                            <td><h4>k free standing =&nbsp;<input class="frmOutput" type=number name=k1
+                                                                                  size=6 readonly></h4></td>
+                                            <td><h4>k against wall =&nbsp;<input class="frmOutput" type=number name=k2
+                                                                                 size=6 readonly></h4></td>
+                                            <td><h4>k room corner =&nbsp;<input class="frmOutput" type=number name=k8
+                                                                                size=6
+                                                                                readonly></h4></td>
+                                            <td width="10"><!-- Spacer --></td>                                    
+                                        </tr>
+                                    </table>
+                                </td>
+                            </tr>
+                            <tr>
+                            	<td width="10"><!-- Spacer --></td>
+                                <td colspan=4>
+                                    Usual values for <strong>k</strong> lie between <strong>0.02</strong> (<I>for small
+                                    increased
+                                    heights</I>) and <strong>0.4</strong> (<I>for strong increased heights</I>).
+                                    Helmholtzresonatoren show largest effect thus in space corners.
+                                </td>
+                                <td width="10"><!-- Spacer --></td>
+                            </tr>
+                            <tr>
+                            	<td width="10"><!-- Spacer --></td>
+                                <td colspan=4 rowspan=2 align=center class=text><img src="../../images/acoustics/gauss.gif" border=0><br><br><i>Calculations are based
+                                    on the American Institute of Physics Handbook, 1957 McGRaw Hill, Inc.</i><br><br></td>
+                                <td width="10"><!-- Spacer --></td>    
+                            </tr>
+                        </table>
+                    </form>
+
+                    <!--
+                    <br>
+                    <table width="85%" align=center>
+                    <tr>
+                    <td><font color="#999999">
+                    Die grˆﬂte Schallabsorptionsfl‰che A bei gleichzeitiger
+                    Breitbandigkeit erreicht man, wenn das Resonatorvolumen V mˆglichst groﬂ gew‰hlt
+                    wird. Das bedeutet aber, daﬂ groﬂe Resonatorhalsquerschnitte bzw. geringe
+                    Resonatorhalsl‰ngen zu realisieren sind.<BR>Hinsichtlich der Bemessung des
+                    Kanals gibt es allerdings Grenzwerte, die nicht ¸ber- bzw. unterschritten werden
+                    sollten: der Radius muﬂ kleiner sein als eine Achtel Wellenl‰nge der
+                    Resonanzfrequenz und die Kanall‰nge muﬂ grˆﬂer Null sein.<BR><BR>Durch st‰rkere
+                    Bed‰mpfung des Volumens und/oder Kanals wird die G¸te des Resonators verringert
+                    und die Bandbreite vergrˆﬂert.<BR>Allerdings h‰ngt die G¸te in grˆﬂerem Maﬂe vom
+                    Verh‰ltnis der Abmessungen ab.<BR>Die G¸te des Helmholtz-Resonators ergibt sich
+                    wie folgt:
+                    <br><br>
+                    <strong>Q†=†2◊†pi◊†sqrt(V†◊†(l/A)≥)†=†f/(f2†-f1)</strong>
+                    <br><br>
+                    mit<BR><strong>Q</strong>†=†G¸te<BR><strong>V</strong>†=†Volumen des Resonators
+                    [m≥†=†cm≥/1000000]<BR><strong>l</strong>†=†L‰nge des Kanals in
+                    [m†=†cm/100]<BR><strong>A</strong>†=†Fl‰che der Kanalˆffnung
+                    [m≤†=†cm≤/10000]<BR><strong>sqrt()</strong>†=†Quadratwurzel<BR><strong>pi</strong>†=†3.141592654<BR><strong>f</strong>†=†Frequenz
+                    [Hz]<BR><strong>f1</strong>†=†Frequenz [Hz] unterhalb von f (-3dB)<BR><strong>f2</strong>†=†Frequenz
+                    [Hz] oberhalb von f (-3dB)<BR><BR>Nochmal obenstehendes Beispiel:<BR><BR>Wir
+                    haben einen rechteckigen Holzkasten (Wandst‰rke 19†mm†=†0,019†m) mit einem
+                    Volumen von 100†Litern (=†0,1 m≥), der eine rechteckige ÷ffnung von 0.07†m≤ hat.
+                    Die Helmholtz-Resonator-Frequenz betr‰gt gerundet 91†Hz.<BR><BR>Eingesetzt in
+                    obige Formel erhalten wir eine G¸te des Resonators von 0.28.<BR><BR>Damit
+                    erhalten wir auch einen Wert, mit dem wir die Bandbreite der Resonanzkurve
+                    bestimmen kˆnnen. Die Bandbreite ist die Differenz der beiden Frequenzen, bei
+                    denen die Amplitude gegen¸ber der Resonanzfrequenz auf 70% des Hˆchstwertes
+                    (-3dB) abgefallen ist.<BR>In unserem Beispiel betr‰gt die Bandbreite
+                    91†Hz/0.28†=†325†Hz, so daﬂ wir bei einem symmetrischem Verlauf der
+                    Resonanzkurve einen oberen Frequenzpunkt f2 von 325/2†+†91†=†254†Hz
+                    erhalten.<BR>Mit diesem Helmholtz-Resonator w¸rden wir also eine breitbandige
+                    Bed‰mpfung des gesamten Grundtonbereiches erhalten.<BR>Es ist also auch bei der
+                    Dimensionierung das Verh‰ltnis der Faktoren untereinander zu
+                    ber¸cksichtigen.</font>
+                    </td>
+                    </tr>
+                    </table>
+                    <br>
+                    -->
+                    <!--
+                                        <br><br>
+
+                                        <form name="frmHA">
+                                            <center><h2><i>Calculate Effective Depth of a Round Port</i></h2><br></center>
+                                            <table align=center width="85%" border="0" cellspacing="0" cellpadding="6" class="header">
+                                                <tr>
+                                                    <td>
+                                                        <table cellspacing="0" cellpadding="6" width=100% border="1" align="center">
+                                                            <tr>
+                                                                <td>&nbsp;</td>
+                                                                <td><strong>fo</strong></td>
+                                                                <td colspan="3" align="center"><strong>harmonics</strong></td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>Port width in <STRONG>cm</STRONG></td>
+                                                                <td><input class="frmInput" type=text name="d" size="5" maxlength="6"
+                                                                           value="5"></td>
+                                                                <td align=left><input class="frmInput" type=text name="d1" size="5"
+                                                                                      maxlength="6" value="10"></td>
+                                                                <td align=left><input class="frmInput" type=text name="d2" size="5"
+                                                                                      maxlength="6" value="15"></td>
+                                                                <td align=left><input class="frmInput" type=text name="d3" size="5"
+                                                                                      maxlength="6" value="20"></td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>Resonant frequency of the resonator in Hertz (<STRONG>Hz</STRONG>)</td>
+                                                                <td><input class="frmInput" type=text name="f"  style="width: 5em;" value="60"></td>
+                                                                <td><input class="frmInput" type=text name="f1"  style="width: 5em;" value="60"></td>
+                                                                <td><input class="frmInput" type=text name="f2"  style="width: 5em;" value="60"></td>
+                                                                <td><input class="frmInput" type=text name="f3"  style="width: 5em;" value="60"></td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>Volumen in <STRONG>Liter</STRONG></td>
+                                                                <td><input class="frmInput" type=text name="v"  style="width: 5em;" value="50"></td>
+                                                                <td><input class="frmInput" type=text name="v1"  style="width: 5em;" value="50"></td>
+                                                                <td><input class="frmInput" type=text name="v2"  style="width: 5em;" value="50"></td>
+                                                                <td><input class="frmInput" type=text name="v3"  style="width: 5em;" value="50"></td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td align="right"><STRONG>Effective depth of port in cm</STRONG>&nbsp;</td>
+                                                                <td><input class="frmOutput" type=text name="l"  style="width: 5em;" readonly></td>
+                                                                <td><input class="frmOutput" type=text name="l1"  style="width: 5em;" readonly></td>
+                                                                <td><input class="frmOutput" type=text name="l2"  style="width: 5em;" readonly></td>
+                                                                <td><input class="frmOutput" type=text name="l3"  style="width: 5em;" readonly></td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td align="right"><STRONG>Effective area of port in cm<sup>2</sup></STRONG>&nbsp;
+                                                                </td>
+                                                                <td><input class="frmOutput" type=text name="a"  style="width: 5em;" readonly></td>
+                                                                <td><input class="frmOutput" type=text name="a1"  style="width: 5em;" readonly></td>
+                                                                <td><input class="frmOutput" type=text name="a2"  style="width: 5em;" readonly></td>
+                                                                <td><input class="frmOutput" type=text name="a3"  style="width: 5em;" readonly></td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td colspan=5 align=center><br><input class="calcButton" type="calcButton"
+                                                                                                      value="Calculate effective depth of port"
+                                                                                                      onclick="calc();"></td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td colspan="5" align="center"><br><EM>Calculations after American Institute
+                                                                    of Physics Handbook, 1957 McGRaw Hill, Inc.</EM></td>
+                                                            </tr>
+                                                        </table>
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </form>
+                                        -->
+                    <br><br>
+                    <center>
+                    	<a href="https://www.gearslutz.com/board/studio-building-acoustics/665657-diy-helmholtz-resonator-made-easy.html" target="_blank" class="calcButton">DIY helmholtz resonator made easy</a>
+                    <br><br>
+                    <hr size="1" width="75%">
+                    <br><br>
+						<br>                    
+                        <a href="javascript:history.back()" class="calcButton"><<< Back</a>
+                    </center>
+                    <br><br>
+                    <!-- End Content  -->
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="copyright">
+        &copy;
+        <span id="copyright">
+        <script>document.getElementById('copyright').appendChild(document.createTextNode(new Date().getFullYear()))</script>
+        &nbsp;mh-Audio.nl&nbsp;&nbsp;-&nbsp;&nbsp;<a href="../disclaimer.html"><font
+                color="#000000">Disclaimer</font></a>
+    </span>
+    </div>
+</body>
+</html>
+
