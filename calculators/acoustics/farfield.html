@@ -1,0 +1,615 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<!--
+Design by TEMPLATED
+http://templated.co
+Released for free under the Creative Commons Attribution License
+
+Name       : TailPiece 
+Description: A two-column, fixed-width design with dark color scheme.
+Version    : 1.0
+Released   : 20130902
+
+-->
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <!-- Google Analytics -->
+    <script>
+        window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+        ga('create', 'UA-77078028-1', 'auto');
+        ga('send', 'pageview');
+    </script>
+    <script async src='https://www.google-analytics.com/analytics.js'></script>
+    <!-- End Google Analytics -->
+
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>Loudspeaker Far - Field Measurement</title>
+ <meta name="Keywords" content="HiFi, Audio, Loudspeakers, Database, Acoustic treatment, 
+		OnlineCalculator, LoudspeakerBasics, Links, Tubes, Buizen, Music, Muziek, Musik, 
+		Lautsprechergrundlagen, Lautsprecherberechnungen, Lautsprecher-Database, 
+		Analog to digital, Vinyl, Tapes, old records vinyl on cd, Acoustic, Bass Absorber,
+		acoustic electric,acoustic foam panel,acoustic measurements,acoustic panel,boston acoustic
+		acoustic neuromas,room acoustics,acoustics,acoustic foam,speaker cable,acoustic phonetics,
+		acoustic panels,acoustic ceiling,acoustic materials,acoustic neuroma,audio acoustic,acoustic,
+		acoustic insulation,acoustic wall panels,acoustic treatment,acoustic solution,acoustic wall panel,
+		acoustic bass,acoustic baffles,diy speaker cable, Room modes,
+		acoustic software,
+		room acoustics,
+		audio acoustic,
+		acoustic foam,
+		musical acoustics">
+<meta name="Description" content="Resource for building, calculate and measuring Hi Fi Loudspeakers,DIY LoudspeakerSite, Acoustic treatment, loudspeaker calculations, hifi links, high end">
+    <link href="http://fonts.googleapis.com/css?family=Source+Sans+Pro:200,300,400,600,700,900" rel="stylesheet"/>
+    <link href="../../css/default.css" rel="stylesheet" type="text/css" media="all"/>
+    <link href="../../css/fonts.css" rel="stylesheet" type="text/css" media="all"/>
+    <link rel="shortcut icon" href="../favicon.ico" type="image/x-icon">
+
+<script type="text/javascript">
+function round(number,X) {
+	// rounds number to X decimal places, defaults to 3
+    	X = ( !X ? 3 : X) ;
+    	return Math.round( number * Math.pow( 10,X ) ) / Math.pow( 10,X );
+	}
+
+function calcvr() {
+	var dStr   = document.vr.md.value; 			// = distance to mic / 2 = x / 2
+	var hStr   = document.vr.h.value; 			// = height of mic
+	var DhStr  = eval(document.vr.Dh.value); 	// = height of speaker
+	//var sos = document.getElementById("sos").value;	// Speed of Sound default is 343.2 m/s
+	var sos = eval(document.vr.sos.value);
+	
+	//var sos = parseFloat(sosStr);
+	var d = parseFloat(dStr);		// Mic distance to driver
+	var h = parseFloat(hStr);
+	var Dh = parseFloat(DhStr); 
+	
+	
+	var u  = (h/Dh);	// mic height / mic distance
+//alert(u)	
+	var v  = ( u * d ) / ( u + 1) ;
+//alert(v);
+	var w  = Math.sqrt( ( Math.pow( h,2 ) )+( Math.pow( v,2 ) ) );
+	var x  = d - v;
+	var y  = Math.sqrt((Math.pow(Dh,2))+(Math.pow(x,2)));		
+	var z  = Math.sqrt( ( Math.pow( ( h - Dh ), 2 ) ) + ( Math.pow( d, 2 ) ) );
+	var xx = ( y + w ) - z;
+	var ms = ( (xx / 100 ) / sos ) * 1000;
+	var f  = 180 / ( 360 * ( xx / ( sos * 100 ) ) );
+	var ff = 360 / ( 360 * ( xx / ( sos * 100 ) ) );
+	var ms = round(ms,3);
+	var d2 = Math.sqrt( Math.pow( h,2 ) + Math.pow(( d / 2 ),2 ) );	// distance first reflection
+
+	var f  = round(f,2);
+	var ff = round(ff,2);
+	var d2 = round(d2,2);
+
+	document.vr.d2.value   = d2;
+	document.vr.ms.value   = ms;
+	document.vr.x180.value = f;
+	document.vr.x360.value = ff;
+}
+</script>       
+</head>
+<body>
+<div id="header" class="container">
+    <div id="logo">
+        <h2>HiFi&nbsp;&nbsp;Audio&nbsp;&nbsp;Design</h2>
+    </div>
+    <br><br>
+    <div id="menu">
+      <center>
+        <ul>
+            <li><a href="../index.html" accesskey="1" title="">Home</a></li>
+            <li><a href="../Loudspeaker.html" accesskey="2" title="">Loudspeaker</a></li>
+            <li><a href="../Acoustic.html" accesskey="3" title="">Acoustic</a></li>
+            <li class="active"><a href="../Calculator.html" accesskey="4" title="">Calculators</a></li>
+            <li><a href="../Library.html" accesskey="7" title="">Library</a></li
+        </ul>
+    </center>
+    </div>
+</div>
+<button onclick="topFunction()" id="myBtn" title="Go To Top">⬆</button>
+<button id="myBtnDown" onclick="scrollWin()" title="Scroll Down">⬇</button>
+<div id="page">
+    <div class="container">     
+        <div class="title">
+            <br><h1><i>Loudspeaker Far - Field Measurement</i></h1>
+        </div>
+        <div class="box0">
+            <div class="box margin-btm">
+                <center><br><img src="../../images/acoustics/mic.png" width="330" alt=""/></center>
+                <div class="details">
+                    <p> <!-- Start Content -->
+                    <table align="center" cellspacing="0" cellpadding="2" width="75%">
+                        <tr>
+                            <td align="center"><a href="#clcof" style="text-decoration:none" class="calcButton"
+                                                  onmouseover="this.style.color='#FF0000'"
+                                                  onmouseout="this.style.color='#000000'">Calculate First Floor
+                                Reflection</a>
+                            </td>
+                            <td align="center">
+                                <a href="#cpr" style="text-decoration:none" class="calcButton"
+                                   onmouseover="this.style.color='#FF0000'" onmouseout="this.style.color='#000000'">Calculate
+                                    Phase Response</a>
+                            </td>
+                        </tr>
+                    </table>
+                    </center>
+                    <br><br><br>
+                    <table align="center" cellspacing="0" cellpadding="2" width="75%">
+                        <tr>
+                            <td>
+                                There are two kinds of far-field measurement: <strong>gated</strong> and <strong>not-gated</strong>
+                                one.
+                                <br><br>
+                                In the <strong>gated</strong> measurement we set the markers so that we limit the data
+                                to be used
+                                to calculate the frequency response.
+                                <br>
+                                Eliminating reflections from the measurement in this way allows anechoic testing to be
+                                conducted in a normal room.
+                                <br><br>
+                                The relationship is a simple one: if you apply a time window of 6 milliseconds (0.006s
+                                �not unusual for measurements conducted in a typical domestic room), then the frequency
+                                resolution of <strong>the measurement will be limited to 1/0.006 = 167 Hz</strong>.
+                                <br><br>
+                                <br>The <strong>not-gated</strong> far-field measurement, instead, uses all the data
+                                including the
+                                room response, and is useful to see how the speakers will sound in the environment they
+                                will be used, helping us understand where to place them.
+                                <br><br>
+                                In the far field measurement the microphone is placed at a distance at which the driver
+                                looks like a point source and its sound pressure level is inversely proportional with
+                                its distance from the mic (<strong>6 dB drop for each doubling of distance</strong>).
+                                <br><br>
+                                The industry standard sets this distance to <strong>1 meter</strong> to allow
+                                integration of the
+                                various drivers in a front baffle, that is by 1 meter usually the woofer and tweeter
+                                response have added together so a single test gets both (however when testing speakers
+                                that uses line sources, like ribbon or array drivers, the mic-speaker distance is
+                                increased to 2 meters).
+                                <br><br>
+                                If you are testing drivers separately then you can use any distance that works but be
+                                aware that if it's true that a less than 1 meter distance increases the signal to noise
+                                ratio, it's also true that a too close distance causes the driver not to act as a point
+                                source, thus the measurement cannot be considered far-field.
+                                <br><br>
+                                Is common to use a distance equal to 4-5 times the driver diaphragm diameter, but not
+                                exceeding more than 1 meter: it rarely works for anechoic (gated) measurements cause the
+                                reflections are very close to the signal and you don't get any low frequency response
+                                (unless you have a huge measurement room, where floor-ceiling-sidewall reflections
+                                happens very late).
+                                <br><br>
+                                Using <strong>1 meter</strong> or more for far-field (not gated) in-room response is
+                                just fine.
+                                <br><br>
+                                In the gated measurement it is very important to place the loudspeaker in the room
+                                center, so that all the parallel walls are equally far from it.
+                                <br>
+                                I use to put the speaker on a stand to center it between the floor and the ceiling. Also
+                                put some absorbing mat on the floor between the mic and the speaker, as well as on the
+                                microphone stand.
+                                <br><br>
+
+                                <!--
+                            <center><img src="gif/Measurements/Loudspeaker2.gif"><br>
+                                <strong>fig. 1</strong>
+                                </center>
+                                <br><br>
+                                <strong>Low frequency cutoff = 343 /( (2 * (x2 + h2)^0.5)</strong>
+                                <br><br>
+                                Where 343 m.s-1 is the speed of sound. For a room with a ceiling height of <strong>2.4 meter</strong> and a measuring distance of <strong>1 meter</strong> this gives:
+                                <br><br>
+                                <strong>Low frequency cutoff = 343 /( (2 * ((0.50 + 1.20)^0.5) = 132 Hz</strong>
+                                <br><br>
+                                So, for this size room you know that any data shown <strong>below 132 Hz is not reliable!</strong>
+                                <br><br>
+                                Bear in mind that you should put an extra margin on this because there are very few data points collected in the lower octaves of the measurement.
+                                -->
+
+                                <a name="clcof"></a>
+                                <center>
+                                    <!--iframe name="cwindow" style="border:1px ridge lightgrey" width=250 height=180 src="FarfieldCalc.html"></iframe-->
+                                    <center>
+                                        <h2><i>Calculate first floor reflection</i></h2>
+                                    </center>
+                                        <table cellspacing="0" cellpadding="2" align="center" width="100%" border="0">
+                                            <tr>
+                                                <td colspan="4">
+                                                    <table width="100%">
+                                                        <tr>
+                                                            <td>
+                                                                When the speaker in the middle of the room on the floor,
+                                                                as far as possible away from walls inhibited, then the
+                                                                first reflection is the floor reflection.
+                                                                <br><br>
+                                                                The chassis under test and the measuring microphone are
+                                                                both at the height of <strong>1 meter</strong> above the
+                                                                floor.
+                                                                The linear distance X between chassis and microphone is
+                                                                also <strong>1 meter</strong>.
+                                                                The floor reflected wave has a greater distance to the
+                                                                microphone.<br><br>
+                                                                This is basically a delayed version of a primary signal
+                                                                that is produced when two or more loudspeakers are
+                                                                playing the same signal at different distances from the
+                                                                listener.
+                                                                In any enclosed space listeners hear a mixture of direct
+                                                                and reflected sound. Because the reflected sound takes
+                                                                longer to reach our ears,
+                                                                it constitutes a <strong>delayed version of the direct
+                                                                sound</strong> and a comb filter is created where the
+                                                                two
+                                                                combine at the listener. The extent of its audibility
+                                                                depends on how lively
+                                                                the room is to allow the reflected sounds to average out
+                                                                the overall response.
+                                                                Note that this interference may be constructive
+                                                                (<strong>additive</strong>)
+                                                                or destructive (<strong>subtractive</strong>).
+
+                                                                <br><br>
+                                                            </td>
+                                                        </tr>
+                                                    </table>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                        <br>
+                                         <form name="vr">
+                                        <table cellspacing="0" cellpadding="2" align="center" width="75%" border="0" class="Calctable">
+                                            <tr>
+                                                <td colspan="2" align="center">
+                                                    <br>
+                                                    <img src="../../images/acoustics/loudspeaker2.png">
+                                                    <br><br>
+                                                </td>
+                                            </tr>
+                                            <tr>
+
+                                                <td align="right">Distance to Microphone [<strong>X</strong>]&nbsp;</td>
+                                                <td><input class="frmInput" type="text" min="50" name="md"
+                                                            style="width: 5em;" value="100">&nbsp;cm
+                                                </td>
+                                            </tr>                                            
+                                            <tr>
+
+                                                <td align="right">Microphone Height [<strong>h</strong>]&nbsp;</td>
+                                                <td><input class="frmInput" type="text" min="10" name="h"
+                                                            style="width: 5em;" value="100">&nbsp;cm
+                                                </td>
+                                            </tr>
+                                            <tr>
+
+                                                <td align="right">Driver Height [<strong>Dh</strong>]&nbsp;</td>
+                                                <td><input class="frmInput" type="text" min="10" name="Dh"
+                                                            style="width: 5em;" value="100">&nbsp;cm
+                                                </td>
+                                            </tr> 
+                                             <!--tr>
+                                             	<td align="right"><label for="sos">Choose : </label></td>
+                                                <td>
+  													<select name="sos" id="sos" class="frmInput">
+    													<option value="342">342,0 m/s</option>
+    													<option value="343">343,0 m/s</option>
+    													<option value="343.2" selected>343,2 m/s</option>
+    													<option value="344">344 m/s</option>
+  													</select>&nbsp;Speed Of Sound
+                                                </td>
+                                            </tr-->  
+                                            <tr>
+
+                                                <td align="right">Speed Of Sound&nbsp;</td>
+                                                <td><input class="frmInput" type="number" step="0.1" name="sos"
+                                                            style="width: 5em;" value="343.2">&nbsp;m/s  ( default is <strong>343.2</strong> m/s )
+                                                </td>
+                                            </tr>                                             
+                                            <tr><td colspan="2" height="20"></td></tr>                                                                                     
+                                            <tr>
+                                                <td colspan="2" align="center"><input class="calcButton" type="button"
+                                                                                      class="textdark" value="Calculate"
+                                                                                      onClick="calcvr()"></td>
+                                            </tr>
+                                            <tr><td colspan="2" height="20"></td></tr>
+                                            <tr>
+
+                                                <td align="right">Distance 1st Reflection&nbsp;</td>
+                                                <td><input class="frmOutput" type="number" name="d2" style="width: 5em;" readonly>&nbsp;cm
+                                                </td>
+                                            </tr>
+                                            <tr>
+
+                                                <td align="right">First Reflection arrives after&nbsp;</td>
+                                                <td><input class="frmOutpur" type="number" step="1" min="50" name="ms"
+                                                            style="width: 5em;" value="" readonly>&nbsp;ms
+                                                </td>
+                                            </tr>                                            
+                                            <tr>
+
+                                                <td align="right">1st Floor Refection [subtractive]&nbsp;</td>
+                                                <td><input class="frmOutput" type="number" name="x180"  style="width: 5em;"
+                                                           readonly>&nbsp;Hz
+                                                    @ 180 degrees&nbsp; ( Dip )
+                                                </td>
+                                            </tr>
+                                            <tr>
+
+                                                <td align="right">1st Floor Refection [additive]&nbsp;</td>
+                                                <td><input class="frmOutput" type="number" name="x360"  style="width: 5em;"
+                                                           readonly>&nbsp;Hz
+                                                    @ 360 degrees&nbsp; ( Peak )
+                                                </td>
+                                            </tr>
+                                            <tr><td colspan="2" height="30"></td></tr>
+                                        </table>
+                                        </form>
+                                        <br>
+                                        <table cellspacing="0" cellpadding="2" align="center" width="75%" border="0">
+                                            <tr>
+                                                <td colspan="4">
+                                                    <br><br>
+                                                    <table align="center" width="75%">
+                                                        <tr>
+                                                            <td>
+                                                                <br><br>
+                                                                <center><img src="../../images/acoustics//bode_response.jpeg">
+                                                                        <br><strong>fig. 1</strong>
+                                                                </center>
+                                                                <br>
+                                                                Early reflections are those which reach the listener
+                                                                within a delay of 15 ms relative to the direct signal.
+                                                                The retarded sound creates phase problems by combining
+                                                                to the direct one. The result is numerous dips in the
+                                                                frequency response.<br>
+                                                            </td>
+                                                        </tr>
+                                                    </table>
+                                                </td>
+                                            </tr>
+                                        </table>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>
+                                <center>
+                                    <img src="../../images/acoustics/impulseresponse.jpg">
+                                    <br>
+                                    <strong>fig. 2</strong>
+                                </center>
+                                <br>
+                                From fig. 2 becomes clear that sound energy starts arrive after roughly speaking
+                                <strong>2.7 ms</strong> at the mictofoon.
+                                <br> <br>
+                                This sound front is followed by response in the form of a subdued ultrasound which is
+                                reduced after <strong>6 ms</strong> to a very low level.
+                                <br>
+                                After <strong>6.3 ms</strong> a second, smaller quantity of sound energy arrive. This is
+                                the <strong>floor</strong>
+                                reflection.
+                                <br>
+                                A third front on approximately <strong>10.5 ms</strong> is the reflection against the
+                                <strong>ceiling</strong>.
+                                <br>
+                                Finally we see a fourth (negative) front at <strong>12 ms</strong>, this is the
+                                reflection against
+                                a <strong>sidewall</strong>.
+                                <br><br><br><br>
+                            </td>
+                        </tr>
+                    </table>
+                    <table align="center" cellspacing="0" cellpadding="2" width="75%" border="0">
+                        <tr>
+                            <td align=center>
+                                <a name="cpr"></a>
+                                <table align="center" cellspacing="0" cellpadding="2" width="75%" border="0"
+                                       class="Calctable">
+                                    <tr>
+                                        <td align="center">
+                                            <br>
+                                            <h2><i>Calculate Phase Response</i></h2>
+                                            <br>
+                                            <iframe name="cwindow" style="border:1px ridge gray" width=400 height=350
+                                                    src="FarfieldPhase.html" allowtransparency="true"></iframe>
+                                            <br><br>
+                                            First refection (-dB) at 180&#176;, Second reflection (+dB) at 360&#176;.
+                                            <br><br>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </td>
+                           </tr>
+                          </table>      
+                                <br><br>
+                                <table align="center" cellspacing="0" cellpadding="0" width="90%" border="1">
+                                    <!--tr>
+                                        <td>
+                                            <br><br>
+                                            <table align=center cellspcing=0 cellpadding=0 border=1 width="100%">
+                                                <tbody -->
+                                    <tr>
+                                        <td align=center>
+                                            <strong>Measurement Approach</strong>
+                                        </td>
+                                        <td align=center>
+                                            <strong>Implementation</strong>
+                                        </td>
+                                        <td align=center>
+                                            <strong>Advantages</strong>
+                                        </td>
+                                        <td align=center>
+                                            <strong>Disadvantages</strong>
+                                        </td>
+                                        <td align=center>
+                                            <strong>Limits</strong>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            Anechoic
+                                            Chamber
+                                        </td>
+                                        <td>
+                                            Acoustical
+                                            measurements done within an indoor, (ideally) reflection-free environment
+                                        </td>
+                                        <td>
+                                            Climate-controlled,
+                                            artificial environment in which to measure amplitude response, noise &amp;
+
+                                            distortion, diffraction effect &amp; directional response characteristics
+                                        </td>
+                                        <td>
+                                            Cost;
+                                            extremely large chamber needed for accurate LF amplitude response, noise
+                                            &amp; distortion, etc measurement
+                                        </td>
+                                        <td>
+                                            Chamber
+                                            , device under test (DUT) size; depth, type &amp; configuration of
+                                            absorptive
+                                            material used within the chamber
+
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            Ground
+                                            Plane Measurement
+                                        </td>
+                                        <td>
+                                            Measurement
+                                            done with the DUT &amp; microphone typically placed on the ground, with the
+                                            emissive radiating surface(s) pointed at the microphone
+
+                                        </td>
+                                        <td>
+                                            Low
+                                            cost; ease of implementation, within known limits, can provide accurate
+                                            measurement data
+                                        </td>
+                                        <td>
+                                            Upper
+                                            &amp; lower frequency limits. Other than the ground upon which it rests, DUT
+                                            must be placed well away from any reflective surfaces or objects large
+                                            enough
+                                            to influence measured amplitude response
+                                        </td>
+                                        <td>
+                                            Noise
+                                            pollution,
+                                            Inclement
+                                            weather
+                                            (when
+                                            done outdoors)
+
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            Half-Space
+                                            or Hemispherical Free Field Measurement
+                                        </td>
+                                        <td>
+                                            Device
+                                            affixed flush-mount with surface such as baffle, ground surface or clear
+                                            wall
+                                            of Hemi-anechoic chamber
+                                        </td>
+                                        <td>
+                                            Depending
+                                            on implementation and type of data sought, can provide excellent results
+                                        </td>
+                                        <td>
+                                            Cost
+                                            of indoor Hemi-anechoic chamber; use of baffle invites cancellation?. Out
+                                            door, in-ground placement requires DUT to be placed well away from any
+                                            reflective surfaces or objects large enough to influence measurements
+
+                                        </td>
+                                        <td>
+                                            Approach
+                                            requires all emissive radiators be on one side of the cabinet
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <strong>Windowing (gated)</strong>
+                                        </td>
+                                        <td>
+                                            Measurement taken and unwanted data windowed out
+                                        </td>
+                                        <td>
+                                            Fast data acquisition &amp; post-processing
+
+                                        </td>
+                                        <td>
+                                            Requires significant data post-processing and the ability to skillfully
+                                            interpret the
+                                            results
+                                        </td>
+                                        <td>
+                                            LF
+                                            measurement accuracy defined by environmentally determined window length.
+                                            Poor tolerance for time variance.
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            Near Field Measurement
+                                        </td>
+                                        <td>
+                                            Measurement
+                                            done with microphone placed near to, centered on and normal to front
+                                            emissive
+                                            surface of each acoustic radiator
+
+                                        </td>
+                                        <td>
+                                            When
+                                            implemented correctly, the near-field amplitude response provides for an
+                                            accurate facsimile of the far field response
+                                        </td>
+                                        <td>
+                                            Multiple
+                                            emissive surfaces require multiple measurements along with subsequent post
+                                            processing
+                                        </td>
+                                        <td>
+                                            Upper
+                                            frequency limit determined by size of DUT.
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                                <br><br>
+                                <center>
+									<a href="https://www.audioholics.com/loudspeaker-design/subwoofer-measurements"
+                                    target="_blank" class="calcButton">Measurement Tactics</a>&nbsp;(  Audioholics.com by Gene DellaSala, 3 pages )
+                                <br><br><br>
+                                Click here to read about <a href="Nearfield.html" class="calcButton">Near - Field
+                                Measurement</a> or <a href="Groundplane.html" class="calcButton">Ground - Plane
+                                Measurements.</a>
+<br><br>
+                    <hr sze="1" width="75%">
+                    <br>
+                    <center>
+         				<br>                     
+                        <a href="javascript:history.back()" class="calcButton"><<< Back</a>
+                    </center>
+                    <br><br>
+                    </p> <!-- End Content -->
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="copyright">
+        &copy;
+        <span id="copyright">
+        <script>document.getElementById('copyright').appendChild(document.createTextNode(new Date().getFullYear()))</script>
+        &nbsp;mh-Audio.nl&nbsp;&nbsp;-&nbsp;&nbsp;<a href="../disclaimer.html"><font
+                color="#000000">Disclaimer</font></a>
+    </span>
+    </div>   
+</body>
+</html>
