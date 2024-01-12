@@ -1,0 +1,116 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<!--
+Design by TEMPLATED
+http://templated.co
+Released for free under the Creative Commons Attribution License
+
+Name       : TailPiece 
+Description: A two-column, fixed-width design with dark color scheme.
+Version    : 1.0
+Released   : 20130902
+
+-->
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>HiFi Loudspeaker Design</title>
+    <meta name="keywords" content=""/>
+    <meta name="description" content=""/>
+    <link href="http://fonts.googleapis.com/css?family=Source+Sans+Pro:200,300,400,600,700,900" rel="stylesheet"/>
+    <link href="../default.css" rel="stylesheet" type="text/css" media="all"/>
+    <link href="../fonts.css" rel="stylesheet" type="text/css" media="all"/>
+
+    <!--[if IE 6]>
+    <link href="default_ie6.css" rel="stylesheet" type="text/css"/><![endif]-->
+<style type="text/css">
+body {
+background-color: transparent;
+text-align: center;
+color: #222222;
+}
+
+h1 { font-size: 100%; }
+    </style>
+</HEAD>
+<BODY>
+<form name="frm">
+    <table align="center" cellspacing="0" cellpadding="6" width="75%">
+        <tr>
+            <td colspan="2">&nbsp;</td>
+        </tr>
+        <tr>
+            <td>Microphone distance</td>
+            <td><input class="frmInput" type="number" step="0.1" name="x" size=3 value="1"> mtr</td>
+        </tr>
+        <tr>
+            <td>Microphone height</td>
+            <td><input class="frmInput" type="number" step="0.1" name="y" size="3" value="1"> mtr</td>
+        </tr>
+        <tr>
+            <td colspan=2>
+                <br>
+                <center><input type="button" class="calcButton" value="calculate" onClick="calcPhase(frm.form)"
+                               id="button6" name="button6"></center>
+            </td>
+        </tr>
+    </table>
+    <br>
+    <table>
+        <tr>
+            <td align=center>
+                <script>
+							function calcPhase()
+							{
+								var fs, fe, i, phase, c, j
+								var x = eval(document.frm.x.value);
+								var y = eval(document.frm.y.value);
+
+								i = 20;		// counter
+								c = 343;	// speed of sound
+								fs = 20;	// startfreq.
+								fe = 1000;	// endfreq
+								
+								// calculate hypotenusa 'y' in the image
+								var z = Math.pow(y,2) + Math.pow((x/2),2)
+								z = Math.sqrt(z)
+
+								document.write ("<center><font face=verdana size=2 color=black><strong>Phase calculations:</strong></font></center>")
+
+								while (i<=fe)
+								{
+									j = i.toFixed(1)
+									phase = (2 * z - x) * i
+									phase = phase / c
+									phase = phase * 360
+									phase = phase.toFixed(1)
+
+									if (phase <= 360) // until 360 degrees
+									{
+										if (phase >=179.5 && phase <=180.5 || phase >=359 && phase <=360)
+										{
+											document.write ("<center><font face=verdana size=2 color=red>" + phase + "&#176;&nbsp;&nbsp; at &nbsp;" + j + " Hz</font></center>")
+										}
+										else
+										{
+											document.write ("<center><font face=verdana size=2 color=black>" + phase + "&#176;&nbsp;&nbsp; at &nbsp;" + j + " Hz</font></center>")
+										}
+									}
+
+										//if (phase >=179.5 && phase <=180.5 || phase >=359 && phase <=360)
+										//{
+										//	document.write ("<center><font face=verdana size=1 color=black>" + phase + "&#176;   at   " + j + " Hz</font></center>")
+										//}
+
+										i=i + 0.5; // count in 0.5 Hz steps form 20 - 500Hz
+									}
+								}
+
+
+                </script>
+            </td>
+        </tr>
+    </table>
+</FORM>
+</body>
+</HTML>
