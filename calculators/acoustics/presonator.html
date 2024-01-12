@@ -1,0 +1,583 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<!--
+Design by TEMPLATED
+http://templated.co
+Released for free under the Creative Commons Attribution License
+
+Name       : TailPiece 
+Description: A two-column, fixed-width design with dark color scheme.
+Version    : 1.0
+Released   : 20130902
+
+-->
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <!-- Google Analytics -->
+    <script>
+        window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+        ga('create', 'UA-77078028-1', 'auto');
+        ga('send', 'pageview');
+    </script>
+    <script async src='https://www.google-analytics.com/analytics.js'></script>
+    <!-- End Google Analytics -->
+
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>Panel Sound Absorber</title>
+ <meta name="Keywords" content="HiFi, Audio, Loudspeakers, Database, Acoustic treatment, 
+		OnlineCalculator, LoudspeakerBasics, Links, Tubes, Buizen, Music, Muziek, Musik, 
+		Lautsprechergrundlagen, Lautsprecherberechnungen, Lautsprecher-Database, 
+		Analog to digital, Vinyl, Tapes, old records vinyl on cd, Acoustic, Bass Absorber,
+		acoustic electric,acoustic foam panel,acoustic measurements,acoustic panel,boston acoustic
+		acoustic neuromas,room acoustics,acoustics,acoustic foam,speaker cable,acoustic phonetics,
+		acoustic panels,acoustic ceiling,acoustic materials,acoustic neuroma,audio acoustic,acoustic,
+		acoustic insulation,acoustic wall panels,acoustic treatment,acoustic solution,acoustic wall panel,
+		acoustic bass,acoustic baffles,diy speaker cable, Room modes,
+		acoustic software,
+		room acoustics,
+		audio acoustic,
+		acoustic foam,
+		musical acoustics">
+	<meta name="Description" content="Resource for building, calculate and measuring Hi Fi Loudspeakers,DIY LoudspeakerSite, Acoustic treatment, loudspeaker calculations, hifi links, high end">
+    <link href="http://fonts.googleapis.com/css?family=Source+Sans+Pro:200,300,400,600,700,900" rel="stylesheet"/>
+    <link href="../../css/default.css" rel="stylesheet" type="text/css" media="all"/>
+    <link href="../../css/fonts.css" rel="stylesheet" type="text/css" media="all"/>
+    <link rel="shortcut icon" href="../favicon.ico" type="image/x-icon">
+
+    <!--[if IE 6]>
+    <link href="default_ie6.css" rel="stylesheet" type="text/css"/><![endif]-->
+   
+
+
+<script>
+function includeHTML() {
+  var z, i, elmnt, file, xhttp;
+  /* Loop through a collection of all HTML elements: */
+  z = document.getElementsByTagName("*");
+  for (i = 0; i < z.length; i++) {
+    elmnt = z[i];
+    /*search for elements with a certain atrribute:*/
+    file = elmnt.getAttribute("w3-include-html");
+    if (file) {
+      /* Make an HTTP request using the attribute value as the file name: */
+      xhttp = new XMLHttpRequest();
+      xhttp.onreadystatechange = function() {
+        if (this.readyState == 4) {
+          if (this.status == 200) {elmnt.innerHTML = this.responseText;}
+          if (this.status == 404) {elmnt.innerHTML = "Page not found.";}
+          /* Remove the attribute, and call this function once more: */
+          elmnt.removeAttribute("w3-include-html");
+          includeHTML();
+        }
+      }
+      xhttp.open("GET", file, true);
+      xhttp.send();
+      /* Exit the function: */
+      return;
+    }
+  }
+}
+</script> 
+
+    <script language="javascript">
+<!--
+function round(number,X) {
+// rounds number to X decimal places, defaults to 3
+    X = (!X ? 3 : X);
+    return Math.round(number*Math.pow(10,X))/Math.pow(10,X);
+}
+
+function PlAbsorberFrequency()
+{
+
+// Hardboard = Diktes en gewicht per plaat	3,2 mm: circa 9,05 kg bij 122x244cm 
+// MDF = 6 mm: circa 13,40 kg bij 122x244cm
+//		 9 mm: circa 20,09 kg
+//		 12 mm: circa 26,79 kg		
+//		 16 mm: circa 35,72 kg
+
+	var masse = document.frmPLF.Pm.value;			// panel weight
+	var dp		= eval(document.frmPLF.dp.value);	// panel depth
+	var pwf = eval(document.frmPLF.pwf.value);		// panel width
+	var phf = eval(document.frmPLF.phf.value);		// panelheight 
+	phf 	= phf / 100;							// panel height to meter
+	pwf 	= pwf / 100;							// panel width to meter
+	var dp	= dp /100;								// panel depth to meter		
+	var S 	= pwf * phf;	
+	var gamma = masse / S;
+
+	var parea = phf * pwf;							// panel area in m2
+	var fres = 60 / Math.sqrt(gamma * dp);			// without absorption
+	var fresw = 50 / Math.sqrt(gamma * dp);			// with absorption
+
+	document.frmPLF.parea.value	= round(parea, 2); 
+	document.frmPLF.fres.value 	= round(fres, 1);
+	document.frmPLF.fresw.value = round(fresw, 1);	
+}
+
+
+
+function PlabsorberDP()
+{
+	var masse 	= document.frmPLF2.Pm.value;			// panel weight
+	var f	  	= eval(document.frmPLF2.f.value);		// panel depth
+	var pwf 	= eval(document.frmPLF2.pwf.value);		// panel width
+	var phf 	= eval(document.frmPLF2.phf.value);		// panelheight 
+	var f 		= eval(document.frmPLF2.f.value);
+	
+	phf 		= phf / 100;							// panel height to meter
+	pwf 		= pwf / 100;							// panel width to meter					
+	var S 		= pwf * phf;							// panel area in m2
+	var gamma 	= masse / S;							
+
+	var dpf		= Math.pow((60 / f),2) / gamma;			// calculate panel depth
+	dpf 		= dpf * 100;							// Panel depth to cm
+	
+	var fresf 	= 60 / Math.sqrt(gamma * (dpf/100));	// without absorption in cm
+	var fresfw 	= 50 / Math.sqrt(gamma * (dpf/100));	// with absorption in cm
+	
+	document.frmPLF2.parea.value	= round(S, 2); 
+	document.frmPLF2.dpf.value 		= round(dpf, 1);
+	document.frmPLF2.fresf.value 	= round(fresf, 1);	
+	document.frmPLF2.fresfw.value 	= round(fresfw, 1);	
+	
+	//var pw = Math.pow((60 / f),2) * (dpf * 1);
+	//alert(pw);
+}
+
+
+/*
+?* calculate Panel mass
+*/
+function PlabsorberM()
+{
+	var fm	  	= eval(document.frmPLM3.fm.value);		// panel frequency
+	var pwm 	= eval(document.frmPLM3.pwm.value);		// panel width
+	var phm 	= eval(document.frmPLM3.phm.value);		// panelheight 
+	var pdm     = eval(document.frmPLM3.pdm.value); 	// Panel depth
+	phm 		= phm / 100;							// panel height to meter
+	pwm 		= pwm / 100;							// panel width to meter					
+	pdm 		= pdm * 100;							// Panel depth to meter
+
+	var Sm 		= pwm * phm;							// panel area in m2	
+	var g 	   = Math.pow((60 / fm),2) / pdm;			// calculate gamma
+	
+	g 			= g * 10000;
+	var M	    = g * Sm;								// Panel mass in kg	
+	
+	var fresm 	= (60 / Math.sqrt(g * pdm)) * 100;		// without absorption in cm
+	var freswm  = (50 / Math.sqrt(g * pdm)) * 100;		// with absorption in cm	
+
+
+	
+	document.frmPLM3.Sm.value	= round(Sm, 2); 
+	document.frmPLM3.M.value 	= round(M, 1);
+	document.frmPLM3.fresm.value 	= round(fresm, 1);	
+	document.frmPLM3.freswm.value 	= round(freswm, 1);	
+	//document.frmPLM3.pdm.value 	= pdm;
+	
+}
+
+
+// =======   Plot ===========
+var doplot = function(){
+    var step = 1; //Math.pow(10, 0.001);
+	var start, stop;
+
+  	start = 10;
+  	stop  = 200;
+  	var masse = 25; // start weight of panel
+
+
+    var chart = new CanvasJS.Chart("chartContainer", {
+	zoomEnabled: true,
+	zoomType: "xy",
+	animationEnabled: true,
+	exportEnabled: true,
+	theme: "light2",
+	title: {
+		text: "",
+		fontSize: 24
+	},
+	subtitles:[{
+		text: "",
+		fontSize: 11
+	}],
+	axisX: {
+		logarithmic: true,
+		title: "Frequency ( Hz )",
+		titleFontColor: "#535252",
+		minimum: start,
+        valueFormatString: "#,###0.00"
+	},
+	axisY: {
+		title: "Panel weight ( kg )",
+		titleFontColor: "#535252",
+		//labelFontColor: "#808080",
+		gridDashType: "solid",
+		includeZero: false
+	},
+	toolTip: {
+		shared: false
+	},
+	data: [{
+		type: "line",
+		name: "kg",
+		showInLegend: true,
+		yValueFormatString: "#,##0.00 kg ",
+		xValueFormatString: "#,##0.00 Hz",
+		dataPoints: type1DataPoints(step)
+		}]
+});
+		
+chart.render();
+
+
+// calculate === meters
+function type1DataPoints(step)
+{
+	var dataPoints = [];
+	var step = Math.pow(10, 0.01);
+	//var masse = document.frmPLF.Pm.value;			// panel weight
+	var dp		= eval(document.frmPLF.dp.value);	// panel depth
+	var pwf = eval(document.frmPLF.pwf.value);		// panel width
+	var phf = eval(document.frmPLF.phf.value);		// panelheight 
+	phf = phf / 100;								// panel height to meter
+	pwf = pwf / 100;								// panel width to meter
+	dp	= dp /100;									// panel depth to meter	
+	var S = pwf * phf;								// panel area 
+	
+	
+	for(var t = start; t < stop ; t *= step) 		//frequency loop
+		{		
+			      	
+        	//var gamma = masse / S;
+        	var gamma = masse / S;
+        	//alert("gamma=" + gamma + ", t=" + t);
+        	
+        	var f = 60 / Math.sqrt(gamma * dp);	// no absorbtion
+        	
+			dataPoints.push({x: t, y: masse});
+			console.log(t, masse);
+			masse = masse - 0.21;
+			alert(gamma);
+		}
+	return dataPoints;
+}
+
+}
+
+// -->
+
+
+    </script>
+</head>
+<body>
+<div id="header" class="container">
+    <div id="logo">
+        <h2>HiFi&nbsp;&nbsp;Audio&nbsp;&nbsp;Design</h2>
+    </div>
+    <br>
+    <div id="menu">
+      <center>
+        <ul>
+            <li><a href="../../index.html" accesskey="1" title="">Home</a></li>
+            <li><a href="../../loudspeaker.html" accesskey="2" title="">Loudspeaker</a></li>
+            <li><a href="../../acoustics.html" accesskey="3" title="">Acoustic</a></li>
+            <li class="active"><a href="../../calculator.html" accesskey="4" title="">Calculators</a></li>
+            <li><a href="../../library.html" accesskey="7" title="">Library</a></li>
+        </ul>
+        </center>
+    </div>
+</div>
+<div id="page">
+    <div class="container">
+        <div class="title">
+            <br><h1><i>Panel Sound Absorber</i></h1>
+        </div>
+            <br>
+				<table align="center" border="0" width="70%">
+				<tr>
+                <td><img src="../../images/acoustics/PA1.jpg" width="320" alt=""/></td>
+                <td><img src="../../images/acoustics/PA2.jpg" width="320" alt=""/></td>
+				</tr>
+				</table>
+                <div class="details">
+                    <p> <!-- Start Content -->
+
+                    <table align=center width="75%">
+                        <tr>
+                            <td>
+                            	
+                                A panel Absorber is created when you place a sheet of plywood or fibreboard, with
+                                insulation glued to the back of it, over an air cavity. The panel will have a resonate
+                                frequency of its own, tap it and you will hear it. When it is placed over a sealed
+                                cavity, and insulation is attached to the back, everytime it hears its own note it
+                                resonates and the air in the cavity resonates and the insulation absorbs the resonance,
+                                hence absorbing the frequency! It is important to note that here we have an absorber
+                                that reflects the high frequencies and attenuates the low. With the hangers all that
+                                exposed insulation absorbs the high frequencies as well so the panel absorber has a
+                                place in the studio. 
+                                <br><br>
+                                <i>The three factors determining the frequency of absorption are:</i>
+                                <OL>
+                                    <li>The weight of the panel.</li>
+                                    <li>The depth of the air cavity, i.e. depth of the sealed timber frame.</li>
+                                    <li>Use of absorption material</li>
+                                </OL>
+                                <center><img src="../../images/acoustics/PA3.jpg" border="0" width="350"></center>
+                                <br>
+                                Filling the cavity with fibreglass or mineral wool tends to lower the resonant frequency
+                                by up to 50 per cent as well as doubling the effectiveness of the trap. It also lowers
+                                the Q of the trap so that it is effective over a wider frequency range. A typical
+                                panel-type trap is effective for frequencies around one octave either side of the centre
+                                frequency, which at least has the advantage that you don't have to be absolutely
+                                accurate to get results.
+                                <br><br>
+                                <!--
+                                For a panel resonator it's easy to imagine what the mass is: the panel.
+                                The heavier this mass becomes the lower the resonance frequency and vice versa.
+                                As such a panel resonator is mainly defined by the combination of both properties.
+                                This isn't complete, since angle of incidence, weakness of spring, damping etc. will influence the resonance frequency and the Q-factor.
+                                
+                                <table align="center" width="100%" celspacing="0" dellpadding="2">
+                                <tr>
+									<td>The formulas used by the calculator have been taken from the following source:<br>
+										<i>Master Handbook of Acoustics ( Fourth Edition ) by F. Alton Everest</i>
+									</td>	
+									<td align="center"><img src="../images/acoustics/MHoA.jpg" width="100"></td>
+								</tr>
+								</table-->	
+								<br><br>
+                            </td>
+                        </tr>
+                    </table>
+
+                    <center><h2><i>Calculate Frequency of absorption</i></h2></center>
+                    <form name="frmPLF">
+                        <table align=center width="95%" class="header" cellspacing=0 cellpadding=2>
+                            <tr>
+                                <td>
+                                    <table align=center width="100%" cellspacing=0 cellpadding="2" class="Calctable">
+                                    	<tr><td colspan="2" height="20"></td></tr>
+     									<tr>
+											<td align="right">Panel width : </td>
+											<td><input type="number" step="0.01" class="frmInput" name="pwf" id="panelw"style="width: 5em;" onchange="this.value = this.value.replace(/,/g, '.')"> cm</td>
+										</tr>
+										<tr>
+											<td align="right">Panel height : </td>
+											<td><input type="number" step="0.01" class="frmInput" name="phf" id="panelh"style="width: 5em;" onchange="this.value = this.value.replace(/,/g, '.')"> cm</td>
+										</tr>                               	
+                                        <tr>
+                                            <td align="right">Panel weight : </td>
+                                            <td><input class="frmInput" type="text"  name="Pm" id="Pm" style="width: 5em;" onchange="this.value = this.value.replace(/,/g, '.')"/> Kg
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td align="right">Panel depth : </td>
+                                            <td><input class="frmInput" type="text"  name="dp" style="width: 5em;" onchange="this.value = this.value.replace(/,/g, '.')"/> cm
+                                            </td>
+                                        </tr>
+                                        <!--tr>
+                                        	<td align="right"><input type="radio" name="ca" value="60">&nbsp;No absorbtion</td>
+                                        	<td><input type="radio" name="ca" value="50">&nbsp;With absorbtion</td>
+                                        </tr-->                                        
+                                        <tr>
+                                            <td colspan=3>
+                                                <hr size="1">
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                        	<td align="right">Panel area is&nbsp;&nbsp;</td>
+                                        	<td><input class="frmOutput" type="number" name="parea"
+                                                                    style="width: 5em;"
+                                                                    readonly> m<sup>2</sup></td>
+                                        </tr>
+                                        <tr>
+                                            <td align="right"><strong>A fixed panel with concealed cavity has its natural frequency at</strong>&nbsp;&nbsp;</td>
+                                            <td><input class="frmOutput" type="number" name="fres"
+                                                                    style="width: 5em;"
+                                                                    readonly> Hz</td>
+                                        </tr>
+                                        <tr>
+                                            <td align="right">A panel fixed and concealed cavity filled with absorbers has a expected frequency at&nbsp;&nbsp;</td>
+                                            <td><input class="frmOutput" type="number" name="fresw"
+                                                                    style="width: 5em;"
+                                                                    readonly> Hz</td>
+                                        </tr>                                        
+                                        <tr>
+                                            <td colspan=2 align=center><br><input class="calcButton" type="button"
+                                                                              name="calc" value="Calculate panel frequency"
+                                                                              onclick="PlAbsorberFrequency();"><br><br></td>
+                                        </tr>
+                                    </table>
+                                </td>
+                            </tr>
+                        </table>
+                    </form>
+                   
+                    <br><br>
+                    <center><h2><i>Calculate Panel depth</i></h2></center>                    
+                    <form name="frmPLF2">
+                        <table align=center width="90%" class="header" cellspacing=0 cellpadding=2>
+                            <tr>
+                                <td>
+                                    <table align=center width="100%" cellspacing=0 cellpadding="2" class="Calctable">
+                                    	<tr><td colspan="2" height="20"></td></tr>
+     									<tr>
+											<td align="right">Panel width : </td>
+											<td><input type="number" step="0.01" class="frmInput" name="pwf" id="panelw"style="width: 5em;" onchange="this.value = this.value.replace(/,/g, '.')"> cm</td>
+										</tr>
+										<tr>
+											<td align="right">Panel height : </td>
+											<td><input type="number" step="0.01" class="frmInput" name="phf" id="panelh"style="width: 5em;" onchange="this.value = this.value.replace(/,/g, '.')"> cm</td>
+										</tr>                               	
+                                        <tr>
+                                            <td align="right">Panel weight : </td>
+                                            <td><input class="frmInput" type="text"  name="Pm" id="Pm" style="width: 5em;" onchange="this.value = this.value.replace(/,/g, '.')"/> Kg
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td align="right">Panel frequency should be : </td>
+                                            <td><input class="frmInput" type="text"  name="f" style="width: 5em;" onchange="this.value = this.value.replace(/,/g, '.')"/> Hz
+                                            </td>
+                                        </tr>
+                                        <!--tr>
+                                        	<td align="right"><input type="radio" name="ca" value="60">&nbsp;No absorbtion</td>
+                                        	<td><input type="radio" name="ca" value="50">&nbsp;With absorbtion</td>
+                                        </tr-->                                        
+                                        <tr>
+                                            <td colspan=3>
+                                                <hr size="1">
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td align="right"><strong>Panel depth is</strong>&nbsp;&nbsp;</td>
+                                            <td><input class="frmOutput" type="number" name="dpf"
+                                                                    style="width: 5em;"
+                                                                    readonly> cm</td>
+                                        </tr>                                        
+                                        <tr>
+                                        	<td align="right">Panel area is&nbsp;&nbsp;</td>
+                                        	<td><input class="frmOutput" type="number" name="parea"
+                                                                    style="width: 5em;"
+                                                                    readonly> m<sup>2</sup></td>
+                                        </tr>
+                                        <tr>
+                                            <td align="right"><strong>A fixed panel with concealed cavity has its natural frequency at&nbsp;&nbsp;</strong>strong></td>
+                                            <td><input class="frmOutput" type="number" name="fresf"
+                                                                    style="width: 5em;"
+                                                                    readonly> Hz</td>
+                                        </tr>                                        
+                                        <tr>
+                                            <td align="right">A panel fixed and concealed cavity filled with absorbers has a expected frequency at&nbsp;&nbsp;</td>
+                                            <td><input class="frmOutput" type="number" name="fresfw"
+                                                                    style="width: 5em;"
+                                                                    readonly> Hz</td>
+                                        </tr>                                        
+                                        <tr>
+                                            <td colspan=2 align=center><br><input class="calcButton" type="button"
+                                                                              name="calc" value="Calculate panel depth"
+                                                                              onclick="PlabsorberDP();"><br><br></td>
+                                        </tr>
+                                    </table>
+                                </td>
+                            </tr>
+                        </table>
+                    </form>
+                     <br><br>
+                    <center><h2><i>Calculate Panel mass</i></h2></center>                    
+                    <form name="frmPLM3">
+                        <table align=center width="90%" class="header" cellspacing=0 cellpadding=2>
+                            <tr>
+                                <td>
+                                    <table align=center width="100%" cellspacing=0 cellpadding="2" class="Calctable">
+                                    	<tr><td colspan="2" height="20"></td></tr>
+     									<tr>
+											<td align="right">Panel width : </td>
+											<td><input type="number" step="0.01" class="frmInput" name="pwm" id="pwm"style="width: 5em;" onchange="this.value = this.value.replace(/,/g, '.')"> cm</td>
+										</tr>
+										<tr>
+											<td align="right">Panel height : </td>
+											<td><input type="number" step="0.01" class="frmInput" name="phm" id="phm"style="width: 5em;" onchange="this.value = this.value.replace(/,/g, '.')"> cm</td>
+										</tr>                               	
+                                        <tr>
+                                            <td align="right">Panel depth : </td>
+                                            <td><input class="frmInput" type="number" step="0.1" name="pdm" id="pdm" style="width: 5em;" onchange="this.value = this.value.replace(/,/g, '.')"/> Kg
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td align="right">Panel frequency should be : </td>
+                                            <td><input class="frmInput" type="number" step="0.001"  name="fm" style="width: 5em;" onchange="this.value = this.value.replace(/,/g, '.')"/> Hz
+                                            </td>
+                                        </tr>                                       
+                                        <tr>
+                                            <td colspan=3>
+                                                <hr size="1">
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                        	<td align="right"><strong>Panel mass is</strong>&nbsp;&nbsp;</td>
+                                        	<td><input class="frmOutput" type="number" name="M" style="width: 5em;" bgcolor="green"readonly> Kg</td>
+                                        </tr>                                                                                  
+                                        <tr>
+                                        	<td align="right">Panel area is&nbsp;&nbsp;</td>
+                                        	<td><input class="frmOutput" type="number" name="Sm"
+                                                                    style="width: 5em;"
+                                                                    readonly> m<sup>2</sup></td>
+                                        </tr>  
+                                        <!--tr>
+                                            <td align="right">Panel depth is&nbsp;&nbsp;</td>
+                                            <td><input class="frmOutput" type="number" name="pdm"
+                                                                    style="width: 5em;"
+                                                                    readonly> cm</td>
+                                        </tr-->                                                                            
+                                        <tr>
+                                            <td align="right"><strong>A fixed panel with concealed cavity has its natural frequency at&nbsp;&nbsp;</strong>strong></td>
+                                            <td><input class="frmOutput" type="number" name="fresm"
+                                                                    style="width: 5em;"
+                                                                    readonly> Hz</td>
+                                        </tr>                                        
+                                        <tr>
+                                            <td align="right">A panel fixed and concealed cavity filled with absorbers has a expected frequency at&nbsp;&nbsp;</td>
+                                            <td><input class="frmOutput" type="number" name="freswm"
+                                                                    style="width: 5em;"
+                                                                    readonly> Hz</td>
+                                        </tr>                                        
+                                        <tr>
+                                            <td colspan=2 align=center><br><input class="calcButton" type="button"
+                                                                              name="calc" value="Calculate panel mass"
+                                                                              onclick="PlabsorberM();"><br><br></td>
+                                        </tr>
+                                    </table>
+                                </td>
+                            </tr>
+                        </table>
+                    </form>                   
+                    <br><br><br>
+                    <center>
+                    <a href="" target="_blank" class="calcButton">Working priciples of panel absorbers</a> - Video 28:42 minutes
+                    </center>
+                    <br><br>
+                    <hr size="1" width="75%">
+                    <br><br>
+                    <center>
+						<br>
+                        <a href="javascript:history.back()" class="calcButton"><<< Back</a>
+                    </center>
+                    <br><br>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <div class="copyright">
+        &copy;
+        <span id="copyright">
+        <script>document.getElementById('copyright').appendChild(document.createTextNode(new Date().getFullYear()))</script>
+        &nbsp;mh-Audio.nl&nbsp;&nbsp;-&nbsp;&nbsp;<a href="../disclaimer.html"><font
+                color="#000000">Disclaimer</font></a>
+    </span>
+    </div>
+</body>
+</html>
