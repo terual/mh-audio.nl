@@ -1,0 +1,509 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<!--
+Design by TEMPLATED
+http://templated.co
+Released for free under the Creative Commons Attribution License
+
+Name       : TailPiece 
+Description: A two-column, fixed-width design with dark color scheme.
+Version    : 1.0
+Released   : 20130902
+
+-->
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <!-- Google Analytics -->
+    <script>
+        window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+        ga('create', 'UA-77078028-1', 'auto');
+        ga('send', 'pageview');
+    </script>
+    <script async src='https://www.google-analytics.com/analytics.js'></script>
+    <!-- End Google Analytics -->
+
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>Calculate Perforated Helmholtz Panel Absorber</title>
+ <meta name="Keywords" content="HiFi, Audio, Loudspeakers, Database, Acoustic treatment, 
+		OnlineCalculator, LoudspeakerBasics, Links, Tubes, Buizen, Music, Muziek, Musik, 
+		Lautsprechergrundlagen, Lautsprecherberechnungen, Lautsprecher-Database, 
+		Analog to digital, Vinyl, Tapes, old records vinyl on cd, Acoustic, Bass Absorber,
+		acoustic electric,acoustic foam panel,acoustic measurements,acoustic panel,boston acoustic
+		acoustic neuromas,room acoustics,acoustics,acoustic foam,speaker cable,acoustic phonetics,
+		acoustic panels,acoustic ceiling,acoustic materials,acoustic neuroma,audio acoustic,acoustic,
+		acoustic insulation,acoustic wall panels,acoustic treatment,acoustic solution,acoustic wall panel,
+		acoustic bass,acoustic baffles,diy speaker cable, Room modes,
+		acoustic software,
+		room acoustics,
+		audio acoustic,
+		acoustic foam,
+		musical acoustics">
+<meta name="Description" content="Resource for building, calculate and measuring Hi Fi Loudspeakers,DIY LoudspeakerSite, Acoustic treatment, loudspeaker calculations, hifi links, high end">
+    <link href="http://fonts.googleapis.com/css?family=Source+Sans+Pro:200,300,400,600,700,900" rel="stylesheet"/>
+    <link href="../default.css" rel="stylesheet" type="text/css" media="all"/>
+    <link href="../fonts.css" rel="stylesheet" type="text/css" media="all"/>
+    <link rel="shortcut icon" href="../favicon.ico" type="image/x-icon">
+
+    <!--[if IE 6]>
+    <link href="default_ie6.css" rel="stylesheet" type="text/css"/><![endif]-->
+    
+<style>
+div.polaroid {
+  width: 70%;
+  box-shadow: 0 5px 10px 0 rgba(0, 0, 0, 0.6), 0 6px 20px 0 rgba(0, 0, 0, 0.2);
+}
+</style>    
+    
+    <script src="../js/fab.js"></script>
+
+    <script language="javascript">
+<!--
+function round(number,X) {
+// rounds number to X decimal places, defaults to 3
+    X = (!X ? 3 : X);
+    return Math.round(number*Math.pow(10,X))/Math.pow(10,X);
+}
+
+function reken()  // Perforated Panel Absorber
+{
+	//var b = eval(document.frmGAT.b.value);  // breede absorberplaat
+	//var h = eval(document.frmGAT.h.value);  // hoogte absorberplaat
+	var d = eval(document.frmGAT.d.value);    //diepte absorber cm
+	//var o = eval(document.frmGAT.o.value);    //oppervlakte absorberplaat m@
+	var pw = eval(document.frmGAT.pw.value);
+	var ph = eval(document.frmGAT.ph.value);
+	var ag = eval(document.frmGAT.ag.value);  //aantal gaten
+	var t = eval(document.frmGAT.t.value);    //gatdiameter cm
+	var dp = eval(document.frmGAT.dp.value);  //dikte plaat cm
+	var x = 0.8 * t;
+	var dp = dp + x;
+
+// cm to meters
+	pw = pw/100
+	ph = ph/100
+
+// calc panelarea
+	o = pw*ph;
+// convert m2 to cm2
+	var o_cm = o * 10000;
+
+// calculate int. volume
+	var v = ( eval(document.frmGAT.pw.value) * eval(document.frmGAT.ph.value) * d ) / 1000;
+
+	// bereken oppervlakte gaatje mm2
+	var og = ((t/2)*(t/2)) * 3.14159;
+	og = round(og,2);
+
+	// bereken totale oppervlakte gaatjes mm2
+	var T = (ag * og) 
+	T = round(T,2);
+
+	// berekn perforatiepercentage van absorberplaat 
+	var p = (T * 100) / o_cm;
+	p = round(p,2);
+
+	//bereken resonzfrequenz absorber without stuffing
+	//var f = p / (d*dp);
+	var f = p / (d*dp);
+	var f = Math.sqrt(f);
+	var f = 490 * f;
+		f = round(f,2);
+
+	//bereken min diepte voor absorber
+	md = ((344 / f) / 8) * 100
+	
+
+	// calculate hole distance
+	//var pwph_relation = ph/pw;
+	//var holes_horizontal = 
+	//var holes_vertical =
+
+	//document.frmGAT.v.value = round(v, 3)
+	document.frmGAT.p.value = round(p, 2)
+	//document.frmGAT.o.value = round(o, 2)
+	document.frmGAT.f.value = round(f, 2);
+
+	document.frmGAT.o.value = round(o, 2);
+
+	document.frmGAT.v.value = round(v, 2);
+}
+
+// -->
+
+
+    </script>
+</head>
+<body>
+<div id="header" class="container">
+    <div id="logo">
+        <h2>HiFi&nbsp;&nbsp;Audio&nbsp;&nbsp;Design</h2>
+    </div>
+    <br>
+    <div id="menu">
+      <center> 
+      <ul>
+            <li><a href="../../index.html" accesskey="1" title="">Home</a></li>
+            <li><a href="../../loudspeaker.html" accesskey="2" title="">Loudspeaker</a></li>
+            <li><a href="../../acoustics.html" accesskey="3" title="">Acoustic</a></li>
+            <li class="active"><a href="../../calculator.html" accesskey="4" title="">Calculators</a></li>
+            <li><a href="../Library.html" accesskey="7" title="">Library</a></li>
+
+          <!--
+            <li><a href="../Software.html" accesskey="6" title="">Soft & Hardware</a></li>
+            <li><a href="../Elektronic.html" accesskey="5" title="">Electronic</a></li>
+            <li><a href="../Measurement.html" accesskey="5" title="">Measurement</a></li>
+            <li><a href="../Links.html" accesskey="5" title="">Links/Downloads</a></li>
+            <li><a href="../Library.html" accesskey="7" title="">Library</a></li>
+            <li><a href="../EmailFormNew.asp" accesskey="5" title="">Contact</a></li>
+          -->
+        </center>
+        </ul>
+    </div>
+</div>
+<button onclick="topFunction()" id="myBtn" title="Go To Top">⬆</button>
+<button id="myBtnDown" onclick="scrollWin()" title="Scroll Down">⬇</button>
+<div id="page">
+    <div class="container">
+   
+        <div class="title">
+            <br><h1><i>Perforated Helmholtz Panel Absorber</i></h1>
+        </div>
+        <div class="box0">
+            <div class="box margin-btm">
+                <center>
+                <!-- <br><div class="polaroid"><br><img src="../images/Acoustics/Panel.png" width="600" alt=""/></div><br> -->
+                <br><img src="../../images/Acoustics/panel.png" width="600" alt=""/><br>
+                </center>
+                <div class="details">
+                    <p> <!-- Start Content -->
+                    <TABLE align="center" width="75%">
+    
+                        <tr>
+                            <td>
+                            Helmholtz absorbers are used to reduce mid frequencies. 
+                            <br>
+                            The Helmholtz construction contains a “chamber” (<strong>1</strong>) 
+                            which is connected to the room trough a “neck” (<strong>2</strong>) (the perforation hole). 
+                            The air in the neck is influenced by sound and puts the air in the chamber in resonation, which transforms 
+                            sound energy into heat energy. The sound absorption increases if the distance to the wall, and by that 
+                            the chamber is enlarged. Helmholtz absorbers do work over a shorter interval of frequencies, 
+                            but this can be improved by filling the void with a porous mineral wool (<strong>1</strong>) and putting an air 
+                            permeable felt (<strong>3</strong>) directly behind the “neck”.
+                            <br>
+                            <center>
+                            	<img src="../../images/acoustics/mra.jpg"><br>
+                            </center>
+                            
+                            
+                                In acoustically treating a room, there are a number of ways to overcome issues and
+                                achieve good sound. Absorption is one of these techniques, and constructing panels that
+                                will absorb from approx 250Hz and up is relatively easy to do, however it is the
+                                frequencies below 250Hz which prove to be challenging. This is where the perforated
+                                panel absorber can be useful.
+                                <br><br>
+                                <span><B>Background</B></span><br>
+                                A perforated Helmholtz panel absorber is a resonating absorber - ie, it is 'tuned' to a frequency.
+                                <br><br>
+                                Physically, it is a box, where one side of the box has gaps in it where air can move in
+                                and out of the box. The other 5 sides of the box are solid and complete, with no gaps.
+                                If you build a six sided sealed box and drilled a hole in one side, that would be a
+                                perforated Helmholtz panel absorber. The name comes from the fact that one panel is perforated.
+                                <br><br>
+                                The idea of these 'gaps' is an important one, because the shape of these gaps does not
+                                matter at all. You can drill holes, you can have thin slots, you can have any shape you
+                                like!
+                                <br><br>
+                                The thing that matters is the percentage of the panel that is gaps.<br>
+                                If you have a panel that is 100cm<sup>2</sup> and you drill a hole in it that is
+                                1cm<sup>2</sup> then 1% of the panel will be a gap, and 99% of it will be solid.
+                                <br><br>
+                                How to work out the size of the box<br>
+                                The box can be any size and shape you like. However, the size of the box does affect the
+                                tuning of the box, so (for instance) you won't be able to build a box that is 10cm deep,
+                                but will be tuned to 20Hz.
+                                <br><br>
+                            </td>
+                        </tr>
+                    </table>
+
+                    <a name="calculator"></a>
+                    <center>
+                        <h2><i>Calculate Resonant frequency of Perforated Helmholtz Panel Absorber</i></h2>
+                        <br>
+                    </center>
+                    <form name="frmGAT" onsubmit="reken(this.form)">
+                        <table cellspacing=0 cellpadding=0 align=center class="Calctable">
+                            <tr>
+                                <td align="center">
+                                    <table align="center" width="75%" cellspacing="0" cellpadding="2" border="0">
+                                    <tr><td colspan="2" height="20"></td></tr>
+                                        <tr>
+                                            <!--td>Panel area [m<sup>2</sup>]</td><td><input type="text" name="o" size="4" value="0.5"> [m<sup>2</sup>]</td-->
+                                            <td width="220" align="right">Panel width [cm] : </td>
+                                            <td><input type="number" step="0.1" class="frmInput" name="pw" value="50"
+                                                       style="width: 6em;"></td>
+                                        </tr>
+                                        <tr>
+                                            <td align="right">Panel height [cm] : </td>
+                                            <td><input type="number" step="0.1" class="frmInput" name="ph" value="100"
+                                                       style="width: 6em;"></td>
+                                        </tr>
+
+                                        <!--
+                                            <tr>
+                                            <td>Panel width [cm]</td><td><input type="text"name="b" size=4 value="100"></td>
+                                            </tr>
+                                            <tr>
+                                            <td>Panel height [cm]</td><td><input type="text"name="h" size=4 value="100"></td>
+                                            </tr>
+                                        -->
+
+                                        <tr>
+                                            <td align="right">Panel thickness [cm] : </td>
+                                            <td><input class="frmInput" type="number" step="0.01" name="dp"
+                                                       style="width: 6em;"
+                                                       value="1.2"></td>
+                                        </tr>
+                                        <tr>
+                                            <td align="right">Depth of the air space [cm] : </td>
+                                            <td><input class="frmInput" type="number" step="0.1" name="d"
+                                                       style="width: 6em;" value="30"></td>
+                                        </tr>
+                                        <tr>
+                                            <td align="right">Hole diameter [cm] : </td>
+                                            <td>
+                                                <input type="number" step="0.1" name="t" value="1" class="frmInput"
+                                                       size=2>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td align="right">Amount of holes : </td>
+                                            <td><input class="frmInput" step="1" type="number" step="1" name="ag"
+                                                       style="width: 6em;"
+                                                       value="228"></td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="2" align=center><br><input class="calcButton" type="button"
+                                                                                value="calculate"
+                                                                                onclick="reken(this.form);"><br><br>
+                                            </td>
+                                        </tr>
+
+                                        <!--
+                                        <tr>
+                                        <td colspan="2" align="center"><img src="gif/Micro_L1_distance.png"></td>
+                                        </tr>
+                                        <tr>
+                                        <td>centres between the holes</td>
+                                        <td><input type="text" name="hole_distance"></td>
+                                        </tr>
+                                        -->
+                                        <tr>
+                                            <td colspan="2" align="center">
+                                                <table width="100%" cellspacing="0' cellpadding="2" border="0">
+                                                    <tr>
+                                                        <td width="220" align="right">Panel area [m<sup>2</sup>] = </td>
+                                                        <td><input type="number" class="frmOutput" name="o"
+                                                                   style="width: 6em;"
+                                                                   readonly></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td align="right">Volume Absorber [Liter] = </td>
+                                                        <td><input class="frmOutput" type="number" name="v"
+                                                                   style="width: 6em;"
+                                                                   readonly></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td align="right">Percentage of perforation [%] = </td>
+                                                        <td><input class="frmOutput" type="number" name="p"
+                                                                   style="width: 6em;"
+                                                                   readonly></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td align="right">Resonant frequency [Hz] = </td>
+                                                        <td><input class="frmOutput" type="number" name="f"
+                                                                   style="width: 6em;"
+                                                                   readonly></td>
+                                                    </tr>
+                                                    <tr><td colspan="2" height="20"></td></tr>
+                                                    <!--
+                                                    <tr>
+                                                    <td>min diepte [cm]</td><td><input type="text" name="md" size="6" readonly></td>
+                                                    </tr>
+                                                    -->
+                                                </table>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </td>
+                            </tr>
+                        </table>
+                        <br><br>
+
+                        <TABLE align="center" width="100%" border="0">
+                            <tr>
+                                <td>
+                                    <table align="center" width="75%" border="0">
+                                        <tr>
+                                            <td colspan="3" align="center">
+                                                <h4>Formulas</b> (taken from the Master Handbook of Acoustics)</h4><br>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td valign="top">
+                                                <b>for absorbers with holes:</b>
+                                                <br><br>
+                                                <span>Freq = 200 x square root of (P/(D x T))</span>
+                                                <br><br>
+                                                where:<br>
+                                                P = perforation percentage (eg, 5%)<br>
+                                                D = depth of air space (in inches)<br><br>
+                                                <span>T = PT + 0.8 x HD</span><br><br>
+                                                where:<br>
+                                                PT = panel thickness (in inches)<br>
+                                                HD = hole diameter (in inches)<br>
+                                            </td>
+                                            <td width="100">&nbsp;</td>
+                                            <td valign="top">
+                                                <b>for absorbers with slats:</b>
+                                                <br><br>
+                                                <span>Freq = 216 x square root of (P/(D x PT))</span>
+                                                <br><br>
+                                                where:<br>
+                                                P = perforation percentage (eg, 5%)<br>
+                                                D = depth of air space (in inches)<br>
+                                                PT = panel thickness (in inches)
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </td>
+                            </tr>
+                        </table>
+
+                        <table width="75%" cellspacing="0" cellpadding="2" align="center" border="0">
+                            <tr>
+                                <td>
+                                    <h4>Notes:</h4>
+                                    the depth of the air space is the internal depth of the box, the distance from the
+                                    inside of the panel with the holes/slats to the inside face of the rear panel.
+                                    The panels themselves are not meant to move at all, therefore you should make them
+                                    out of a material sufficiently thick so they don't move. Don't use 6mm MDF! If
+                                    you're going with < 16mm MDF then you might like to put in a couple of braces -
+                                    nothing ridiculous, just to stiffen the panels up a bit.
+                                    <br><br>
+
+                                    <h4>Bandwidth</h4>
+                                    Now we know how to tune the box to a particular frequency, but how wide a frequency
+                                    range will it absorb?<br>
+                                    The answer is: not very much. However, if we put stuffing inside it, then it will
+                                    absorb a much wider range of frequencies.
+                                    <br><br>
+                                    The graphs in the book show that at the tuning frequency the absorption is very
+                                    close to 100%, but if we take 80% as being our goal, then it will do roughly one
+                                    octave either side of the tuning frequency.<br>
+                                    ie, if we build a trap that is tuned to 50Hz, then we will get about 80% or more
+                                    absorption between 25Hz and 100Hz.
+                                    <br><br>
+                                    Stuffing can be anything you like, but fibreglass is the cheapest and most effective
+                                    performer, so that is what people normally use. Be warned though, fibreglass is
+                                    nasty stuff, and so you should wrap it in fabric to ensure the fibres don't go
+                                    everywhere!
+                                    <br><br>
+                                    <h4>Size of trap and absorption</h4>
+                                    These traps are not magical devices - they don't 'suck' bass from a room. They
+                                    simply behave in such a way that lots of the bass frequencies that go into the trap
+                                    (through the gaps in the front panel) don't come out again.<br>
+                                    The key concept here is that if you build a bass trap that has a front panel size of
+                                    1m x 1m it will absorb a lot more bass than a box 10cm x 10cm with the same tuning
+                                    frequency.
+                                    <br><br>
+                                    <span><b>Guidelines</b></span><br>
+                                    The trap becomes more effective at absorbing bass the more easily that the sound can
+                                    get into the box to be absorbed. ie, a 1m<sup>2</sup> box with 1% of the front panel
+                                    open will be less effective than a 1m<sup>2</sup> box with 5% of the front panel
+                                    open, simply because there are more holes to let the sound in!<br>
+                                    You will now realise that if you want to tune your trap for low frequencies, you can
+                                    either make it have less holes, or be deeper. The guideline would be to keep the
+                                    perforation percentage above 1%.
+                                    <br><br>
+                                    <span><b>An example - My system</b></span><br>
+                                    I own some panels that absorb from approx 250Hz up, so I wanted to complement these
+                                    with absorption from 250Hz down.<br>
+                                    Taking the idea that a trap is >80% effective over a two octave range, I decided to
+                                    build two different tunings, one at 120Hz and one at 60Hz.<br>
+                                    The 120Hz trap would absorb up to 240Hz and down to 60Hz with greater than 80%
+                                    effectiveness.<br>
+                                    The 60Hz trap would absorb up to 120Hz and down to 30Hz with greater than 80%
+                                    effectiveness.<br>
+                                    Combined, they should be effective over a range from 30Hz to 240Hz.
+                                    <br><br>
+                                    I decided that I would build my traps from a commonly available size of wood so I
+                                    didn't have to do as much cutting, so the front panel of the traps are 900x600.
+                                    So, using the above formula, using the tuning frequency as a goal, I calculated a
+                                    trap that was ~30cm (12in) deep (the internal depth) and had a 3.6% perforation
+                                    percentage with 1cm (0.4in) diameter holes and a 12mm (0.5in) thick front panel.
+                                    This gives me the 120Hz I wanted. <br><br>
+                                    <span><b>So, what does 3.6% perforation actually mean?</b></span><br>
+                                    Given that each hole has a surface area (using pi*r*r) 0.785cm<sup>2</sup>, and that
+                                    the total area for the front panel is approx 5031cm<sup>2</sup> (remember the front
+                                    panel is 576mm x 876mm on the inside of the box) that means we need 230 holes.<br>
+                                    These holes should be spread pretty evenly over the front face of the box, although
+                                    you don't have to be super accurate with this - as long as they're relatively even.
+                                    If we had a grid that was 12 rows by 19 rows of holes, that is 228 holes, which is
+                                    easily close enough to 230, and it gives us a shape that matches the dimensions of
+                                    the box. Holes would be in a grid with 4.5cms between the centres of the holes.
+                                    <br><br>
+                                    The same approach was used to determine the 40Hz traps.. which would end up being
+                                    0.85% perforation percentage, the same depth, and a grid of 6 x 4 of the 1cm
+                                    diameter holes with a distance of 12.85cm between hole centres.
+                                    <br><br>
+                                    You will note that I used a perforation percentage under 1% for this trap, but I did
+                                    so because I didn't want to make these traps any deeper than the other ones.
+                                    I came up with this depth because it is the depth of my bookshelves, and so when I
+                                    put the traps next to my bookshelves they don't stick out, but actually look rather
+                                    neat - giving the bookshelves a 'recessed' appearance.<br>
+                                    I also build two of each trap (4 in total) so I can put the traps symmetrically on
+                                    each side of the room. I'm not sure if this matters much, but it fits in with my
+                                    room layout, and gives twice the absorption of a single trap of each size. They can
+                                    also be stacked to be 600 wide and 1.8m tall, or 900 wide and 1.2m tall, providing a
+                                    handy shelf. I am about to build some subs (stereo) and will make these about 600 x
+                                    750 x the same depth. This will mean I can slot them under the absorbers and they
+                                    will take up no additional floorspace, despite being quite large subs. This modular
+                                    design is fantastic for my needs.<br>
+                                    I filled my traps with fibreglass wrapped in the cheapest fabric I could buy, this
+                                    will stop the fibres coming through the holes into the room.<br>
+                                    I made the front face out of 12mm ply and after drilling the holes (LOTS of holes!)
+                                    varnished them. They look ok, but if I did it again I would use MDF and paint them
+                                    cream so they blend into the walls. Also, the fabric is a light colour and you can
+                                    see it through the holes, which makes it look a bit strange with the varnished dark
+                                    plywood.<br><br>
+
+                                </td>
+                            </tr>
+                        </table>
+                    </form>
+                    <hr size="1" width="75%">
+                    <br><br>
+                    <center> 	
+                    	<a href="https://www.acousticfields.com/how-to-build-a-diaphragmatic-absorber/" target="_blank" class="calcButton">How To Build A Diaphragmatic Absorber</a>
+                    <br><br>
+                    <hr size="1" width="75%">
+                    <br><br>
+                        <a href="javascript:history.back()" class="calcButton"><<< Back</a>
+                    </center>
+                    <br><br>
+                    </p> <!-- End Content -->
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="copyright">
+        &copy;
+        <span id="copyright">
+        <script>document.getElementById('copyright').appendChild(document.createTextNode(new Date().getFullYear()))</script>
+        &nbsp;mh-Audio.nl&nbsp;&nbsp;-&nbsp;&nbsp;<a href="../disclaimer.html"><font
+                color="#000000">Disclaimer</font></a>
+    </span>
+    </div>
+</body>
+</html>
