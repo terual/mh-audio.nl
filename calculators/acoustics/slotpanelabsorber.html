@@ -1,0 +1,375 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<!--
+Design by TEMPLATED
+http://templated.co
+Released for free under the Creative Commons Attribution License
+
+Name       : TailPiece 
+Description: A two-column, fixed-width design with dark color scheme.
+Version    : 1.0
+Released   : 20130902
+
+-->
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <!-- Google Analytics -->
+    <script>
+        window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+        ga('create', 'UA-77078028-1', 'auto');
+        ga('send', 'pageview');
+    </script>
+    <script async src='https://www.google-analytics.com/analytics.js'></script>
+    <!-- End Google Analytics -->
+
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>Slat Helmholtz Resonator</title>
+ <meta name="Keywords" content="HiFi, Audio, Loudspeakers, Database, Acoustic treatment, 
+		OnlineCalculator, LoudspeakerBasics, Links, Tubes, Buizen, Music, Muziek, Musik, 
+		Lautsprechergrundlagen, Lautsprecherberechnungen, Lautsprecher-Database, 
+		Analog to digital, Vinyl, Tapes, old records vinyl on cd, Acoustic, Bass Absorber,
+		acoustic electric,acoustic foam panel,acoustic measurements,acoustic panel,boston acoustic
+		acoustic neuromas,room acoustics,acoustics,acoustic foam,speaker cable,acoustic phonetics,
+		acoustic panels,acoustic ceiling,acoustic materials,acoustic neuroma,audio acoustic,acoustic,
+		acoustic insulation,acoustic wall panels,acoustic treatment,acoustic solution,acoustic wall panel,
+		acoustic bass,acoustic baffles,diy speaker cable, Room modes,
+		acoustic software,
+		room acoustics,
+		audio acoustic,
+		acoustic foam,
+		musical acoustics">
+<meta name="Description" content="Resource for building, calculate and measuring Hi Fi Loudspeakers,DIY LoudspeakerSite, Acoustic treatment, loudspeaker calculations, hifi links, high end">
+    <link href="http://fonts.googleapis.com/css?family=Source+Sans+Pro:200,300,400,600,700,900" rel="stylesheet"/>
+    <link href="../../css/default.css" rel="stylesheet" type="text/css" media="all"/>
+    <link href="../../css/fonts.css" rel="stylesheet" type="text/css" media="all"/>
+    <link rel="shortcut icon" href="../../favicon.ico" type="image/x-icon">
+
+    <!--[if IE 6]>
+    <link href="default_ie6.css" rel="stylesheet" type="text/css"/><![endif]-->
+    <script src="../js/fab.js"></script>
+
+
+<script>
+/*
+function F(){
+var airimpedance = 413.47;
+var Airdensity = 1.204;
+var freq = [62.5, 70, 77, 88, 99, 111, 125, 140, 157, 177,198,223,250,261,315,354,397,445,500,561,630,707,794,891,1000,1122,1260,1414,1587,1782,2000,2245,2520,2828,3175,3564,4000,4490,5040,5657,6350,7127,8000,8980,10079,11314,12699,14254,16000];
+var text = "";
+var Angularfrequency, Wavenumber, Delany
+var i;
+for (i = 0; i < freq.length; i++) {
+	 Angularfrequency = round((6.283185307 * freq[i]), 4);
+	 Wavenumber = round((freq[i]/54.52987458), 4);
+	 Delany = round(((freq[i]*Airdensity)/15050), 3);
+  text += "F= " + freq[i] + ",  Angular frequency= " + Angularfrequency + ", Wavenumber= " + Wavenumber + ", Delany= " + Delany + "<br>";
+
+}
+document.getElementById("demo").innerHTML = text;
+}
+*/
+</script>
+
+
+    <script language="javascript">
+<!--
+function round(number,X) {
+// rounds number to X decimal places, defaults to 3
+    X = (!X ? 3 : X);
+    return Math.round(number*Math.pow(10,X))/Math.pow(10,X);
+}
+
+function berechne() // SlotAbsorber
+{
+//CORRECT formula
+//fo = 2160*sqrt(r/((d*1.2*D)*(r+w))) 
+//r = slot width (a)
+//d = slat thickness (e)
+//1.2 = mouth correction
+//D = cavity depth, (c)
+//w = slat width   (b)
+//2160 = c/(2*PI) but rounded
+//c = speed of sound in inch/sec. 
+
+
+// a = Slot width
+// b = Slat width
+// c = Depth from wall
+// d = Slat depth
+// e = effective depth of Slat
+// ef = effective depth of Slat in mm
+// f = Absorption frequency
+
+var a = eval(document.frmSA.a.value);	// slot width in  mm
+var ai = a / 25.4;						// inches
+document.frmSA.ai.value = round(ai,2);
+//alert("ai= " + ai);
+
+var b = eval(document.frmSA.b.value);	// slat width in mm
+var bi = b / 25.4;						// inches
+document.frmSA.bi.value = round(bi,2);
+//alert("bi= " + bi);
+var c = eval(document.frmSA.c.value);	// depth from wall in mm
+ci = c / 25.4;							// inches
+document.frmSA.ci.value = round(ci,2);
+//alert("ci= " +ci);
+
+var d = eval(document.frmSA.d.value);	// slat depth in mm
+//var ef = d * 1.2;						// effective depth of Slat
+
+var di = d / 25.4;						// inches
+//d = round((di / 25.4),2)
+document.frmSA.di.value = round(di,2);
+//alert("di= " + di);
+
+var ef = di * 1.2 // calculate effective depth of Slat in mm [ 1.2 is mouth correction ]
+//alert("ef= " + ef*25.4);
+efmm = ef*25.4;
+document.frmSA.efmm.value= round(efmm, 2);
+
+
+var f = 2160 * Math.sqrt(ai/((ef*ci)*(ai+bi))) // calcualte absorption frequency
+//var f = 2160 * Math.sqrt(a/((e*c)*(a+b))) // calcualte absorption frequency NEW !!
+f = round(f,2)
+document.frmSA.f.value = f;
+//alert("f= " + f);
+
+}
+// -->
+
+
+    </script>
+</head>
+<body onload="F()">
+<div id="header" class="container">
+    <div id="logo">
+        <h2>HiFi&nbsp;&nbsp;Audio&nbsp;&nbsp;Design</h2>
+    </div>
+    <br>
+    <div id="menu">
+        <ul>
+          <enter>
+            <li><a href="../../index.html" accesskey="1" title="">Home</a></li>
+            <li><a href="../../loudspeaker.html" accesskey="2" title="">Loudspeaker</a></li>
+            <li><a href="../../acoustics.html" accesskey="3" title="">Acoustic</a></li>
+            <li class="active"><a href="../../lalculator.html" accesskey="4" title="">Calculators</a></li>
+           <li><a href="../../library.html" accesskey="7" title="">Library</a></li>
+         </enter>   
+        </ul>
+    </div>
+</div>
+<div id="page">
+    <div class="container">
+  
+        <div class="title">
+            <br><h1><i>Slat Helmholtz Resonator</i></h1>
+        </div>
+        
+        <p id="demo"></p>
+        <div class="page">
+                <center>
+                    <br><img src="../../images/acoustics/vicoustic-super-bass-extreme-trap.jpg" height="300" alt=""/>
+                    <br>
+                    <a href="#c" class="calcButton">&nbsp;&nbsp;&nbsp;Go to Calculator&nbsp;&nbsp;&nbsp;</a>
+                </center>
+                <div class="details">
+                    <p> <!-- Start Content -->
+                    <table align=center width=740>
+                    <tr>
+                    	<td>
+                    	Slot absorbers are similar to Helmholtz absorbers. Slot-Size and Panel-Thickness but the Volume of the Body 
+                    	is necessary as well to calculate for the target frequencies. The benefit of these walls are, they look great 
+                    	and have a kind of diffusing effect as well.<br><br> 
+                    	I would say they are not so effective like the porous absorbers but if they are angled, they can also have 
+                    	positive reflection effects to get rid of direct reflections in on the listening position. 
+                    	<br><br>
+                    	The bandwidth absorption of this resonator is adjusted by the wool inside the body. 
+                    	The absorption itself is the energy loss due to forth and back air movement between the slots if the 
+                    	slot-wall-resonance was hit by the signal. 
+                    	</td>
+                    </tr>	
+                        <tr>
+                            <td>
+                                The formula for calculating the Helmholtz resonant frequency for a slat resonator
+                                is:<br><br>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <font color="red"><strong>WRONG</strong> often published and in calculators used
+                                    formula</font><br>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                fo = 2160*sqrt(r/((d*1.2*D)<font color="#ff0000">+</font>(r+w)))<br><br>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><font color="#00aa00"><strong>CORRECT</strong> formula</font><br></td>
+                        </tr>
+                        <tr>
+                            <td>fo = 2160*sqrt(r/((d*1.2*D)<font color="#00aa00">*</font>(r+w)))<br><br>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <ul>
+                                    <li>fo = resonant frequency</li>
+                                    <li>r = slot width</li>
+                                    <li>d = slat thickness</li>
+                                    <li>1.2 = mouth correction</li>
+                                    <li>D = cavity depth</li>
+                                    <li>w = slat width</li>
+                                    <li>2160 = c/(2*PI) but rounded</li>
+                                    <li>c = speed of sound in inch/sec</li>
+                                </ul>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <br>
+                                <strong>What is this mouth correction?</strong><br><br>
+                                A <strong>Helmholtz resonator</strong> is a mass-spring system, which is comparable with a panel
+                                or membrane resonator.<br>
+                                The system is based on a mass which vibrates in resonance on a spring.<br>
+                                The ratio of the mass versus the dynamic stiffness of this spring defines the resonance
+                                frequency.<br>
+                                The air layer in the cavity acts as a spring with a certain dynamic stiffness mainly
+                                defined by its volume.<br>
+                                The larger the Volume, the weaker the spring becomes (lowering resonance frequency) and
+                                vice versa.<br>
+                                <br>
+                                For a <strong>panel resonator</strong> it's easy to imagine what the mass is: the panel.<br>
+                                The heavier this mass becomes the lower the resonance frequency and vice versa.<br>
+                                As such a panel resonator is mainly defined by the combination of both properties.<br>
+                                This isn't complete, since angle of incidence, weakness of spring, damping etc. will
+                                influence the resonance frequency and the Q-factor.<br>
+                                <br>
+                                For a <strong>Helmholtz resonator</strong> this mass is represented by the mass of the air
+                                enclosed by the neck or slot of the resonator.<br>
+                                However this apparent mass extends outside the exact geometrical boundaries of this neck
+                                or slot.<br>
+                                This is covered by the mouth correction, which is in fact a correction factor increasing
+                                those geometrical boundaries.<br>
+                                In reality this phenomenon is much more complicated than the simple factor, used by the
+                                traditional formulas.<br>
+                                As such the distance between those necks or slots (interaction) and others will
+                                influence this correction.<br>
+                                For practical use however the standard formulas are a good approach.<br><br>
+                            </td>
+                        </tr>
+                    </table>
+                    <br>
+                    <a name="c"></a>
+                    <form name="frmSA">
+                        <center>
+                            <h2 class="menu"><strong><i>Calculate Resonant frequency of Helmholtz Slot Absorber</i></strong></h2>
+                        </center>
+                        <table width="100%" align=center border=0 cellspacing=0 cellpadding=0>
+                            <tr>
+                                <td><br>
+                                    <table border="0" align=center cellspacing=0 cellpadding=2 width="80%"
+                                           class="Calctable">
+                                        <tr>
+                                        	<td colspan="3" align="center">
+                                        	<img src="../../images/acoustics/absorberhh.jpg">
+                                        	</td>
+                                        </tr>
+                                        <!-- tr>
+                                            <td rowspan="8" align="left" width="200"><img src="../../images/acoustics/absorberhh.jpg">
+                                            </td>
+                                        </tr -->
+                                        <!--tr>
+                                            <td rowspan="9" width="10">&nbsp;</td>
+                                        </tr-->
+                                        <tr>
+                                        	<td colspan="2" align="center"><br><h2><i>Calculator</i></h2><br><br></td>
+                                        </tr>
+                                        <tr>
+                                            <td align=right width="180">Slot width:&nbsp;</td>
+                                            <td><input class="frmInput" type="number" step="0.01" name="a" style="width: 5em;"
+                                                       value="10"> mm =&nbsp;&nbsp;&nbsp;<input type="number" step=0.01 name="ai" style="width: 4em;" class="frmOutput" readonly> inches</td>
+                                        </tr>
+                                        <tr>
+                                            <td align=right>Slat width:&nbsp;</td>
+                                            <td><input class="frmInput" type="number" step="0.01" name="b" style="width: 5em;"
+                                                       value="50"> mm =&nbsp;&nbsp;&nbsp;<input type="number" step=0.01 name="bi" style="width: 4em;" class="frmOutput" readonly> inches</td>
+                                        </tr>
+                                        <tr>
+                                            <td align=right>Depth from wall:&nbsp;</td>
+                                            <td><input class="frmInput" type="number" step="0.01" name="c" style="width: 5em;"
+                                                       value="100"> mm =&nbsp;&nbsp;&nbsp;<input type="number" step=0.01 name="ci" style="width: 4em;" class="frmOutput" readonly> inches</td>
+                                        </tr>
+                                        <tr>
+                                            <td align=right>Slat thickness:&nbsp;</td>
+                                            <td><input class="frmInput" type="number" step="0.01" name="d" style="width: 5em;"
+                                                       value="10"> mm =&nbsp;&nbsp;&nbsp;<input type="number" step=0.01 name="di" style="width: 4em;" class="frmOutput" readonly> inches</td>
+                                        </tr>
+                                        <tr><td colspan="3" height="20"></td></tr>
+                                        <tr>
+                                            <td align=right>Effective slot depth:&nbsp;</td>
+                                            <td><input class="frmOutput" type="number" step="0.01" name="efmm" style="width: 5em;"readonly> mm</td>
+                                        </tr>
+                                        <tr>
+                                            <td align=right>Resonant Frequency:&nbsp;</td>
+                                            <td colspan="2"><input class="frmOutput" type="number" name="f" style="width: 5em;"
+                                                                   readonly> Hz
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan=5>&nbsp;</td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="3" align=center><input type="button" class="calcButton"
+                                                                               value=" Calculate "
+                                                                               onclick="berechne();"></td>
+                                        </tr>
+                                        <tr><td colspan="3" height="20"></td></tr>
+                                    </table>
+                                    <br><br>
+                                </td>
+                            </tr>
+                        </table>
+
+                    </form>
+
+                    <table width="740" align=center>
+                        <tr>
+                            <td>
+                                If the gaps vary say 5mm, 10mm, 15mm, 20mm and the wall is angled as shown below, a
+                                broad band low mid resonator is created that still keeps the high frequencies alive.<br>
+                                <strong>Remember the cavity behind must be airtight!</strong><br><br><br>
+                                <center><img src="../../images/acoustics/slatabsorber1.gif" border=0></center>
+                                <br><br>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>By working out the different slat widths and slat gaps you can create
+                                a broadband low mid resonator at specific frequencies.
+                            </td>
+                        </tr>
+                    </table>
+                    <hr size="1" width="75%">
+                    <br>
+                    <center>
+         				<br>                     
+                        <a href="javascript:history.back()" class="calcButton"><<< Back</a>
+                    </center>
+                    <br><br>
+                    <!-- End Content  -->
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="copyright">
+        &copy;
+        <span id="copyright">
+        <script>document.getElementById('copyright').appendChild(document.createTextNode(new Date().getFullYear()))</script>
+        &nbsp;mh-Audio.nl&nbsp;&nbsp;-&nbsp;&nbsp;<a href="../disclaimer.html"><font
+                color="#000000">Disclaimer</font></a>
+    </span>
+    </div>
+</body>
+</html>
