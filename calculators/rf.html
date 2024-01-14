@@ -1,0 +1,354 @@
+<html>
+	<head>
+		<title></title>
+<link rel="STYLESHEET" type="text/css" href="../include/StyleSheetSite.css">
+<script language="javascript">
+
+function compute()  		//rf = 159 / sqrt ((eff. mass + cart weight + fastener weight) * (compliance))
+{
+
+var effmass
+var cartweight
+var fastenerweight
+var compliance
+var rf
+
+effmass			= eval(document.frm.effmass.value);
+cartweight		= eval(document.frm.cartweight.value);
+fastenerweight	= eval(document.frm.fastenerweight.value);
+compliance		= eval(document.frm.compliance.value);
+
+//rf = round(159 / Math.sqrt((effmass + cartweight + fastenerweight)*compliance));
+rf = 159 / Math.sqrt((effmass + cartweight + fastenerweight)*compliance);
+rf = round(rf,1);
+document.frm.rf.value = rf+ " Hz";
+}
+
+function calc2() {
+//document.cart.CU.value= //Math.round(25330/(parseInt(document.cart.MASS.value)*(parseInt(document.cart.HZ.value)*parseInt(document.cart.HZ.value))));
+
+//CU = Math.round(25330/(parseInt(document.cart.MASS.value)*(parseInt(document.cart.HZ.value)*parseInt(document.cart.HZ.value))));
+CU = 25330/(parseInt(document.cart.MASS.value)*(parseInt(document.cart.HZ.value)*parseInt(document.cart.HZ.value)));
+CU = round(CU,1);
+CU = CU + " mm/µN";
+
+document.cart.CU.value= CU;
+}
+
+function calc3() {
+
+//MS = Math.round(25330/(parseInt(document.tm.CU.value)*(parseInt(document.tm.HZ.value)*parseInt(document.tm.HZ.value))));
+MS = 25330/(parseInt(document.tm.CU.value)*(parseInt(document.tm.HZ.value)*parseInt(document.tm.HZ.value)));
+MS = round(MS,1);
+MS = MS + " grams";
+
+document.tm.MS.value= MS;
+
+}
+
+function round(number,X) {
+// rounds number to X decimal places, defaults to 3
+    X = (!X ? 3 : X);
+    return Math.round(number*Math.pow(10,X))/Math.pow(10,X);
+}
+
+function fenster1(){
+	window.open("../Tonearms/TonearmDB.asp", "", "width=1000, height=700, scrollbars=yes, resizable=yes");
+}
+
+function fenster2(){
+	window.open("../MMCartridgeSpecification.htm", "", "width=1000, height=700, scrollbars=yes, resizable=yes");
+}
+
+function fenster3(){
+	window.open("../MovingCoilCartridgeSpecification.htm", "", "width=1000, height=700, scrollbars=yes, resizable=yes");
+}
+
+</script>
+	</head>
+<body marginheight="0" topmargin="0" bgcolor="#a4a4a4">
+
+<div id="container">
+<div id="left-border">
+  <div id="right-border">
+    <div id="content">
+
+<script type='text/javascript' src='JSMenu/exmplmenu_var.js'></script>
+<script type='text/javascript' src='JSMenu/menu_com.js'></script>
+<noscript>Your browser does not support script</noscript>
+
+
+<script>
+function SetTopLeftImage() {
+
+    imageNumber = 0;
+
+    if (Math.random) {
+
+        imageNumber = Math.round(Math.random() * (numberOfTopLeftImages-1));
+
+    } else {
+
+        var now = new Date();
+
+        imageNumber = (now.getTime() / 1000) % numberOfTopLeftImages;
+
+    }
+
+    document.write('<img src="'+topLeftImages[imageNumber]+'" id="topleftimageimage" border="0" height="144" />');
+
+}
+
+numberOfTopLeftImages = 7;
+
+var topLeftImages = new Array(numberOfTopLeftImages)
+
+topLeftImages[0] = "images/Tonearms/1.jpg";
+
+topLeftImages[1] = "images/Tonearms/2.jpg";
+
+topLeftImages[2] = "images/Tonearms/3.jpg";
+
+topLeftImages[3] = "images/Tonearms/4.jpg";
+
+topLeftImages[4] = "images/Tonearms/5.jpg";
+
+topLeftImages[5] = "images/Tonearms/6.jpg";
+
+topLeftImages[6] = "images/Tonearms/7.jpg";
+</script>
+
+
+<center>
+<img src="../gif/hifispeakerdesign.gif" border="0" WIDTH="749" HEIGHT="78" alt="HiFiSpeakerDesign"><br>
+<font face="verdana" size="2">Welcome to www.mhsoft.nl, the resource for DIY 
+				loudspeaker design and construction.</font><br>
+</center>
+<br><br><br>
+
+<center>
+	<img src="../Tonearms/images/michell_tecnoarm.gif" width=400><br><br> <!--images/KuzmaAirLineTonearm.jpg -->
+	<!-- div id="topleftimage"><script type="text/javascript">SetTopLeftImage()</script></div-->
+	
+<h1><B><i>Tonearm/Cartridge Capability</i></B></h1>
+</center>
+<table align="center" width="740">
+
+	<tr>
+		<td class="td">
+			<P>For best performance, the tonearm and cartridge must be matched. All cartridges 
+				will not work with all tonearms, and vice versa. To insure a proper match, one 
+				must be aware of the mechanical specifications of both the arm and phono 
+				cartridge. To see how these characteristics interact and determine 
+				compatibility, we must first understand the dynamics of the relationship.</P>
+			<P>Any cartridge/tonearm combination will exhibit resonance at a specific frequency 
+				(or frequencies). This resonance is due to the interaction of the cartridge 
+				(acting as a spring), and the weight of the arm (acting as a mass). The 
+				"springiness" of the phono cartridge is described <I>as compliance, </I>the 
+				weight of the arm is specified in <I>mass. </I>As an example, a heavy weight on 
+				a light spring would obviously over-flex the spring, conversely, a light weight 
+				on a strong spring would not allow sufficient flexion.</P>
+			<P>At resonance, the arm/cartridge combination produces a dramatic rise in output. 
+				An increase of 3 to 6dB or more is common. This tremendous boost can cause 
+				severe problems if it occurs in the region of recorded music (above 2OHz), or 
+				in the area where record warps and rumble are problematic (below 5Hz). A 
+				cartridge/arm whose resonance occurs in the region above 20Hz can be influenced 
+				by music on the record. At this frequency a significant jump in output 
+				(resulting in a "bloated" or "tubby" sound) will be experienced. In extreme 
+				cases, the stylus may actually jump out of the groove. Similarly, a 
+				cartridge/arm combination that exhibits a resonance below the desired range 
+				will exaggerate the effects of record warps, or rumble produced by the 
+				turntable.</P>
+			<P>The goal in matching a specific cartridge and arm is to achieve a resonance in 
+				the 10 to 14Hz range. Some feel that limiting this range even further, to 9 to 
+				11Hz, is beneficial in reducing the effects of resonance.</P>
+			<P>The following formula for calculating the resonant frequency of an 
+				arm/cartridge:
+				<BR><br>
+				<strong>Resonant Frequency = 159/((M + CW + FW) * C)</strong>.
+				<br><br>
+				Where <B>M</B> is the mass of the arm, <B>CW</B> is the mass of the cartridge, <B>FW</B> is the mass 
+				of the screws, nuts, spacers, washers, shims and <B>C</B> is the compliance of the 
+				cartridge. 
+				<br><br>
+				As an example, if we had an arm/cartridge with a combined mass of 
+				15.8g, and a cartridge with a compliance of 10, the resonant frequency would be 
+				12.45 Hz.
+			</P>
+			<p>
+				There are a few general "rules of thumb" that we need to consider:<br>
+				<ul>
+					<li>A tonearm whose effective mass is rated at 10 grams or below is considered low mass. 
+					<br>
+					A tonearm whose effective mass is rated between 11 and 25 grams is considered moderate mass. 
+					<br>
+					Arms above 25 grams of mass are high mass in nature.</li><br>
+
+					<li>A phono cartridge whose compliance is rated at 12 x l0ˉ6 or below, is considered low compliance. 
+					<br>
+					A cartridge whose compliance is rated between 13 x l0ˉ6 and 25 x l0ˉ6 is considered high to very high.
+					<br><br><B>Note:</B> <I>Another way of expressing compliance is um/mN. Here a rating of 5 to 10 is considered very low, 10 to 20 is moderate and above 35 is very high</I></li><br><br>
+
+					<li>Low mass arms mate well with both moderately high and very high compliance phono cartridges</li><br>
+
+					<li>Moderate mass tonearms are good companions for moderate to low compliance cartridges</li><br>
+
+					<li>If a low compliance cartridge is used with a low mass tonearm, undesirable resonances can occur in the audible range. Mistracking may also be a problem</li><br>
+
+					<li>When a high compliance cartridge is mated with a moderate mass tonearm, resonances in the infrasonic range may occur in addition to some unwanted high frequency damping</li>
+				</ul>
+			</P>
+			<P>This simple equation doesn't take into account all factors, including tonearm 
+				damping and, internal cartridge damping, but it will give you general idea of 
+				compatibility.
+				<br>
+				<hr size="1">
+		</td>
+	</tr>
+</table>
+
+	<!--table align="center" width="740">
+		<tr>
+			<td colspan="3" align="center"><div id="topleftimage"><script type="text/javascript">SetTopLeftImage()</script></div></td>
+		</tr>
+	</table-->
+<center>
+<h1><B><I>Calculators</I></B></h1>
+</center>
+
+<form name="frm">
+<table  cellspacing="0" cellpadding="0" border="0" width="340" align=center ID="Table1">
+	<tr>
+		<td bgcolor="#ffffff" class="td">
+			<table align="center" width="100%">
+				<tr>
+					<td bgColor=#800000 class="td" colspan="2">&nbsp;&nbsp;<font color=white><strong>Tonearm Resonant Frequency Calculator</strong></font>
+						<br>
+					</td>
+				</tr>
+				<tr>
+					<td class="td" width=400>&nbsp;&nbsp;eff. Tonearm mass (gr)</td>
+					<td class="td" colspan="2"><input type="text" name="effmass" value="11" size="4" class="td"></td>
+				</tr>
+				<tr>
+					<td class="td">&nbsp;&nbsp;Cartridge weight (gr)</td>
+					<td class="td"><input type="text" name="cartweight" value="4.8" size="4" class="td"></td>
+				</tr>
+				<tr>
+					<td class="td">&nbsp;&nbsp;Fastener weight (gr)</td>
+					<td class="td" colspan="2"><input type="text" name="fastenerweight" value="0.5" size="4" class="td"></td>
+				</tr>
+				<tr>
+					<td class="td">&nbsp;&nbsp;Compliance (mm/uN)</td>
+					<td class="td" colspan="2"><input type="text" name="compliance" value="10.0" size="4" class="td"></td>
+				</tr>
+				<tr>
+					<td class="td" colspan="2">&nbsp;&nbsp;<INPUT TYPE="Button" Value="Calculate" onClick="compute(this.form)" class="td"></td>
+				</tr>
+				<tr>
+					<td colspan="2">&nbsp;</td>
+				</tr>
+				<tr>
+					<td class="td">&nbsp;&nbsp;Tonearm Resonant Frequency:</td>
+					<td class="td" colspan="2"><input type="text" name="rf" size="8" readonly class="td"></td>
+				</tr>
+			</table>
+			<br>
+			</td>
+		</tr>
+		<tr>
+			<td class="td"><img src="../gif/schatten.gif" width="100%" height="6"></td>
+	</tr>
+</table>
+</form>
+<br><br>
+<center>
+
+<FORM name=cart>
+		<table  cellspacing="0" cellpadding="0" border="0" width="340" align=center ID="Table1">
+		<tr>
+		<td bgcolor="#ffffff" class="td">
+		<TABLE cellSpacing=0 width=100% border=0 align=center>
+			<TR>
+				<TD class="td" bgColor=#800000 colSpan=2>&nbsp;&nbsp;<font color=white><B>Desired Cartridge Compliance Calculator</B></font></TD></TR>
+			<TR>
+				<TD class="td" width=400>&nbsp;&nbsp;Total Mass Tonearm+Cartridge Weight (gr)</TD>
+				<TD class="td"><INPUT onfocus=select(); size=4 value=00 class="td" name=MASS></TD>
+			</tr>
+			<tr>
+				<TD class="td">&nbsp;&nbsp;Resonant Frequency (Hz)</TD>
+				<TD class="td"><INPUT onfocus=select(); size=4 value=0 class="td"0 name=HZ></TD>
+			</TR>
+			<TR>
+				<TD class="td" colspan=2>&nbsp;&nbsp;<INPUT onclick=calc2(); type=button class="td" value=Calculate><br><br></TD>
+			</tr>
+			<TR>
+				<TD class="td">&nbsp;&nbsp;Desired Cart. Compliance (mm/uN) </TD>
+				<TD class="td"><INPUT value=00 name=CU size="8" class=td readonly >&nbsp;</TD>
+			</TR>
+		</TABLE>
+		<br>
+			</td>
+		</tr>		
+		<tr>
+	<td class="td"><img src="../gif/schatten.gif" width="100%" height="6"></td>
+	</tr>
+</table>
+</FORM>
+
+<br><br>
+
+<FORM name=tm>
+		<table  cellspacing="0" cellpadding="0" border="0" width="340" align=center ID="Table1">
+		<tr>
+		<td bgcolor="#ffffff" class="td">
+		<TABLE cellSpacing=0 width=100% border=0 align=center>
+				<TR>
+					<TD bgColor=#800000 colSpan=2><font color=white>&nbsp;&nbsp;<B>Desired Tonearm Mass Calculator</B></font></TD></TR>
+				<TR>
+					<TD width=400>&nbsp;&nbsp;Cartridge compliance (mm/uN)</TD>
+					<TD><INPUT onfocus=select(); size=4 value=00 class=td name=CU></TD>
+				</tr>
+				<TR>
+					<TD>&nbsp;&nbsp;Desired Resonant Frequency (Hz)</TD>
+					<TD><INPUT onfocus=select(); size=4 value=00 class=td name=HZ></TD>
+				</TR>
+				<TR>
+					<TD colspan=2>&nbsp;&nbsp;<INPUT onclick=calc3(); type=button class=td value=Calculate><br><br> </TD>
+				</TR>
+				<TR>
+					<TD>&nbsp;&nbsp;Effective Mass needed (gr)</TD>
+					<TD>&nbsp;<INPUT value=00 name=MS class=td size="8" readonly ></TD>
+				</TR>
+			</TABLE>
+			<br>
+			</td>
+		</tr>	
+		<tr>
+	<td class="td"><img src="../gif/schatten.gif" width="100%" height="6"></td>
+	</tr>
+</table>
+</FORM>
+<br><br>
+<center>
+	<span class=td>Go to:</span><!-- <a href="javascript:fenster1();"><u>Tonearm Specs.</u></a>&nbsp;|&nbsp;--><a href="javascript:fenster2();"><u>MM Cartridge Specs.</u></a>&nbsp;|&nbsp;<a href="javascript:fenster3();"><u>MC Cartridge Specs.</u></a><br><br>
+
+	<hr size=1 width=740>
+	<br>
+	<!-- Start of StatCounter Code -->
+	<script type="text/javascript">
+	var sc_project=3123130; 
+	var sc_invisible=0; 
+	var sc_partition=30; 
+	var sc_security="90763271"; 
+	</script>
+
+	<script type="text/javascript" src="http://www.statcounter.com/counter/counter_xhtml.js"></script><noscript><div class="statcounter"><a class="statcounter" href="http://www.statcounter.com/"><img class="statcounter" src="http://c31.statcounter.com/3123130/0/90763271/0/" alt="php hit counter" /></a></div></noscript>
+	<!-- End of StatCounter Code -->
+</center>
+    </div>
+  </div>
+</div>
+</div>
+</body>
+</html>
