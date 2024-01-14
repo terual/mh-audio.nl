@@ -1,0 +1,529 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<head>
+    <!-- Google Analytics -->
+    <script>
+        window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+        ga('create', 'UA-77078028-1', 'auto');
+        ga('send', 'pageview');
+    </script>
+    <script async src='https://www.google-analytics.com/analytics.js'></script>
+    <!-- End Google Analytics -->
+
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>Turntable Motor/Pulley Calculations</title>
+    <meta name="keywords" content=""/>
+    <meta name="description" content=""/>
+    <link href="http://fonts.googleapis.com/css?family=Source+Sans+Pro:200,300,400,600,700,900" rel="stylesheet"/>
+    <link rel="shortcut icon" href="../favicon.ico" type="image/x-icon">
+    <link href="../default.css" rel="stylesheet" type="text/css" media="all"/>
+    <link href="../fonts.css" rel="stylesheet" type="text/css" media="all"/>
+
+    <!--[if IE 6]>
+    <link href="default_ie6.css" rel="stylesheet" type="text/css"/><![endif]-->
+    <script src="../js/fab.js"></script>
+
+    <script type="text/javascript">
+    /**
+ * This function rounds the given number to the specified number of decimal points
+ */
+function roundNumber(num, dec) {
+	var result = Math.round(num * Math.pow(10, dec)) / Math.pow(10, dec);
+	return result;
+}
+
+
+// =================================
+// calculate pully diameter
+// =================================
+
+function calcp(){
+var mrpm = 1000;
+var ttrpm = 33.3;
+var pdia = 300;
+var factor;	// mm, cm, inch
+
+// radio button value mm, cm, inch
+for (i=0;i<3;i++){
+	if (document.frm.factor[i].checked==1)
+	var factor=document.frm.factor[i].value;
+}
+
+pdia = eval(document.frm.pdia.value);
+pdia = pdia / factor;
+
+mrpm = eval(document.frm.mrpm.value);
+
+/*
+// validation mrpm
+  if (isNaN(mrpm) || mrpm < 200 || mrpm > 1000)
+  {
+    textRPM = "200 - 1000 rpm";
+  }
+  else
+  {
+    textRPM = "";
+  }
+  document.getElementById("errRPM").innerHTML = textRPM;
+
+// validation pdia
+  if (isNaN(pdia) || pdia < 15 || pdia > 35)
+  {
+    textPDIA = "15 - 35 cm";
+  }
+  else
+  {
+    textPDIA = "";
+  }
+  document.getElementById("errPDIA").innerHTML = textPDIA;
+*/
+
+
+var pullydia33 = roundNumber(((33.3 / mrpm) * pdia), 3);
+var pullydia45 = roundNumber(((45.0 / mrpm) * pdia), 3);
+var pullydia78 = roundNumber(((78.0 / mrpm) * pdia), 3);
+
+
+
+if ( factor == 1)			// cm
+{
+	pullydia33 = roundNumber((pullydia33 * factor), 2) + " cm";
+	pullydia45 = roundNumber((pullydia45 * factor), 2) + " cm";
+	pullydia78 = roundNumber((pullydia78 * factor), 2) + " cm"; 
+}
+
+if ( factor == 10)			// cm
+{
+	pullydia33 = roundNumber((pullydia33 * factor), 2) + " mm";
+	pullydia45 = roundNumber((pullydia45 * factor), 2) + " mm";
+	pullydia78 = roundNumber((pullydia78 * factor), 2) + " mm"; 
+}	
+
+if ( factor == 0.393700787)	//	inch
+{
+	pullydia33 = roundNumber((pullydia33 * factor), 3) + " inch";
+	pullydia45 = roundNumber((pullydia45 * factor), 3) + " inch";
+	pullydia78 = roundNumber((pullydia78 * factor), 3) + " inch"; 
+}			
+
+var decimalPlaces = 3;
+	document.getElementById('answer_box').innerHTML =
+	    '<table border=0 align=center cellspacing=4 cellpadding=4 class=TTtable>' +
+	    '  <tr>' +
+	    '	<td align=center colspan=2><br><h2><i><u>Calculations</u></i></h2><br></td>' +
+	    '	</tr>' +
+	    
+        '  <tr>' +
+        '    <td align=right>Pully Diameter for 33.33 rpm = </td>' +
+        '    <td><strong>' + pullydia33 + '</strong></td>' +
+        '  </tr>' +
+        '  <tr>' +
+        '    <td align=right>Pully Diameter for 45 rpm = </td>' +
+        '    <td><strong>' + pullydia45 + '</strong></td>' +
+        '  </tr>' +
+        
+        '  <tr>' +
+        '    <td align=right>Pully Diameter for 78 rpm = </td>' +
+        '    <td><strong>' + pullydia78 + '</strong></td>' +
+        '  </tr>' +
+        '  <tr><td colspan=2 height=20></td></tr>' +
+		'</table><br><br>';
+}
+
+
+// =================================
+// calculate motor rpm
+// =================================
+
+function calcm(){
+
+var mrpm2, ttrpm2, pldia2, pdia2;
+pdia2 = eval(document.frm2.pdia2.value);
+pldia2 = eval(document.frm2.pldia2.value);
+
+// radio button value mm, cm, inch
+for (i=0;i<3;i++){
+	if (document.frm.factor[i].checked==1)
+	var factor=document.frm.factor[i].value;
+}
+
+if(factor == 10)	// mm
+{
+	pdia2 = pdia2 / factor;
+	pldia2 = pldia2 / factor;
+}
+
+if(factor == 1)	// cm
+{
+	pdia2 = pdia2 / factor;
+	pldia2 = pldia2 / factor;
+}
+
+if(factor == 0.393700787)	// inch
+{
+	pdia2 = pdia2 / factor;
+	pldia2 = pldia2 / factor;
+}
+
+/*
+// validation pdia2 = Pully diameter
+  // If x is Not a Number or less than 10 or greater than 100
+  if (isNaN(pdia2) || pdia2 < 1 || pdia2 > 10)
+  {
+    textPDIA2 = "1 - 10 cm";
+  }
+  else
+  {
+    textPDIA2 = "";
+  }
+  document.getElementById("errPDIA2").innerHTML = textPDIA2;
+
+
+// validation pldia2 = Platter diameter
+  if (isNaN(pldia2) || pldia2 < 15 || pldia2 > 35)
+  {
+    textPLDIA2 = "15 - 35 cm";
+  }
+  else
+  {
+    textPLDIA2 = "";
+  }
+  document.getElementById("errPLDIA2").innerHTML = textPLDIA2;
+*/
+
+var mrpm33 = 33.3 / (pdia2/pldia2);
+var mrpm45 = 45 / (pdia2/pldia2);
+var mrpm78 = 78 / (pdia2/pldia2);
+
+var decimalPlaces = 3;
+	document.getElementById('answer_box2').innerHTML =
+	    '<table border=0 align=center cellspacing=4 cellpadding=4 class=TTtable>' +
+	    '  <tr>' +
+	    '	<td align=center colspan=3><br><h2><i><u>Calculations</u></i></h2><br></td>' +
+	    '	</tr>' +
+	    
+        '  <tr>' +
+        '    <td align=right>Motor RPM for 33.3 = </td>' +
+        '    <td><strong>' + roundNumber(mrpm33, 2) + '&nbsp;rpm</strong></td>' +
+        '  </tr>' +
+        '  <tr>' +
+        '    <td align=right>Motor RPM for 45 = </td>' +
+        '    <td><strong>' + roundNumber(mrpm45, 2) + '&nbsp;rpm</strong></td>' +
+        '  </tr>' +
+        
+        '  <tr>' +
+        '    <td align=right>Motor RPM for 78 = </td>' +
+        '    <td><strong>' + roundNumber(mrpm78, 2) + '&nbsp;rpm</strong></td>' +
+        '  </tr>' +
+        '  <tr><td colspan=3 height=20></td></tr>' +
+		'</table><br><br>';
+//document.frm2.mrpm2.value = round(mrpm2,3);
+
+}
+
+function calc3() {
+	var pullydia, platterdia;
+	
+	pullydia = document.frm3.pullydia.value;
+	platterdia = document.frm3.platterdia.value;
+	
+	var motorrpm33 = 33.3 * (platterdia / pullydia);
+	var motorrpm45 = 45 * (platterdia / pullydia);
+	var motorrpm78 = 78 * (platterdia / pullydia);
+
+var decimalPlaces = 3;
+	document.getElementById('answer_box3').innerHTML =
+	    '<table border=0 align=center cellspacing=4 cellpadding=4 class=TTtable>' +
+	    '  <tr>' +
+	    '	<td align=center colspan=3><br><h2><i><u>Calculations</u></i></h2><br></td>' +
+	    '	</tr>' +
+	    
+        '  <tr>' +
+        '    <td align=right>Motor RPM for 33.3 = </td>' +
+        '    <td><strong>' + roundNumber(motorrpm33, decimalPlaces) + '</strong>&nbsp;rpm</td>' +
+        '  </tr>' +
+        '  <tr>' +
+        '    <td align=right>Motor RPM for 45 = </td>' +
+        '    <td><strong>' + roundNumber(motorrpm45, decimalPlaces) + '</strong>&nbsp;rpm</td>' +
+        '  </tr>' +
+        
+        '  <tr>' +
+        '    <td align=right>Motor RPM for 78 = </td>' +
+        '    <td><strong>' + roundNumber(motorrpm78, decimalPlaces) + '</strong>&nbsp;rpm</td>' +
+        '  </tr>' +
+        '  <tr><td colspan=3 height=20></td></tr>' +
+		'</table><br><br>';
+}
+
+
+
+
+    </script>
+</head>
+<body>
+<div id="header" class="container">
+    <div id="logo">
+        <h2>HiFi&nbsp;&nbsp;Audio&nbsp;&nbsp;Design</h2>
+    </div>
+    <br>
+    <div id="menu">
+        <ul>
+            <li><a href="../index.html" accesskey="1" title="">Home</a></li>
+            <li><a href="../Loudspeaker.html" accesskey="2" title="">Loudspeaker</a></li>
+            <li><a href="../Acoustic.html" accesskey="3" title="">Acoustic</a></li>
+            <li class="active"><a href="../Calculator.html" accesskey="4" title="">Calculators</a></li>
+            <li><a href="../Software.html" accesskey="6" title="">Soft & Hardware</a></li>
+            <li><a href="../Elektronic.html" accesskey="5" title="">Electronic</a></li>
+            <li><a href="../Measurement.html" accesskey="5" title="">Measurement</a></li>
+            <li><a href="../Links.html" accesskey="5" title="">Links/Downloads</a></li>
+            <li><a href="../Library.html" accesskey="7" title="">Library</a></li>
+            <li><a href="../EmailFormNew.asp" accesskey="5" title="">Contact</a></li>
+        </ul>
+    </div>
+</div>
+<button onclick="topFunction()" id="myBtn" title="Go To Top">⬆</button>
+<button id="myBtnDown" onclick="scrollWin()" title="Scroll Down">⬇</button>
+<div id="page">
+    <div class="container">
+    <!-- PayPal Donate Button -->
+    <div class="copyright">
+		<center> 
+			<i>Please donate to keep this site alive...</i><br>       
+			<form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_blank">
+				<input type="hidden" name="cmd" value="_donations" />
+				<input type="hidden" name="business" value="VSAAYZF3DEGLC" />
+				<input type="hidden" name="currency_code" value="EUR" />
+				<input type="image" src="https://www.paypalobjects.com/en_US/NL/i/btn/btn_donateCC_LG.gif" border="0" name="submit" title="Please donate to keep this site alive!" alt="Donate with PayPal button" />
+				<img alt="" border="0" src="https://www.paypal.com/en_NL/i/scr/pixel.gif" width="1" height="1" />
+			</form>
+		</center>  
+	</div>	   
+    <!-- END PayPal Donate Button -->       
+        <div class="title">
+            <br><h1><i>Turntable Motor/Pulley Calculations</i></h1>
+        </div>
+        <div class="box0">
+            <div class="box margin-btm">
+                <div class="details">
+                    <center><img src="../images/Calculators/SynchronousMotor.png" width="320"></center>
+                    <p> <!-- Start Content -->
+                    <table align="center" width="100%" border="0">
+                        <tr>
+                            <td align="center">
+                                How does a synchronous motor work: <a
+                                    href="http://www.animations.physics.unsw.edu.au/jw/electricmotors.html#ACmotors"
+                                    target="_blank" class="calcButton">Electric motors and generators</a>
+                                <br<
+                            </td>
+                        </tr>
+                        <tr>
+                            <td align="center">
+                                <img src="../images/Calculators/TTcalc.jpg" width="600">
+                            </td>
+                        </tr>
+                        <tr>
+                        	<td align="center">
+                            	Nice project... <a href="http://www.audioorigami.co.uk/archive/floppy-project/" target="blank" class="calcButton">&nbsp;Floppy Drive Turntable Motor&nbsp;</a>
+                                <br><br>
+                            	<hr size="1" width="75%">
+                            	<br><br>                   	
+                        	</td>
+                        </tr>
+                        <tr>
+                            <td align="center">
+                                <h2><i>Calculate Pulley Diameter for given Motor RPM</i></h2>
+                            </td>
+                        </tr>
+                    </table>
+                    <br>
+                    <form name="frm" method=post>
+                        <table align="center" width="75%" cellspaing="0" cellpadding="2" border="0" class="Calctable">
+                        	<tr><td colspan="2" height="20"></td></tr>
+                            <tr>
+                                <td class="text" align="right">RPM Motor:</td>
+                                <td class="text"><input type="number" step="0.1" class="frmInput" name="mrpm" id="mrpm"
+                                                        style="width: 4.6em;">&nbsp;&nbsp;rpm
+                                    <font color="red">&nbsp;<span id="errRPM"></span></font>
+                                </td>
+                            </tr>
+                            <!-- tr>
+                                <td align="right">Speed Turntable:</td>
+                                <td>
+                                    <select name="ttrpm" class="frmInput">
+                                        <option value="33.3">33.3</option>
+                                        <option value="45">45</option>
+                                        <option value="78">78</option>
+                                    </select> rpm
+                                </td>
+                            </tr-->
+                            <tr>
+                                <td align="right">Outer Diameter Platter:</td>
+                                <td>
+                                	<input type="number" step="0.1" class="frmInput" name="pdia" id="pdia" style="width: 4.6em;" value="300">
+                                    <font color="red">&nbsp;<span id="errPDIA"></span></font>
+                                    <input type="radio" name="factor" value="10" checked> mm
+                                    <input type="radio" name="factor" value="1"> cm
+                                    <input type="radio" name="factor" value="0.393700787"> inch
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="textdark" colspan="2" align="center"><br>
+                                    <INPUT class="calcButton" TYPE="Button" Value="Calculate Pulley Diameter" onclick="calcp();"></td>
+                            </tr>
+                            <tr>
+                                <td colspan="2">&nbsp;</td>
+                            </tr>
+                            <tr>
+                            	<td colspan="2">
+                            	<div id="answer_box"></div>
+                            	</td>
+                                <!--td align="right" valign="top">Pulley diameter:</td>
+                                <td colspan="2"><input type="text" class="frmOutput" name="pullydia" id="pullydia"
+                                                       size="6" readonly> cm<br><br>
+                                </td -->
+                            </tr>
+                        </table>
+                    </form>
+                    <br><br>
+                    <hr size=1 width=75%>
+                    <br><br>
+                    <form name="frm2" method=post>
+                        <table align="center" width="75%" border="0">
+                            <tr>
+                                <td align="center">
+                                    <h2><i>Calculate Motor RPM for given Pulley- and Platter Diameter</i></h2>
+                                </td>
+                            </tr>
+                        </table>
+                        <br>
+                        <form name="frm2" method=post>
+                            <table align="center" width="75%" cellspacing="0" cellpadding="2" border="0" class="Calctable">
+                            <tr><td colspan="3" height="20"></td></tr>
+                                <tr>
+                                    <td align="right" width="315">Pulley Diameter:</td>
+                                    <td width="95"><input type="number" step="0.01" class="frmInput" name="pdia2" id="pdia2" style="width: 4.6em;">
+                                        <font color="red">&nbsp;<span id="errPDIA2"></span></font>
+                                    </td>
+                                    <td rowspan="2">
+                                    	    <input type="radio" name="factor" value="10" checked> mm
+                                    	<input type="radio" name="factor" value="1"> cm
+                                    	<input type="radio" name="factor" value="0.393700787"> inch                                
+                                    </td>
+                                </tr>                               
+                                <tr>
+                                    <td align="right">Outer Diameter Platter:</td>
+                                    <td>
+                                    	<input type="number" step="0.1" class="frmInput" name="pldia2" id="pldia2" style="width: 4.6em;" value="300">
+                                        <font color="red">&nbsp;<span id="errPLDIA2"></span></font>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="textdark" colspan="3" align="center"><br>
+                                        <INPUT class="calcButton" TYPE="Button" Value="Calculate Motor RPM"
+                                               onclick="calcm();"></td>
+                                </tr>
+                                <tr>
+                                    <td colspan="3">&nbsp;</td>
+                                </tr>
+                                <tr>
+                                	<td colspan="3"
+                                		<div id="answer_box2"></div>
+                                	</td>
+                                </tr>
+                            </table>
+                            </form>
+                    <!--        
+                    <br><br>
+                    <hr size=1 width=75%>
+                    <br><br> 
+                         <table align="center" width="75%" border="0">
+                            <tr>
+                                <td align="center">
+                                    <h2><i>Calculate Motor RPM for given Pulley- and Platter Diameter</i></h2>
+                                </td>
+                            </tr>
+                        </table> 
+                    	<br>     
+                    	<form name=frm3>                     
+                        <table align="center" width="75%" border="0" class="Calctable"> 
+                        <tr><td colspan="2" height="20"></td></tr>                              
+                        <tr>
+                            <td align="right">Pulley Diameter:</td>
+                            <td><input type="number" step="0.01" class="frmInput" name="pullydia" id="pullydia"
+                                               style="width: 6em;"> cm
+                                <font color="red">&nbsp;<span id="errPDIA2"></span></font>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td align="right">Outer Diameter Platter:</td>
+                            <td><input type="number" step="0.1" class="frmInput" name="platterdia" id="platterdia"
+                                               style="width: 6em;"
+                                               value="30"> cm
+                                        <font color="red">&nbsp;<span id="errPLDIA2"></span></font>
+                            </td>
+                        </tr>
+                                     <tr>
+                                    <td class="textdark" colspan="6" align="center"><br>
+                                        <INPUT class="calcButton" TYPE="Button" Value="Calculate Motor RPM"
+                                               onclick="calc3();"></td>
+                                </tr>
+                                <tr>
+                                    <td colspan="6">&nbsp;</td>
+                                </tr>
+                                <tr>
+                                	<td colspan="2"
+                                		<div id="answer_box3"></div>
+                                	</td>
+                                </tr>                   
+                        </table>                                
+                        </form>
+                        -->
+                        <br><br>
+                        <hr size=1 width=75%>
+                        <br><br>
+                        <center>
+                            <table>
+                                <tr>
+                                    <td align="center">
+                                        <div id="boxshadow"><img src="../images/Calculators/synchromotor.png"
+                                                                 height="300"></div>
+                                        <br>
+                                        Typical Synchronous Turntable Motor
+                                    </td>
+                                    <td align="center">
+                                        <div id="boxshadow"><img src="../images/Calculators/Pulley.png" height="300">
+                                        </div>
+                                        <br>
+                                        Typical Pully (33/45rpm)
+                                    </td>
+                                </tr>
+                            </table>
+                            <br><br>
+                            <center>
+                            	Nice project... <a href="http://www.audioorigami.co.uk/archive/floppy-project/" target="blank" class="calcButton">&nbsp;Floppy Drive Turntable Motor&nbsp;</a>
+                            </center>
+                            <br><br>
+                            <hr size="1" width="75%">
+                            <br><br>
+                            <center>
+								<br>                            
+                                <a href="javascript:history.back()" class="calcButton"><<< Back</a>
+                            </center>
+                            <br><br>
+                        </center>
+                        </p> <!-- End Content -->
+                </div>
+            </div>
+        </div>
+        <div class="copyright">
+            &copy;
+            <span id="copyright">
+        <script>document.getElementById('copyright').appendChild(document.createTextNode(new Date().getFullYear()))</script>
+        &nbsp;mh-Audio.nl&nbsp;&nbsp;-&nbsp;&nbsp;<a href="../disclaimer.html"><font
+                    color="#000000">Disclaimer</font></a>
+    </span>
+        </div>
+        <script type="text/javascript" src="//fc.webmasterpro.de/counter.php?name=mh-audio"></script>
+<noscript><div><img src="//fc.webmasterpro.de/as_noscript.php?name=mh-audio" style="width:1px;height:1px;" alt="" /></div></noscript>
+<!-- https://fc.webmasterpro.de -->
+</BODY>
+</HTML>
