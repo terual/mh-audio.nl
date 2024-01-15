@@ -1,0 +1,942 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<!--
+Design by TEMPLATED
+http://templated.co
+Released for free under the Creative Commons Attribution License
+
+Name       : TailPiece 
+Description: A two-column, fixed-width design with dark color scheme.
+Version    : 1.0
+Released   : 20130902
+
+-->
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <!-- Google Analytics -->
+    <script>
+        window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+        ga('create', 'UA-77078028-1', 'auto');
+        ga('send', 'pageview');
+
+    </script>
+    <script async src='https://www.google-analytics.com/analytics.js'></script>
+    <!-- End Google Analytics -->
+
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>Calculate Split passive RIAA Network for Tube Phono Amplifier</title>
+    <meta name="keywords" content=""/>
+    <meta name="description" content=""/>
+    <link href="http://fonts.googleapis.com/css?family=Source+Sans+Pro:200,300,400,600,700,900" rel="stylesheet"/>
+    <link rel="shortcut icon" href="../favicon.ico" type="image/x-icon">
+    <link href="../css/default.css" rel="stylesheet" type="text/css" media="all"/>
+    <link href="../css/fonts.css" rel="stylesheet" type="text/css" media="all"/>
+
+<script>
+function round(number,X) {
+// rounds number to X decimal places, defaults to 3
+    X = (!X ? 3 : X);
+    return Math.round(number*Math.pow(10,X))/Math.pow(10,X);
+}
+
+function calcR(){
+var C1, C2, R1, R2, R3, Rc, Rcc, Rp, Ri, Rtube, Rtube2;
+var c3, c4, c5;
+
+C1 = document.frm.C1.value;
+C2 = document.frm.C2.value;
+Rp = eval(document.frm.Rp.value);
+Ri = eval(document.frm.Ri.value);
+//Rp2 = eval(document.frm.Rp2.value);
+//Ri2 = eval(document.frm.Ri2.value);
+
+Rtube = "";
+//Rtube2 = "";
+
+// uF to nF
+//C1 = C1 / 1000;
+//C2 - C2 / 1000;
+
+R2 = (318/C1) * 1000;
+//R1 = ((R2 * 10) - R2);
+R1 = R2 * 9;
+R3 = (75/C2) * 1000;
+
+c4 = R2; // to calculate parallel resistor R2
+
+
+// Tube1 with plate-load resistor 
+if (Rp > 10000 &&  Ri >1000){
+	Rc = (Rp*Ri)/(Rp+Ri);		// first stage
+	Rtube = (Rp*Ri)/(Rp+Ri);	// Ri || Ra
+	Rc = round((R1 - Rc), 2);	// R1 value
+//alert(Rtube)
+	//Rcc = (2122/C2);			// second stage
+	Rcc = (Rp*Ri)/(Rp+Ri);		// Ri || Ra
+	Rcc = round((R3 - Rcc),2)   // R2 value
+//alert(Rcc);
+	document.frm.Rtube.value = round(Rtube, 1);	// Ri || Ra
+	}
+	
+	
+// Tube2 with plate-load resistor 
+/*
+if (Rp2 > 10000 &&  Ri2 >1000){
+	Rc2 = (Rp2*Ri2)/(Rp2+Ri2);		// first stage
+	Rtube2 = (Rp2*Ri2)/(Rp2+Ri2);	// Ri || Ra
+	Rc2 = round((R1 - Rc2), 2);	// R1 value
+alert(Rtube2)
+	//Rcc = (2122/C2);			// second stage
+	Rcc = (Rp2*Ri2)/(Rp2+Ri2);		// Ri || Ra
+	Rcc = round((R3 - Rcc),2)   // R2 value
+alert(Rcc);
+	document.frm.Rtube.value = round(Rtube, 1);	// Ri || Ra
+*/	
+		
+if ( Rcc < 1000)
+	{
+		Rerr = "<strong>C2 is too large.</strong>";
+		document.getElementById("Rerr").innerHTML = Rerr;
+		return;
+	}
+	else
+	{
+		Rerr = "";
+		document.getElementById("Rerr").innerHTML = Rerr;
+	}
+
+if(Rc < 1000)
+	{
+		Rerr = "<strong>C1 is too large.</strong>"
+		document.getElementById("Rerr").innerHTML = Rerr;
+		return;
+	}	
+	else
+	{
+		Rerr = "";
+		document.getElementById("Rerr").innerHTML = Rerr;
+	}
+
+	document.getElementById("Rcval").innerHTML = "If we reduce resistor R1's value to <strong>" + Rc + "</strong> Ω";
+	document.getElementById("Rccval").innerHTML = "<br>reduce resistor R3's value to <strong>" + Rcc + "</strong> Ω";
+	
+	//document.getElementById("Rerr").innerHTML = Rerr;
+//}
+
+//else{
+//	document.getElementById("Rcval").innerHTML = "If we reduce resistor R1's value to <strong>" + R1 + "</strong> Ω";
+//	document.getElementById("Rccval").innerHTML = "<br>reduce resistor R3's value to <strong>" + R2 + "</strong> Ω";
+//}
+
+c3 = Rc;  // to calculate parallel resistor R2
+c5 = Rcc; // to calculate parallel resistor R3
+
+document.frm.R1.value = round(R1, 1);
+document.frm.R2.value = round(R2, 1);
+document.frm.R3.value = round(R3, 1);
+document.frm.Rc.value = round(Rc, 1);
+document.frm.Rcc.value = round(Rcc, 1);
+
+
+
+// Resistor R1
+			    var target, R1alt, R2alt;
+
+			    target = c3			// calculated R2
+			    R1alt = 0 ; 		// Best value so far ...
+			    R2alt = 0 ;
+			    Ealt = 9999999 ;	// Error of best value
+				Rx = 0 ;
+				err = 1 ;
+			    j = 1 ;
+			    k = 1 ;
+			    var R24 = new Array();
+
+			    R24[1]=1;R24[2]=1.1;R24[3]=1.2;R24[4]=1.3;
+			    R24[5]=1.5;R24[6]=1.6;R24[7]=1.8;R24[8]=2;
+			    R24[9]=2.2;R24[10]=2.4;R24[11]=2.7;R24[12]=3;
+			    R24[13]=3.3;R24[14]=3.6;R24[15]=3.9;R24[16]=4.3;
+			    R24[17]=4.7;R24[18]=5.1;R24[19]=5.6;R24[20]=6.2;
+			    R24[21]=6.8;R24[22]=7.5;R24[23]=8.2;R24[24]=9.1;
+
+			    for (var i=1;i<=24;i++)
+
+			    	{
+					R24[i+24]=(R24[i]*10);
+					R24[i+48]=(R24[i]*100);
+					R24[i+72]=(R24[i]*1000);
+					R24[i+96]=(R24[i]*10000);
+					R24[i+120]=(R24[i]*100000);
+					R24[i+144]=(R24[i]*1000000);
+			    	}
+
+
+			    for (var j=1;j<=169;j++)
+			    {
+			    	for (var k=1;k<=169;k++)
+			    	{
+
+					Rx = 1/((1/R24[j])+(1/R24[k]));
+					err = Math.abs(target-Rx);
+
+			    	if ( err < Ealt )
+			    		{
+			    		R1alt = R24[j];
+			    		R2alt = R24[k];
+			    		Ealt = err;
+			    		}
+			    	}
+			    }
+
+
+				Rx = 1 / ((1/R1alt)+(1/R2alt));
+				Rx = Math.round(100*Rx)/100;
+				error = Math.round(100000*((Rx/target)-1))/1000;
+				document.frm.r1.value = round(R1alt, 1);
+			    document.frm.r2.value = round(R2alt, 1);
+			    document.frm.rx.value = round(Rx, 1);
+			    
+			    if(isNaN(error))
+			    	{
+						error = 0;
+ 					}
+ 					
+			    document.frm.err.value = error;
+
+// Resistor R2
+			    var target, R21alt, R22alt;
+
+			    target = c4			// calculated R2
+			    R21alt = 0 ; 		// Best value so far ...
+			    R22alt = 0 ;
+			    Ealt2 = 9999999 ;	// Error of best value
+				R2x = 0 ;
+				err2 = 1 ;
+			    j = 1 ;
+			    k = 1 ;
+			    var R24 = new Array();
+
+			    R24[1]=1;R24[2]=1.1;R24[3]=1.2;R24[4]=1.3;
+			    R24[5]=1.5;R24[6]=1.6;R24[7]=1.8;R24[8]=2;
+			    R24[9]=2.2;R24[10]=2.4;R24[11]=2.7;R24[12]=3;
+			    R24[13]=3.3;R24[14]=3.6;R24[15]=3.9;R24[16]=4.3;
+			    R24[17]=4.7;R24[18]=5.1;R24[19]=5.6;R24[20]=6.2;
+			    R24[21]=6.8;R24[22]=7.5;R24[23]=8.2;R24[24]=9.1;
+
+			    for (var i=1;i<=24;i++)
+
+			    	{
+					R24[i+24]=(R24[i]*10);
+					R24[i+48]=(R24[i]*100);
+					R24[i+72]=(R24[i]*1000);
+					R24[i+96]=(R24[i]*10000);
+					R24[i+120]=(R24[i]*100000);
+					R24[i+144]=(R24[i]*1000000);
+			    	}
+
+
+			    for (var j=1;j<=169;j++)
+			    {
+			    	for (var k=1;k<=169;k++)
+			    	{
+
+					R2x = 1/((1/R24[j])+(1/R24[k]));
+					err2 = Math.abs(target-R2x);
+
+			    	if ( err2 < Ealt2 )
+			    		{
+			    		R21alt = R24[j];
+			    		R22alt = R24[k];
+			    		Ealt2 = err2;
+			    		}
+			    	}
+			    }
+
+
+				R2x = 1 / ((1/R21alt)+(1/R22alt));
+				R2x = Math.round(100*R2x)/100;
+				error = Math.round(100000*((R2x/target)-1))/1000;
+				document.frm.r21.value = round(R21alt, 1);
+			    document.frm.r22.value = round(R22alt, 1);
+			    document.frm.r2x.value = round(R2x, 1);
+			    
+			    if(isNaN(error))
+			    	{
+						error = 0;
+ 					}			    
+			    document.frm.err2.value = error;
+
+// Resistor R3
+			    var target, R21alt, R22alt;
+
+			    target = c5			// calculated R2
+			    R31alt = 0 ; 		// Best value so far ...
+			    R32alt = 0 ;
+			    Ealt3 = 9999999 ;	// Error of best value
+				R3x = 0 ;
+				err3 = 1 ;
+			    j = 1 ;
+			    k = 1 ;
+			    var R24 = new Array();
+
+			    R24[1]=1;R24[2]=1.1;R24[3]=1.2;R24[4]=1.3;
+			    R24[5]=1.5;R24[6]=1.6;R24[7]=1.8;R24[8]=2;
+			    R24[9]=2.2;R24[10]=2.4;R24[11]=2.7;R24[12]=3;
+			    R24[13]=3.3;R24[14]=3.6;R24[15]=3.9;R24[16]=4.3;
+			    R24[17]=4.7;R24[18]=5.1;R24[19]=5.6;R24[20]=6.2;
+			    R24[21]=6.8;R24[22]=7.5;R24[23]=8.2;R24[24]=9.1;
+
+			    for (var i=1;i<=24;i++)
+
+			    	{
+					R24[i+24]=(R24[i]*10);
+					R24[i+48]=(R24[i]*100);
+					R24[i+72]=(R24[i]*1000);
+					R24[i+96]=(R24[i]*10000);
+					R24[i+120]=(R24[i]*100000);
+					R24[i+144]=(R24[i]*1000000);
+			    	}
+
+
+			    for (var j=1;j<=169;j++)
+			    {
+			    	for (var k=1;k<=169;k++)
+			    	{
+
+					R3x = 1/((1/R24[j])+(1/R24[k]));
+					err3 = Math.abs(target-R3x);
+
+			    	if ( err3 < Ealt3 )
+			    		{
+			    		R31alt = R24[j];
+			    		R32alt = R24[k];
+			    		Ealt3 = err3;
+			    		}
+			    	}
+			    }
+
+
+				R3x = 1 / ((1/R31alt)+(1/R32alt));
+				R3x = Math.round(100*R3x)/100;
+				error = Math.round(100000*((R3x/target)-1))/1000;
+				document.frm.r31.value = round(R31alt, 1);
+			    document.frm.r32.value = round(R32alt, 1);
+			    document.frm.r3x.value = round(R3x, 1);
+			    
+			    if(isNaN(error))
+			    	{
+						error = 0;
+ 					}			    
+			    document.frm.err3.value = error;			    
+}
+</script>
+
+</head>
+<body>
+<div id="header" class="container">
+    <div id="logo">
+        <h2>HiFi&nbsp;&nbsp;Audio&nbsp;&nbsp;Design</h2>
+    </div>
+    <br>
+    <div id="menu">
+      <center>
+        <ul>
+            <li><a href="../index.html" title="">Home</a></li>
+            <li><a href="../loudspeaker.html" title="">Loudspeaker</a></li>
+            <li><a href="../acoustics.html" title="">Acoustic</a></li>
+            <li class="active"><a href="../calculator.html" title="">Calculators</a></li>
+          <li><a href="../library.html" title="">Library</a></li>
+        </ul>
+        </center>
+    </div>
+</div>
+<div id="page">
+    <div class="container">
+        <div class="title">
+            <br><h1><i>Split passive RIAA Network <br>for Tube Phono Amplifier</i></h1>
+        </div>
+        <div class="box0">
+            <div class="box margin-btm">
+                <div class="details">
+                    <p> <!-- Start Content -->
+                    <center>
+                        <img src="sriaa.jpg">
+                    </center>
+                    <table align="center" width="75%" cellspacing="0" cellpadding="2">
+                        <tr>
+                        	<td colspan="2">
+                        	The split RIAA method involves having two separate RC (passive) filters, each is driven by its own active stage.
+                        	<br><br>The network which is usually place first is that of R1, R2 and C1.<br>
+                        	The time constants for first stage are 3180µS (50,05Hz) for (R1 + R2) * C1 and 318µS (500,5Hz) for R2 * C1.<br><br>
+                        	<ul><li>Typical standard values used in tube circuits are: C1=33nF, C2=1nF</li></ul>
+                        	The second stage defines a low-pass filter with a -3dB point of 75µS (2122Hz) and its time constant is 75µS (R3 * C2).
+                        	</td>
+                        </tr>
+                        </table>                    
+                    <center>
+                    <img src="12ax7_2-Stage_passive_riaa.jpeg">
+                    </center>
+                        <br><br>
+                        <center><h2><i>Calculate R1, R2 and R3</i></h2></center>
+                        <br>
+                        <form name="frm">
+                        <table align="center" cellspacing="0" cellpadding="2" border="0" class="Calctable">
+                        <tr>
+                        <td>
+                        <table align="center" width="100%" cellspacing="0" cellpadding="2" border="0">
+                        <tr><td colspan="2" align="center"><strong><i>Capacitor values for Network</i></strong><br><br></td></tr>                        
+                        <tr>
+                        	<td align="right">C1 = </td>
+                        	<td><input type="number" step="0.01" id="C1" style="width: 6em;" value="33" class="frmInput"> nF</td>
+                        </tr>
+                        <tr>
+                        	<td align="right">C2 = </td>
+                        	<td><input type="number" step="0.01" id="C2" style="width: 6em;" value="1" class="frmInput"> nF</td>
+                        </tr>
+                        <tr>
+                        <td colspan="2" align="center>"><center><font color="red"><p id="Rerr"></p></font></center></td></tr>
+                        <tr><td colspan="2"><hr size="1"><br></td></tr>
+                        <tr><td colspan="2" align="center"><strong><i>Tube data  (optional)</i></strong><br><br></td></tr> 
+                        	<tr>
+                        		<td colspan="2" align="center"><strong>Data Tube 1</strong></td>
+                        	</tr>
+                            <tr>
+                                <td align="right">Rp_1 =
+                                </td>
+                                <td><input type="number" step="0.1" name="Rp" style="width: 6em;" class="frmInput"
+                                value=""> Ω  (resistor between plate and power supply)</td>
+                            </tr>
+                            <tr>
+                                <td align="right">Ri_1 (internal tube plate resistance ) = </td>
+                                <td><input type="number" step="0.1" name="Ri" style="width: 6em;" class="frmInput"
+                                           value="">&nbsp;Ω (from tube datasheet)</td>
+                            </tr>               
+                        <tr>
+                        	<td align="right">Ri + Rp = </td>
+                        	<td><input type="number" step="0.01" name="Rtube" style="width: 7em;" class="frmOutput" readonly> Ω</td> 
+                        </tr>
+                                                <tr>
+                        <td colspan="2" align="center"><br><input class="calcButton" type="button" name="calc" value="Calculate" onclick="calcR()"><br><br><br></td>
+                        </tr>  
+                        <tr>
+                        	<td colspan="2" height="15"></td>
+                        </tr>
+                        
+                        <!--
+                        
+                        	<tr>
+                        		<td colspan="2" align="center"><strong>Data Tube 2</strong></td>
+                        	</tr>                        
+                            <tr>
+                                <td align="right">Rp_2 =
+                                </td>
+                                <td><input type="number" step="0.1" name="Rp2" style="width: 6em;" class="frmInput"
+                                value=""> Ω  (resistor between plate and power supply)</td>
+                            </tr>
+                            <tr>
+                                <td align="right">Ri_2 (internal tube plate resistance ) = </td>
+                                <td><input type="number" step="0.1" name="Ri2" style="width: 6em;" class="frmInput"
+                                           value="">&nbsp;Ω (from tube datasheet)</td>
+                            </tr> 
+                        <tr>
+                        	<td align="right">Ri + Rp = </td>
+                        	<td><input type="number" step="0.01" name="Rtube2" style="width: 7em;" class="frmOutput" readonly> Ω</td> 
+                        </tr>                                          
+                        <tr>
+                        <td colspan="2" align="center"><br><input class="calcButton" type="button" name="calc" value="Calculate" onclick="calcR()"><br><br><br></td>
+                        </tr>                        
+                        <tr><td colspan="2" height="20"></td></tr>
+                        
+                        -->
+                        
+                        <tr>
+                        	<td align="right">R1 = </td>
+                        	<td>
+                        	<input type="number" step="0.001" id="Rc" style="width: 7em;" class="frmOutputBold"> Ω (incl. Ra and Ri)&nbsp;&nbsp;
+                        	<input type="number" step="0.001" id="R1" style="width: 7em;" class="frmOutput"> Ω (theoretically)</td>
+                        </tr>
+                        <tr>
+                        	<td align="right">R2 = </td>
+                        	<td>
+                        	<input type="number" step="0.001" id="R2" style="width: 7em;" class="frmOutputBold"> Ω
+                        	</td>
+                        </tr>                        
+                        <tr>
+                        	<td align="right">R3 = </td>
+                        	<td>
+                        	<input type="number" step="0.001" id="Rcc" style="width: 7em;" class="frmOutputBold"> Ω (incl. Ra and Ri)&nbsp;&nbsp;
+                        	<input type="number" step="0.001" id="R3" style="width: 7em;" class="frmOutput"> Ω (theoretically)</td>
+                        </tr>
+                        </table>
+                        </td>
+                        </tr>
+                        <tr>
+                        <td align="center">
+                        <br><br>
+  
+   													<table width="100%" cellspacing="0" cellpadding="2">
+                                                        <tr>
+                                                            <td><strong>R1</strong> =</td>
+                                                            <td><input type="number" class="frmOutput" name="r1"
+                                                                       style="width: 7em;"
+                                                                       style="text-align: center;" readonly/> Ω
+                                                            </td>
+                                                            <td><strong>parallel</strong></td>
+                                                            <td><input type="number" class="frmOutput" name="r2"
+                                                                       style="width: 7em;"
+                                                                       style="text-align: center;" readonly/> Ω
+                                                            </td>
+                                                            <td>=</td>
+                                                            <td><input type="number" class="frmOutputBold" name="rx"
+                                                                       style="width: 7em;"
+                                                                       style="text-align: center;" readonly/> Ω,
+                                                            </td>
+                                                            <td><strong> Error </strong> =</td>
+                                                            <td><input type="text" class="frmOutput" name="err"
+                                                                       style="width: 4em;"
+                                                                       style="text-align: center;" readonly/> %
+                                                            </td>
+                                                        </tr>
+                                                             <tr>
+                                                            <td><strong>R2</strong> =</td>
+                                                            <td><input type="number" class="frmOutput" name="r21"
+                                                                       style="width: 7em;"
+                                                                       style="text-align: center;" readonly/> Ω
+                                                            </td>
+                                                            <td><strong>parallel</strong></td>
+                                                            <td><input type="number" class="frmOutput" name="r22"
+                                                                       style="width: 7em;"
+                                                                       style="text-align: center;" readonly/> Ω
+                                                            </td>
+                                                            <td>=</td>
+                                                            <td><input type="number" class="frmOutputBold" name="r2x"
+                                                                       style="width: 7em;"
+                                                                       style="text-align: center;" readonly/> Ω,
+                                                            </td>
+                                                            <td><strong> Error </strong> =</td>
+                                                            <td><input type="text" class="frmOutput" name="err2"
+                                                                       style="width: 4em;"
+                                                                       style="text-align: center;" readonly/> %
+                                                            </td>
+                                                        </tr> 
+                                                             <tr>
+                                                            <td><strong>R3</strong> =</td>
+                                                            <td><input type="number" class="frmOutput" name="r31"
+                                                                       style="width: 7em;"
+                                                                       style="text-align: center;" readonly/> Ω
+                                                            </td>
+                                                            <td><strong>parallel</strong></td>
+                                                            <td><input type="number" class="frmOutput" name="r32"
+                                                                       style="width: 7em;"
+                                                                       style="text-align: center;" readonly/> Ω
+                                                            </td>
+                                                            <td>=</td>
+                                                            <td><input type="number" class="frmOutputBold" name="r3x"
+                                                                       style="width: 7em;"
+                                                                       style="text-align: center;" readonly/> Ω,
+                                                            </td>
+                                                            <td><strong> Error </strong> =</td>
+                                                            <td><input type="text" class="frmOutput" name="err3"
+                                                                       style="width: 4em;"
+                                                                       style="text-align: center;" readonly/> %
+                                                            </td>
+                                                        </tr>                                                                                                            
+                                                    </table>    
+                                                    <br><br>                  
+                        </td></tr>
+                      </table>
+                     
+						
+						<br><br>
+                                <table align="center" width="75%" cellpadding="2" cellspacing="0">
+                                    <tr>
+                                        <td>
+                                            Please keep in mind that the output impedance of the first stage V1 throws
+                                            the
+                                            network time constants off.
+                                            <br><br>
+                                            For example, a <strong>12AX7</strong> used in a grounded-cathode
+                                            configuration
+                                            with a <strong>150k plate-load resistor</strong> results in an output
+                                            impedance
+                                            of roughly <strong>44k (62k in parallel with 150k)</strong>.
+                                            When this value is added to equalization network R1, the
+                                            error
+                                            becomes more noticeable and moves in the opposite direction, giving a
+                                            positive
+                                            boost at 10Hz (+2.74dB).
+                                            <br><br>
+                                            <p id="Rcval"></p> without changing
+                                            C1 value and <p id="Rccval"></p> without changing C2, the output returns to close to flat, but
+                                            with a slight bump (+0.05dB) in low bass.
+                                            <br><br>
+                                            In the case of the op-amps, the output impedance is usually well <strong>under
+                                            100 ohms</strong>, nothing has to change...
+                                        </td>
+                                    </tr>
+                                </table>
+                                </form>
+                        <br><br>
+                    <hr size="1" width="75%">
+                    <br>
+                               <center>
+                                    <br>
+                                    <h2>RIAA Playback Curve<br>
+                                        Attenuation in dB relative to 1kHz</h2>
+                                </center>
+                                <br>
+                                <table align="center" width="75%" cellspacing="0" cellpadding="2" class="Calctable">
+                                    <tbody>
+                                    <tr>
+                                        <td width="101" align="center">
+                    <p>><strong>
+                        Frequency</strong></font>
+                    </p></td>
+                    <td width="159" align="center">
+                        <p>><strong>
+                            Attenuation in dB
+                            </font>
+                        </p></td>
+                    <td width="88" valign="bottom" nowrap="nowrap">
+                        <p>&nbsp;
+                        </p></td>
+                    <td width="101" align="center">
+                        <p>><strong>
+                            Frequency</strong></font>
+                        </p></td>
+                    <td width="159" align="center">
+                        <p>><strong>
+                            Attenuation in dB</strong></font>
+                        </p></td>
+                    </tr>
+                    <tr>
+                        <td width="101">
+                            <p align="center"> 10
+                            </p></td>
+                        <td width="159" align="center">
+                            <p> 19.74
+                            </p></td>
+                        <td valign="bottom" nowrap="nowrap">
+                            <p>&nbsp;
+                            </p></td>
+                        <td width="102" align="center">
+                            <p> 1000
+                            </p></td>
+                        <td width="158">
+                            <p align="center"> 0
+                            </p></td>
+                    </tr>
+                    <tr>
+                        <td width="101" align="center">
+                            <p> 20
+                            </p></td>
+                        <td width="159" align="center">
+                            <p> 19.27
+                            </p></td>
+                        <td width="87" valign="bottom" nowrap="nowrap">
+                            <p>&nbsp;
+                            </p></td>
+                        <td width="101" align="center">
+                            <p> 1200
+                            </p></td>
+                        <td width="158">
+                            <p align="center"> -0.61
+                            </p></td>
+                    </tr>
+                    <tr>
+                        <td width="101" align="center">
+                            <p> 30
+                            </p></td>
+                        <td width="159" align="center">
+                            <p> 18.59
+                            </p></td>
+                        <td width="87" valign="bottom" nowrap="nowrap">
+                            <p>&nbsp;
+                            </p></td>
+                        <td width="101" align="center">
+                            <p> 1500
+                            </p></td>
+                        <td width="158">
+                            <p align="center"> -1.4
+                            </p></td>
+                    </tr>
+                    <tr>
+                        <td width="101" align="center">
+                            <p> 40
+                            </p></td>
+                        <td width="159" align="center">
+                            <p> 17.79
+                            </p></td>
+                        <td width="87" valign="bottom" nowrap="nowrap">
+                            <p>&nbsp;
+                            </p></td>
+                        <td width="101" align="center">
+                            <p> 1800
+                            </p></td>
+                        <td width="158">
+                            <p align="center"> -2.12
+                            </p></td>
+                    </tr>
+                    <tr>
+                        <td width="101" align="center">
+                            <p> 50
+                            </p></td>
+                        <td width="159" align="center">
+                            <p> 16.95
+                            </p></td>
+                        <td width="87" valign="bottom" nowrap="nowrap">
+                            <p>&nbsp;
+                            </p></td>
+                        <td width="101" align="center">
+                            <p> 2000
+                            </p></td>
+                        <td width="158">
+                            <p align="center"> -2.59
+                            </p></td>
+                    </tr>
+                    <tr>
+                        <td width="101" align="center">
+                            <p> 60
+                            </p></td>
+                        <td width="159" align="center">
+                            <p> 16.1
+                            </p></td>
+                        <td width="87" valign="bottom" nowrap="nowrap">
+                            <p>&nbsp;
+                            </p></td>
+                        <td width="101" align="center">
+                            <p> 3000
+                            </p></td>
+                        <td width="158">
+                            <p align="center"> -4.74
+                            </p></td>
+                    </tr>
+                    <tr>
+                        <td width="101" align="center">
+                            <p> 80
+                            </p></td>
+                        <td width="159" align="center">
+                            <p> 14.51
+                            </p></td>
+                        <td width="87" valign="bottom" nowrap="nowrap">
+                            <p>&nbsp;
+                            </p></td>
+                        <td width="101" align="center">
+                            <p> 4000
+                            </p></td>
+                        <td width="158">
+                            <p align="center"> -6.61
+                            </p></td>
+                    </tr>
+                    <tr>
+                        <td width="101" align="center">
+                            <p> 100
+                            </p></td>
+                        <td width="159" align="center">
+                            <p> 13.09
+                            </p></td>
+                        <td width="87" valign="bottom" nowrap="nowrap">
+                            <p>&nbsp;
+                            </p></td>
+                        <td width="101" align="center">
+                            <p> 5000
+                            </p></td>
+                        <td width="158">
+                            <p align="center"> -8.21
+                            </p></td>
+                    </tr>
+                    <tr>
+                        <td width="101" align="center">
+                            <p> 120
+                            </p></td>
+                        <td width="159" align="center">
+                            <p> 11.85
+                            </p></td>
+                        <td width="87" valign="bottom" nowrap="nowrap">
+                            <p>&nbsp;
+                            </p></td>
+                        <td width="101" align="center">
+                            <p> 6000
+                            </p></td>
+                        <td width="158">
+                            <p align="center"> -9.6
+                            </p></td>
+                    </tr>
+                    <tr>
+                        <td width="101" align="center">
+                            <p> 150
+                            </p></td>
+                        <td width="159" align="center">
+                            <p> 10.27
+                            </p></td>
+                        <td width="87" valign="bottom" nowrap="nowrap">
+                            <p>&nbsp;
+                            </p></td>
+                        <td width="101" align="center">
+                            <p> 8000
+                            </p></td>
+                        <td width="158">
+                            <p align="center"> -11.89
+                            </p></td>
+                    </tr>
+                    <tr>
+                        <td width="101" align="center">
+                            <p> 180
+                            </p></td>
+                        <td width="159" align="center">
+                            <p> 8.97
+                            </p></td>
+                        <td width="87" valign="bottom" nowrap="nowrap">
+                            <p>&nbsp;
+                            </p></td>
+                        <td width="101" align="center">
+                            <p> 10000
+                            </p></td>
+                        <td width="158">
+                            <p align="center"> -13.73
+                            </p></td>
+                    </tr>
+                    <tr>
+                        <td width="101" align="center">
+                            <p> 200
+                            </p></td>
+                        <td width="159" align="center">
+                            <p> 8.22
+                            </p></td>
+                        <td width="87" valign="bottom" nowrap="nowrap">
+                            <p>&nbsp;
+                            </p></td>
+                        <td width="101" align="center">
+                            <p> 12000
+                            </p></td>
+                        <td width="158">
+                            <p align="center"> -15.26
+                            </p></td>
+                    </tr>
+                    <tr>
+                        <td width="101" height="18" align="center">
+                            <p> 300
+                            </p></td>
+                        <td width="159" height="18" align="center">
+                            <p> 5.48
+                            </p></td>
+                        <td width="87" valign="bottom" nowrap="nowrap" height="18">
+                            <p>&nbsp;
+                            </p></td>
+                        <td width="101" height="18" align="center">
+                            <p> 15000
+                            </p></td>
+                        <td width="158" height="18">
+                            <p align="center"> -17.16
+                            </p></td>
+                    </tr>
+                    <tr>
+                        <td width="101" align="center">
+                            <p> 400
+                            </p></td>
+                        <td width="159" align="center">
+                            <p> 3.78
+                            </p></td>
+                        <td width="87" valign="bottom" nowrap="nowrap">
+                            <p>&nbsp;
+                            </p></td>
+                        <td width="101" align="center">
+                            <p> 18000
+                            </p></td>
+                        <td width="158">
+                            <p align="center"> -18.72
+                            </p></td>
+                    </tr>
+                    <tr>
+                        <td width="101" align="center">
+                            <p> 500
+                            </p></td>
+                        <td width="159" align="center">
+                            <p> 2.65
+                            </p></td>
+                        <td width="87" valign="bottom" nowrap="nowrap">
+                            <p>&nbsp;
+                            </p></td>
+                        <td width="101" align="center">
+                            <p> 20000
+                            </p></td>
+                        <td width="158">
+                            <p align="center"> -19.62
+                            </p></td>
+                    </tr>
+                    <tr>
+                        <td width="101" align="center">
+                            <p> 600
+                            </p></td>
+                        <td width="159" align="center">
+                            <p> 1.84
+                            </p></td>
+                        <td width="87" valign="bottom" nowrap="nowrap">
+                            <p>&nbsp;
+                            </p></td>
+                        <td width="101" align="center">
+                            <p> 30000
+                            </p></td>
+                        <td width="158">
+                            <p align="center"> -23.12
+                            </p></td>
+                    </tr>
+                    <tr>
+                        <td width="101" align="center">
+                            <p> 800
+                            </p></td>
+                        <td width="159" align="center">
+                            <p> 0.75
+                            </p></td>
+                        <td valign="bottom" nowrap="nowrap">
+                            <p>&nbsp;
+                            </p></td>
+                        <td width="102" nowrap="nowrap">
+                            <p align="center"> 40000
+                            </p></td>
+                        <td width="158" nowrap="nowrap">
+                            <p align="center"> -25.6
+                            </p></td>
+                    </tr>
+                    </tbody>
+                    </table>
+                     <br><br>
+                    <hr size="1" width="75%">
+                    <br>                   
+                    <center>
+  						<br>                  
+                        <a href="javascript:history.back()" class="calcButton"><<< Back</a>
+                    </center>
+                    <br><br>
+                    <!-- End Content  -->
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="copyright">
+        &copy;
+        <span id="copyright">
+        <script>document.getElementById('copyright').appendChild(document.createTextNode(new Date().getFullYear()))</script>
+        &nbsp;mh-Audio.nl&nbsp;&nbsp;-&nbsp;&nbsp;<a href="../disclaimer.html"><font
+                color="#000000">Disclaimer</font></a>
+    </span>
+    </div>
+
+</p> <!-- End Content -->
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="copyright">
+        &copy;
+        <span id="copyright">
+        <script>document.getElementById('copyright').appendChild(document.createTextNode(new Date().getFullYear()))</script>
+        &nbsp;mh-Audio.nl&nbsp;&nbsp;-&nbsp;&nbsp;<a href="../disclaimer.html"><font
+                color="#000000">Disclaimer</font></a>
+    </span>
+    </div>
+</div>
+</body>
+</html>
