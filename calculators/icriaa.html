@@ -1,0 +1,704 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<!--
+Design by TEMPLATED
+http://templated.co
+Released for free under the Creative Commons Attribution License
+
+Name       : TailPiece 
+Description: A two-column, fixed-width design with dark color scheme.
+Version    : 1.0
+Released   : 20130902
+
+-->
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <!-- Google Analytics -->
+    <script>
+        window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+        ga('create', 'UA-77078028-1', 'auto');
+        ga('send', 'pageview');
+
+
+    </script>
+    <script async src='https://www.google-analytics.com/analytics.js'></script>
+    <!-- End Google Analytics -->
+
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>Passive/Active RIAA EQ For Semiconductor Phono Amplifier</title>
+    <meta name="keywords" content=""/>
+    <meta name="description" content=""/>
+    <link href="http://fonts.googleapis.com/css?family=Source+Sans+Pro:200,300,400,600,700,900" rel="stylesheet"/>
+    <link rel="shortcut icon" href="../favicon.ico" type="image/x-icon">
+    <link href="../css/default.css" rel="stylesheet" type="text/css" media="all"/>
+    <link href="../css/fonts.css" rel="stylesheet" type="text/css" media="all"/>
+
+    <script type="text/javascript">
+function round(number,X) {
+// rounds number to X decimal places, defaults to 3
+    X = (!X ? 3 : X);
+    return Math.round(number*Math.pow(10,X))/Math.pow(10,X);
+}
+
+function calc_resistors () {
+	c1=document.Form.C1.value*1e-9;
+	c2=document.Form.C2.value*1e-9;
+	gaindb=document.Form.G.value;
+	
+/*
+**	=== check Gain, max 40dB Sd
+*/
+  	var message, v;
+  	message = document.getElementById("p1");
+  	message.innerHTML = "";
+  	v = gaindb;
+  	try { 
+   	 	if(v == "")  throw "empty";
+    	if(isNaN(v)) throw "not a number";
+    	if(v > 40) throw "maximal 40dB";
+  	} 	
+  	catch(err) 
+  	{
+    	message.innerHTML = err;
+  	}  		
+	
+	if (c1<1E-9) c1=1;
+	if (c2<1E-9) c2=1;
+	
+	// passive 75uS (2120Hz)
+	tau1=75*1e-6;
+	r1=tau1/c1;
+	res=best_parallel(r1)
+	r1a=res[0]
+	r1b=res[1]
+	r1res=res[2]
+	
+	// gain of the first stage at 1kHz (is less than 1, because it is a voltage divider)
+	imp=imp_c(c1,1000)
+	g1=imp/(imp+r1)
+	loss1=gain2db(g1)
+	
+	gain=db2gain(gaindb-loss1);
+	gaindB = round((20 * Math.log(gain)/Math.LN10),2);
+
+	// feedback 318us(500Hz)/3180us(50Hz)
+	tau2 = 3180*1e-6;
+	r2 = tau2/c2;
+	res=best_parallel(r2)
+	r2a=res[0]
+	r2b=res[1]
+	r2res=res[2]
+	
+	// sum of r3 and r4 is 9xr2
+	rxsum=1/9*r2;
+	
+	// calculate impedance of r2||c2 at 1kHz
+	zc = imp_c(c2,1000)
+	zrc = zc*r2/(zc+r2)
+	r4 = (zrc+1/9*r2)/gain 
+	res=best_parallel(r4)
+	r4a=res[0]
+	r4b=res[1]
+	r4res=res[2]
+		
+	r3=rxsum-r4
+	res=best_parallel(r3)
+	r3a=res[0]
+	r3b=res[1]
+	r3res=res[2]
+		
+	document.Form.VG.value=gain.toFixed(1);
+	document.Form.C1.value=(c1*1E9).toFixed(2);
+	document.Form.C2.value=(c2*1E9).toFixed(2);
+	document.Form.R1.value=(r1*1E-3).toFixed(3);
+	document.Form.R1A.value=(r1a*1E-3).toFixed(3);
+	document.Form.R1B.value=(r1b*1E-3).toFixed(3);
+	document.Form.R1RES.value=(r1res*1E-3).toFixed(3);
+	document.Form.R2.value=(r2*1E-3).toFixed(3);
+	document.Form.R2A.value=(r2a*1E-3).toFixed(3);
+	document.Form.R2B.value=(r2b*1E-3).toFixed(3);
+	document.Form.R2RES.value=(r2res*1E-3).toFixed(3);
+	document.Form.R3.value=(r3*1E-3).toFixed(3);
+	document.Form.R3A.value=(r3a*1E-3).toFixed(3);
+	document.Form.R3B.value=(r3b*1E-3).toFixed(3);
+	document.Form.R3RES.value=(r3res*1E-3).toFixed(3);
+	document.Form.R4.value=(r4*1E-3).toFixed(3);
+	document.Form.R4A.value=(r4a*1E-3).toFixed(3);
+	document.Form.R4B.value=(r4b*1E-3).toFixed(3);
+	document.Form.R4RES.value=(r4res*1E-3).toFixed(3);
+	document.Form.LOSS1.value=(loss1*1).toFixed(2);
+	document.Form.gaindB.value=gaindB;
+}
+
+function best_parallel(r) {
+	r24=[0.1,0.12,0.15,0.16,0.18,0.2,0.22,0.24,0.27,0.3,0.33,0.36,0.39,0.43,0.47,0.51,0.56,0.62,0.75,0.82,0.91,
+		 1,1.1,1.2,1.5,1.6,1.8,2,2.2,2.4,2.7,3,3.3,3.6,3.9,4.3,4.7,5.1,5.6,6.2,6.8,7.5,8.2,9.1,
+	     10,11,12,15,16,18,20,22,24,27,30,33,36,39,43,47,51,56,62,68,75,82,91,
+	     100,110,120,150,160,180,200,220,240,270,300,330,360,390,430,470,510,560,620,680,750,820,910];
+
+	var len = r24.length
+	var best_error = 1000000000;
+	var best_value = 0;
+	var rp1, rp2, best_r1, best_r2, rres;
+		
+	for (var i1=0; i1<len; ++i1) {
+		rp1=r24[i1]*1000;
+		if (rp1<r) continue;
+		for (var i2=i1; i2<len; ++i2) {
+			rp2=r24[i2]*1000;
+			
+			rres=rp1*rp2/(rp1+rp2);
+			err=Math.abs(rres-r);
+			if (err<best_error) {
+				best_r1=rp1;
+				best_r2=rp2;
+				best_error=err;
+				best_value=rres;
+			}
+		}
+	}
+	
+	return [best_r1,best_r2,best_value,best_error];
+}
+
+function imp_c(capacitance, frequency) {
+	return 1/(2*Math.PI*frequency*capacitance)
+}
+
+function gain2db(gain) {
+	return 20*Math.log(gain)/Math.log(10)
+}
+
+function db2gain(gaindb) {
+	return Math.pow(10,gaindb/20);
+}
+
+    </script>
+
+</head>
+<body>
+<div id="header" class="container">
+    <div id="logo">
+        <h2>HiFi&nbsp;&nbsp;Audio&nbsp;&nbsp;Design</h2>
+    </div>
+    <br>
+    <div id="menu">
+        <ul>
+            <li><a href="../index.html" title="">Home</a></li>
+            <li><a href="../loudspeaker.html" title="">Loudspeaker</a></li>
+            <li><a href="../acoustics.html" title="">Acoustic</a></li>
+            <li class="active"><a href="../calculator.html" title="">Calculators</a></li>
+            <li><a href="../library.html" title="">Library</a></li>
+ <!--         
+            <li><a href="../Software.html" accesskey="6" title="">Soft & Hardware</a></li>
+            <li><a href="../Elektronic.html" accesskey="5" title="">Electronic</a></li>
+            <li><a href="../Measurement.html" accesskey="5" title="">Measurement</a></li>
+            <li><a href="../Links.html" accesskey="5" title="">Links/Downloads</a></li>
+            <li><a href="../Library.html" accesskey="7" title="">Library</a></li>
+            <li><a href="../EmailFormNew.asp" accesskey="5" title="">Contact</a></li>
+          -->
+        </ul>
+    </div>
+</div>
+<button onclick="topFunction()" id="myBtn" title="Go To Top">⬆</button>
+<button id="myBtnDown" onclick="scrollWin()" title="Scroll Down">⬇</button>
+<div id="page">
+    <div class="container">
+        <div class="title">
+            <br><h1><i>Passive/Active RIAA EQ For <br>Semiconductor Phono Amplifier </i></h1>
+        </div>
+        <div class="box0">
+            <div class="box margin-btm">
+                <center><br><img src="../images/calculators/riaacurve.png" alt=""/></center>
+                <div class="details">
+                    <p> <!-- Start Content -->
+                        <table align="center" width="75%" cellspacing="0" cellpadding="2">
+                            <tr>
+                                <td>
+                    <p>Using this page you can calculate the component values for an active/passive RIAA equalization
+                        stage.</p>
+                    <h3>How to use the calculator:</h3>
+                    <ul>
+                        <li>Select a value for C1 and C2</li>
+                        <li>Select the gain of the whole stage (including the attenuation of the passive stage) at
+                            1kHz
+                        </li>
+                        <li>Press &#8220;Calculate resistors&#8221;</li>
+                        <li>The form calculates the exact values for R1 to R2. Resistors are usually not available with
+                            exactly these values. However, with a parallel circuit of two E24 resistors, you can often
+                            approximate these values quite good. The calculator finds 2 E24 resistor values that best
+                            matches the value.
+                        </li>
+                    </ul>
+                    <p><img src="../images/calculators/icriaa.jpg" width="600"/></p>
+                    </td>
+                    </tr>
+                    </table>
+                    <form name="Form">
+                        <table align="center" width="75%" cellspacing="0" cellpadding="2" border="0" class="Calctable">
+                            <tr>
+                                <td align="left">
+                                    <table align="center" width="45%" cellspacing="0" cellpadding="2" border="0">
+                                        <tr>
+                                            <td colspan="2" align="center"><h2><i>Inputs</i></h2><br></td>
+                                        </tr>
+                                        <tr>
+                                            <td align="right">C1 =</td>
+                                            <td><input type="number" step="0.01" name="C1" value="37" size="5"
+                                                       class="frmInput"> nF
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td align="right">C2 =</td>
+                                            <td><input type="number" step="0.01" name="C2" value="52" size="5"
+                                                       class="frmInput"> nF
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td align="right">Gain =</td>
+                                            <td><input type="number" step="0.01" name="G" value="40" size="5"
+                                                       class="frmInput"> db @ 1kHz &nbsp;&nbsp;<font color="#FF0000"><strong><span id="p1"></span></strong></font>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="2" align="center">
+                                                <button name="Calc resistors" type="button" class="calcButton"
+                                                        onclick="calc_resistors();">Calculate Resistors
+                                                </button>
+                                                <br/></td>
+                                            </td>
+                                    </table>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <br><br>
+                                    <table align="center" width="75%" cellspacing="0" cellpadding="2" border="0">
+                                        <tr>
+                                            <td colspan="7" align="center"><h2><i>Calculations</i></h2><br></td>
+                                        </tr>
+                                        <tr>
+                                            <td align="right">Attenuation 1st stage =</td>
+                                            <td colspan="6"><input type="text" name="LOSS1" size="5" class="frmOutput"
+                                                                   readonly>
+                                                db @ 1kHz
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td align="right">Voltage gain 2nd stage =</td>
+                                            <td colspan="6"><input type="text" name="VG" size="5" class="frmOutput"
+                                                                   readonly> = <input type="text" name="gaindB"
+                                                                                      size="5" class="frmOutput"
+                                                                                      readonly> dB @ 1kHz
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="7"><br><!-- Spacer --></td>
+                                        </tr>
+                                    </table>
+                                    <table align="center" width="75%" cellspacing="0" cellpadding="2" border="0">
+                                        <tr>
+                                            <td>R1 = <input type="text" name="R1" size="7" class="frmOutputBold" readonly>
+                                                kΩ
+                                            </td>
+                                            <td>  =</td>
+                                            <td><input type="text" name="R1A" size="7" class="frmOutput" readonly/> kΩ
+                                               &nbsp;&nbsp;parallel &nbsp;&nbsp;<input type="text" name="R1B" size="7" class="frmOutput" readonly/> kΩ
+                                            </td>
+                                            <td>=</td>
+                                            <td><input type="text" name="R1RES" size="7" class="frmOutputBold" readonly/> kΩ
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>R2 = <input type="text" name="R2" size="7" class="frmOutputBold" readonly>
+                                                kΩ
+                                            </td>
+                                            <td>  =</td>
+                                            <td><input type="text" name="R2A" size="7" class="frmOutput" readonly/> kΩ
+                                               &nbsp;&nbsp;parallel &nbsp;&nbsp;<input type="text" name="R2B" size="7" class="frmOutput" readonly/> kΩ
+                                            </td>
+                                            <td>=</td>
+                                            <td><input type="text" name="R2RES" size="7" class="frmOutputBold" readonly/> kΩ
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>R3 = <input type="text" name="R3" size="7" class="frmOutputBold" readonly>
+                                                kΩ
+                                            </td>
+                                            <td>  =</td>
+                                            <td><input type="text" name="R3A" size="7" class="frmOutput" readonly/> kΩ
+                                               &nbsp;&nbsp;parallel &nbsp;&nbsp;<input type="text" name="R3B" size="7" class="frmOutput" readonly/> kΩ
+                                            </td>
+                                            <td>=</td>
+                                            <td><input type="text" name="R3RES" size="7" class="frmOutputBold" readonly/> kΩ
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>R4 = <input type="text" name="R4" size="7" class="frmOutputBold" readonly>
+                                                kΩ
+                                            </td>
+                                            <td>  =</td>
+                                            <td><input type="text" name="R4A" size="7" class="frmOutput" readonly/> kΩ
+                                              &nbsp;&nbsp;parallel &nbsp;&nbsp;<input type="text" name="R4B" size="7" class="frmOutput" readonly/> kΩ
+                                            </td>
+                                            <td>=</td>
+                                            <td><input type="text" name="R4RES" size="7" class="frmOutputBold" readonly/> kΩ
+                                            </td>
+                                        </tr>
+                                    </table>
+                                    <br><br>
+                                </td>
+                            </tr>
+                        </table>
+                    </form>
+                    <br><br>
+                    <hr size="1" width="75%">
+                    <br>
+                    <center>
+                        <br>
+                        <h2>RIAA Playback Curve<br>
+                            Attenuation in dB relative to 1kHz</h2>
+                    </center>
+                    <br>
+                    <table align="center" width="75%" cellspacing="0" cellpadding="2" class="Calctable">
+                        <tbody>
+                        <tr>
+                            <td width="101" align="center">
+                                <p>><strong>
+                                    Frequency</strong></font>
+                                </p></td>
+                            <td width="159" align="center">
+                                <p>><strong>
+                                    Attenuation in dB
+                                    </font>
+                                </p></td>
+                            <td width="88" valign="bottom" nowrap="nowrap">
+                                <p>&nbsp;
+                                </p></td>
+                            <td width="101" align="center">
+                                <p>><strong>
+                                    Frequency</strong></font>
+                                </p></td>
+                            <td width="159" align="center">
+                                <p>><strong>
+                                    Attenuation in dB</strong></font>
+                                </p></td>
+                        </tr>
+                        <tr>
+                            <td width="101">
+                                <p align="center"> 10
+                                </p></td>
+                            <td width="159" align="center">
+                                <p> 19.74
+                                </p></td>
+                            <td valign="bottom" nowrap="nowrap">
+                                <p>&nbsp;
+                                </p></td>
+                            <td width="102" align="center">
+                                <p> 1000
+                                </p></td>
+                            <td width="158">
+                                <p align="center"> 0
+                                </p></td>
+                        </tr>
+                        <tr>
+                            <td width="101" align="center">
+                                <p> 20
+                                </p></td>
+                            <td width="159" align="center">
+                                <p> 19.27
+                                </p></td>
+                            <td width="87" valign="bottom" nowrap="nowrap">
+                                <p>&nbsp;
+                                </p></td>
+                            <td width="101" align="center">
+                                <p> 1200
+                                </p></td>
+                            <td width="158">
+                                <p align="center"> -0.61
+                                </p></td>
+                        </tr>
+                        <tr>
+                            <td width="101" align="center">
+                                <p> 30
+                                </p></td>
+                            <td width="159" align="center">
+                                <p> 18.59
+                                </p></td>
+                            <td width="87" valign="bottom" nowrap="nowrap">
+                                <p>&nbsp;
+                                </p></td>
+                            <td width="101" align="center">
+                                <p> 1500
+                                </p></td>
+                            <td width="158">
+                                <p align="center"> -1.4
+                                </p></td>
+                        </tr>
+                        <tr>
+                            <td width="101" align="center">
+                                <p> 40
+                                </p></td>
+                            <td width="159" align="center">
+                                <p> 17.79
+                                </p></td>
+                            <td width="87" valign="bottom" nowrap="nowrap">
+                                <p>&nbsp;
+                                </p></td>
+                            <td width="101" align="center">
+                                <p> 1800
+                                </p></td>
+                            <td width="158">
+                                <p align="center"> -2.12
+                                </p></td>
+                        </tr>
+                        <tr>
+                            <td width="101" align="center">
+                                <p> 50
+                                </p></td>
+                            <td width="159" align="center">
+                                <p> 16.95
+                                </p></td>
+                            <td width="87" valign="bottom" nowrap="nowrap">
+                                <p>&nbsp;
+                                </p></td>
+                            <td width="101" align="center">
+                                <p> 2000
+                                </p></td>
+                            <td width="158">
+                                <p align="center"> -2.59
+                                </p></td>
+                        </tr>
+                        <tr>
+                            <td width="101" align="center">
+                                <p> 60
+                                </p></td>
+                            <td width="159" align="center">
+                                <p> 16.1
+                                </p></td>
+                            <td width="87" valign="bottom" nowrap="nowrap">
+                                <p>&nbsp;
+                                </p></td>
+                            <td width="101" align="center">
+                                <p> 3000
+                                </p></td>
+                            <td width="158">
+                                <p align="center"> -4.74
+                                </p></td>
+                        </tr>
+                        <tr>
+                            <td width="101" align="center">
+                                <p> 80
+                                </p></td>
+                            <td width="159" align="center">
+                                <p> 14.51
+                                </p></td>
+                            <td width="87" valign="bottom" nowrap="nowrap">
+                                <p>&nbsp;
+                                </p></td>
+                            <td width="101" align="center">
+                                <p> 4000
+                                </p></td>
+                            <td width="158">
+                                <p align="center"> -6.61
+                                </p></td>
+                        </tr>
+                        <tr>
+                            <td width="101" align="center">
+                                <p> 100
+                                </p></td>
+                            <td width="159" align="center">
+                                <p> 13.09
+                                </p></td>
+                            <td width="87" valign="bottom" nowrap="nowrap">
+                                <p>&nbsp;
+                                </p></td>
+                            <td width="101" align="center">
+                                <p> 5000
+                                </p></td>
+                            <td width="158">
+                                <p align="center"> -8.21
+                                </p></td>
+                        </tr>
+                        <tr>
+                            <td width="101" align="center">
+                                <p> 120
+                                </p></td>
+                            <td width="159" align="center">
+                                <p> 11.85
+                                </p></td>
+                            <td width="87" valign="bottom" nowrap="nowrap">
+                                <p>&nbsp;
+                                </p></td>
+                            <td width="101" align="center">
+                                <p> 6000
+                                </p></td>
+                            <td width="158">
+                                <p align="center"> -9.6
+                                </p></td>
+                        </tr>
+                        <tr>
+                            <td width="101" align="center">
+                                <p> 150
+                                </p></td>
+                            <td width="159" align="center">
+                                <p> 10.27
+                                </p></td>
+                            <td width="87" valign="bottom" nowrap="nowrap">
+                                <p>&nbsp;
+                                </p></td>
+                            <td width="101" align="center">
+                                <p> 8000
+                                </p></td>
+                            <td width="158">
+                                <p align="center"> -11.89
+                                </p></td>
+                        </tr>
+                        <tr>
+                            <td width="101" align="center">
+                                <p> 180
+                                </p></td>
+                            <td width="159" align="center">
+                                <p> 8.97
+                                </p></td>
+                            <td width="87" valign="bottom" nowrap="nowrap">
+                                <p>&nbsp;
+                                </p></td>
+                            <td width="101" align="center">
+                                <p> 10000
+                                </p></td>
+                            <td width="158">
+                                <p align="center"> -13.73
+                                </p></td>
+                        </tr>
+                        <tr>
+                            <td width="101" align="center">
+                                <p> 200
+                                </p></td>
+                            <td width="159" align="center">
+                                <p> 8.22
+                                </p></td>
+                            <td width="87" valign="bottom" nowrap="nowrap">
+                                <p>&nbsp;
+                                </p></td>
+                            <td width="101" align="center">
+                                <p> 12000
+                                </p></td>
+                            <td width="158">
+                                <p align="center"> -15.26
+                                </p></td>
+                        </tr>
+                        <tr>
+                            <td width="101" height="18" align="center">
+                                <p> 300
+                                </p></td>
+                            <td width="159" height="18" align="center">
+                                <p> 5.48
+                                </p></td>
+                            <td width="87" valign="bottom" nowrap="nowrap" height="18">
+                                <p>&nbsp;
+                                </p></td>
+                            <td width="101" height="18" align="center">
+                                <p> 15000
+                                </p></td>
+                            <td width="158" height="18">
+                                <p align="center"> -17.16
+                                </p></td>
+                        </tr>
+                        <tr>
+                            <td width="101" align="center">
+                                <p> 400
+                                </p></td>
+                            <td width="159" align="center">
+                                <p> 3.78
+                                </p></td>
+                            <td width="87" valign="bottom" nowrap="nowrap">
+                                <p>&nbsp;
+                                </p></td>
+                            <td width="101" align="center">
+                                <p> 18000
+                                </p></td>
+                            <td width="158">
+                                <p align="center"> -18.72
+                                </p></td>
+                        </tr>
+                        <tr>
+                            <td width="101" align="center">
+                                <p> 500
+                                </p></td>
+                            <td width="159" align="center">
+                                <p> 2.65
+                                </p></td>
+                            <td width="87" valign="bottom" nowrap="nowrap">
+                                <p>&nbsp;
+                                </p></td>
+                            <td width="101" align="center">
+                                <p> 20000
+                                </p></td>
+                            <td width="158">
+                                <p align="center"> -19.62
+                                </p></td>
+                        </tr>
+                        <tr>
+                            <td width="101" align="center">
+                                <p> 600
+                                </p></td>
+                            <td width="159" align="center">
+                                <p> 1.84
+                                </p></td>
+                            <td width="87" valign="bottom" nowrap="nowrap">
+                                <p>&nbsp;
+                                </p></td>
+                            <td width="101" align="center">
+                                <p> 30000
+                                </p></td>
+                            <td width="158">
+                                <p align="center"> -23.12
+                                </p></td>
+                        </tr>
+                        <tr>
+                            <td width="101" align="center">
+                                <p> 800
+                                </p></td>
+                            <td width="159" align="center">
+                                <p> 0.75
+                                </p></td>
+                            <td valign="bottom" nowrap="nowrap">
+                                <p>&nbsp;
+                                </p></td>
+                            <td width="102" nowrap="nowrap">
+                                <p align="center"> 40000
+                                </p></td>
+                            <td width="158" nowrap="nowrap">
+                                <p align="center"> -25.6
+                                </p></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+                </center>
+                    <br><br>
+                    <hr size="1" width="75%">
+                    <br><br>
+                    <center>
+ 						<br>                   
+                        <a href="javascript:history.back()" class="calcButton"><<< Back</a>
+                    </center>
+                    <br><br>
+
+                    </p> <!-- End Content -->
+                </div>
+            </div>
+        </div>
+
+    <div class="copyright">
+        &copy;
+        <span id="copyright">
+        <script>document.getElementById('copyright').appendChild(document.createTextNode(new Date().getFullYear()))</script>
+        &nbsp;mh-Audio.nl&nbsp;&nbsp;-&nbsp;&nbsp;<a href="../disclaimer.html"><font
+                color="#000000">Disclaimer</font></a>
+    </span>
+    </div>
+</div>
+</body>
+</html>
