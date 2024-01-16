@@ -43,10 +43,6 @@ Released   : 20130902
     <link href="../../css/default.css" rel="stylesheet" type="text/css" media="all"/>
     <link href="../../css/fonts.css" rel="stylesheet" type="text/css" media="all"/>
     <link rel="shortcut icon" href="../favicon.ico" type="image/x-icon">
-
-    <!--[if IE 6]>
-    <link href="default_ie6.css" rel="stylesheet" type="text/css"/><![endif]-->
-    
 <style>
 div.polaroid {
   width: 70%;
@@ -162,7 +158,6 @@ function reken()  // Perforated Panel Absorber
                 <div class="details">
                     <p> <!-- Start Content -->
                     <TABLE align="center" width="75%">
-    
                         <tr>
                             <td>
                             Helmholtz absorbers are used to reduce mid frequencies. 
@@ -178,8 +173,6 @@ function reken()  // Perforated Panel Absorber
                             <center>
                             	<img src="../../images/acoustics/mra.jpg"><br>
                             </center>
-                            
-                            
                                 In acoustically treating a room, there are a number of ways to overcome issues and
                                 achieve good sound. Absorption is one of these techniques, and constructing panels that
                                 will absorb from approx 250Hz and up is relatively easy to do, however it is the
@@ -210,7 +203,6 @@ function reken()  // Perforated Panel Absorber
                             </td>
                         </tr>
                     </table>
-
                     <a name="calculator"></a>
                     <center>
                         <h2><i>Calculate Resonant frequency of Perforated Helmholtz Panel Absorber</i></h2>
@@ -225,13 +217,11 @@ function reken()  // Perforated Panel Absorber
                                         <tr>
                                             <!--td>Panel area [m<sup>2</sup>]</td><td><input type="text" name="o" size="4" value="0.5"> [m<sup>2</sup>]</td-->
                                             <td width="220" align="right">Panel width [cm] : </td>
-                                            <td><input type="number" step="0.1" class="frmInput" name="pw" value="50"
-                                                       style="width: 6em;"></td>
+                                            <td><input type="number" step="0.1" class="frmInput" name="pw" value="50" style="width: 6em;"></td>
                                         </tr>
                                         <tr>
                                             <td align="right">Panel height [cm] : </td>
-                                            <td><input type="number" step="0.1" class="frmInput" name="ph" value="100"
-                                                       style="width: 6em;"></td>
+                                            <td><input type="number" step="0.1" class="frmInput" name="ph" value="100" style="width: 6em;"></td>
                                         </tr>
 
                                         <!--
@@ -245,32 +235,24 @@ function reken()  // Perforated Panel Absorber
 
                                         <tr>
                                             <td align="right">Panel thickness [cm] : </td>
-                                            <td><input class="frmInput" type="number" step="0.01" name="dp"
-                                                       style="width: 6em;"
-                                                       value="1.2"></td>
+                                            <td><input class="frmInput" type="number" step="0.01" name="dp" style="width: 6em;" value="1.2"></td>
                                         </tr>
                                         <tr>
                                             <td align="right">Depth of the air space [cm] : </td>
-                                            <td><input class="frmInput" type="number" step="0.1" name="d"
-                                                       style="width: 6em;" value="30"></td>
+                                            <td><input class="frmInput" type="number" step="0.1" name="d" style="width: 6em;" value="30"></td>
                                         </tr>
                                         <tr>
                                             <td align="right">Hole diameter [cm] : </td>
                                             <td>
-                                                <input type="number" step="0.1" name="t" value="1" class="frmInput"
-                                                       size=2>
+                                                <input type="number" step="0.1" name="t" value="1" class="frmInput" size=2>
                                             </td>
                                         </tr>
                                         <tr>
                                             <td align="right">Amount of holes : </td>
-                                            <td><input class="frmInput" step="1" type="number" step="1" name="ag"
-                                                       style="width: 6em;"
-                                                       value="228"></td>
+                                            <td><input class="frmInput" step="1" type="number" step="1" name="ag" style="width: 6em;" value="228"></td>
                                         </tr>
                                         <tr>
-                                            <td colspan="2" align=center><br><input class="calcButton" type="button"
-                                                                                value="calculate"
-                                                                                onclick="reken(this.form);"><br><br>
+                                            <td colspan="2" align=center><br><input class="calcButton" type="button" value="calculate" onclick="reken(this.form);"><br><br>
                                             </td>
                                         </tr>
 
@@ -288,27 +270,19 @@ function reken()  // Perforated Panel Absorber
                                                 <table width="100%" cellspacing="0' cellpadding="2" border="0">
                                                     <tr>
                                                         <td width="220" align="right">Panel area [m<sup>2</sup>] = </td>
-                                                        <td><input type="number" class="frmOutput" name="o"
-                                                                   style="width: 6em;"
-                                                                   readonly></td>
+                                                        <td><input type="number" class="frmOutput" name="o" style="width: 6em;" readonly></td>
                                                     </tr>
                                                     <tr>
                                                         <td align="right">Volume Absorber [Liter] = </td>
-                                                        <td><input class="frmOutput" type="number" name="v"
-                                                                   style="width: 6em;"
-                                                                   readonly></td>
+                                                        <td><input class="frmOutput" type="number" name="v" style="width: 6em;" readonly></td>
                                                     </tr>
                                                     <tr>
                                                         <td align="right">Percentage of perforation [%] = </td>
-                                                        <td><input class="frmOutput" type="number" name="p"
-                                                                   style="width: 6em;"
-                                                                   readonly></td>
+                                                        <td><input class="frmOutput" type="number" name="p" style="width: 6em;" readonly></td>
                                                     </tr>
                                                     <tr>
                                                         <td align="right">Resonant frequency [Hz] = </td>
-                                                        <td><input class="frmOutput" type="number" name="f"
-                                                                   style="width: 6em;"
-                                                                   readonly></td>
+                                                        <td><input class="frmOutput" type="number" name="f" style="width: 6em;" readonly></td>
                                                     </tr>
                                                     <tr><td colspan="2" height="20"></td></tr>
                                                     <!--
@@ -324,7 +298,6 @@ function reken()  // Perforated Panel Absorber
                             </tr>
                         </table>
                         <br><br>
-
                         <TABLE align="center" width="100%" border="0">
                             <tr>
                                 <td>
@@ -364,7 +337,6 @@ function reken()  // Perforated Panel Absorber
                                 </td>
                             </tr>
                         </table>
-
                         <table width="75%" cellspacing="0" cellpadding="2" align="center" border="0">
                             <tr>
                                 <td>
@@ -462,7 +434,6 @@ function reken()  // Perforated Panel Absorber
                                     cream so they blend into the walls. Also, the fabric is a light colour and you can
                                     see it through the holes, which makes it look a bit strange with the varnished dark
                                     plywood.<br><br>
-
                                 </td>
                             </tr>
                         </table>
@@ -470,10 +441,8 @@ function reken()  // Perforated Panel Absorber
                     <hr size="1" width="75%">
                     <br><br><
                     <center>
-                    <a href="https://www.youtube.com/watch?v=-EfEytYTbww" target="_blank" class="calcButton">Working Priciples of Perforated Panel Absorbers</a> - Video 32 minutes
-                    			
+                    <a href="https://www.youtube.com/watch?v=-EfEytYTbww" target="_blank" class="calcButton">Working Priciples of Perforated Panel Absorbers</a> - Video 32 minutes          			
                     <br><br>
-                    
                     	<a href="https://www.acousticfields.com/how-to-build-a-diaphragmatic-absorber/" target="_blank" class="calcButton">How To Build A Diaphragmatic Absorber</a>
                     <br><br>
                     <hr size="1" width="75%">
