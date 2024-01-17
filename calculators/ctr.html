@@ -111,12 +111,14 @@ if (RF > 12) {
 	</tr>	
 	<tr>
 		<td>
-		Resonant Frequency (of the cantilever) The acoustic frequency at which the cantilever will become excited and vibrate out of control.<br>  
-		This frequency is measured in cycles per second.  Also referred to as 'hz'.  Resonant frequency of a cantilever is regarded as inescapable and the 
-		effect is controlled by manipulating this frequency to exist in a range below human hearing but not so low that it will become excited by external 
-		vibrations such as foot fall disturbance or that of a warped record.<br><br>
-		This ideal frequency range is <i><b>8 to 12 hz</b></i>.<br><br>  
-		The lowest of low organ notes rarely go below <i><b>20 hz</i></b>.  Footfall and record warps happen below <i><b>6 hz</i></b>.  
+		Resonant Frequency (of the cantilever) is the frequency at which the cantilever will become excited and vibrate out of control.<br>  
+		This frequency is measured in cycles per second.  Also referred to as 'Hz'.  <br>
+		Resonant frequency of a cantilever is regarded as inescapable and the effect is controlled by manipulating this frequency to exist in 
+		a range below human hearing but not so low that it will become excited by external vibrations such as foot fall disturbance or that of a warped record.
+		<br><br>
+		This ideal frequency range is <i><b>8 to 12 Hz</b></i>.
+		<br><br>  
+		The lowest of low organ notes rarely go below <i><b>20 Hz</i></b>.  Footfall and record warps happen below <i><b>6 Hz</i></b>.  
 		<br><br>
 		The effective mass of a tonearm in combination with the compliance of the cartridge cantilever serves to determine where the resonant frequency of a 
 		given tonearm/cartridge match up will be.  In general terms, arms with high effective mass fitted with cartridges of high compliance result in 
@@ -272,7 +274,7 @@ if (RF > 12) {
 	<br>
 	sqrt 484 = 22
 	<br>
-	159 / 22 = <b>7.2272</b> hz
+	159 / 22 = <b>7.2272</b> Hz
 	</td>
 	</tr>		
 </table>
@@ -411,9 +413,9 @@ if (RF > 12) {
         var CU= parseFloat(document.tonearm.CU.value);
         var result = 159.155 / Math.sqrt(MASS * CU);
         
-        if (result <7 || result >12)
+        if (result <8 || result >12)
         {
-        	var txtResult = "Resonace Frequency should be 7Hz - 12Hz";
+        	var txtResult = "Resonace Frequency should be 8Hz - 12Hz";
         }
         else
         {
@@ -429,9 +431,9 @@ function doTMcalc2() {
 	var MASS = parseFloat(document.cart.MASS.value);
 	var HZ = parseFloat(document.cart.HZ.value);
 
-	if (HZ < 7 || HZ > 12)
+	if (HZ < 8 || HZ > 12)
 	{
-		var txtResult2 = "Resonace Frequency should be 7Hz - 12Hz";
+		var txtResult2 = "Resonace Frequency should be 8Hz - 12Hz";
 	}
 	else
 	{
@@ -449,9 +451,9 @@ var CU = parseFloat(document.tm.CU.value);
 var HZ = parseFloat(document.tm.HZ.value);
 
 
-	if (HZ < 7 || HZ > 12)
+	if (HZ < 8 || HZ > 12)
 	{
-		var txtResult3 = "Resonace Frequency should be 7Hz - 12Hz";
+		var txtResult3 = "Resonace Frequency should be 8Hz - 12Hz";
 	}
 	else
 	{
