@@ -77,7 +77,6 @@ if (RF > 12) {
         var MASS = parseFloat(document.tonearm.MASS.value);
         var CU= parseFloat(document.tonearm.CU.value);
         var result = 159.155 / Math.sqrt(MASS * CU);
-        alert(result);
 	    
         if (result <8 || result >12)
         {
