@@ -278,6 +278,78 @@ if (RF > 12) {
 	</tr>		
 </table>
 <br><br>
+
+				<br><br>
+				<FORM name=cart>
+					<TABLE border="0" width="680" align="center" class="Menutable">
+						<TBODY>
+							<TR>
+								<TD align="center" colspan="4"><h2><i>Cartridge compliance</i></h2> </TD>
+							</TR>
+							<TR><td height="10" colspan="2"></td></tr>
+							<TR>
+								<TD align="right"><strong>Total Tonearm, Cartridge + fixing Mass</strong> : </TD>
+								<TD><INPUT type="number" name=MASS value="" style="width: 5.5em;" class="frmInput"> [gr]</TD>
+							</TR>
+							<TR>	
+								<TD align="right"><strong>Desired  Resonance Frequency</strong> : </TD>
+								<TD><INPUT type="number" name=HZ value="" style="width: 5.5em;" class="frmInput"> [Hz]</TD>
+							</TR>	
+							<TR>
+								<TD align="center" colspan="2">
+								<br>
+								<INPUT onclick="doTMcalc2();" value="Calculate Cartridge Compliance" class="calcButton" type="button"> 
+								<br><br>
+								</TD>
+							</TR>
+							<TR>
+								<TD align="right"><strong>Cartridge Compliance</strong> = </TD>
+								<TD><INPUT type="number" name="CU" value="" style="width: 5.5em;" class="frmOutput" readonly> [cu]</TD>
+							</TR>
+							<tr>
+								<td colspan="2" align="center">	
+								<br><font color="red">&nbsp;<span id="txtErr2"></span></font>
+								</TD>
+							</TR>														
+						</TBODY>
+					</TABLE>
+				</FORM>
+				<br><br>
+				<FORM name=tm>
+					<TABLE align="center" border="0" width="680" class="Menutable">
+						<TBODY>
+							<TR>
+								<TD colspan="2" align="center"><h2><i>Desired Tonearm Mass</i></h2></TD>
+							</TR>
+							<TR><td height="10" colspan="2"></td></tr>
+							<TR>
+								<TD align="right"><strong>Cartridge compliance</strong> : </TD>
+								<TD><INPUT type="number" name=CU value="" style="width: 5.5em;" class="frmInput"> [cu]</TD>
+							</TR>
+							<TR>	
+								<TD align="right"><strong>Desired Resonance Frequency</strong> : </TD>
+								<TD><INPUT type="number" name=HZ value="" style="width: 5.5em;" class="frmInput"> [Hz]</TD>
+							</TR>
+							<TR>
+								<TD align="center" colspan="2">
+								<br>
+								<INPUT onclick="doTMcalc3();" value="Calculate Tonearm Mass" type="button" class="calcButton"> 
+								<br><br>
+								</TD>
+							</TR>
+							<TR>	
+								<TD align="right"><strong>Effective Tonearm Mass ( incl. mass of cartridge & fixing ) needed</strong> = </TD>
+								<TD><INPUT type="number" name=MS value="" style="width: 5.5em;" class="frmOutput" readonly> [gr] 
+								</TD>
+							</TR>
+							<tr>
+								<td colspan="2" align="center">	
+								<br><font color="red">&nbsp;<span id="txtErr3"></span></font>
+								</TD>
+							</TR>														
+						</TBODY>
+					</TABLE>
+					</FORM>			
 		
                     <!-- End Content  -->
                     </p>
@@ -289,5 +361,68 @@ if (RF > 12) {
 </div>
 </div>
 </div>
+
+<SCRIPT language=JavaScript type=text/javascript>
+<!--
+    function doTMcalc(){
+ 	var MASS, CU, result;
+        var MASS = parseFloat(document.tonearm.MASS.value);
+        var CU= parseFloat(document.tonearm.CU.value);
+        var result = 159.155 / Math.sqrt(MASS * CU);
+        
+        if (result <7 || result >12)
+        {
+        	var txtResult = "Resonace Frequency should be 7Hz - 12Hz";
+        }
+        else
+        {
+        	var txtResult = "";
+        }        
+          
+        document.getElementById("txtErr").innerHTML = txtResult;
+ 		document.tonearm.HZ.value=result.toFixed(2); 
+    }
+
+function doTMcalc2() {
+	var MASS, HZ, result;
+	var MASS = parseFloat(document.cart.MASS.value);
+	var HZ = parseFloat(document.cart.HZ.value);
+
+	if (HZ < 7 || HZ > 12)
+	{
+		var txtResult2 = "Resonace Frequency should be 7Hz - 12Hz";
+	}
+	else
+	{
+		var txtResult2 = "";
+	}
+	document.getElementById("txtErr2").innerHTML = txtResult2;
+        
+	var result = 25330/(MASS*HZ*HZ);
+	document.cart.CU.value=result.toFixed(2);
+}
+
+function doTMcalc3() {
+var CU, HZ, result;
+var CU = parseFloat(document.tm.CU.value);
+var HZ = parseFloat(document.tm.HZ.value);
+
+
+	if (HZ < 7 || HZ > 12)
+	{
+		var txtResult3 = "Resonace Frequency should be 7Hz - 12Hz";
+	}
+	else
+	{
+		var txtResult3 = "";
+	}
+	document.getElementById("txtErr3").innerHTML = txtResult3;
+
+	var result = 25330/(CU*HZ*HZ);
+	document.tm.MS.value=result.toFixed(2);
+}
+// -->
+</SCRIPT>   
+	
 </body>
 </html>
